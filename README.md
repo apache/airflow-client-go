@@ -19,7 +19,8 @@
 Airflow Go client
 =================
 
-Go Airflow OpenAPI client generated from [openapi spec](https://github.com/apache/airflow/tree/master/clients).
+Go Airflow OpenAPI client generated from [openapi
+spec](https://github.com/apache/airflow/blob/master/clients/gen/go.sh).
 
 
 Usage
