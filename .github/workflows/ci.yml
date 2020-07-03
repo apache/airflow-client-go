@@ -7,6 +7,19 @@ on:
     branches: ['master']
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - uses: actions/setup-python@v1
+        with:
+          python-version: '3.x'
+      - name: Run precommit hooks
+        run: |
+          pip install pre-commit
+          pre-commit run --all-files
+
   build:
     runs-on: ubuntu-latest
     steps:
