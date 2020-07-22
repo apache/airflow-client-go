@@ -31,7 +31,7 @@ type TaskState string
 
 // List of TaskState
 const (
-	TASKSTATE_SUCCCESS TaskState = "succcess"
+	TASKSTATE_SUCCESS TaskState = "success"
 	TASKSTATE_RUNNING TaskState = "running"
 	TASKSTATE_FAILED TaskState = "failed"
 	TASKSTATE_UPSTREAM_FAILED TaskState = "upstream_failed"

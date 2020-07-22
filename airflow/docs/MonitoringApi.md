@@ -23,16 +23,16 @@ All URIs are relative to *http://localhost/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetHealth**](MonitoringApi.md#GetHealth) | **Get** /health | Checks if the API works
+[**GetHealth**](MonitoringApi.md#GetHealth) | **Get** /health | Returns the status of Airflow&#39;s metadatabase and scheduler
 [**GetVersion**](MonitoringApi.md#GetVersion) | **Get** /version | Get version information
 
 
 
 ## GetHealth
 
-> string GetHealth(ctx, )
+> HealthInfo GetHealth(ctx, )
 
-Checks if the API works
+Returns the status of Airflow's metadatabase and scheduler
 
 ### Required Parameters
 
@@ -40,7 +40,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**string**
+[**HealthInfo**](HealthInfo.md)
 
 ### Authorization
 
@@ -49,7 +49,7 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/plain
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

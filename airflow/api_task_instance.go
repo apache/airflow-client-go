@@ -428,7 +428,7 @@ type GetTaskInstancesOpts struct {
 }
 
 /*
-GetTaskInstances Get a list of task instance of DAG.
+GetTaskInstances Get a list of task instance of DAG
 This endpoint allows specifying &#x60;~&#x60; as the dag_id, dag_run_id to retrieve DAG Runs for all DAGs and DAG Runs. 
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param dagId The DAG ID.
@@ -606,7 +606,7 @@ func (a *TaskInstanceApiService) GetTaskInstances(ctx _context.Context, dagId st
 
 /*
 GetTaskInstancesBatch Get list of task instances from all DAGs and DAG Runs.
-This endpoint is a POST to allow filtering across a large number of DAG IDs, where as a GET it would run in to maximum HTTP request URL lengthlimits 
+This endpoint is a POST to allow filtering across a large number of DAG IDs, where as a GET it would run in to maximum HTTP request URL length limits. 
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param listTaskInstanceForm
 @return TaskInstanceCollection

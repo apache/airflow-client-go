@@ -1,4 +1,4 @@
-module github.com/apache/airflow/clients/go/airflow
+module github.com/apache/airflow-client-go/airflow
 
 require (
 	github.com/antihax/optional v1.0.0
