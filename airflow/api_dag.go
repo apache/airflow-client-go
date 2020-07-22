@@ -152,7 +152,7 @@ func (a *DAGApiService) GetDag(ctx _context.Context, dagId string) (Dag, *_netht
 }
 
 /*
-GetDagDetails Get a simplified representation of DAG.
+GetDagDetails Get a simplified representation of DAG
 The response contains many DAG attributes, so the response can be large. If possible, consider using GET /dags/{dag_id}. 
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param dagId The DAG ID.
@@ -292,7 +292,7 @@ func (a *DAGApiService) GetDagSource(ctx _context.Context, fileToken string) (In
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "plain/text"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -341,6 +341,16 @@ func (a *DAGApiService) GetDagSource(ctx _context.Context, fileToken string) (In
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 406 {
 			var v Error
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -463,7 +473,7 @@ func (a *DAGApiService) GetDags(ctx _context.Context, localVarOptionals *GetDags
 }
 
 /*
-GetTask Get simplified representation of a task.
+GetTask Get simplified representation of a task
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param dagId The DAG ID.
  * @param taskId The Task ID.

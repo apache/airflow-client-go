@@ -24,10 +24,10 @@ All URIs are relative to *http://localhost/api/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetDag**](DAGApi.md#GetDag) | **Get** /dags/{dag_id} | Get basic information about a DAG
-[**GetDagDetails**](DAGApi.md#GetDagDetails) | **Get** /dags/{dag_id}/details | Get a simplified representation of DAG.
+[**GetDagDetails**](DAGApi.md#GetDagDetails) | **Get** /dags/{dag_id}/details | Get a simplified representation of DAG
 [**GetDagSource**](DAGApi.md#GetDagSource) | **Get** /dagSources/{file_token} | Get source code using file token
 [**GetDags**](DAGApi.md#GetDags) | **Get** /dags | Get all DAGs
-[**GetTask**](DAGApi.md#GetTask) | **Get** /dags/{dag_id}/tasks/{task_id} | Get simplified representation of a task.
+[**GetTask**](DAGApi.md#GetTask) | **Get** /dags/{dag_id}/tasks/{task_id} | Get simplified representation of a task
 [**GetTasks**](DAGApi.md#GetTasks) | **Get** /dags/{dag_id}/tasks | Get tasks for DAG
 [**PatchDag**](DAGApi.md#PatchDag) | **Patch** /dags/{dag_id} | Update a DAG
 [**PostClearTaskInstances**](DAGApi.md#PostClearTaskInstances) | **Post** /dags/{dag_id}/clearTaskInstances | Clears a set of task instances associated with the DAG for a specified date range.
@@ -72,7 +72,7 @@ No authorization required
 
 > DagDetail GetDagDetails(ctx, dagId)
 
-Get a simplified representation of DAG.
+Get a simplified representation of DAG
 
 The response contains many DAG attributes, so the response can be large. If possible, consider using GET /dags/{dag_id}. 
 
@@ -127,7 +127,7 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, plain/text
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -180,7 +180,7 @@ No authorization required
 
 > Task GetTask(ctx, dagId, taskId)
 
-Get simplified representation of a task.
+Get simplified representation of a task
 
 ### Required Parameters
 

@@ -43,18 +43,18 @@ var (
 type MonitoringApiService service
 
 /*
-GetHealth Checks if the API works
+GetHealth Returns the status of Airflow's metadatabase and scheduler
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-@return string
+@return HealthInfo
 */
-func (a *MonitoringApiService) GetHealth(ctx _context.Context) (string, *_nethttp.Response, error) {
+func (a *MonitoringApiService) GetHealth(ctx _context.Context) (HealthInfo, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  string
+		localVarReturnValue  HealthInfo
 	)
 
 	// create path and map variables
@@ -73,7 +73,7 @@ func (a *MonitoringApiService) GetHealth(ctx _context.Context) (string, *_nethtt
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"text/plain"}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)

@@ -59,23 +59,23 @@ Class | Method | HTTP request | Description
 *ConnectionApi* | [**PatchConnection**](docs/ConnectionApi.md#patchconnection) | **Patch** /connections/{connection_id} | Update a connection entry
 *ConnectionApi* | [**PostConnection**](docs/ConnectionApi.md#postconnection) | **Post** /connections | Create connection entry
 *DAGApi* | [**GetDag**](docs/DAGApi.md#getdag) | **Get** /dags/{dag_id} | Get basic information about a DAG
-*DAGApi* | [**GetDagDetails**](docs/DAGApi.md#getdagdetails) | **Get** /dags/{dag_id}/details | Get a simplified representation of DAG.
+*DAGApi* | [**GetDagDetails**](docs/DAGApi.md#getdagdetails) | **Get** /dags/{dag_id}/details | Get a simplified representation of DAG
 *DAGApi* | [**GetDagSource**](docs/DAGApi.md#getdagsource) | **Get** /dagSources/{file_token} | Get source code using file token
 *DAGApi* | [**GetDags**](docs/DAGApi.md#getdags) | **Get** /dags | Get all DAGs
-*DAGApi* | [**GetTask**](docs/DAGApi.md#gettask) | **Get** /dags/{dag_id}/tasks/{task_id} | Get simplified representation of a task.
+*DAGApi* | [**GetTask**](docs/DAGApi.md#gettask) | **Get** /dags/{dag_id}/tasks/{task_id} | Get simplified representation of a task
 *DAGApi* | [**GetTasks**](docs/DAGApi.md#gettasks) | **Get** /dags/{dag_id}/tasks | Get tasks for DAG
 *DAGApi* | [**PatchDag**](docs/DAGApi.md#patchdag) | **Patch** /dags/{dag_id} | Update a DAG
 *DAGApi* | [**PostClearTaskInstances**](docs/DAGApi.md#postcleartaskinstances) | **Post** /dags/{dag_id}/clearTaskInstances | Clears a set of task instances associated with the DAG for a specified date range.
+*DAGRunApi* | [**AirflowApiConnexionEndpointsDagRunEndpointPostDagRun**](docs/DAGRunApi.md#airflowapiconnexionendpointsdagrunendpointpostdagrun) | **Post** /dags/{dag_id}/dagRuns | Trigger a DAG Run
 *DAGRunApi* | [**DeleteDagRun**](docs/DAGRunApi.md#deletedagrun) | **Delete** /dags/{dag_id}/dagRuns/{dag_run_id} | Delete a DAG Run
 *DAGRunApi* | [**GetDagRun**](docs/DAGRunApi.md#getdagrun) | **Get** /dags/{dag_id}/dagRuns/{dag_run_id} | Get a DAG Run
 *DAGRunApi* | [**GetDagRuns**](docs/DAGRunApi.md#getdagruns) | **Get** /dags/{dag_id}/dagRuns | Get all DAG Runs
-*DAGRunApi* | [**GetDagRunsBatch**](docs/DAGRunApi.md#getdagrunsbatch) | **Post** /dags/~/dagRuns/list | Get all DAG Runs from aall DAGs.
-*DAGRunApi* | [**PostDagRun**](docs/DAGRunApi.md#postdagrun) | **Post** /dags/{dag_id}/dagRuns/{dag_run_id} | Trigger a DAG Run
+*DAGRunApi* | [**GetDagRunsBatch**](docs/DAGRunApi.md#getdagrunsbatch) | **Post** /dags/~/dagRuns/list | Get all DAG Runs from all DAGs
 *EventLogApi* | [**GetEventLog**](docs/EventLogApi.md#geteventlog) | **Get** /eventLogs/{event_log_id} | Get a log entry
 *EventLogApi* | [**GetEventLogs**](docs/EventLogApi.md#geteventlogs) | **Get** /eventLogs | Get all log entries from event log
 *ImportErrorApi* | [**GetImportError**](docs/ImportErrorApi.md#getimporterror) | **Get** /importErrors/{import_error_id} | Get an import error
 *ImportErrorApi* | [**GetImportErrors**](docs/ImportErrorApi.md#getimporterrors) | **Get** /importErrors | Get all import errors
-*MonitoringApi* | [**GetHealth**](docs/MonitoringApi.md#gethealth) | **Get** /health | Checks if the API works
+*MonitoringApi* | [**GetHealth**](docs/MonitoringApi.md#gethealth) | **Get** /health | Returns the status of Airflow&#39;s metadatabase and scheduler
 *MonitoringApi* | [**GetVersion**](docs/MonitoringApi.md#getversion) | **Get** /version | Get version information
 *PoolApi* | [**DeletePool**](docs/PoolApi.md#deletepool) | **Delete** /pools/{pool_name} | Delete a pool
 *PoolApi* | [**GetPool**](docs/PoolApi.md#getpool) | **Get** /pools/{pool_name} | Get a pool
@@ -85,18 +85,15 @@ Class | Method | HTTP request | Description
 *TaskInstanceApi* | [**GetExtraLinks**](docs/TaskInstanceApi.md#getextralinks) | **Get** /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/links | Get extra links for task instance
 *TaskInstanceApi* | [**GetLog**](docs/TaskInstanceApi.md#getlog) | **Get** /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/logs/{task_try_number} | Get logs for a task instance
 *TaskInstanceApi* | [**GetTaskInstance**](docs/TaskInstanceApi.md#gettaskinstance) | **Get** /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id} | Get a task instance
-*TaskInstanceApi* | [**GetTaskInstances**](docs/TaskInstanceApi.md#gettaskinstances) | **Get** /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances | Get a list of task instance of DAG.
+*TaskInstanceApi* | [**GetTaskInstances**](docs/TaskInstanceApi.md#gettaskinstances) | **Get** /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances | Get a list of task instance of DAG
 *TaskInstanceApi* | [**GetTaskInstancesBatch**](docs/TaskInstanceApi.md#gettaskinstancesbatch) | **Post** /dags/~/dagRuns/~/taskInstances/list | Get list of task instances from all DAGs and DAG Runs.
 *VariableApi* | [**DeleteVariable**](docs/VariableApi.md#deletevariable) | **Delete** /variables/{variable_key} | Delete variable
 *VariableApi* | [**GetVariable**](docs/VariableApi.md#getvariable) | **Get** /variables/{variable_key} | Get a variable by key
 *VariableApi* | [**GetVariables**](docs/VariableApi.md#getvariables) | **Get** /variables | Get all variables
 *VariableApi* | [**PatchVariable**](docs/VariableApi.md#patchvariable) | **Patch** /variables/{variable_key} | Update a variable by key
 *VariableApi* | [**PostVariables**](docs/VariableApi.md#postvariables) | **Post** /variables | Create a variable
-*XComApi* | [**DeleteXcomEntry**](docs/XComApi.md#deletexcomentry) | **Delete** /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/xcomEntries/{xcom_key} | Delete an XCom entry
 *XComApi* | [**GetXcomEntries**](docs/XComApi.md#getxcomentries) | **Get** /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/xcomEntries | Get all XCom entries
 *XComApi* | [**GetXcomEntry**](docs/XComApi.md#getxcomentry) | **Get** /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/xcomEntries/{xcom_key} | Get an XCom entry
-*XComApi* | [**PatchXcomEntry**](docs/XComApi.md#patchxcomentry) | **Patch** /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/xcomEntries/{xcom_key} | Update an XCom entry
-*XComApi* | [**PostXcomEntries**](docs/XComApi.md#postxcomentries) | **Post** /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/xcomEntries | Create an XCom entry
 
 
 ## Documentation For Models
@@ -124,16 +121,20 @@ Class | Method | HTTP request | Description
  - [EventLogCollection](docs/EventLogCollection.md)
  - [ExtraLink](docs/ExtraLink.md)
  - [ExtraLinkCollection](docs/ExtraLinkCollection.md)
+ - [HealthInfo](docs/HealthInfo.md)
+ - [HealthStatus](docs/HealthStatus.md)
  - [ImportError](docs/ImportError.md)
  - [ImportErrorCollection](docs/ImportErrorCollection.md)
  - [InlineResponse200](docs/InlineResponse200.md)
  - [InlineResponse2001](docs/InlineResponse2001.md)
  - [ListDagRunsForm](docs/ListDagRunsForm.md)
  - [ListTaskInstanceForm](docs/ListTaskInstanceForm.md)
+ - [MetadatabaseStatus](docs/MetadatabaseStatus.md)
  - [Pool](docs/Pool.md)
  - [PoolCollection](docs/PoolCollection.md)
  - [RelativeDelta](docs/RelativeDelta.md)
  - [ScheduleInterval](docs/ScheduleInterval.md)
+ - [SchedulerStatus](docs/SchedulerStatus.md)
  - [SlaMiss](docs/SlaMiss.md)
  - [SlaMissCollection](docs/SlaMissCollection.md)
  - [Tag](docs/Tag.md)

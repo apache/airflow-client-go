@@ -56,7 +56,6 @@ paths:
         required: false
         schema:
           default: 100
-          minimum: 1
           type: integer
         style: form
       - description: The number of items to skip before starting to collect the result
@@ -287,7 +286,6 @@ paths:
         required: false
         schema:
           default: 100
-          minimum: 1
           type: integer
         style: form
       - description: The number of items to skip before starting to collect the result
@@ -483,7 +481,6 @@ paths:
         required: false
         schema:
           default: 100
-          minimum: 1
           type: integer
         style: form
       - description: The number of items to skip before starting to collect the result
@@ -582,10 +579,68 @@ paths:
       tags:
       - DAGRun
       x-openapi-router-controller: airflow.api_connexion.endpoints.dag_run_endpoint
+    post:
+      operationId: airflow.api_connexion.endpoints.dag_run_endpoint.post_dag_run
+      parameters:
+      - description: The DAG ID.
+        explode: false
+        in: path
+        name: dag_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DAGRun'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DAGRun'
+          description: Successful response.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client specified an invalid argument.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Request not authenticated due to missing, invalid, authentication
+            info.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The resource that a client tried to create already exists.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client does not have sufficient permission.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A specified resource is not found.
+      summary: Trigger a DAG Run
+      tags:
+      - DAGRun
   /dags/~/dagRuns/list:
     post:
       description: |
-        This endpoint is a POST to allow filtering across a large number of DAG IDs, where as a GET it would run in to maximum HTTP request URL lengthlimits
+        This endpoint is a POST to allow filtering across a large number of DAG IDs, where as a GET it would run in to maximum HTTP request URL length limit.
       operationId: get_dag_runs_batch
       requestBody:
         content:
@@ -621,7 +676,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Client does not have sufficient permission.
-      summary: Get all DAG Runs from aall DAGs.
+      summary: Get all DAG Runs from all DAGs
       tags:
       - DAGRun
       x-openapi-router-controller: airflow.api_connexion.endpoints.dag_run_endpoint
@@ -720,67 +775,6 @@ paths:
       tags:
       - DAGRun
       x-openapi-router-controller: airflow.api_connexion.endpoints.dag_run_endpoint
-    post:
-      operationId: post_dag_run
-      parameters:
-      - description: The DAG ID.
-        explode: false
-        in: path
-        name: dag_id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The DAG Run ID.
-        explode: false
-        in: path
-        name: dag_run_id
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DAGRun'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DAGRun'
-          description: Successful response.
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Client specified an invalid argument.
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Request not authenticated due to missing, invalid, authentication
-            info.
-        "409":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: The resource that a client tried to create already exists.
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Client does not have sufficient permission.
-      summary: Trigger a DAG Run
-      tags:
-      - DAGRun
-      x-openapi-router-controller: airflow.api_connexion.endpoints.dag_run_endpoint
   /eventLogs:
     get:
       operationId: get_event_logs
@@ -792,7 +786,6 @@ paths:
         required: false
         schema:
           default: 100
-          minimum: 1
           type: integer
         style: form
       - description: The number of items to skip before starting to collect the result
@@ -884,7 +877,6 @@ paths:
         required: false
         schema:
           default: 100
-          minimum: 1
           type: integer
         style: form
       - description: The number of items to skip before starting to collect the result
@@ -976,7 +968,6 @@ paths:
         required: false
         schema:
           default: 100
-          minimum: 1
           type: integer
         style: form
       - description: The number of items to skip before starting to collect the result
@@ -1356,7 +1347,6 @@ paths:
         required: false
         schema:
           default: 100
-          minimum: 1
           type: integer
         style: form
       - description: The number of items to skip before starting to collect the result
@@ -1391,7 +1381,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Client does not have sufficient permission.
-      summary: Get a list of task instance of DAG.
+      summary: Get a list of task instance of DAG
       tags:
       - TaskInstance
       x-openapi-router-controller: airflow.api_connexion.endpoints.task_instance_endpoint
@@ -1456,7 +1446,7 @@ paths:
   /dags/~/dagRuns/~/taskInstances/list:
     post:
       description: |
-        This endpoint is a POST to allow filtering across a large number of DAG IDs, where as a GET it would run in to maximum HTTP request URL lengthlimits
+        This endpoint is a POST to allow filtering across a large number of DAG IDs, where as a GET it would run in to maximum HTTP request URL length limits.
       operationId: get_task_instances_batch
       requestBody:
         content:
@@ -1509,7 +1499,6 @@ paths:
         required: false
         schema:
           default: 100
-          minimum: 1
           type: integer
         style: form
       - description: The number of items to skip before starting to collect the result
@@ -1766,7 +1755,6 @@ paths:
         required: false
         schema:
           default: 100
-          minimum: 1
           type: integer
         style: form
       - description: The number of items to skip before starting to collect the result
@@ -1805,131 +1793,7 @@ paths:
       tags:
       - XCom
       x-openapi-router-controller: airflow.api_connexion.endpoints.xcom_endpoint
-    post:
-      operationId: post_xcom_entries
-      parameters:
-      - description: The DAG ID.
-        explode: false
-        in: path
-        name: dag_id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The DAG Run ID.
-        explode: false
-        in: path
-        name: dag_run_id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The Task ID.
-        explode: false
-        in: path
-        name: task_id
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/XCom'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/XCom'
-          description: Successful response.
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Client specified an invalid argument.
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Request not authenticated due to missing, invalid, authentication
-            info.
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Client does not have sufficient permission.
-      summary: Create an XCom entry
-      tags:
-      - XCom
-      x-openapi-router-controller: airflow.api_connexion.endpoints.xcom_endpoint
   /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/xcomEntries/{xcom_key}:
-    delete:
-      operationId: delete_xcom_entry
-      parameters:
-      - description: The DAG ID.
-        explode: false
-        in: path
-        name: dag_id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The DAG Run ID.
-        explode: false
-        in: path
-        name: dag_run_id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The Task ID.
-        explode: false
-        in: path
-        name: task_id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The XCom Key.
-        explode: false
-        in: path
-        name: xcom_key
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "204":
-          description: No content.
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Client specified an invalid argument.
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Request not authenticated due to missing, invalid, authentication
-            info.
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Client does not have sufficient permission.
-      summary: Delete an XCom entry
-      tags:
-      - XCom
-      x-openapi-router-controller: airflow.api_connexion.endpoints.xcom_endpoint
     get:
       operationId: get_xcom_entry
       parameters:
@@ -1992,94 +1856,6 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: A specified resource is not found.
       summary: Get an XCom entry
-      tags:
-      - XCom
-      x-openapi-router-controller: airflow.api_connexion.endpoints.xcom_endpoint
-    patch:
-      operationId: patch_xcom_entry
-      parameters:
-      - description: The DAG ID.
-        explode: false
-        in: path
-        name: dag_id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The DAG Run ID.
-        explode: false
-        in: path
-        name: dag_run_id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The Task ID.
-        explode: false
-        in: path
-        name: task_id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The XCom Key.
-        explode: false
-        in: path
-        name: xcom_key
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: |
-          The fields to update on the connection (connection, pool etc). If absent or empty, all modifiable fields are updated. A comma-separated list of fully qualified names of fields.
-        explode: false
-        in: query
-        name: update_mask
-        required: false
-        schema:
-          items:
-            type: string
-          type: array
-        style: form
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/XCom'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/XCom'
-          description: Successful response.
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Client specified an invalid argument.
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Request not authenticated due to missing, invalid, authentication
-            info.
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Client does not have sufficient permission.
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: A specified resource is not found.
-      summary: Update an XCom entry
       tags:
       - XCom
       x-openapi-router-controller: airflow.api_connexion.endpoints.xcom_endpoint
@@ -2275,7 +2051,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: A specified resource is not found.
-      summary: Get a simplified representation of DAG.
+      summary: Get a simplified representation of DAG
       tags:
       - DAG
       x-openapi-router-controller: airflow.api_connexion.endpoints.dag_endpoint
@@ -2367,7 +2143,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: A specified resource is not found.
-      summary: Get simplified representation of a task.
+      summary: Get simplified representation of a task
       tags:
       - DAG
       x-openapi-router-controller: airflow.api_connexion.endpoints.task_endpoint
@@ -2390,6 +2166,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/inline_response_200_1'
+            plain/text:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_1'
           description: Successful response.
         "401":
           content:
@@ -2410,6 +2189,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: A specified resource is not found.
+        "406":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A specified Accept header is not allowed.
       summary: Get source code using file token
       tags:
       - DAG
@@ -2450,11 +2235,11 @@ paths:
       responses:
         "200":
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
-          description: It should always return "OK"
-      summary: Checks if the API works
+                $ref: '#/components/schemas/HealthInfo'
+          description: Returns info about metadatabase and last heart beat.
+      summary: Returns the status of Airflow's metadatabase and scheduler
       tags:
       - Monitoring
       x-openapi-router-controller: airflow.api_connexion.endpoints.health_endpoint
@@ -2497,7 +2282,6 @@ components:
       required: false
       schema:
         default: 100
-        minimum: 1
         type: integer
       style: form
     ConnectionID:
@@ -2789,6 +2573,12 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: A specified resource is not found.
+    NotAcceptable:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: A specified Accept header is not allowed.
     AlreadyExists:
       content:
         application/json:
@@ -2911,6 +2701,7 @@ components:
             If not provided, a value will be generated based on execution_date.
             If the specified dag_run_id is in use, the creation request fails with an ALREADY_EXISTS error.
             This together with DAG_ID are a unique key.
+          nullable: true
           type: string
         dag_id:
           readOnly: true
@@ -2998,6 +2789,17 @@ components:
             $ref: '#/components/schemas/EventLog'
           type: array
       type: object
+    HealthInfo:
+      example:
+        scheduler:
+          latest_scheduler_heartbeat: latest_scheduler_heartbeat
+        metadatabase: {}
+      properties:
+        metadatabase:
+          $ref: '#/components/schemas/MetadatabaseStatus'
+        scheduler:
+          $ref: '#/components/schemas/SchedulerStatus'
+      type: object
     ImportError:
       example:
         filename: filename
@@ -3025,6 +2827,13 @@ components:
           items:
             $ref: '#/components/schemas/ImportError'
           type: array
+      type: object
+    MetadatabaseStatus:
+      description: Returns the status of the metadatabase
+      example: {}
+      properties:
+        status:
+          $ref: '#/components/schemas/HealthStatus'
       type: object
     Pool:
       example:
@@ -3058,6 +2867,19 @@ components:
           items:
             $ref: '#/components/schemas/Pool'
           type: array
+      type: object
+    SchedulerStatus:
+      description: Returns the status and the latest scheduler heartbeat
+      example:
+        latest_scheduler_heartbeat: latest_scheduler_heartbeat
+      properties:
+        status:
+          $ref: '#/components/schemas/HealthStatus'
+        latest_scheduler_heartbeat:
+          format: datetime
+          nullable: true
+          readOnly: true
+          type: string
       type: object
     SLAMiss:
       example:
@@ -3952,7 +3774,7 @@ components:
             A URI reference [RFC3986] that identifies the problem type. This specification encourages that, when dereferenced, it provide human-readable documentation for the problem type.
           type: string
         title:
-          description: A short, human-readable summary of the problem  type.
+          description: A short, human-readable summary of the problem type.
           type: string
         status:
           description: The HTTP status code generated by the API server for this occurrence
@@ -3979,7 +3801,7 @@ components:
       type: object
     TaskState:
       enum:
-      - succcess
+      - success
       - running
       - failed
       - upstream_failed
@@ -4013,6 +3835,11 @@ components:
       - downstream
       - upstream
       - absolute
+      type: string
+    HealthStatus:
+      enum:
+      - healthy
+      - unhealthy
       type: string
     inline_response_200:
       example:
