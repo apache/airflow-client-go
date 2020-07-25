@@ -66,11 +66,11 @@ Class | Method | HTTP request | Description
 *DAGApi* | [**GetTasks**](docs/DAGApi.md#gettasks) | **Get** /dags/{dag_id}/tasks | Get tasks for DAG
 *DAGApi* | [**PatchDag**](docs/DAGApi.md#patchdag) | **Patch** /dags/{dag_id} | Update a DAG
 *DAGApi* | [**PostClearTaskInstances**](docs/DAGApi.md#postcleartaskinstances) | **Post** /dags/{dag_id}/clearTaskInstances | Clears a set of task instances associated with the DAG for a specified date range.
-*DAGRunApi* | [**AirflowApiConnexionEndpointsDagRunEndpointPostDagRun**](docs/DAGRunApi.md#airflowapiconnexionendpointsdagrunendpointpostdagrun) | **Post** /dags/{dag_id}/dagRuns | Trigger a DAG Run
 *DAGRunApi* | [**DeleteDagRun**](docs/DAGRunApi.md#deletedagrun) | **Delete** /dags/{dag_id}/dagRuns/{dag_run_id} | Delete a DAG Run
 *DAGRunApi* | [**GetDagRun**](docs/DAGRunApi.md#getdagrun) | **Get** /dags/{dag_id}/dagRuns/{dag_run_id} | Get a DAG Run
 *DAGRunApi* | [**GetDagRuns**](docs/DAGRunApi.md#getdagruns) | **Get** /dags/{dag_id}/dagRuns | Get all DAG Runs
 *DAGRunApi* | [**GetDagRunsBatch**](docs/DAGRunApi.md#getdagrunsbatch) | **Post** /dags/~/dagRuns/list | Get all DAG Runs from all DAGs
+*DAGRunApi* | [**PostDagRun**](docs/DAGRunApi.md#postdagrun) | **Post** /dags/{dag_id}/dagRuns | Trigger a DAG Run
 *EventLogApi* | [**GetEventLog**](docs/EventLogApi.md#geteventlog) | **Get** /eventLogs/{event_log_id} | Get a log entry
 *EventLogApi* | [**GetEventLogs**](docs/EventLogApi.md#geteventlogs) | **Get** /eventLogs | Get all log entries from event log
 *ImportErrorApi* | [**GetImportError**](docs/ImportErrorApi.md#getimporterror) | **Get** /importErrors/{import_error_id} | Get an import error

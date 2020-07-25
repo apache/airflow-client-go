@@ -580,7 +580,7 @@ paths:
       - DAGRun
       x-openapi-router-controller: airflow.api_connexion.endpoints.dag_run_endpoint
     post:
-      operationId: airflow.api_connexion.endpoints.dag_run_endpoint.post_dag_run
+      operationId: post_dag_run
       parameters:
       - description: The DAG ID.
         explode: false
@@ -637,6 +637,7 @@ paths:
       summary: Trigger a DAG Run
       tags:
       - DAGRun
+      x-openapi-router-controller: airflow.api_connexion.endpoints.dag_run_endpoint
   /dags/~/dagRuns/list:
     post:
       description: |
