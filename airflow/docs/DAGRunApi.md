@@ -23,45 +23,12 @@ All URIs are relative to *http://localhost/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AirflowApiConnexionEndpointsDagRunEndpointPostDagRun**](DAGRunApi.md#AirflowApiConnexionEndpointsDagRunEndpointPostDagRun) | **Post** /dags/{dag_id}/dagRuns | Trigger a DAG Run
 [**DeleteDagRun**](DAGRunApi.md#DeleteDagRun) | **Delete** /dags/{dag_id}/dagRuns/{dag_run_id} | Delete a DAG Run
 [**GetDagRun**](DAGRunApi.md#GetDagRun) | **Get** /dags/{dag_id}/dagRuns/{dag_run_id} | Get a DAG Run
 [**GetDagRuns**](DAGRunApi.md#GetDagRuns) | **Get** /dags/{dag_id}/dagRuns | Get all DAG Runs
 [**GetDagRunsBatch**](DAGRunApi.md#GetDagRunsBatch) | **Post** /dags/~/dagRuns/list | Get all DAG Runs from all DAGs
+[**PostDagRun**](DAGRunApi.md#PostDagRun) | **Post** /dags/{dag_id}/dagRuns | Trigger a DAG Run
 
-
-
-## AirflowApiConnexionEndpointsDagRunEndpointPostDagRun
-
-> DagRun AirflowApiConnexionEndpointsDagRunEndpointPostDagRun(ctx, dagId, dagRun)
-
-Trigger a DAG Run
-
-### Required Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**dagId** | **string**| The DAG ID. | 
-**dagRun** | [**DagRun**](DagRun.md)|  | 
-
-### Return type
-
-[**DagRun**](DAGRun.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
 
 
 ## DeleteDagRun
@@ -201,6 +168,39 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**DagRunCollection**](DAGRunCollection.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostDagRun
+
+> DagRun PostDagRun(ctx, dagId, dagRun)
+
+Trigger a DAG Run
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**dagId** | **string**| The DAG ID. | 
+**dagRun** | [**DagRun**](DagRun.md)|  | 
+
+### Return type
+
+[**DagRun**](DAGRun.md)
 
 ### Authorization
 
