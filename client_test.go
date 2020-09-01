@@ -37,7 +37,7 @@ func TestBasicAuth(t *testing.T) {
 			t,
 			fmt.Sprintf(
 				"Basic %s",
-				base64.StdEncoding.EncodeToString([]byte("username"+":"+"password")),
+				base64.StdEncoding.EncodeToString([]byte("username:password")),
 			),
 			req.Header.Get("Authorization"))
 		assert.Equal(t, "/api/v1/variables/foo", req.URL.String())
