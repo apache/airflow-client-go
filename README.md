@@ -37,7 +37,13 @@ func main() {
 		Host:     "localhost:28080",
 		BasePath: "/api/v1",
 	})
-	ctx := context.TODO()
+
+	cred := airflow.BasicAuth{
+		UserName: "username",
+		Password: "password",
+	}
+	ctx := context.WithValue(context.Background(), airflow.ContextBasicAuth, cred)
+
 	variable, _, err := client.VariableApi.GetVariable(ctx, "foo")
 	if err != nil {
 		fmt.Println(variable)
