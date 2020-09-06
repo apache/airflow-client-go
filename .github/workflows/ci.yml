@@ -52,7 +52,10 @@ jobs:
           go-version: ${{ matrix.go_version }}
         id: go
 
-      - name: build & test
+      - name: Run tests
         run: |
             go test
+
+      - name: Run auto generated tests
+        run: |
             cd airflow && go test
