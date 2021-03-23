@@ -30,7 +30,7 @@ github:
     - go
   features:
     # Enable issues management
-    issues: false
+    issues: true
     # Enable projects for project management boards
     projects: false
 
