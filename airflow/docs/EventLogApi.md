@@ -24,23 +24,59 @@ All URIs are relative to *http://localhost/api/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetEventLog**](EventLogApi.md#GetEventLog) | **Get** /eventLogs/{event_log_id} | Get a log entry
-[**GetEventLogs**](EventLogApi.md#GetEventLogs) | **Get** /eventLogs | Get all log entries from event log
+[**GetEventLogs**](EventLogApi.md#GetEventLogs) | **Get** /eventLogs | List log entries
 
 
 
 ## GetEventLog
 
-> EventLog GetEventLog(ctx, eventLogId)
+> EventLog GetEventLog(ctx, eventLogId).Execute()
 
 Get a log entry
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    eventLogId := int32(56) // int32 | The event log ID.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.EventLogApi.GetEventLog(context.Background(), eventLogId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `EventLogApi.GetEventLog``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetEventLog`: EventLog
+    fmt.Fprintf(os.Stdout, "Response from `EventLogApi.GetEventLog`: %v\n", resp)
+}
+```
+
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**eventLogId** | **int32**| The Event Log ID. | 
+**eventLogId** | **int32** | The event log ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetEventLogRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -62,27 +98,55 @@ No authorization required
 
 ## GetEventLogs
 
-> EventLogCollection GetEventLogs(ctx, optional)
+> EventLogCollection GetEventLogs(ctx).Limit(limit).Offset(offset).OrderBy(orderBy).Execute()
 
-Get all log entries from event log
+List log entries
 
-### Required Parameters
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    limit := int32(56) // int32 | The numbers of items to return. (optional) (default to 100)
+    offset := int32(56) // int32 | The number of items to skip before starting to collect the result set. (optional)
+    orderBy := "orderBy_example" // string | The name of the field to order the results by. Prefix a field name with `-` to reverse the sort order.  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.EventLogApi.GetEventLogs(context.Background()).Limit(limit).Offset(offset).OrderBy(orderBy).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `EventLogApi.GetEventLogs``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetEventLogs`: EventLogCollection
+    fmt.Fprintf(os.Stdout, "Response from `EventLogApi.GetEventLogs`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetEventLogsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***GetEventLogsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a GetEventLogsOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **limit** | **optional.Int32**| The numbers of items to return. | [default to 100]
- **offset** | **optional.Int32**| The number of items to skip before starting to collect the result set. | 
+ **limit** | **int32** | The numbers of items to return. | [default to 100]
+ **offset** | **int32** | The number of items to skip before starting to collect the result set. | 
+ **orderBy** | **string** | The name of the field to order the results by. Prefix a field name with &#x60;-&#x60; to reverse the sort order.  | 
 
 ### Return type
 
