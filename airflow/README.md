@@ -320,7 +320,6 @@ Class | Method | HTTP request | Description
 *ConnectionApi* | [**GetConnections**](docs/ConnectionApi.md#getconnections) | **Get** /connections | List connections
 *ConnectionApi* | [**PatchConnection**](docs/ConnectionApi.md#patchconnection) | **Patch** /connections/{connection_id} | Update a connection
 *ConnectionApi* | [**PostConnection**](docs/ConnectionApi.md#postconnection) | **Post** /connections | Create a connection
-*ConnectionApi* | [**TestConnection**](docs/ConnectionApi.md#testconnection) | **Post** /connections/test | Test a connection
 *DAGApi* | [**GetDag**](docs/DAGApi.md#getdag) | **Get** /dags/{dag_id} | Get basic information about a DAG
 *DAGApi* | [**GetDagDetails**](docs/DAGApi.md#getdagdetails) | **Get** /dags/{dag_id}/details | Get a simplified representation of DAG
 *DAGApi* | [**GetDagSource**](docs/DAGApi.md#getdagsource) | **Get** /dagSources/{file_token} | Get a source code
@@ -387,7 +386,6 @@ Class | Method | HTTP request | Description
  - [ConnectionCollection](docs/ConnectionCollection.md)
  - [ConnectionCollectionAllOf](docs/ConnectionCollectionAllOf.md)
  - [ConnectionCollectionItem](docs/ConnectionCollectionItem.md)
- - [ConnectionTest](docs/ConnectionTest.md)
  - [CronExpression](docs/CronExpression.md)
  - [DAG](docs/DAG.md)
  - [DAGCollection](docs/DAGCollection.md)

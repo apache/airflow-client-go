@@ -511,51 +511,6 @@ paths:
       tags:
       - Connection
       x-openapi-router-controller: airflow.api_connexion.endpoints.connection_endpoint
-  /connections/test:
-    post:
-      operationId: test_connection
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Connection'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ConnectionTest'
-          description: Success.
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Client specified an invalid argument.
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Request not authenticated due to missing, invalid, authentication
-            info.
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Client does not have sufficient permission.
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: A specified resource is not found.
-      summary: Test a connection
-      tags:
-      - Connection
-      x-openapi-router-controller: airflow.api_connexion.endpoints.connection_endpoint
   /dags:
     get:
       operationId: get_dags
@@ -3694,19 +3649,6 @@ components:
       - $ref: '#/components/schemas/ConnectionCollectionItem'
       - $ref: '#/components/schemas/Connection_allOf'
       description: Full representation of the connection.
-    ConnectionTest:
-      description: Connection test results.
-      example:
-        message: message
-        status: true
-      properties:
-        status:
-          description: The status of the request.
-          type: boolean
-        message:
-          description: The success or failure message of the request.
-          type: string
-      type: object
     DAG:
       description: DAG
       example:

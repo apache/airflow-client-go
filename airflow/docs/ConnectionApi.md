@@ -28,7 +28,6 @@ Method | HTTP request | Description
 [**GetConnections**](ConnectionApi.md#GetConnections) | **Get** /connections | List connections
 [**PatchConnection**](ConnectionApi.md#PatchConnection) | **Patch** /connections/{connection_id} | Update a connection
 [**PostConnection**](ConnectionApi.md#PostConnection) | **Post** /connections | Create a connection
-[**TestConnection**](ConnectionApi.md#TestConnection) | **Post** /connections/test | Test a connection
 
 
 
@@ -355,70 +354,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Connection**](Connection.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## TestConnection
-
-> ConnectionTest TestConnection(ctx).Connection(connection).Execute()
-
-Test a connection
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    connection := *openapiclient.NewConnection() // Connection | 
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ConnectionApi.TestConnection(context.Background()).Connection(connection).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ConnectionApi.TestConnection``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `TestConnection`: ConnectionTest
-    fmt.Fprintf(os.Stdout, "Response from `ConnectionApi.TestConnection`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiTestConnectionRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **connection** | [**Connection**](Connection.md) |  | 
-
-### Return type
-
-[**ConnectionTest**](ConnectionTest.md)
 
 ### Authorization
 

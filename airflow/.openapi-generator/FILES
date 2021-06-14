@@ -36,7 +36,6 @@ docs/ConnectionApi.md
 docs/ConnectionCollection.md
 docs/ConnectionCollectionAllOf.md
 docs/ConnectionCollectionItem.md
-docs/ConnectionTest.md
 docs/CronExpression.md
 docs/DAG.md
 docs/DAGApi.md
@@ -141,7 +140,6 @@ model_connection_all_of.go
 model_connection_collection.go
 model_connection_collection_all_of.go
 model_connection_collection_item.go
-model_connection_test_.go
 model_cron_expression.go
 model_dag.go
 model_dag_collection.go

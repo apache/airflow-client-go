@@ -54,6 +54,7 @@ jobs:
 
       - name: Run tests
         run: |
+            go version | grep 1.16 && go env -w GOFLAGS=-mod=mod
             go mod tidy
             go test
 
