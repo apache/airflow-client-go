@@ -36,11 +36,10 @@ import (
 )
 
 func main() {
-	cli := airflow.NewAPIClient(&airflow.Configuration{
-		Scheme:   "http",
-		Host:     "localhost:8080",
-		BasePath: "/api/v1",
-	})
+	conf := airflow.NewConfiguration()
+	conf.Host = "localhost:8080"
+	conf.Scheme = "http"
+	cli := airflow.NewAPIClient(conf)
 
 	cred := airflow.BasicAuth{
 		UserName: "username",
@@ -48,7 +47,7 @@ func main() {
 	}
 	ctx := context.WithValue(context.Background(), airflow.ContextBasicAuth, cred)
 
-	variable, _, err := cli.VariableApi.GetVariable(ctx, "foo")
+	variable, _, err := cli.VariableApi.GetVariable(ctx, "foo").Execute()
 	if err != nil {
 		fmt.Println(err)
 	} else {
