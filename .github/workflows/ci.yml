@@ -54,6 +54,7 @@ jobs:
 
       - name: Run tests
         run: |
+            go mod tidy
             go test
 
       - name: Run auto generated tests
