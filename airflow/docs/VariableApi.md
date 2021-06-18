@@ -23,27 +23,61 @@ All URIs are relative to *http://localhost/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteVariable**](VariableApi.md#DeleteVariable) | **Delete** /variables/{variable_key} | Delete variable
-[**GetVariable**](VariableApi.md#GetVariable) | **Get** /variables/{variable_key} | Get a variable by key
-[**GetVariables**](VariableApi.md#GetVariables) | **Get** /variables | Get all variables
-[**PatchVariable**](VariableApi.md#PatchVariable) | **Patch** /variables/{variable_key} | Update a variable by key
+[**DeleteVariable**](VariableApi.md#DeleteVariable) | **Delete** /variables/{variable_key} | Delete a variable
+[**GetVariable**](VariableApi.md#GetVariable) | **Get** /variables/{variable_key} | Get a variable
+[**GetVariables**](VariableApi.md#GetVariables) | **Get** /variables | List variables
+[**PatchVariable**](VariableApi.md#PatchVariable) | **Patch** /variables/{variable_key} | Update a variable
 [**PostVariables**](VariableApi.md#PostVariables) | **Post** /variables | Create a variable
 
 
 
 ## DeleteVariable
 
-> DeleteVariable(ctx, variableKey)
+> DeleteVariable(ctx, variableKey).Execute()
 
-Delete variable
+Delete a variable
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    variableKey := "variableKey_example" // string | The variable Key.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.VariableApi.DeleteVariable(context.Background(), variableKey).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `VariableApi.DeleteVariable``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**variableKey** | **string**| The Variable Key. | 
+**variableKey** | **string** | The variable Key. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteVariableRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -65,17 +99,55 @@ No authorization required
 
 ## GetVariable
 
-> Variable GetVariable(ctx, variableKey)
+> Variable GetVariable(ctx, variableKey).Execute()
 
-Get a variable by key
+Get a variable
 
-### Required Parameters
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    variableKey := "variableKey_example" // string | The variable Key.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.VariableApi.GetVariable(context.Background(), variableKey).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `VariableApi.GetVariable``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetVariable`: Variable
+    fmt.Fprintf(os.Stdout, "Response from `VariableApi.GetVariable`: %v\n", resp)
+}
+```
+
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**variableKey** | **string**| The Variable Key. | 
+**variableKey** | **string** | The variable Key. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetVariableRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -97,29 +169,55 @@ No authorization required
 
 ## GetVariables
 
-> VariableCollection GetVariables(ctx, optional)
+> VariableCollection GetVariables(ctx).Limit(limit).Offset(offset).OrderBy(orderBy).Execute()
 
-Get all variables
+List variables
 
-The collection does not contain data. To get data, you must get a single entity.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    limit := int32(56) // int32 | The numbers of items to return. (optional) (default to 100)
+    offset := int32(56) // int32 | The number of items to skip before starting to collect the result set. (optional)
+    orderBy := "orderBy_example" // string | The name of the field to order the results by. Prefix a field name with `-` to reverse the sort order.  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.VariableApi.GetVariables(context.Background()).Limit(limit).Offset(offset).OrderBy(orderBy).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `VariableApi.GetVariables``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetVariables`: VariableCollection
+    fmt.Fprintf(os.Stdout, "Response from `VariableApi.GetVariables`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetVariablesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***GetVariablesOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a GetVariablesOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **limit** | **optional.Int32**| The numbers of items to return. | [default to 100]
- **offset** | **optional.Int32**| The number of items to skip before starting to collect the result set. | 
+ **limit** | **int32** | The numbers of items to return. | [default to 100]
+ **offset** | **int32** | The number of items to skip before starting to collect the result set. | 
+ **orderBy** | **string** | The name of the field to order the results by. Prefix a field name with &#x60;-&#x60; to reverse the sort order.  | 
 
 ### Return type
 
@@ -141,30 +239,59 @@ No authorization required
 
 ## PatchVariable
 
-> Variable PatchVariable(ctx, variableKey, variable, optional)
+> Variable PatchVariable(ctx, variableKey).Variable(variable).UpdateMask(updateMask).Execute()
 
-Update a variable by key
+Update a variable
 
-### Required Parameters
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    variableKey := "variableKey_example" // string | The variable Key.
+    variable := *openapiclient.NewVariable() // Variable | 
+    updateMask := []string{"Inner_example"} // []string | The fields to update on the resource. If absent or empty, all modifiable fields are updated. A comma-separated list of fully qualified names of fields.  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.VariableApi.PatchVariable(context.Background(), variableKey).Variable(variable).UpdateMask(updateMask).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `VariableApi.PatchVariable``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PatchVariable`: Variable
+    fmt.Fprintf(os.Stdout, "Response from `VariableApi.PatchVariable`: %v\n", resp)
+}
+```
+
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**variableKey** | **string**| The Variable Key. | 
-**variable** | [**Variable**](Variable.md)|  | 
- **optional** | ***PatchVariableOpts** | optional parameters | nil if no parameters
+**variableKey** | **string** | The variable Key. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a PatchVariableOpts struct
+Other parameters are passed through a pointer to a apiPatchVariableRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
-
- **updateMask** | [**optional.Interface of []string**](string.md)| The fields to update on the connection (connection, pool etc). If absent or empty, all modifiable fields are updated. A comma-separated list of fully qualified names of fields.  | 
+ **variable** | [**Variable**](Variable.md) |  | 
+ **updateMask** | **[]string** | The fields to update on the resource. If absent or empty, all modifiable fields are updated. A comma-separated list of fully qualified names of fields.  | 
 
 ### Return type
 
@@ -186,17 +313,49 @@ No authorization required
 
 ## PostVariables
 
-> Variable PostVariables(ctx, variable)
+> Variable PostVariables(ctx).Variable(variable).Execute()
 
 Create a variable
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    variable := *openapiclient.NewVariable() // Variable | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.VariableApi.PostVariables(context.Background()).Variable(variable).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `VariableApi.PostVariables``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostVariables`: Variable
+    fmt.Fprintf(os.Stdout, "Response from `VariableApi.PostVariables`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostVariablesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**variable** | [**Variable**](Variable.md)|  | 
+ **variable** | [**Variable**](Variable.md) |  | 
 
 ### Return type
 

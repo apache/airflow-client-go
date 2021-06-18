@@ -29,13 +29,44 @@ Method | HTTP request | Description
 
 ## GetConfig
 
-> Config GetConfig(ctx, )
+> Config GetConfig(ctx).Execute()
 
 Get current configuration
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ConfigApi.GetConfig(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ConfigApi.GetConfig``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetConfig`: Config
+    fmt.Fprintf(os.Stdout, "Response from `ConfigApi.GetConfig`: %v\n", resp)
+}
+```
+
+### Path Parameters
 
 This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetConfigRequest struct via the builder pattern
+
 
 ### Return type
 

@@ -25,7 +25,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeletePool**](PoolApi.md#DeletePool) | **Delete** /pools/{pool_name} | Delete a pool
 [**GetPool**](PoolApi.md#GetPool) | **Get** /pools/{pool_name} | Get a pool
-[**GetPools**](PoolApi.md#GetPools) | **Get** /pools | Get all pools
+[**GetPools**](PoolApi.md#GetPools) | **Get** /pools | List pools
 [**PatchPool**](PoolApi.md#PatchPool) | **Patch** /pools/{pool_name} | Update a pool
 [**PostPool**](PoolApi.md#PostPool) | **Post** /pools | Create a pool
 
@@ -33,17 +33,51 @@ Method | HTTP request | Description
 
 ## DeletePool
 
-> DeletePool(ctx, poolName)
+> DeletePool(ctx, poolName).Execute()
 
 Delete a pool
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    poolName := "poolName_example" // string | The pool name.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.PoolApi.DeletePool(context.Background(), poolName).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `PoolApi.DeletePool``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**poolName** | **string**| The Pool name. | 
+**poolName** | **string** | The pool name. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeletePoolRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -65,17 +99,53 @@ No authorization required
 
 ## GetPool
 
-> Pool GetPool(ctx, poolName)
+> Pool GetPool(ctx, poolName).Execute()
 
 Get a pool
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    poolName := "poolName_example" // string | The pool name.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.PoolApi.GetPool(context.Background(), poolName).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `PoolApi.GetPool``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetPool`: Pool
+    fmt.Fprintf(os.Stdout, "Response from `PoolApi.GetPool`: %v\n", resp)
+}
+```
+
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**poolName** | **string**| The Pool name. | 
+**poolName** | **string** | The pool name. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetPoolRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -97,27 +167,53 @@ No authorization required
 
 ## GetPools
 
-> PoolCollection GetPools(ctx, optional)
+> PoolCollection GetPools(ctx).Limit(limit).Offset(offset).OrderBy(orderBy).Execute()
 
-Get all pools
+List pools
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    limit := int32(56) // int32 | The numbers of items to return. (optional) (default to 100)
+    offset := int32(56) // int32 | The number of items to skip before starting to collect the result set. (optional)
+    orderBy := "orderBy_example" // string | The name of the field to order the results by. Prefix a field name with `-` to reverse the sort order.  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.PoolApi.GetPools(context.Background()).Limit(limit).Offset(offset).OrderBy(orderBy).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `PoolApi.GetPools``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetPools`: PoolCollection
+    fmt.Fprintf(os.Stdout, "Response from `PoolApi.GetPools`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetPoolsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***GetPoolsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a GetPoolsOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **limit** | **optional.Int32**| The numbers of items to return. | [default to 100]
- **offset** | **optional.Int32**| The number of items to skip before starting to collect the result set. | 
+ **limit** | **int32** | The numbers of items to return. | [default to 100]
+ **offset** | **int32** | The number of items to skip before starting to collect the result set. | 
+ **orderBy** | **string** | The name of the field to order the results by. Prefix a field name with &#x60;-&#x60; to reverse the sort order.  | 
 
 ### Return type
 
@@ -139,30 +235,57 @@ No authorization required
 
 ## PatchPool
 
-> Pool PatchPool(ctx, poolName, pool, optional)
+> Pool PatchPool(ctx, poolName).Pool(pool).UpdateMask(updateMask).Execute()
 
 Update a pool
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    poolName := "poolName_example" // string | The pool name.
+    pool := *openapiclient.NewPool() // Pool | 
+    updateMask := []string{"Inner_example"} // []string | The fields to update on the resource. If absent or empty, all modifiable fields are updated. A comma-separated list of fully qualified names of fields.  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.PoolApi.PatchPool(context.Background(), poolName).Pool(pool).UpdateMask(updateMask).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `PoolApi.PatchPool``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PatchPool`: Pool
+    fmt.Fprintf(os.Stdout, "Response from `PoolApi.PatchPool`: %v\n", resp)
+}
+```
+
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**poolName** | **string**| The Pool name. | 
-**pool** | [**Pool**](Pool.md)|  | 
- **optional** | ***PatchPoolOpts** | optional parameters | nil if no parameters
+**poolName** | **string** | The pool name. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a PatchPoolOpts struct
+Other parameters are passed through a pointer to a apiPatchPoolRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
-
- **updateMask** | [**optional.Interface of []string**](string.md)| The fields to update on the connection (connection, pool etc). If absent or empty, all modifiable fields are updated. A comma-separated list of fully qualified names of fields.  | 
+ **pool** | [**Pool**](Pool.md) |  | 
+ **updateMask** | **[]string** | The fields to update on the resource. If absent or empty, all modifiable fields are updated. A comma-separated list of fully qualified names of fields.  | 
 
 ### Return type
 
@@ -184,17 +307,49 @@ No authorization required
 
 ## PostPool
 
-> Pool PostPool(ctx, pool)
+> Pool PostPool(ctx).Pool(pool).Execute()
 
 Create a pool
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    pool := *openapiclient.NewPool() // Pool | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.PoolApi.PostPool(context.Background()).Pool(pool).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `PoolApi.PostPool``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostPool`: Pool
+    fmt.Fprintf(os.Stdout, "Response from `PoolApi.PostPool`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostPoolRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**pool** | [**Pool**](Pool.md)|  | 
+ **pool** | [**Pool**](Pool.md) |  | 
 
 ### Return type
 

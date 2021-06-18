@@ -23,20 +23,53 @@ All URIs are relative to *http://localhost/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetHealth**](MonitoringApi.md#GetHealth) | **Get** /health | Returns the status of Airflow&#39;s metadatabase and scheduler
+[**GetHealth**](MonitoringApi.md#GetHealth) | **Get** /health | Get instance status
 [**GetVersion**](MonitoringApi.md#GetVersion) | **Get** /version | Get version information
 
 
 
 ## GetHealth
 
-> HealthInfo GetHealth(ctx, )
+> HealthInfo GetHealth(ctx).Execute()
 
-Returns the status of Airflow's metadatabase and scheduler
+Get instance status
 
-### Required Parameters
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.MonitoringApi.GetHealth(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `MonitoringApi.GetHealth``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetHealth`: HealthInfo
+    fmt.Fprintf(os.Stdout, "Response from `MonitoringApi.GetHealth`: %v\n", resp)
+}
+```
+
+### Path Parameters
 
 This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetHealthRequest struct via the builder pattern
+
 
 ### Return type
 
@@ -58,13 +91,44 @@ No authorization required
 
 ## GetVersion
 
-> VersionInfo GetVersion(ctx, )
+> VersionInfo GetVersion(ctx).Execute()
 
 Get version information
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.MonitoringApi.GetVersion(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `MonitoringApi.GetVersion``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetVersion`: VersionInfo
+    fmt.Fprintf(os.Stdout, "Response from `MonitoringApi.GetVersion`: %v\n", resp)
+}
+```
+
+### Path Parameters
 
 This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetVersionRequest struct via the builder pattern
+
 
 ### Return type
 

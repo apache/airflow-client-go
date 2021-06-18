@@ -23,28 +23,64 @@ All URIs are relative to *http://localhost/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteDagRun**](DAGRunApi.md#DeleteDagRun) | **Delete** /dags/{dag_id}/dagRuns/{dag_run_id} | Delete a DAG Run
-[**GetDagRun**](DAGRunApi.md#GetDagRun) | **Get** /dags/{dag_id}/dagRuns/{dag_run_id} | Get a DAG Run
-[**GetDagRuns**](DAGRunApi.md#GetDagRuns) | **Get** /dags/{dag_id}/dagRuns | Get all DAG Runs
-[**GetDagRunsBatch**](DAGRunApi.md#GetDagRunsBatch) | **Post** /dags/~/dagRuns/list | Get all DAG Runs from all DAGs
-[**PostDagRun**](DAGRunApi.md#PostDagRun) | **Post** /dags/{dag_id}/dagRuns | Trigger a DAG Run
+[**DeleteDagRun**](DAGRunApi.md#DeleteDagRun) | **Delete** /dags/{dag_id}/dagRuns/{dag_run_id} | Delete a DAG run
+[**GetDagRun**](DAGRunApi.md#GetDagRun) | **Get** /dags/{dag_id}/dagRuns/{dag_run_id} | Get a DAG run
+[**GetDagRuns**](DAGRunApi.md#GetDagRuns) | **Get** /dags/{dag_id}/dagRuns | List DAG runs
+[**GetDagRunsBatch**](DAGRunApi.md#GetDagRunsBatch) | **Post** /dags/~/dagRuns/list | List DAG runs (batch)
+[**PostDagRun**](DAGRunApi.md#PostDagRun) | **Post** /dags/{dag_id}/dagRuns | Trigger a new DAG run
 
 
 
 ## DeleteDagRun
 
-> DeleteDagRun(ctx, dagId, dagRunId)
+> DeleteDagRun(ctx, dagId, dagRunId).Execute()
 
-Delete a DAG Run
+Delete a DAG run
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    dagId := "dagId_example" // string | The DAG ID.
+    dagRunId := "dagRunId_example" // string | The DAG run ID.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DAGRunApi.DeleteDagRun(context.Background(), dagId, dagRunId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DAGRunApi.DeleteDagRun``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**dagId** | **string**| The DAG ID. | 
-**dagRunId** | **string**| The DAG Run ID. | 
+**dagId** | **string** | The DAG ID. | 
+**dagRunId** | **string** | The DAG run ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteDagRunRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -66,22 +102,60 @@ No authorization required
 
 ## GetDagRun
 
-> DagRun GetDagRun(ctx, dagId, dagRunId)
+> DAGRun GetDagRun(ctx, dagId, dagRunId).Execute()
 
-Get a DAG Run
+Get a DAG run
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    dagId := "dagId_example" // string | The DAG ID.
+    dagRunId := "dagRunId_example" // string | The DAG run ID.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DAGRunApi.GetDagRun(context.Background(), dagId, dagRunId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DAGRunApi.GetDagRun``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetDagRun`: DAGRun
+    fmt.Fprintf(os.Stdout, "Response from `DAGRunApi.GetDagRun`: %v\n", resp)
+}
+```
+
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**dagId** | **string**| The DAG ID. | 
-**dagRunId** | **string**| The DAG Run ID. | 
+**dagId** | **string** | The DAG ID. | 
+**dagRunId** | **string** | The DAG run ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetDagRunRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
 
 ### Return type
 
-[**DagRun**](DAGRun.md)
+[**DAGRun**](DAGRun.md)
 
 ### Authorization
 
@@ -99,41 +173,78 @@ No authorization required
 
 ## GetDagRuns
 
-> DagRunCollection GetDagRuns(ctx, dagId, optional)
+> DAGRunCollection GetDagRuns(ctx, dagId).Limit(limit).Offset(offset).ExecutionDateGte(executionDateGte).ExecutionDateLte(executionDateLte).StartDateGte(startDateGte).StartDateLte(startDateLte).EndDateGte(endDateGte).EndDateLte(endDateLte).OrderBy(orderBy).Execute()
 
-Get all DAG Runs
+List DAG runs
 
-This endpoint allows specifying `~` as the dag_id to retrieve DAG Runs for all DAGs. 
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    "time"
+    openapiclient "./openapi"
+)
+
+func main() {
+    dagId := "dagId_example" // string | The DAG ID.
+    limit := int32(56) // int32 | The numbers of items to return. (optional) (default to 100)
+    offset := int32(56) // int32 | The number of items to skip before starting to collect the result set. (optional)
+    executionDateGte := time.Now() // time.Time | Returns objects greater or equal to the specified date.  This can be combined with execution_date_lte parameter to receive only the selected period.  (optional)
+    executionDateLte := time.Now() // time.Time | Returns objects less than or equal to the specified date.  This can be combined with execution_date_gte parameter to receive only the selected period.  (optional)
+    startDateGte := time.Now() // time.Time | Returns objects greater or equal the specified date.  This can be combined with start_date_lte parameter to receive only the selected period.  (optional)
+    startDateLte := time.Now() // time.Time | Returns objects less or equal the specified date.  This can be combined with start_date_gte parameter to receive only the selected period.  (optional)
+    endDateGte := time.Now() // time.Time | Returns objects greater or equal the specified date.  This can be combined with start_date_lte parameter to receive only the selected period.  (optional)
+    endDateLte := time.Now() // time.Time | Returns objects less than or equal to the specified date.  This can be combined with start_date_gte parameter to receive only the selected period.  (optional)
+    orderBy := "orderBy_example" // string | The name of the field to order the results by. Prefix a field name with `-` to reverse the sort order.  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DAGRunApi.GetDagRuns(context.Background(), dagId).Limit(limit).Offset(offset).ExecutionDateGte(executionDateGte).ExecutionDateLte(executionDateLte).StartDateGte(startDateGte).StartDateLte(startDateLte).EndDateGte(endDateGte).EndDateLte(endDateLte).OrderBy(orderBy).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DAGRunApi.GetDagRuns``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetDagRuns`: DAGRunCollection
+    fmt.Fprintf(os.Stdout, "Response from `DAGRunApi.GetDagRuns`: %v\n", resp)
+}
+```
+
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**dagId** | **string**| The DAG ID. | 
- **optional** | ***GetDagRunsOpts** | optional parameters | nil if no parameters
+**dagId** | **string** | The DAG ID. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a GetDagRunsOpts struct
+Other parameters are passed through a pointer to a apiGetDagRunsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **limit** | **optional.Int32**| The numbers of items to return. | [default to 100]
- **offset** | **optional.Int32**| The number of items to skip before starting to collect the result set. | 
- **executionDateGte** | **optional.Time**| Returns objects greater or equal to the specified date. This can be combined with execution_date_lte parameter to receive only the selected period.  | 
- **executionDateLte** | **optional.Time**| Returns objects less than or equal to the specified date. This can be combined with execution_date_gte parameter to receive only the selected period.  | 
- **startDateGte** | **optional.Time**| Returns objects greater or equal the specified date. This can be combined with startd_ate_lte parameter to receive only the selected period.  | 
- **startDateLte** | **optional.Time**| Returns objects less or equal the specified date. This can be combined with start_date_gte parameter to receive only the selected period.  | 
- **endDateGte** | **optional.Time**| Returns objects greater or equal the specified date. This can be combined with start_date_lte parameter to receive only the selected period.  | 
- **endDateLte** | **optional.Time**| Returns objects less than or equal to the specified date. This can be combined with start_date_gte parameter to receive only the selected period.  | 
+ **limit** | **int32** | The numbers of items to return. | [default to 100]
+ **offset** | **int32** | The number of items to skip before starting to collect the result set. | 
+ **executionDateGte** | **time.Time** | Returns objects greater or equal to the specified date.  This can be combined with execution_date_lte parameter to receive only the selected period.  | 
+ **executionDateLte** | **time.Time** | Returns objects less than or equal to the specified date.  This can be combined with execution_date_gte parameter to receive only the selected period.  | 
+ **startDateGte** | **time.Time** | Returns objects greater or equal the specified date.  This can be combined with start_date_lte parameter to receive only the selected period.  | 
+ **startDateLte** | **time.Time** | Returns objects less or equal the specified date.  This can be combined with start_date_gte parameter to receive only the selected period.  | 
+ **endDateGte** | **time.Time** | Returns objects greater or equal the specified date.  This can be combined with start_date_lte parameter to receive only the selected period.  | 
+ **endDateLte** | **time.Time** | Returns objects less than or equal to the specified date.  This can be combined with start_date_gte parameter to receive only the selected period.  | 
+ **orderBy** | **string** | The name of the field to order the results by. Prefix a field name with &#x60;-&#x60; to reverse the sort order.  | 
 
 ### Return type
 
-[**DagRunCollection**](DAGRunCollection.md)
+[**DAGRunCollection**](DAGRunCollection.md)
 
 ### Authorization
 
@@ -151,23 +262,55 @@ No authorization required
 
 ## GetDagRunsBatch
 
-> DagRunCollection GetDagRunsBatch(ctx, listDagRunsForm)
+> DAGRunCollection GetDagRunsBatch(ctx).ListDagRunsForm(listDagRunsForm).Execute()
 
-Get all DAG Runs from all DAGs
+List DAG runs (batch)
 
-This endpoint is a POST to allow filtering across a large number of DAG IDs, where as a GET it would run in to maximum HTTP request URL length limit. 
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    listDagRunsForm := *openapiclient.NewListDagRunsForm() // ListDagRunsForm | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DAGRunApi.GetDagRunsBatch(context.Background()).ListDagRunsForm(listDagRunsForm).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DAGRunApi.GetDagRunsBatch``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetDagRunsBatch`: DAGRunCollection
+    fmt.Fprintf(os.Stdout, "Response from `DAGRunApi.GetDagRunsBatch`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetDagRunsBatchRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**listDagRunsForm** | [**ListDagRunsForm**](ListDagRunsForm.md)|  | 
+ **listDagRunsForm** | [**ListDagRunsForm**](ListDagRunsForm.md) |  | 
 
 ### Return type
 
-[**DagRunCollection**](DAGRunCollection.md)
+[**DAGRunCollection**](DAGRunCollection.md)
 
 ### Authorization
 
@@ -185,22 +328,59 @@ No authorization required
 
 ## PostDagRun
 
-> DagRun PostDagRun(ctx, dagId, dagRun)
+> DAGRun PostDagRun(ctx, dagId).DAGRun(dAGRun).Execute()
 
-Trigger a DAG Run
+Trigger a new DAG run
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    dagId := "dagId_example" // string | The DAG ID.
+    dAGRun := *openapiclient.NewDAGRun("DagId_example") // DAGRun | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DAGRunApi.PostDagRun(context.Background(), dagId).DAGRun(dAGRun).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DAGRunApi.PostDagRun``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostDagRun`: DAGRun
+    fmt.Fprintf(os.Stdout, "Response from `DAGRunApi.PostDagRun`: %v\n", resp)
+}
+```
+
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**dagId** | **string**| The DAG ID. | 
-**dagRun** | [**DagRun**](DagRun.md)|  | 
+**dagId** | **string** | The DAG ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostDagRunRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **dAGRun** | [**DAGRun**](DAGRun.md) |  | 
 
 ### Return type
 
-[**DagRun**](DAGRun.md)
+[**DAGRun**](DAGRun.md)
 
 ### Authorization
 

@@ -49,11 +49,10 @@ func TestBasicAuth(t *testing.T) {
 	url, err := url.Parse(server.URL)
 	assert.Equal(t, nil, err)
 
-	cli := airflow.NewAPIClient(&airflow.Configuration{
-		Scheme:   "http",
-		Host:     url.Host,
-		BasePath: "/api/v1",
-	})
+	conf := airflow.NewConfiguration()
+	conf.Host = url.Host
+	conf.Scheme = "http"
+	cli := airflow.NewAPIClient(conf)
 
 	cred := airflow.BasicAuth{
 		UserName: "username",
@@ -61,10 +60,8 @@ func TestBasicAuth(t *testing.T) {
 	}
 	ctx := context.WithValue(context.Background(), airflow.ContextBasicAuth, cred)
 
-	variable, _, err := cli.VariableApi.GetVariable(ctx, "foo")
+	variable, _, err := cli.VariableApi.GetVariable(ctx, "foo").Execute()
 	assert.Equal(t, nil, err)
-	assert.Equal(t, airflow.Variable{
-		Key:   "foo",
-		Value: "bar",
-	}, variable)
+	assert.Equal(t, *variable.Key, "foo")
+	assert.Equal(t, *variable.Value, "bar")
 }
