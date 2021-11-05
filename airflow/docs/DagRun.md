@@ -1,22 +1,3 @@
-<!--
- Licensed to the Apache Software Foundation (ASF) under one
- or more contributor license agreements.  See the NOTICE file
- distributed with this work for additional information
- regarding copyright ownership.  The ASF licenses this file
- to you under the Apache License, Version 2.0 (the
- "License"); you may not use this file except in compliance
- with the License.  You may obtain a copy of the License at
-
-   http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing,
- software distributed under the License is distributed on an
- "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- KIND, either express or implied.  See the License for the
- specific language governing permissions and limitations
- under the License.
- -->
-
 # DAGRun
 
 ## Properties
@@ -25,8 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DagRunId** | Pointer to **NullableString** | Run ID.  The value of this field can be set only when creating the object. If you try to modify the field of an existing object, the request fails with an BAD_REQUEST error.  If not provided, a value will be generated based on execution_date.  If the specified dag_run_id is in use, the creation request fails with an ALREADY_EXISTS error.  This together with DAG_ID are a unique key.  | [optional] 
 **DagId** | **string** |  | [readonly] 
-**ExecutionDate** | Pointer to **time.Time** | The execution date. This is the time when the DAG run should be started according to the DAG definition. The value of this field can be set only when creating the object. If you try to modify the field of an existing object, the request fails with an BAD_REQUEST error. This together with DAG_ID are a unique key.  | [optional] 
-**StartDate** | Pointer to **time.Time** | The start time. The time when DAG run was actually created.  | [optional] [readonly] 
+**LogicalDate** | Pointer to **NullableTime** | The logical date (previously called execution date). This is the time or interval covered by this DAG run, according to the DAG definition.  The value of this field can be set only when creating the object. If you try to modify the field of an existing object, the request fails with an BAD_REQUEST error.  This together with DAG_ID are a unique key.  | [optional] 
+**ExecutionDate** | Pointer to **NullableTime** | The execution date. This is the same as logical_date, kept for backwards compatibility. If both this field and logical_date are provided but with different values, the request will fail with an BAD_REQUEST error.  | [optional] 
+**StartDate** | Pointer to **NullableTime** | The start time. The time when DAG run was actually created.  | [optional] [readonly] 
 **EndDate** | Pointer to **NullableTime** |  | [optional] [readonly] 
 **State** | Pointer to [**DagState**](DagState.md) |  | [optional] 
 **ExternalTrigger** | Pointer to **bool** |  | [optional] [readonly] [default to true]
@@ -106,6 +88,41 @@ and a boolean to check if the value has been set.
 SetDagId sets DagId field to given value.
 
 
+### GetLogicalDate
+
+`func (o *DAGRun) GetLogicalDate() time.Time`
+
+GetLogicalDate returns the LogicalDate field if non-nil, zero value otherwise.
+
+### GetLogicalDateOk
+
+`func (o *DAGRun) GetLogicalDateOk() (*time.Time, bool)`
+
+GetLogicalDateOk returns a tuple with the LogicalDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLogicalDate
+
+`func (o *DAGRun) SetLogicalDate(v time.Time)`
+
+SetLogicalDate sets LogicalDate field to given value.
+
+### HasLogicalDate
+
+`func (o *DAGRun) HasLogicalDate() bool`
+
+HasLogicalDate returns a boolean if a field has been set.
+
+### SetLogicalDateNil
+
+`func (o *DAGRun) SetLogicalDateNil(b bool)`
+
+ SetLogicalDateNil sets the value for LogicalDate to be an explicit nil
+
+### UnsetLogicalDate
+`func (o *DAGRun) UnsetLogicalDate()`
+
+UnsetLogicalDate ensures that no value is present for LogicalDate, not even an explicit nil
 ### GetExecutionDate
 
 `func (o *DAGRun) GetExecutionDate() time.Time`
@@ -131,6 +148,16 @@ SetExecutionDate sets ExecutionDate field to given value.
 
 HasExecutionDate returns a boolean if a field has been set.
 
+### SetExecutionDateNil
+
+`func (o *DAGRun) SetExecutionDateNil(b bool)`
+
+ SetExecutionDateNil sets the value for ExecutionDate to be an explicit nil
+
+### UnsetExecutionDate
+`func (o *DAGRun) UnsetExecutionDate()`
+
+UnsetExecutionDate ensures that no value is present for ExecutionDate, not even an explicit nil
 ### GetStartDate
 
 `func (o *DAGRun) GetStartDate() time.Time`
@@ -156,6 +183,16 @@ SetStartDate sets StartDate field to given value.
 
 HasStartDate returns a boolean if a field has been set.
 
+### SetStartDateNil
+
+`func (o *DAGRun) SetStartDateNil(b bool)`
+
+ SetStartDateNil sets the value for StartDate to be an explicit nil
+
+### UnsetStartDate
+`func (o *DAGRun) UnsetStartDate()`
+
+UnsetStartDate ensures that no value is present for StartDate, not even an explicit nil
 ### GetEndDate
 
 `func (o *DAGRun) GetEndDate() time.Time`

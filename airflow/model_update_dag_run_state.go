@@ -12,37 +12,106 @@ Contact: dev@airflow.apache.org
 package airflow
 
 import (
-	"net/http"
+	"encoding/json"
 )
 
-// APIResponse stores the API response returned by the server.
-type APIResponse struct {
-	*http.Response `json:"-"`
-	Message        string `json:"message,omitempty"`
-	// Operation is the name of the OpenAPI operation.
-	Operation string `json:"operation,omitempty"`
-	// RequestURL is the request URL. This value is always available, even if the
-	// embedded *http.Response is nil.
-	RequestURL string `json:"url,omitempty"`
-	// Method is the HTTP method used for the request.  This value is always
-	// available, even if the embedded *http.Response is nil.
-	Method string `json:"method,omitempty"`
-	// Payload holds the contents of the response body (which may be nil or empty).
-	// This is provided here as the raw response.Body() reader will have already
-	// been drained.
-	Payload []byte `json:"-"`
+// UpdateDagRunState struct for UpdateDagRunState
+type UpdateDagRunState struct {
+	// The state to set this DagRun
+	State *string `json:"state,omitempty"`
 }
 
-// NewAPIResponse returns a new APIResponse object.
-func NewAPIResponse(r *http.Response) *APIResponse {
-
-	response := &APIResponse{Response: r}
-	return response
+// NewUpdateDagRunState instantiates a new UpdateDagRunState object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewUpdateDagRunState() *UpdateDagRunState {
+	this := UpdateDagRunState{}
+	return &this
 }
 
-// NewAPIResponseWithError returns a new APIResponse object with the provided error message.
-func NewAPIResponseWithError(errorMessage string) *APIResponse {
-
-	response := &APIResponse{Message: errorMessage}
-	return response
+// NewUpdateDagRunStateWithDefaults instantiates a new UpdateDagRunState object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewUpdateDagRunStateWithDefaults() *UpdateDagRunState {
+	this := UpdateDagRunState{}
+	return &this
 }
+
+// GetState returns the State field value if set, zero value otherwise.
+func (o *UpdateDagRunState) GetState() string {
+	if o == nil || o.State == nil {
+		var ret string
+		return ret
+	}
+	return *o.State
+}
+
+// GetStateOk returns a tuple with the State field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateDagRunState) GetStateOk() (*string, bool) {
+	if o == nil || o.State == nil {
+		return nil, false
+	}
+	return o.State, true
+}
+
+// HasState returns a boolean if a field has been set.
+func (o *UpdateDagRunState) HasState() bool {
+	if o != nil && o.State != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetState gets a reference to the given string and assigns it to the State field.
+func (o *UpdateDagRunState) SetState(v string) {
+	o.State = &v
+}
+
+func (o UpdateDagRunState) MarshalJSON() ([]byte, error) {
+	toSerialize := map[string]interface{}{}
+	if o.State != nil {
+		toSerialize["state"] = o.State
+	}
+	return json.Marshal(toSerialize)
+}
+
+type NullableUpdateDagRunState struct {
+	value *UpdateDagRunState
+	isSet bool
+}
+
+func (v NullableUpdateDagRunState) Get() *UpdateDagRunState {
+	return v.value
+}
+
+func (v *NullableUpdateDagRunState) Set(val *UpdateDagRunState) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableUpdateDagRunState) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableUpdateDagRunState) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableUpdateDagRunState(val *UpdateDagRunState) *NullableUpdateDagRunState {
+	return &NullableUpdateDagRunState{value: val, isSet: true}
+}
+
+func (v NullableUpdateDagRunState) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableUpdateDagRunState) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

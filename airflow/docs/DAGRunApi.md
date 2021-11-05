@@ -1,22 +1,3 @@
-<!--
- Licensed to the Apache Software Foundation (ASF) under one
- or more contributor license agreements.  See the NOTICE file
- distributed with this work for additional information
- regarding copyright ownership.  The ASF licenses this file
- to you under the Apache License, Version 2.0 (the
- "License"); you may not use this file except in compliance
- with the License.  You may obtain a copy of the License at
-
-   http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing,
- software distributed under the License is distributed on an
- "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- KIND, either express or implied.  See the License for the
- specific language governing permissions and limitations
- under the License.
- -->
-
 # \DAGRunApi
 
 All URIs are relative to *http://localhost/api/v1*
@@ -28,6 +9,7 @@ Method | HTTP request | Description
 [**GetDagRuns**](DAGRunApi.md#GetDagRuns) | **Get** /dags/{dag_id}/dagRuns | List DAG runs
 [**GetDagRunsBatch**](DAGRunApi.md#GetDagRunsBatch) | **Post** /dags/~/dagRuns/list | List DAG runs (batch)
 [**PostDagRun**](DAGRunApi.md#PostDagRun) | **Post** /dags/{dag_id}/dagRuns | Trigger a new DAG run
+[**UpdateDagRunState**](DAGRunApi.md#UpdateDagRunState) | **Patch** /dags/{dag_id}/dagRuns/{dag_run_id} | Modify a DAG run
 
 
 
@@ -377,6 +359,81 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **dAGRun** | [**DAGRun**](DAGRun.md) |  | 
+
+### Return type
+
+[**DAGRun**](DAGRun.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateDagRunState
+
+> DAGRun UpdateDagRunState(ctx, dagId, dagRunId).UpdateDagRunState(updateDagRunState).Execute()
+
+Modify a DAG run
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    dagId := "dagId_example" // string | The DAG ID.
+    dagRunId := "dagRunId_example" // string | The DAG run ID.
+    updateDagRunState := *openapiclient.NewUpdateDagRunState() // UpdateDagRunState | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DAGRunApi.UpdateDagRunState(context.Background(), dagId, dagRunId).UpdateDagRunState(updateDagRunState).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DAGRunApi.UpdateDagRunState``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateDagRunState`: DAGRun
+    fmt.Fprintf(os.Stdout, "Response from `DAGRunApi.UpdateDagRunState`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**dagId** | **string** | The DAG ID. | 
+**dagRunId** | **string** | The DAG run ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateDagRunStateRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **updateDagRunState** | [**UpdateDagRunState**](UpdateDagRunState.md) |  | 
 
 ### Return type
 

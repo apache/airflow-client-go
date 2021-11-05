@@ -12,37 +12,143 @@ Contact: dev@airflow.apache.org
 package airflow
 
 import (
-	"net/http"
+	"encoding/json"
 )
 
-// APIResponse stores the API response returned by the server.
-type APIResponse struct {
-	*http.Response `json:"-"`
-	Message        string `json:"message,omitempty"`
-	// Operation is the name of the OpenAPI operation.
-	Operation string `json:"operation,omitempty"`
-	// RequestURL is the request URL. This value is always available, even if the
-	// embedded *http.Response is nil.
-	RequestURL string `json:"url,omitempty"`
-	// Method is the HTTP method used for the request.  This value is always
-	// available, even if the embedded *http.Response is nil.
-	Method string `json:"method,omitempty"`
-	// Payload holds the contents of the response body (which may be nil or empty).
-	// This is provided here as the raw response.Body() reader will have already
-	// been drained.
-	Payload []byte `json:"-"`
+// ConnectionTest Connection test results.
+type ConnectionTest struct {
+	// The status of the request.
+	Status *bool `json:"status,omitempty"`
+	// The success or failure message of the request.
+	Message *string `json:"message,omitempty"`
 }
 
-// NewAPIResponse returns a new APIResponse object.
-func NewAPIResponse(r *http.Response) *APIResponse {
-
-	response := &APIResponse{Response: r}
-	return response
+// NewConnectionTest instantiates a new ConnectionTest object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewConnectionTest() *ConnectionTest {
+	this := ConnectionTest{}
+	return &this
 }
 
-// NewAPIResponseWithError returns a new APIResponse object with the provided error message.
-func NewAPIResponseWithError(errorMessage string) *APIResponse {
-
-	response := &APIResponse{Message: errorMessage}
-	return response
+// NewConnectionTestWithDefaults instantiates a new ConnectionTest object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewConnectionTestWithDefaults() *ConnectionTest {
+	this := ConnectionTest{}
+	return &this
 }
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *ConnectionTest) GetStatus() bool {
+	if o == nil || o.Status == nil {
+		var ret bool
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ConnectionTest) GetStatusOk() (*bool, bool) {
+	if o == nil || o.Status == nil {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *ConnectionTest) HasStatus() bool {
+	if o != nil && o.Status != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given bool and assigns it to the Status field.
+func (o *ConnectionTest) SetStatus(v bool) {
+	o.Status = &v
+}
+
+// GetMessage returns the Message field value if set, zero value otherwise.
+func (o *ConnectionTest) GetMessage() string {
+	if o == nil || o.Message == nil {
+		var ret string
+		return ret
+	}
+	return *o.Message
+}
+
+// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ConnectionTest) GetMessageOk() (*string, bool) {
+	if o == nil || o.Message == nil {
+		return nil, false
+	}
+	return o.Message, true
+}
+
+// HasMessage returns a boolean if a field has been set.
+func (o *ConnectionTest) HasMessage() bool {
+	if o != nil && o.Message != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMessage gets a reference to the given string and assigns it to the Message field.
+func (o *ConnectionTest) SetMessage(v string) {
+	o.Message = &v
+}
+
+func (o ConnectionTest) MarshalJSON() ([]byte, error) {
+	toSerialize := map[string]interface{}{}
+	if o.Status != nil {
+		toSerialize["status"] = o.Status
+	}
+	if o.Message != nil {
+		toSerialize["message"] = o.Message
+	}
+	return json.Marshal(toSerialize)
+}
+
+type NullableConnectionTest struct {
+	value *ConnectionTest
+	isSet bool
+}
+
+func (v NullableConnectionTest) Get() *ConnectionTest {
+	return v.value
+}
+
+func (v *NullableConnectionTest) Set(val *ConnectionTest) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableConnectionTest) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableConnectionTest) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableConnectionTest(val *ConnectionTest) *NullableConnectionTest {
+	return &NullableConnectionTest{value: val, isSet: true}
+}
+
+func (v NullableConnectionTest) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableConnectionTest) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

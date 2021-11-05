@@ -1,22 +1,3 @@
-<!--
- Licensed to the Apache Software Foundation (ASF) under one
- or more contributor license agreements.  See the NOTICE file
- distributed with this work for additional information
- regarding copyright ownership.  The ASF licenses this file
- to you under the Apache License, Version 2.0 (the
- "License"); you may not use this file except in compliance
- with the License.  You may obtain a copy of the License at
-
-   http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing,
- software distributed under the License is distributed on an
- "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- KIND, either express or implied.  See the License for the
- specific language governing permissions and limitations
- under the License.
- -->
-
 # \ConnectionApi
 
 All URIs are relative to *http://localhost/api/v1*
@@ -28,6 +9,7 @@ Method | HTTP request | Description
 [**GetConnections**](ConnectionApi.md#GetConnections) | **Get** /connections | List connections
 [**PatchConnection**](ConnectionApi.md#PatchConnection) | **Patch** /connections/{connection_id} | Update a connection
 [**PostConnection**](ConnectionApi.md#PostConnection) | **Post** /connections | Create a connection
+[**TestConnection**](ConnectionApi.md#TestConnection) | **Post** /connections/test | Test a connection
 
 
 
@@ -354,6 +336,70 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Connection**](Connection.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## TestConnection
+
+> ConnectionTest TestConnection(ctx).Connection(connection).Execute()
+
+Test a connection
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    connection := *openapiclient.NewConnection() // Connection | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ConnectionApi.TestConnection(context.Background()).Connection(connection).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ConnectionApi.TestConnection``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `TestConnection`: ConnectionTest
+    fmt.Fprintf(os.Stdout, "Response from `ConnectionApi.TestConnection`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiTestConnectionRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **connection** | [**Connection**](Connection.md) |  | 
+
+### Return type
+
+[**ConnectionTest**](ConnectionTest.md)
 
 ### Authorization
 

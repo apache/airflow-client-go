@@ -1,20 +1,3 @@
-# Licensed to the Apache Software Foundation (ASF) under one
-# or more contributor license agreements.  See the NOTICE file
-# distributed with this work for additional information
-# regarding copyright ownership.  The ASF licenses this file
-# to you under the Apache License, Version 2.0 (the
-# "License"); you may not use this file except in compliance
-# with the License.  You may obtain a copy of the License at
-#
-#   http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing,
-# software distributed under the License is distributed on an
-# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-# KIND, either express or implied.  See the License for the
-# specific language governing permissions and limitations
-# under the License.
-
 openapi: 3.0.3
 info:
   contact:
@@ -147,7 +130,7 @@ info:
 
     For e.g., here is how to pause a DAG with [curl](https://curl.haxx.se/), when basic authorization is used:
     ```bash
-    curl -X POST 'https://example.com/api/v1/dags/{dag_id}?update_mask=is_paused' \
+    curl -X PATCH 'https://example.com/api/v1/dags/{dag_id}?update_mask=is_paused' \
     -H 'Content-Type: application/json' \
     --user "username:password" \
     -d '{
@@ -232,7 +215,7 @@ info:
     ## AlreadyExists
 
     The request could not be completed due to a conflict with the current state of the target
-    resource, meaning that the resource already exists
+    resource, e.g. the resource it tries to create already exists.
 
     ## Unknown
 
@@ -511,6 +494,51 @@ paths:
       tags:
       - Connection
       x-openapi-router-controller: airflow.api_connexion.endpoints.connection_endpoint
+  /connections/test:
+    post:
+      operationId: test_connection
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Connection'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionTest'
+          description: Success.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client specified an invalid argument.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Request not authenticated due to missing, invalid, authentication
+            info.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client does not have sufficient permission.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A specified resource is not found.
+      summary: Test a connection
+      tags:
+      - Connection
+      x-openapi-router-controller: airflow.api_connexion.endpoints.connection_endpoint
   /dags:
     get:
       operationId: get_dags
@@ -544,6 +572,25 @@ paths:
         schema:
           type: string
         style: form
+      - description: List of tags to filter results
+        explode: true
+        in: query
+        name: tags
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Only return active DAGs.
+        explode: true
+        in: query
+        name: only_active
+        required: false
+        schema:
+          default: true
+          type: boolean
+        style: form
       responses:
         "200":
           content:
@@ -563,6 +610,57 @@ paths:
       - DAG
       x-openapi-router-controller: airflow.api_connexion.endpoints.dag_endpoint
   /dags/{dag_id}:
+    delete:
+      description: |
+        Deletes all metadata related to the DAG, including finished DAG Runs and Tasks. Logs are not deleted. This action cannot be undone.
+      operationId: delete_dag
+      parameters:
+      - description: The DAG ID.
+        explode: false
+        in: path
+        name: dag_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Success.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client specified an invalid argument.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Request not authenticated due to missing, invalid, authentication
+            info.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client does not have sufficient permission.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A specified resource is not found.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An existing resource conflicts with the request.
+      summary: Delete a DAG
+      tags:
+      - DAG
+      x-openapi-router-controller: airflow.api_connexion.endpoints.dag_endpoint
     get:
       description: |
         Presents only information available in database (DAGModel).
@@ -943,7 +1041,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-          description: The resource that a client tried to create already exists.
+          description: An existing resource conflicts with the request.
         "403":
           content:
             application/json:
@@ -1099,6 +1197,68 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: A specified resource is not found.
       summary: Get a DAG run
+      tags:
+      - DAGRun
+      x-openapi-router-controller: airflow.api_connexion.endpoints.dag_run_endpoint
+    patch:
+      description: Modify a DAG run
+      operationId: update_dag_run_state
+      parameters:
+      - description: The DAG ID.
+        explode: false
+        in: path
+        name: dag_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The DAG run ID.
+        explode: false
+        in: path
+        name: dag_run_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDagRunState'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DAGRun'
+          description: Success.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client specified an invalid argument.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Request not authenticated due to missing, invalid, authentication
+            info.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client does not have sufficient permission.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A specified resource is not found.
+      summary: Modify a DAG run
       tags:
       - DAGRun
       x-openapi-router-controller: airflow.api_connexion.endpoints.dag_run_endpoint
@@ -1547,7 +1707,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-          description: The resource that a client tried to create already exists.
+          description: An existing resource conflicts with the request.
       summary: Update a pool
       tags:
       - Pool
@@ -3102,7 +3262,94 @@ paths:
       tags:
       - User
       x-openapi-router-controller: airflow.api_connexion.endpoints.user_endpoint
+    post:
+      operationId: post_user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: Success.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client specified an invalid argument.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Request not authenticated due to missing, invalid, authentication
+            info.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client does not have sufficient permission.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An existing resource conflicts with the request.
+      summary: Create a user
+      tags:
+      - User
+      x-openapi-router-controller: airflow.api_connexion.endpoints.user_endpoint
   /users/{username}:
+    delete:
+      operationId: delete_user
+      parameters:
+      - description: The username of the user
+        explode: false
+        in: path
+        name: username
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Success.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client specified an invalid argument.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Request not authenticated due to missing, invalid, authentication
+            info.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client does not have sufficient permission.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A specified resource is not found.
+      summary: Delete a user
+      tags:
+      - User
+      x-openapi-router-controller: airflow.api_connexion.endpoints.user_endpoint
     get:
       operationId: get_user
       parameters:
@@ -3141,6 +3388,71 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: A specified resource is not found.
       summary: Get a user
+      tags:
+      - User
+      x-openapi-router-controller: airflow.api_connexion.endpoints.user_endpoint
+    patch:
+      operationId: patch_user
+      parameters:
+      - description: The username of the user
+        explode: false
+        in: path
+        name: username
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: |
+          The fields to update on the resource. If absent or empty, all modifiable fields are updated.
+          A comma-separated list of fully qualified names of fields.
+        explode: false
+        in: query
+        name: update_mask
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+          description: Success.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client specified an invalid argument.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Request not authenticated due to missing, invalid, authentication
+            info.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client does not have sufficient permission.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A specified resource is not found.
+      summary: Update a user
       tags:
       - User
       x-openapi-router-controller: airflow.api_connexion.endpoints.user_endpoint
@@ -3439,6 +3751,17 @@ components:
           type: string
         type: array
       style: form
+    FilterTags:
+      description: List of tags to filter results
+      explode: true
+      in: query
+      name: tags
+      required: false
+      schema:
+        items:
+          type: string
+        type: array
+      style: form
     OrderBy:
       description: |
         The name of the field to order the results by.
@@ -3520,7 +3843,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-      description: The resource that a client tried to create already exists.
+      description: An existing resource conflicts with the request.
     Unknown:
       content:
         application/json:
@@ -3548,15 +3871,19 @@ components:
       properties:
         first_name:
           description: The user firstname
+          minLength: 1
           type: string
         last_name:
           description: The user lastname
+          minLength: 1
           type: string
         username:
           description: The username
+          minLength: 1
           type: string
         email:
           description: The user's email
+          minLength: 1
           type: string
         active:
           description: Whether the user is active
@@ -3583,7 +3910,6 @@ components:
           description: User roles
           items:
             $ref: '#/components/schemas/UserCollectionItem_roles'
-          readOnly: true
           type: array
         created_on:
           description: The date user was created
@@ -3649,10 +3975,24 @@ components:
       - $ref: '#/components/schemas/ConnectionCollectionItem'
       - $ref: '#/components/schemas/Connection_allOf'
       description: Full representation of the connection.
+    ConnectionTest:
+      description: Connection test results.
+      example:
+        message: message
+        status: true
+      properties:
+        status:
+          description: The status of the request.
+          type: boolean
+        message:
+          description: The success or failure message of the request.
+          type: string
+      type: object
     DAG:
       description: DAG
       example:
         root_dag_id: root_dag_id
+        is_active: true
         is_paused: true
         description: description
         file_token: file_token
@@ -3679,6 +4019,11 @@ components:
         is_paused:
           description: Whether the DAG is paused.
           nullable: true
+          type: boolean
+        is_active:
+          description: Whether the DAG is currently seen by the scheduler(s).
+          nullable: true
+          readOnly: true
           type: boolean
         is_subdag:
           description: Whether the DAG is SubDAG.
@@ -3728,6 +4073,7 @@ components:
         external_trigger: true
         conf: '{}'
         dag_id: dag_id
+        logical_date: 2000-01-23T04:56:07.000+00:00
         start_date: 2000-01-23T04:56:07.000+00:00
       properties:
         dag_run_id:
@@ -3747,17 +4093,32 @@ components:
         dag_id:
           readOnly: true
           type: string
-        execution_date:
+        logical_date:
           description: |
-            The execution date. This is the time when the DAG run should be started according to the DAG definition.
-            The value of this field can be set only when creating the object. If you try to modify the field of an existing object, the request fails with an BAD_REQUEST error.
+            The logical date (previously called execution date). This is the time or interval covered by
+            this DAG run, according to the DAG definition.
+
+            The value of this field can be set only when creating the object. If you try to modify the
+            field of an existing object, the request fails with an BAD_REQUEST error.
+
             This together with DAG_ID are a unique key.
           format: date-time
+          nullable: true
+          type: string
+        execution_date:
+          deprecated: true
+          description: |
+            The execution date. This is the same as logical_date, kept for backwards compatibility.
+            If both this field and logical_date are provided but with different values, the request
+            will fail with an BAD_REQUEST error.
+          format: date-time
+          nullable: true
           type: string
         start_date:
           description: |
             The start time. The time when DAG run was actually created.
           format: date-time
+          nullable: true
           readOnly: true
           type: string
         end_date:
@@ -3780,6 +4141,17 @@ components:
           type: object
       required:
       - dag_id
+      type: object
+    UpdateDagRunState:
+      example:
+        state: success
+      properties:
+        state:
+          description: The state to set this DagRun
+          enum:
+          - success
+          - failed
+          type: string
       type: object
     DAGRunCollection:
       allOf:
@@ -4067,6 +4439,7 @@ components:
         priority_weight:
           type: integer
         operator:
+          nullable: true
           type: string
         queued_when:
           nullable: true
@@ -4248,6 +4621,7 @@ components:
         - downstream_task_ids
         sub_dag:
           root_dag_id: root_dag_id
+          is_active: true
           is_paused: true
           description: description
           file_token: file_token
@@ -4382,6 +4756,7 @@ components:
           - downstream_task_ids
           sub_dag:
             root_dag_id: root_dag_id
+            is_active: true
             is_paused: true
             description: description
             file_token: file_token
@@ -4436,6 +4811,7 @@ components:
           - downstream_task_ids
           sub_dag:
             root_dag_id: root_dag_id
+            is_active: true
             is_paused: true
             description: description
             file_token: file_token
@@ -5132,13 +5508,16 @@ components:
       - queued
       - none
       - scheduled
+      - deferred
+      - sensing
       - removed
       type: string
     DagState:
       description: DAG State.
       enum:
-      - success
+      - queued
       - running
+      - success
       - failed
       type: string
     TriggerRule:
@@ -5152,6 +5531,7 @@ components:
       - none_failed
       - none_skipped
       - none_failed_or_skipped
+      - none_failed_min_one_success
       - dummy
       type: string
     WeightRule:
@@ -5215,7 +5595,7 @@ components:
     Connection_allOf:
       properties:
         password:
-          description: Paasword of the connection.
+          description: Password of the connection.
           format: password
           type: string
           writeOnly: true

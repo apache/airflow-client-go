@@ -1,22 +1,3 @@
-<!--
- Licensed to the Apache Software Foundation (ASF) under one
- or more contributor license agreements.  See the NOTICE file
- distributed with this work for additional information
- regarding copyright ownership.  The ASF licenses this file
- to you under the Apache License, Version 2.0 (the
- "License"); you may not use this file except in compliance
- with the License.  You may obtain a copy of the License at
-
-   http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing,
- software distributed under the License is distributed on an
- "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- KIND, either express or implied.  See the License for the
- specific language governing permissions and limitations
- under the License.
- -->
-
 # TaskInstance
 
 ## Properties
@@ -38,7 +19,7 @@ Name | Type | Description | Notes
 **PoolSlots** | Pointer to **int32** |  | [optional] 
 **Queue** | Pointer to **string** |  | [optional] 
 **PriorityWeight** | Pointer to **int32** |  | [optional] 
-**Operator** | Pointer to **string** |  | [optional] 
+**Operator** | Pointer to **NullableString** |  | [optional] 
 **QueuedWhen** | Pointer to **NullableString** |  | [optional] 
 **Pid** | Pointer to **NullableInt32** |  | [optional] 
 **ExecutorConfig** | Pointer to **string** |  | [optional] 
@@ -493,6 +474,16 @@ SetOperator sets Operator field to given value.
 
 HasOperator returns a boolean if a field has been set.
 
+### SetOperatorNil
+
+`func (o *TaskInstance) SetOperatorNil(b bool)`
+
+ SetOperatorNil sets the value for Operator to be an explicit nil
+
+### UnsetOperator
+`func (o *TaskInstance) UnsetOperator()`
+
+UnsetOperator ensures that no value is present for Operator, not even an explicit nil
 ### GetQueuedWhen
 
 `func (o *TaskInstance) GetQueuedWhen() string`
