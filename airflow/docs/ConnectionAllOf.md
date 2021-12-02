@@ -23,7 +23,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Password** | Pointer to **string** | Paasword of the connection. | [optional] 
+**Password** | Pointer to **string** | Password of the connection. | [optional] 
 **Extra** | Pointer to **NullableString** | Other values that cannot be put into another field, e.g. RSA keys. | [optional] 
 
 ## Methods

@@ -1,20 +1,3 @@
-// Licensed to the Apache Software Foundation (ASF) under one
-// or more contributor license agreements.  See the NOTICE file
-// distributed with this work for additional information
-// regarding copyright ownership.  The ASF licenses this file
-// to you under the Apache License, Version 2.0 (the
-// "License"); you may not use this file except in compliance
-// with the License.  You may obtain a copy of the License at
-//
-//   http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
-
 /*
  * Airflow API (Stable)
  *
@@ -32,212 +15,101 @@ import (
 	"encoding/json"
 )
 
-// ImportError struct for ImportError
-type ImportError struct {
-	// The import error ID.
-	ImportErrorId *int32 `json:"import_error_id,omitempty"`
-	// The time when this error was created.
-	Timestamp *string `json:"timestamp,omitempty"`
-	// The filename
-	Filename *string `json:"filename,omitempty"`
-	// The full stackstrace..
-	StackTrace *string `json:"stack_trace,omitempty"`
+// UpdateDagRunState struct for UpdateDagRunState
+type UpdateDagRunState struct {
+	// The state to set this DagRun
+	State *string `json:"state,omitempty"`
 }
 
-// NewImportError instantiates a new ImportError object
+// NewUpdateDagRunState instantiates a new UpdateDagRunState object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewImportError() *ImportError {
-	this := ImportError{}
+func NewUpdateDagRunState() *UpdateDagRunState {
+	this := UpdateDagRunState{}
 	return &this
 }
 
-// NewImportErrorWithDefaults instantiates a new ImportError object
+// NewUpdateDagRunStateWithDefaults instantiates a new UpdateDagRunState object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewImportErrorWithDefaults() *ImportError {
-	this := ImportError{}
+func NewUpdateDagRunStateWithDefaults() *UpdateDagRunState {
+	this := UpdateDagRunState{}
 	return &this
 }
 
-// GetImportErrorId returns the ImportErrorId field value if set, zero value otherwise.
-func (o *ImportError) GetImportErrorId() int32 {
-	if o == nil || o.ImportErrorId == nil {
-		var ret int32
-		return ret
-	}
-	return *o.ImportErrorId
-}
-
-// GetImportErrorIdOk returns a tuple with the ImportErrorId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ImportError) GetImportErrorIdOk() (*int32, bool) {
-	if o == nil || o.ImportErrorId == nil {
-		return nil, false
-	}
-	return o.ImportErrorId, true
-}
-
-// HasImportErrorId returns a boolean if a field has been set.
-func (o *ImportError) HasImportErrorId() bool {
-	if o != nil && o.ImportErrorId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetImportErrorId gets a reference to the given int32 and assigns it to the ImportErrorId field.
-func (o *ImportError) SetImportErrorId(v int32) {
-	o.ImportErrorId = &v
-}
-
-// GetTimestamp returns the Timestamp field value if set, zero value otherwise.
-func (o *ImportError) GetTimestamp() string {
-	if o == nil || o.Timestamp == nil {
+// GetState returns the State field value if set, zero value otherwise.
+func (o *UpdateDagRunState) GetState() string {
+	if o == nil || o.State == nil {
 		var ret string
 		return ret
 	}
-	return *o.Timestamp
+	return *o.State
 }
 
-// GetTimestampOk returns a tuple with the Timestamp field value if set, nil otherwise
+// GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImportError) GetTimestampOk() (*string, bool) {
-	if o == nil || o.Timestamp == nil {
+func (o *UpdateDagRunState) GetStateOk() (*string, bool) {
+	if o == nil || o.State == nil {
 		return nil, false
 	}
-	return o.Timestamp, true
+	return o.State, true
 }
 
-// HasTimestamp returns a boolean if a field has been set.
-func (o *ImportError) HasTimestamp() bool {
-	if o != nil && o.Timestamp != nil {
+// HasState returns a boolean if a field has been set.
+func (o *UpdateDagRunState) HasState() bool {
+	if o != nil && o.State != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetTimestamp gets a reference to the given string and assigns it to the Timestamp field.
-func (o *ImportError) SetTimestamp(v string) {
-	o.Timestamp = &v
+// SetState gets a reference to the given string and assigns it to the State field.
+func (o *UpdateDagRunState) SetState(v string) {
+	o.State = &v
 }
 
-// GetFilename returns the Filename field value if set, zero value otherwise.
-func (o *ImportError) GetFilename() string {
-	if o == nil || o.Filename == nil {
-		var ret string
-		return ret
-	}
-	return *o.Filename
-}
-
-// GetFilenameOk returns a tuple with the Filename field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ImportError) GetFilenameOk() (*string, bool) {
-	if o == nil || o.Filename == nil {
-		return nil, false
-	}
-	return o.Filename, true
-}
-
-// HasFilename returns a boolean if a field has been set.
-func (o *ImportError) HasFilename() bool {
-	if o != nil && o.Filename != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetFilename gets a reference to the given string and assigns it to the Filename field.
-func (o *ImportError) SetFilename(v string) {
-	o.Filename = &v
-}
-
-// GetStackTrace returns the StackTrace field value if set, zero value otherwise.
-func (o *ImportError) GetStackTrace() string {
-	if o == nil || o.StackTrace == nil {
-		var ret string
-		return ret
-	}
-	return *o.StackTrace
-}
-
-// GetStackTraceOk returns a tuple with the StackTrace field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ImportError) GetStackTraceOk() (*string, bool) {
-	if o == nil || o.StackTrace == nil {
-		return nil, false
-	}
-	return o.StackTrace, true
-}
-
-// HasStackTrace returns a boolean if a field has been set.
-func (o *ImportError) HasStackTrace() bool {
-	if o != nil && o.StackTrace != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetStackTrace gets a reference to the given string and assigns it to the StackTrace field.
-func (o *ImportError) SetStackTrace(v string) {
-	o.StackTrace = &v
-}
-
-func (o ImportError) MarshalJSON() ([]byte, error) {
+func (o UpdateDagRunState) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ImportErrorId != nil {
-		toSerialize["import_error_id"] = o.ImportErrorId
-	}
-	if o.Timestamp != nil {
-		toSerialize["timestamp"] = o.Timestamp
-	}
-	if o.Filename != nil {
-		toSerialize["filename"] = o.Filename
-	}
-	if o.StackTrace != nil {
-		toSerialize["stack_trace"] = o.StackTrace
+	if o.State != nil {
+		toSerialize["state"] = o.State
 	}
 	return json.Marshal(toSerialize)
 }
 
-type NullableImportError struct {
-	value *ImportError
+type NullableUpdateDagRunState struct {
+	value *UpdateDagRunState
 	isSet bool
 }
 
-func (v NullableImportError) Get() *ImportError {
+func (v NullableUpdateDagRunState) Get() *UpdateDagRunState {
 	return v.value
 }
 
-func (v *NullableImportError) Set(val *ImportError) {
+func (v *NullableUpdateDagRunState) Set(val *UpdateDagRunState) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableImportError) IsSet() bool {
+func (v NullableUpdateDagRunState) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableImportError) Unset() {
+func (v *NullableUpdateDagRunState) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableImportError(val *ImportError) *NullableImportError {
-	return &NullableImportError{value: val, isSet: true}
+func NewNullableUpdateDagRunState(val *UpdateDagRunState) *NullableUpdateDagRunState {
+	return &NullableUpdateDagRunState{value: val, isSet: true}
 }
 
-func (v NullableImportError) MarshalJSON() ([]byte, error) {
+func (v NullableUpdateDagRunState) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableImportError) UnmarshalJSON(src []byte) error {
+func (v *NullableUpdateDagRunState) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

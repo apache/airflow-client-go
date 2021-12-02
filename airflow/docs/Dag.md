@@ -26,6 +26,7 @@ Name | Type | Description | Notes
 **DagId** | Pointer to **string** | The ID of the DAG. | [optional] [readonly] 
 **RootDagId** | Pointer to **NullableString** | If the DAG is SubDAG then it is the top level DAG identifier. Otherwise, null. | [optional] [readonly] 
 **IsPaused** | Pointer to **NullableBool** | Whether the DAG is paused. | [optional] 
+**IsActive** | Pointer to **NullableBool** | Whether the DAG is currently seen by the scheduler(s). | [optional] [readonly] 
 **IsSubdag** | Pointer to **bool** | Whether the DAG is SubDAG. | [optional] [readonly] 
 **Fileloc** | Pointer to **string** | The absolute path to the file. | [optional] [readonly] 
 **FileToken** | Pointer to **string** | The key containing the encrypted path to the file. Encryption and decryption take place only on the server. This prevents the client from reading an non-DAG file. This also ensures API extensibility, because the format of encrypted data may change.  | [optional] [readonly] 
@@ -148,6 +149,41 @@ HasIsPaused returns a boolean if a field has been set.
 `func (o *DAG) UnsetIsPaused()`
 
 UnsetIsPaused ensures that no value is present for IsPaused, not even an explicit nil
+### GetIsActive
+
+`func (o *DAG) GetIsActive() bool`
+
+GetIsActive returns the IsActive field if non-nil, zero value otherwise.
+
+### GetIsActiveOk
+
+`func (o *DAG) GetIsActiveOk() (*bool, bool)`
+
+GetIsActiveOk returns a tuple with the IsActive field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsActive
+
+`func (o *DAG) SetIsActive(v bool)`
+
+SetIsActive sets IsActive field to given value.
+
+### HasIsActive
+
+`func (o *DAG) HasIsActive() bool`
+
+HasIsActive returns a boolean if a field has been set.
+
+### SetIsActiveNil
+
+`func (o *DAG) SetIsActiveNil(b bool)`
+
+ SetIsActiveNil sets the value for IsActive to be an explicit nil
+
+### UnsetIsActive
+`func (o *DAG) UnsetIsActive()`
+
+UnsetIsActive ensures that no value is present for IsActive, not even an explicit nil
 ### GetIsSubdag
 
 `func (o *DAG) GetIsSubdag() bool`

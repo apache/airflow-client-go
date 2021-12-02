@@ -42,6 +42,10 @@
 
 * `SCHEDULED` (value: `"scheduled"`)
 
+* `DEFERRED` (value: `"deferred"`)
+
+* `SENSING` (value: `"sensing"`)
+
 * `REMOVED` (value: `"removed"`)
 
 

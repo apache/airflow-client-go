@@ -38,6 +38,8 @@
 
 * `NONE_FAILED_OR_SKIPPED` (value: `"none_failed_or_skipped"`)
 
+* `NONE_FAILED_MIN_ONE_SUCCESS` (value: `"none_failed_min_one_success"`)
+
 * `DUMMY` (value: `"dummy"`)
 
 
