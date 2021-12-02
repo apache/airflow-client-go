@@ -29,7 +29,7 @@ Name | Type | Description | Notes
 **Login** | Pointer to **NullableString** | Login of the connection. | [optional] 
 **Schema** | Pointer to **NullableString** | Schema of the connection. | [optional] 
 **Port** | Pointer to **NullableInt32** | Port of the connection. | [optional] 
-**Password** | Pointer to **string** | Paasword of the connection. | [optional] 
+**Password** | Pointer to **string** | Password of the connection. | [optional] 
 **Extra** | Pointer to **NullableString** | Other values that cannot be put into another field, e.g. RSA keys. | [optional] 
 
 ## Methods

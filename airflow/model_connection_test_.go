@@ -32,212 +32,138 @@ import (
 	"encoding/json"
 )
 
-// ImportError struct for ImportError
-type ImportError struct {
-	// The import error ID.
-	ImportErrorId *int32 `json:"import_error_id,omitempty"`
-	// The time when this error was created.
-	Timestamp *string `json:"timestamp,omitempty"`
-	// The filename
-	Filename *string `json:"filename,omitempty"`
-	// The full stackstrace..
-	StackTrace *string `json:"stack_trace,omitempty"`
+// ConnectionTest Connection test results.
+type ConnectionTest struct {
+	// The status of the request.
+	Status *bool `json:"status,omitempty"`
+	// The success or failure message of the request.
+	Message *string `json:"message,omitempty"`
 }
 
-// NewImportError instantiates a new ImportError object
+// NewConnectionTest instantiates a new ConnectionTest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewImportError() *ImportError {
-	this := ImportError{}
+func NewConnectionTest() *ConnectionTest {
+	this := ConnectionTest{}
 	return &this
 }
 
-// NewImportErrorWithDefaults instantiates a new ImportError object
+// NewConnectionTestWithDefaults instantiates a new ConnectionTest object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewImportErrorWithDefaults() *ImportError {
-	this := ImportError{}
+func NewConnectionTestWithDefaults() *ConnectionTest {
+	this := ConnectionTest{}
 	return &this
 }
 
-// GetImportErrorId returns the ImportErrorId field value if set, zero value otherwise.
-func (o *ImportError) GetImportErrorId() int32 {
-	if o == nil || o.ImportErrorId == nil {
-		var ret int32
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *ConnectionTest) GetStatus() bool {
+	if o == nil || o.Status == nil {
+		var ret bool
 		return ret
 	}
-	return *o.ImportErrorId
+	return *o.Status
 }
 
-// GetImportErrorIdOk returns a tuple with the ImportErrorId field value if set, nil otherwise
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImportError) GetImportErrorIdOk() (*int32, bool) {
-	if o == nil || o.ImportErrorId == nil {
+func (o *ConnectionTest) GetStatusOk() (*bool, bool) {
+	if o == nil || o.Status == nil {
 		return nil, false
 	}
-	return o.ImportErrorId, true
+	return o.Status, true
 }
 
-// HasImportErrorId returns a boolean if a field has been set.
-func (o *ImportError) HasImportErrorId() bool {
-	if o != nil && o.ImportErrorId != nil {
+// HasStatus returns a boolean if a field has been set.
+func (o *ConnectionTest) HasStatus() bool {
+	if o != nil && o.Status != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetImportErrorId gets a reference to the given int32 and assigns it to the ImportErrorId field.
-func (o *ImportError) SetImportErrorId(v int32) {
-	o.ImportErrorId = &v
+// SetStatus gets a reference to the given bool and assigns it to the Status field.
+func (o *ConnectionTest) SetStatus(v bool) {
+	o.Status = &v
 }
 
-// GetTimestamp returns the Timestamp field value if set, zero value otherwise.
-func (o *ImportError) GetTimestamp() string {
-	if o == nil || o.Timestamp == nil {
+// GetMessage returns the Message field value if set, zero value otherwise.
+func (o *ConnectionTest) GetMessage() string {
+	if o == nil || o.Message == nil {
 		var ret string
 		return ret
 	}
-	return *o.Timestamp
+	return *o.Message
 }
 
-// GetTimestampOk returns a tuple with the Timestamp field value if set, nil otherwise
+// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImportError) GetTimestampOk() (*string, bool) {
-	if o == nil || o.Timestamp == nil {
+func (o *ConnectionTest) GetMessageOk() (*string, bool) {
+	if o == nil || o.Message == nil {
 		return nil, false
 	}
-	return o.Timestamp, true
+	return o.Message, true
 }
 
-// HasTimestamp returns a boolean if a field has been set.
-func (o *ImportError) HasTimestamp() bool {
-	if o != nil && o.Timestamp != nil {
+// HasMessage returns a boolean if a field has been set.
+func (o *ConnectionTest) HasMessage() bool {
+	if o != nil && o.Message != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetTimestamp gets a reference to the given string and assigns it to the Timestamp field.
-func (o *ImportError) SetTimestamp(v string) {
-	o.Timestamp = &v
+// SetMessage gets a reference to the given string and assigns it to the Message field.
+func (o *ConnectionTest) SetMessage(v string) {
+	o.Message = &v
 }
 
-// GetFilename returns the Filename field value if set, zero value otherwise.
-func (o *ImportError) GetFilename() string {
-	if o == nil || o.Filename == nil {
-		var ret string
-		return ret
-	}
-	return *o.Filename
-}
-
-// GetFilenameOk returns a tuple with the Filename field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ImportError) GetFilenameOk() (*string, bool) {
-	if o == nil || o.Filename == nil {
-		return nil, false
-	}
-	return o.Filename, true
-}
-
-// HasFilename returns a boolean if a field has been set.
-func (o *ImportError) HasFilename() bool {
-	if o != nil && o.Filename != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetFilename gets a reference to the given string and assigns it to the Filename field.
-func (o *ImportError) SetFilename(v string) {
-	o.Filename = &v
-}
-
-// GetStackTrace returns the StackTrace field value if set, zero value otherwise.
-func (o *ImportError) GetStackTrace() string {
-	if o == nil || o.StackTrace == nil {
-		var ret string
-		return ret
-	}
-	return *o.StackTrace
-}
-
-// GetStackTraceOk returns a tuple with the StackTrace field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ImportError) GetStackTraceOk() (*string, bool) {
-	if o == nil || o.StackTrace == nil {
-		return nil, false
-	}
-	return o.StackTrace, true
-}
-
-// HasStackTrace returns a boolean if a field has been set.
-func (o *ImportError) HasStackTrace() bool {
-	if o != nil && o.StackTrace != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetStackTrace gets a reference to the given string and assigns it to the StackTrace field.
-func (o *ImportError) SetStackTrace(v string) {
-	o.StackTrace = &v
-}
-
-func (o ImportError) MarshalJSON() ([]byte, error) {
+func (o ConnectionTest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ImportErrorId != nil {
-		toSerialize["import_error_id"] = o.ImportErrorId
+	if o.Status != nil {
+		toSerialize["status"] = o.Status
 	}
-	if o.Timestamp != nil {
-		toSerialize["timestamp"] = o.Timestamp
-	}
-	if o.Filename != nil {
-		toSerialize["filename"] = o.Filename
-	}
-	if o.StackTrace != nil {
-		toSerialize["stack_trace"] = o.StackTrace
+	if o.Message != nil {
+		toSerialize["message"] = o.Message
 	}
 	return json.Marshal(toSerialize)
 }
 
-type NullableImportError struct {
-	value *ImportError
+type NullableConnectionTest struct {
+	value *ConnectionTest
 	isSet bool
 }
 
-func (v NullableImportError) Get() *ImportError {
+func (v NullableConnectionTest) Get() *ConnectionTest {
 	return v.value
 }
 
-func (v *NullableImportError) Set(val *ImportError) {
+func (v *NullableConnectionTest) Set(val *ConnectionTest) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableImportError) IsSet() bool {
+func (v NullableConnectionTest) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableImportError) Unset() {
+func (v *NullableConnectionTest) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableImportError(val *ImportError) *NullableImportError {
-	return &NullableImportError{value: val, isSet: true}
+func NewNullableConnectionTest(val *ConnectionTest) *NullableConnectionTest {
+	return &NullableConnectionTest{value: val, isSet: true}
 }
 
-func (v NullableImportError) MarshalJSON() ([]byte, error) {
+func (v NullableConnectionTest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableImportError) UnmarshalJSON(src []byte) error {
+func (v *NullableConnectionTest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

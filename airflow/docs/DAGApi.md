@@ -23,6 +23,7 @@ All URIs are relative to *http://localhost/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**DeleteDag**](DAGApi.md#DeleteDag) | **Delete** /dags/{dag_id} | Delete a DAG
 [**GetDag**](DAGApi.md#GetDag) | **Get** /dags/{dag_id} | Get basic information about a DAG
 [**GetDagDetails**](DAGApi.md#GetDagDetails) | **Get** /dags/{dag_id}/details | Get a simplified representation of DAG
 [**GetDagSource**](DAGApi.md#GetDagSource) | **Get** /dagSources/{file_token} | Get a source code
@@ -33,6 +34,74 @@ Method | HTTP request | Description
 [**PostClearTaskInstances**](DAGApi.md#PostClearTaskInstances) | **Post** /dags/{dag_id}/clearTaskInstances | Clear a set of task instances
 [**PostSetTaskInstancesState**](DAGApi.md#PostSetTaskInstancesState) | **Post** /dags/{dag_id}/updateTaskInstancesState | Set a state of task instances
 
+
+
+## DeleteDag
+
+> DeleteDag(ctx, dagId).Execute()
+
+Delete a DAG
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    dagId := "dagId_example" // string | The DAG ID.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DAGApi.DeleteDag(context.Background(), dagId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DAGApi.DeleteDag``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**dagId** | **string** | The DAG ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteDagRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## GetDag
@@ -247,7 +316,7 @@ No authorization required
 
 ## GetDags
 
-> DAGCollection GetDags(ctx).Limit(limit).Offset(offset).OrderBy(orderBy).Execute()
+> DAGCollection GetDags(ctx).Limit(limit).Offset(offset).OrderBy(orderBy).Tags(tags).OnlyActive(onlyActive).Execute()
 
 List DAGs
 
@@ -267,10 +336,12 @@ func main() {
     limit := int32(56) // int32 | The numbers of items to return. (optional) (default to 100)
     offset := int32(56) // int32 | The number of items to skip before starting to collect the result set. (optional)
     orderBy := "orderBy_example" // string | The name of the field to order the results by. Prefix a field name with `-` to reverse the sort order.  (optional)
+    tags := []string{"Inner_example"} // []string | List of tags to filter results (optional)
+    onlyActive := true // bool | Only return active DAGs. (optional) (default to true)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DAGApi.GetDags(context.Background()).Limit(limit).Offset(offset).OrderBy(orderBy).Execute()
+    resp, r, err := api_client.DAGApi.GetDags(context.Background()).Limit(limit).Offset(offset).OrderBy(orderBy).Tags(tags).OnlyActive(onlyActive).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DAGApi.GetDags``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -294,6 +365,8 @@ Name | Type | Description  | Notes
  **limit** | **int32** | The numbers of items to return. | [default to 100]
  **offset** | **int32** | The number of items to skip before starting to collect the result set. | 
  **orderBy** | **string** | The name of the field to order the results by. Prefix a field name with &#x60;-&#x60; to reverse the sort order.  | 
+ **tags** | **[]string** | List of tags to filter results | 
+ **onlyActive** | **bool** | Only return active DAGs. | [default to true]
 
 ### Return type
 

@@ -36,6 +36,7 @@ docs/ConnectionApi.md
 docs/ConnectionCollection.md
 docs/ConnectionCollectionAllOf.md
 docs/ConnectionCollectionItem.md
+docs/ConnectionTest.md
 docs/CronExpression.md
 docs/DAG.md
 docs/DAGApi.md
@@ -101,6 +102,7 @@ docs/TaskInstanceReferenceCollection.md
 docs/TaskState.md
 docs/TimeDelta.md
 docs/TriggerRule.md
+docs/UpdateDagRunState.md
 docs/UpdateTaskInstancesState.md
 docs/User.md
 docs/UserAllOf.md
@@ -140,6 +142,7 @@ model_connection_all_of.go
 model_connection_collection.go
 model_connection_collection_all_of.go
 model_connection_collection_item.go
+model_connection_test_.go
 model_cron_expression.go
 model_dag.go
 model_dag_collection.go
@@ -194,6 +197,7 @@ model_task_instance_reference_collection.go
 model_task_state.go
 model_time_delta.go
 model_trigger_rule.go
+model_update_dag_run_state.go
 model_update_task_instances_state.go
 model_user.go
 model_user_all_of.go

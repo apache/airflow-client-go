@@ -31,7 +31,7 @@ Name | Type | Description | Notes
 **LastLogin** | Pointer to **NullableString** | The last user login | [optional] [readonly] 
 **LoginCount** | Pointer to **NullableInt32** | The login count | [optional] [readonly] 
 **FailedLoginCount** | Pointer to **NullableInt32** | The number of times the login failed | [optional] [readonly] 
-**Roles** | Pointer to [**[]UserCollectionItemRoles**](UserCollectionItemRoles.md) | User roles | [optional] [readonly] 
+**Roles** | Pointer to [**[]UserCollectionItemRoles**](UserCollectionItemRoles.md) | User roles | [optional] 
 **CreatedOn** | Pointer to **NullableString** | The date user was created | [optional] [readonly] 
 **ChangedOn** | Pointer to **NullableString** | The date user was changed | [optional] [readonly] 
 **Password** | Pointer to **string** |  | [optional] 

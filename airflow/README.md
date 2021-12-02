@@ -144,7 +144,7 @@ Note that you will need to pass credentials data.
 
 For e.g., here is how to pause a DAG with [curl](https://curl.haxx.se/), when basic authorization is used:
 ```bash
-curl -X POST 'https://example.com/api/v1/dags/{dag_id}?update_mask=is_paused' \\
+curl -X PATCH 'https://example.com/api/v1/dags/{dag_id}?update_mask=is_paused' \\
 -H 'Content-Type: application/json' \\
 --user \"username:password\" \\
 -d '{
@@ -229,7 +229,7 @@ server is unwilling to supply a default representation.
 ## AlreadyExists
 
 The request could not be completed due to a conflict with the current state of the target
-resource, meaning that the resource already exists
+resource, e.g. the resource it tries to create already exists.
 
 ## Unknown
 
@@ -320,6 +320,8 @@ Class | Method | HTTP request | Description
 *ConnectionApi* | [**GetConnections**](docs/ConnectionApi.md#getconnections) | **Get** /connections | List connections
 *ConnectionApi* | [**PatchConnection**](docs/ConnectionApi.md#patchconnection) | **Patch** /connections/{connection_id} | Update a connection
 *ConnectionApi* | [**PostConnection**](docs/ConnectionApi.md#postconnection) | **Post** /connections | Create a connection
+*ConnectionApi* | [**TestConnection**](docs/ConnectionApi.md#testconnection) | **Post** /connections/test | Test a connection
+*DAGApi* | [**DeleteDag**](docs/DAGApi.md#deletedag) | **Delete** /dags/{dag_id} | Delete a DAG
 *DAGApi* | [**GetDag**](docs/DAGApi.md#getdag) | **Get** /dags/{dag_id} | Get basic information about a DAG
 *DAGApi* | [**GetDagDetails**](docs/DAGApi.md#getdagdetails) | **Get** /dags/{dag_id}/details | Get a simplified representation of DAG
 *DAGApi* | [**GetDagSource**](docs/DAGApi.md#getdagsource) | **Get** /dagSources/{file_token} | Get a source code
@@ -334,6 +336,7 @@ Class | Method | HTTP request | Description
 *DAGRunApi* | [**GetDagRuns**](docs/DAGRunApi.md#getdagruns) | **Get** /dags/{dag_id}/dagRuns | List DAG runs
 *DAGRunApi* | [**GetDagRunsBatch**](docs/DAGRunApi.md#getdagrunsbatch) | **Post** /dags/~/dagRuns/list | List DAG runs (batch)
 *DAGRunApi* | [**PostDagRun**](docs/DAGRunApi.md#postdagrun) | **Post** /dags/{dag_id}/dagRuns | Trigger a new DAG run
+*DAGRunApi* | [**UpdateDagRunState**](docs/DAGRunApi.md#updatedagrunstate) | **Patch** /dags/{dag_id}/dagRuns/{dag_run_id} | Modify a DAG run
 *EventLogApi* | [**GetEventLog**](docs/EventLogApi.md#geteventlog) | **Get** /eventLogs/{event_log_id} | Get a log entry
 *EventLogApi* | [**GetEventLogs**](docs/EventLogApi.md#geteventlogs) | **Get** /eventLogs | List log entries
 *ImportErrorApi* | [**GetImportError**](docs/ImportErrorApi.md#getimporterror) | **Get** /importErrors/{import_error_id} | Get an import error
@@ -358,8 +361,11 @@ Class | Method | HTTP request | Description
 *TaskInstanceApi* | [**GetTaskInstance**](docs/TaskInstanceApi.md#gettaskinstance) | **Get** /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id} | Get a task instance
 *TaskInstanceApi* | [**GetTaskInstances**](docs/TaskInstanceApi.md#gettaskinstances) | **Get** /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances | List task instances
 *TaskInstanceApi* | [**GetTaskInstancesBatch**](docs/TaskInstanceApi.md#gettaskinstancesbatch) | **Post** /dags/~/dagRuns/~/taskInstances/list | List task instances (batch)
+*UserApi* | [**DeleteUser**](docs/UserApi.md#deleteuser) | **Delete** /users/{username} | Delete a user
 *UserApi* | [**GetUser**](docs/UserApi.md#getuser) | **Get** /users/{username} | Get a user
 *UserApi* | [**GetUsers**](docs/UserApi.md#getusers) | **Get** /users | List users
+*UserApi* | [**PatchUser**](docs/UserApi.md#patchuser) | **Patch** /users/{username} | Update a user
+*UserApi* | [**PostUser**](docs/UserApi.md#postuser) | **Post** /users | Create a user
 *VariableApi* | [**DeleteVariable**](docs/VariableApi.md#deletevariable) | **Delete** /variables/{variable_key} | Delete a variable
 *VariableApi* | [**GetVariable**](docs/VariableApi.md#getvariable) | **Get** /variables/{variable_key} | Get a variable
 *VariableApi* | [**GetVariables**](docs/VariableApi.md#getvariables) | **Get** /variables | List variables
@@ -386,6 +392,7 @@ Class | Method | HTTP request | Description
  - [ConnectionCollection](docs/ConnectionCollection.md)
  - [ConnectionCollectionAllOf](docs/ConnectionCollectionAllOf.md)
  - [ConnectionCollectionItem](docs/ConnectionCollectionItem.md)
+ - [ConnectionTest](docs/ConnectionTest.md)
  - [CronExpression](docs/CronExpression.md)
  - [DAG](docs/DAG.md)
  - [DAGCollection](docs/DAGCollection.md)
@@ -440,6 +447,7 @@ Class | Method | HTTP request | Description
  - [TaskState](docs/TaskState.md)
  - [TimeDelta](docs/TimeDelta.md)
  - [TriggerRule](docs/TriggerRule.md)
+ - [UpdateDagRunState](docs/UpdateDagRunState.md)
  - [UpdateTaskInstancesState](docs/UpdateTaskInstancesState.md)
  - [User](docs/User.md)
  - [UserAllOf](docs/UserAllOf.md)

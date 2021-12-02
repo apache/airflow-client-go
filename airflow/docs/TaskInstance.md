@@ -38,7 +38,7 @@ Name | Type | Description | Notes
 **PoolSlots** | Pointer to **int32** |  | [optional] 
 **Queue** | Pointer to **string** |  | [optional] 
 **PriorityWeight** | Pointer to **int32** |  | [optional] 
-**Operator** | Pointer to **string** |  | [optional] 
+**Operator** | Pointer to **NullableString** |  | [optional] 
 **QueuedWhen** | Pointer to **NullableString** |  | [optional] 
 **Pid** | Pointer to **NullableInt32** |  | [optional] 
 **ExecutorConfig** | Pointer to **string** |  | [optional] 
@@ -493,6 +493,16 @@ SetOperator sets Operator field to given value.
 
 HasOperator returns a boolean if a field has been set.
 
+### SetOperatorNil
+
+`func (o *TaskInstance) SetOperatorNil(b bool)`
+
+ SetOperatorNil sets the value for Operator to be an explicit nil
+
+### UnsetOperator
+`func (o *TaskInstance) UnsetOperator()`
+
+UnsetOperator ensures that no value is present for Operator, not even an explicit nil
 ### GetQueuedWhen
 
 `func (o *TaskInstance) GetQueuedWhen() string`
