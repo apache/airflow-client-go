@@ -24,7 +24,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | Pointer to **bool** | If set, don&#39;t actually run this operation. The response will contain a list of task instances planned to be cleaned, but not modified in any way.  | [optional] [default to true]
-**TaskIds** | Pointer to **[]string** | A list of task ids to clear. | [optional] 
+**TaskIds** | Pointer to **[]string** | A list of task ids to clear.  *New in version 2.1.0*  | [optional] 
 **StartDate** | Pointer to **string** | The minimum execution date to clear. | [optional] 
 **EndDate** | Pointer to **string** | The maximum execution date to clear. | [optional] 
 **OnlyFailed** | Pointer to **bool** | Only clear failed tasks. | [optional] [default to true]

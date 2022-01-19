@@ -106,20 +106,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetHooks
 
-`func (o *PluginCollectionItem) GetHooks() []string`
+`func (o *PluginCollectionItem) GetHooks() []*string`
 
 GetHooks returns the Hooks field if non-nil, zero value otherwise.
 
 ### GetHooksOk
 
-`func (o *PluginCollectionItem) GetHooksOk() (*[]string, bool)`
+`func (o *PluginCollectionItem) GetHooksOk() (*[]*string, bool)`
 
 GetHooksOk returns a tuple with the Hooks field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetHooks
 
-`func (o *PluginCollectionItem) SetHooks(v []string)`
+`func (o *PluginCollectionItem) SetHooks(v []*string)`
 
 SetHooks sets Hooks field to given value.
 
@@ -131,20 +131,20 @@ HasHooks returns a boolean if a field has been set.
 
 ### GetExecutors
 
-`func (o *PluginCollectionItem) GetExecutors() []string`
+`func (o *PluginCollectionItem) GetExecutors() []*string`
 
 GetExecutors returns the Executors field if non-nil, zero value otherwise.
 
 ### GetExecutorsOk
 
-`func (o *PluginCollectionItem) GetExecutorsOk() (*[]string, bool)`
+`func (o *PluginCollectionItem) GetExecutorsOk() (*[]*string, bool)`
 
 GetExecutorsOk returns a tuple with the Executors field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExecutors
 
-`func (o *PluginCollectionItem) SetExecutors(v []string)`
+`func (o *PluginCollectionItem) SetExecutors(v []*string)`
 
 SetExecutors sets Executors field to given value.
 
@@ -156,20 +156,20 @@ HasExecutors returns a boolean if a field has been set.
 
 ### GetMacros
 
-`func (o *PluginCollectionItem) GetMacros() []map[string]interface{}`
+`func (o *PluginCollectionItem) GetMacros() []*map[string]interface{}`
 
 GetMacros returns the Macros field if non-nil, zero value otherwise.
 
 ### GetMacrosOk
 
-`func (o *PluginCollectionItem) GetMacrosOk() (*[]map[string]interface{}, bool)`
+`func (o *PluginCollectionItem) GetMacrosOk() (*[]*map[string]interface{}, bool)`
 
 GetMacrosOk returns a tuple with the Macros field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMacros
 
-`func (o *PluginCollectionItem) SetMacros(v []map[string]interface{})`
+`func (o *PluginCollectionItem) SetMacros(v []*map[string]interface{})`
 
 SetMacros sets Macros field to given value.
 
@@ -181,20 +181,20 @@ HasMacros returns a boolean if a field has been set.
 
 ### GetFlaskBlueprints
 
-`func (o *PluginCollectionItem) GetFlaskBlueprints() []map[string]interface{}`
+`func (o *PluginCollectionItem) GetFlaskBlueprints() []*map[string]interface{}`
 
 GetFlaskBlueprints returns the FlaskBlueprints field if non-nil, zero value otherwise.
 
 ### GetFlaskBlueprintsOk
 
-`func (o *PluginCollectionItem) GetFlaskBlueprintsOk() (*[]map[string]interface{}, bool)`
+`func (o *PluginCollectionItem) GetFlaskBlueprintsOk() (*[]*map[string]interface{}, bool)`
 
 GetFlaskBlueprintsOk returns a tuple with the FlaskBlueprints field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFlaskBlueprints
 
-`func (o *PluginCollectionItem) SetFlaskBlueprints(v []map[string]interface{})`
+`func (o *PluginCollectionItem) SetFlaskBlueprints(v []*map[string]interface{})`
 
 SetFlaskBlueprints sets FlaskBlueprints field to given value.
 
@@ -206,20 +206,20 @@ HasFlaskBlueprints returns a boolean if a field has been set.
 
 ### GetAppbuilderViews
 
-`func (o *PluginCollectionItem) GetAppbuilderViews() []map[string]interface{}`
+`func (o *PluginCollectionItem) GetAppbuilderViews() []*map[string]interface{}`
 
 GetAppbuilderViews returns the AppbuilderViews field if non-nil, zero value otherwise.
 
 ### GetAppbuilderViewsOk
 
-`func (o *PluginCollectionItem) GetAppbuilderViewsOk() (*[]map[string]interface{}, bool)`
+`func (o *PluginCollectionItem) GetAppbuilderViewsOk() (*[]*map[string]interface{}, bool)`
 
 GetAppbuilderViewsOk returns a tuple with the AppbuilderViews field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAppbuilderViews
 
-`func (o *PluginCollectionItem) SetAppbuilderViews(v []map[string]interface{})`
+`func (o *PluginCollectionItem) SetAppbuilderViews(v []*map[string]interface{})`
 
 SetAppbuilderViews sets AppbuilderViews field to given value.
 
@@ -231,20 +231,20 @@ HasAppbuilderViews returns a boolean if a field has been set.
 
 ### GetAppbuilderMenuItems
 
-`func (o *PluginCollectionItem) GetAppbuilderMenuItems() []map[string]interface{}`
+`func (o *PluginCollectionItem) GetAppbuilderMenuItems() []*map[string]interface{}`
 
 GetAppbuilderMenuItems returns the AppbuilderMenuItems field if non-nil, zero value otherwise.
 
 ### GetAppbuilderMenuItemsOk
 
-`func (o *PluginCollectionItem) GetAppbuilderMenuItemsOk() (*[]map[string]interface{}, bool)`
+`func (o *PluginCollectionItem) GetAppbuilderMenuItemsOk() (*[]*map[string]interface{}, bool)`
 
 GetAppbuilderMenuItemsOk returns a tuple with the AppbuilderMenuItems field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAppbuilderMenuItems
 
-`func (o *PluginCollectionItem) SetAppbuilderMenuItems(v []map[string]interface{})`
+`func (o *PluginCollectionItem) SetAppbuilderMenuItems(v []*map[string]interface{})`
 
 SetAppbuilderMenuItems sets AppbuilderMenuItems field to given value.
 
@@ -256,20 +256,20 @@ HasAppbuilderMenuItems returns a boolean if a field has been set.
 
 ### GetGlobalOperatorExtraLinks
 
-`func (o *PluginCollectionItem) GetGlobalOperatorExtraLinks() []map[string]interface{}`
+`func (o *PluginCollectionItem) GetGlobalOperatorExtraLinks() []*map[string]interface{}`
 
 GetGlobalOperatorExtraLinks returns the GlobalOperatorExtraLinks field if non-nil, zero value otherwise.
 
 ### GetGlobalOperatorExtraLinksOk
 
-`func (o *PluginCollectionItem) GetGlobalOperatorExtraLinksOk() (*[]map[string]interface{}, bool)`
+`func (o *PluginCollectionItem) GetGlobalOperatorExtraLinksOk() (*[]*map[string]interface{}, bool)`
 
 GetGlobalOperatorExtraLinksOk returns a tuple with the GlobalOperatorExtraLinks field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGlobalOperatorExtraLinks
 
-`func (o *PluginCollectionItem) SetGlobalOperatorExtraLinks(v []map[string]interface{})`
+`func (o *PluginCollectionItem) SetGlobalOperatorExtraLinks(v []*map[string]interface{})`
 
 SetGlobalOperatorExtraLinks sets GlobalOperatorExtraLinks field to given value.
 
@@ -281,20 +281,20 @@ HasGlobalOperatorExtraLinks returns a boolean if a field has been set.
 
 ### GetOperatorExtraLinks
 
-`func (o *PluginCollectionItem) GetOperatorExtraLinks() []map[string]interface{}`
+`func (o *PluginCollectionItem) GetOperatorExtraLinks() []*map[string]interface{}`
 
 GetOperatorExtraLinks returns the OperatorExtraLinks field if non-nil, zero value otherwise.
 
 ### GetOperatorExtraLinksOk
 
-`func (o *PluginCollectionItem) GetOperatorExtraLinksOk() (*[]map[string]interface{}, bool)`
+`func (o *PluginCollectionItem) GetOperatorExtraLinksOk() (*[]*map[string]interface{}, bool)`
 
 GetOperatorExtraLinksOk returns a tuple with the OperatorExtraLinks field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOperatorExtraLinks
 
-`func (o *PluginCollectionItem) SetOperatorExtraLinks(v []map[string]interface{})`
+`func (o *PluginCollectionItem) SetOperatorExtraLinks(v []*map[string]interface{})`
 
 SetOperatorExtraLinks sets OperatorExtraLinks field to given value.
 

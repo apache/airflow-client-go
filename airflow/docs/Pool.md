@@ -29,6 +29,7 @@ Name | Type | Description | Notes
 **UsedSlots** | Pointer to **int32** | The number of slots used by running tasks at the moment. | [optional] [readonly] 
 **QueuedSlots** | Pointer to **int32** | The number of slots used by queued tasks at the moment. | [optional] [readonly] 
 **OpenSlots** | Pointer to **int32** | The number of free slots at the moment. | [optional] [readonly] 
+**Description** | Pointer to **NullableString** | The description of the pool.  *New in version 2.3.0*  | [optional] 
 
 ## Methods
 
@@ -199,6 +200,41 @@ SetOpenSlots sets OpenSlots field to given value.
 
 HasOpenSlots returns a boolean if a field has been set.
 
+### GetDescription
+
+`func (o *Pool) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *Pool) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *Pool) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *Pool) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
+
+### SetDescriptionNil
+
+`func (o *Pool) SetDescriptionNil(b bool)`
+
+ SetDescriptionNil sets the value for Description to be an explicit nil
+
+### UnsetDescription
+`func (o *Pool) UnsetDescription()`
+
+UnsetDescription ensures that no value is present for Description, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -37,6 +37,8 @@ Method | HTTP request | Description
 
 Delete a role
 
+
+
 ### Example
 
 ```go
@@ -102,6 +104,8 @@ No authorization required
 > Role GetRole(ctx, roleName).Execute()
 
 Get a role
+
+
 
 ### Example
 
@@ -171,6 +175,8 @@ No authorization required
 
 List roles
 
+
+
 ### Example
 
 ```go
@@ -186,7 +192,7 @@ import (
 func main() {
     limit := int32(56) // int32 | The numbers of items to return. (optional) (default to 100)
     offset := int32(56) // int32 | The number of items to skip before starting to collect the result set. (optional)
-    orderBy := "orderBy_example" // string | The name of the field to order the results by. Prefix a field name with `-` to reverse the sort order.  (optional)
+    orderBy := "orderBy_example" // string | The name of the field to order the results by. Prefix a field name with `-` to reverse the sort order.  *New in version 2.1.0*  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -213,7 +219,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **int32** | The numbers of items to return. | [default to 100]
  **offset** | **int32** | The number of items to skip before starting to collect the result set. | 
- **orderBy** | **string** | The name of the field to order the results by. Prefix a field name with &#x60;-&#x60; to reverse the sort order.  | 
+ **orderBy** | **string** | The name of the field to order the results by. Prefix a field name with &#x60;-&#x60; to reverse the sort order.  *New in version 2.1.0*  | 
 
 ### Return type
 
@@ -238,6 +244,8 @@ No authorization required
 > Role PatchRole(ctx, roleName).Role(role).UpdateMask(updateMask).Execute()
 
 Update a role
+
+
 
 ### Example
 
@@ -310,6 +318,8 @@ No authorization required
 > Role PostRole(ctx).Role(role).Execute()
 
 Create a role
+
+
 
 ### Example
 

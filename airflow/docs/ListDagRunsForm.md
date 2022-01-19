@@ -23,10 +23,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**OrderBy** | Pointer to **string** | The name of the field to order the results by. Prefix a field name with &#x60;-&#x60; to reverse the sort order.  | [optional] 
+**OrderBy** | Pointer to **string** | The name of the field to order the results by. Prefix a field name with &#x60;-&#x60; to reverse the sort order.  *New in version 2.1.0*  | [optional] 
 **PageOffset** | Pointer to **int32** | The number of items to skip before starting to collect the result set. | [optional] 
 **PageLimit** | Pointer to **int32** | The numbers of items to return. | [optional] [default to 100]
 **DagIds** | Pointer to **[]string** | Return objects with specific DAG IDs. The value can be repeated to retrieve multiple matching values (OR condition). | [optional] 
+**States** | Pointer to **[]string** | Return objects with specific states. The value can be repeated to retrieve multiple matching values (OR condition). | [optional] 
 **ExecutionDateGte** | Pointer to **time.Time** | Returns objects greater or equal to the specified date.  This can be combined with execution_date_lte key to receive only the selected period.  | [optional] 
 **ExecutionDateLte** | Pointer to **time.Time** | Returns objects less than or equal to the specified date.  This can be combined with execution_date_gte key to receive only the selected period.  | [optional] 
 **StartDateGte** | Pointer to **time.Time** | Returns objects greater or equal the specified date.  This can be combined with start_date_lte key to receive only the selected period.  | [optional] 
@@ -152,6 +153,31 @@ SetDagIds sets DagIds field to given value.
 `func (o *ListDagRunsForm) HasDagIds() bool`
 
 HasDagIds returns a boolean if a field has been set.
+
+### GetStates
+
+`func (o *ListDagRunsForm) GetStates() []string`
+
+GetStates returns the States field if non-nil, zero value otherwise.
+
+### GetStatesOk
+
+`func (o *ListDagRunsForm) GetStatesOk() (*[]string, bool)`
+
+GetStatesOk returns a tuple with the States field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStates
+
+`func (o *ListDagRunsForm) SetStates(v []string)`
+
+SetStates sets States field to given value.
+
+### HasStates
+
+`func (o *ListDagRunsForm) HasStates() bool`
+
+HasStates returns a boolean if a field has been set.
 
 ### GetExecutionDateGte
 

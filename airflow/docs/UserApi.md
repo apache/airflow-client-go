@@ -37,6 +37,8 @@ Method | HTTP request | Description
 
 Delete a user
 
+
+
 ### Example
 
 ```go
@@ -50,7 +52,7 @@ import (
 )
 
 func main() {
-    username := "username_example" // string | The username of the user
+    username := "username_example" // string | The username of the user.  *New in version 2.1.0* 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -68,7 +70,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**username** | **string** | The username of the user | 
+**username** | **string** | The username of the user.  *New in version 2.1.0*  | 
 
 ### Other Parameters
 
@@ -103,6 +105,8 @@ No authorization required
 
 Get a user
 
+
+
 ### Example
 
 ```go
@@ -116,7 +120,7 @@ import (
 )
 
 func main() {
-    username := "username_example" // string | The username of the user
+    username := "username_example" // string | The username of the user.  *New in version 2.1.0* 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -136,7 +140,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**username** | **string** | The username of the user | 
+**username** | **string** | The username of the user.  *New in version 2.1.0*  | 
 
 ### Other Parameters
 
@@ -171,6 +175,8 @@ No authorization required
 
 List users
 
+
+
 ### Example
 
 ```go
@@ -186,7 +192,7 @@ import (
 func main() {
     limit := int32(56) // int32 | The numbers of items to return. (optional) (default to 100)
     offset := int32(56) // int32 | The number of items to skip before starting to collect the result set. (optional)
-    orderBy := "orderBy_example" // string | The name of the field to order the results by. Prefix a field name with `-` to reverse the sort order.  (optional)
+    orderBy := "orderBy_example" // string | The name of the field to order the results by. Prefix a field name with `-` to reverse the sort order.  *New in version 2.1.0*  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -213,7 +219,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **int32** | The numbers of items to return. | [default to 100]
  **offset** | **int32** | The number of items to skip before starting to collect the result set. | 
- **orderBy** | **string** | The name of the field to order the results by. Prefix a field name with &#x60;-&#x60; to reverse the sort order.  | 
+ **orderBy** | **string** | The name of the field to order the results by. Prefix a field name with &#x60;-&#x60; to reverse the sort order.  *New in version 2.1.0*  | 
 
 ### Return type
 
@@ -239,6 +245,8 @@ No authorization required
 
 Update a user
 
+
+
 ### Example
 
 ```go
@@ -252,7 +260,7 @@ import (
 )
 
 func main() {
-    username := "username_example" // string | The username of the user
+    username := "username_example" // string | The username of the user.  *New in version 2.1.0* 
     user := *openapiclient.NewUser() // User | 
     updateMask := []string{"Inner_example"} // []string | The fields to update on the resource. If absent or empty, all modifiable fields are updated. A comma-separated list of fully qualified names of fields.  (optional)
 
@@ -274,7 +282,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**username** | **string** | The username of the user | 
+**username** | **string** | The username of the user.  *New in version 2.1.0*  | 
 
 ### Other Parameters
 
@@ -310,6 +318,8 @@ No authorization required
 > User PostUser(ctx).User(user).Execute()
 
 Create a user
+
+
 
 ### Example
 

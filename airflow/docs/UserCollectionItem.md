@@ -23,15 +23,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**FirstName** | Pointer to **string** | The user firstname | [optional] 
-**LastName** | Pointer to **string** | The user lastname | [optional] 
-**Username** | Pointer to **string** | The username | [optional] 
-**Email** | Pointer to **string** | The user&#39;s email | [optional] 
+**FirstName** | Pointer to **string** | The user&#39;s first name.  *Changed in version 2.2.0*&amp;#58; A minimum character length requirement (&#39;minLength&#39;) is added.  | [optional] 
+**LastName** | Pointer to **string** | The user&#39;s last name.  *Changed in version 2.2.0*&amp;#58; A minimum character length requirement (&#39;minLength&#39;) is added.  | [optional] 
+**Username** | Pointer to **string** | The username.  *Changed in version 2.2.0*&amp;#58; A minimum character length requirement (&#39;minLength&#39;) is added.  | [optional] 
+**Email** | Pointer to **string** | The user&#39;s email.  *Changed in version 2.2.0*&amp;#58; A minimum character length requirement (&#39;minLength&#39;) is added.  | [optional] 
 **Active** | Pointer to **NullableBool** | Whether the user is active | [optional] [readonly] 
 **LastLogin** | Pointer to **NullableString** | The last user login | [optional] [readonly] 
 **LoginCount** | Pointer to **NullableInt32** | The login count | [optional] [readonly] 
 **FailedLoginCount** | Pointer to **NullableInt32** | The number of times the login failed | [optional] [readonly] 
-**Roles** | Pointer to [**[]UserCollectionItemRoles**](UserCollectionItemRoles.md) | User roles | [optional] 
+**Roles** | Pointer to [**[]UserCollectionItemRoles**](UserCollectionItemRoles.md) | User roles.  *Changed in version 2.2.0*&amp;#58; Field is no longer read-only.  | [optional] 
 **CreatedOn** | Pointer to **NullableString** | The date user was created | [optional] [readonly] 
 **ChangedOn** | Pointer to **NullableString** | The date user was changed | [optional] [readonly] 
 
