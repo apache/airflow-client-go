@@ -32,7 +32,7 @@ Name | Type | Description | Notes
 **EndDateLte** | Pointer to **time.Time** | Returns objects less than or equal to the specified date.  This can be combined with start_date_gte parameter to receive only the selected period.  | [optional] 
 **DurationGte** | Pointer to **float32** | Returns objects greater than or equal to the specified values.  This can be combined with duration_lte parameter to receive only the selected period.  | [optional] 
 **DurationLte** | Pointer to **float32** | Returns objects less than or equal to the specified values.  This can be combined with duration_gte parameter to receive only the selected range.  | [optional] 
-**State** | Pointer to **[]string** | The value can be repeated to retrieve multiple matching values (OR condition). | [optional] 
+**State** | Pointer to [**[]TaskState**](TaskState.md) | The value can be repeated to retrieve multiple matching values (OR condition). | [optional] 
 **Pool** | Pointer to **[]string** | The value can be repeated to retrieve multiple matching values (OR condition). | [optional] 
 **Queue** | Pointer to **[]string** | The value can be repeated to retrieve multiple matching values (OR condition). | [optional] 
 
@@ -282,20 +282,20 @@ HasDurationLte returns a boolean if a field has been set.
 
 ### GetState
 
-`func (o *ListTaskInstanceForm) GetState() []string`
+`func (o *ListTaskInstanceForm) GetState() []TaskState`
 
 GetState returns the State field if non-nil, zero value otherwise.
 
 ### GetStateOk
 
-`func (o *ListTaskInstanceForm) GetStateOk() (*[]string, bool)`
+`func (o *ListTaskInstanceForm) GetStateOk() (*[]TaskState, bool)`
 
 GetStateOk returns a tuple with the State field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetState
 
-`func (o *ListTaskInstanceForm) SetState(v []string)`
+`func (o *ListTaskInstanceForm) SetState(v []TaskState)`
 
 SetState sets State field to given value.
 

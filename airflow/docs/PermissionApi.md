@@ -33,6 +33,8 @@ Method | HTTP request | Description
 
 List permissions
 
+
+
 ### Example
 
 ```go

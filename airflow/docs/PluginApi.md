@@ -33,6 +33,8 @@ Method | HTTP request | Description
 
 Get a list of loaded plugins
 
+
+
 ### Example
 
 ```go
