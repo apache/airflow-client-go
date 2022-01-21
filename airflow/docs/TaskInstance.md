@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **TaskId** | Pointer to **string** |  | [optional] 
 **DagId** | Pointer to **string** |  | [optional] 
+**DagRunId** | Pointer to **string** | The DagRun ID for this task instance  *New in version 2.3.0*  | [optional] 
 **ExecutionDate** | Pointer to **string** |  | [optional] 
 **StartDate** | Pointer to **NullableString** |  | [optional] 
 **EndDate** | Pointer to **NullableString** |  | [optional] 
@@ -38,7 +39,7 @@ Name | Type | Description | Notes
 **PoolSlots** | Pointer to **int32** |  | [optional] 
 **Queue** | Pointer to **string** |  | [optional] 
 **PriorityWeight** | Pointer to **int32** |  | [optional] 
-**Operator** | Pointer to **NullableString** |  | [optional] 
+**Operator** | Pointer to **NullableString** | *Changed in version 2.1.1*&amp;#58; Field becomes nullable.  | [optional] 
 **QueuedWhen** | Pointer to **NullableString** |  | [optional] 
 **Pid** | Pointer to **NullableInt32** |  | [optional] 
 **ExecutorConfig** | Pointer to **string** |  | [optional] 
@@ -112,6 +113,31 @@ SetDagId sets DagId field to given value.
 `func (o *TaskInstance) HasDagId() bool`
 
 HasDagId returns a boolean if a field has been set.
+
+### GetDagRunId
+
+`func (o *TaskInstance) GetDagRunId() string`
+
+GetDagRunId returns the DagRunId field if non-nil, zero value otherwise.
+
+### GetDagRunIdOk
+
+`func (o *TaskInstance) GetDagRunIdOk() (*string, bool)`
+
+GetDagRunIdOk returns a tuple with the DagRunId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDagRunId
+
+`func (o *TaskInstance) SetDagRunId(v string)`
+
+SetDagRunId sets DagRunId field to given value.
+
+### HasDagRunId
+
+`func (o *TaskInstance) HasDagRunId() bool`
+
+HasDagRunId returns a boolean if a field has been set.
 
 ### GetExecutionDate
 

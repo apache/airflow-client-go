@@ -25,7 +25,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DryRun** | Pointer to **bool** | If set, don&#39;t actually run this operation. The response will contain a list of task instances planned to be affected, but won&#39;t be modified in any way.  | [optional] [default to true]
 **TaskId** | Pointer to **string** | The task ID. | [optional] 
-**ExecutionDate** | Pointer to **string** | The execution date. | [optional] 
+**ExecutionDate** | Pointer to **string** | The execution date. Either set this or dag_run_id but not both. | [optional] 
+**DagRunId** | Pointer to **string** | The task instance&#39;s DAG run ID. Either set this or execution_date but not both.  *New in version 2.3.0*  | [optional] 
 **IncludeUpstream** | Pointer to **bool** | If set to true, upstream tasks are also affected. | [optional] 
 **IncludeDownstream** | Pointer to **bool** | If set to true, downstream tasks are also affected. | [optional] 
 **IncludeFuture** | Pointer to **bool** | If set to True, also tasks from future DAG Runs are affected. | [optional] 
@@ -125,6 +126,31 @@ SetExecutionDate sets ExecutionDate field to given value.
 `func (o *UpdateTaskInstancesState) HasExecutionDate() bool`
 
 HasExecutionDate returns a boolean if a field has been set.
+
+### GetDagRunId
+
+`func (o *UpdateTaskInstancesState) GetDagRunId() string`
+
+GetDagRunId returns the DagRunId field if non-nil, zero value otherwise.
+
+### GetDagRunIdOk
+
+`func (o *UpdateTaskInstancesState) GetDagRunIdOk() (*string, bool)`
+
+GetDagRunIdOk returns a tuple with the DagRunId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDagRunId
+
+`func (o *UpdateTaskInstancesState) SetDagRunId(v string)`
+
+SetDagRunId sets DagRunId field to given value.
+
+### HasDagRunId
+
+`func (o *UpdateTaskInstancesState) HasDagRunId() bool`
+
+HasDagRunId returns a boolean if a field has been set.
 
 ### GetIncludeUpstream
 

@@ -33,6 +33,8 @@ Method | HTTP request | Description
 
 List providers
 
+
+
 ### Example
 
 ```go

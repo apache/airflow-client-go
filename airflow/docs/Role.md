@@ -23,7 +23,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** | The name of the role | [optional] 
+**Name** | Pointer to **string** | The name of the role  *Changed in version 2.3.0*&amp;#58; A minimum character length requirement (&#39;minLength&#39;) is added.  | [optional] 
 **Actions** | Pointer to [**[]ActionResource**](ActionResource.md) |  | [optional] 
 
 ## Methods

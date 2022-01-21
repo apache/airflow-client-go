@@ -316,7 +316,7 @@ No authorization required
 
 ## GetDags
 
-> DAGCollection GetDags(ctx).Limit(limit).Offset(offset).OrderBy(orderBy).Tags(tags).OnlyActive(onlyActive).Execute()
+> DAGCollection GetDags(ctx).Limit(limit).Offset(offset).OrderBy(orderBy).Tags(tags).OnlyActive(onlyActive).DagIdPattern(dagIdPattern).Execute()
 
 List DAGs
 
@@ -335,13 +335,14 @@ import (
 func main() {
     limit := int32(56) // int32 | The numbers of items to return. (optional) (default to 100)
     offset := int32(56) // int32 | The number of items to skip before starting to collect the result set. (optional)
-    orderBy := "orderBy_example" // string | The name of the field to order the results by. Prefix a field name with `-` to reverse the sort order.  (optional)
-    tags := []string{"Inner_example"} // []string | List of tags to filter results (optional)
-    onlyActive := true // bool | Only return active DAGs. (optional) (default to true)
+    orderBy := "orderBy_example" // string | The name of the field to order the results by. Prefix a field name with `-` to reverse the sort order.  *New in version 2.1.0*  (optional)
+    tags := []string{"Inner_example"} // []string | List of tags to filter results.  *New in version 2.2.0*  (optional)
+    onlyActive := true // bool | Only return active DAGs.  *New in version 2.1.1*  (optional) (default to true)
+    dagIdPattern := "dagIdPattern_example" // string | If set, only return DAGs with dag_ids matching this pattern.  *New in version 2.3.0*  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DAGApi.GetDags(context.Background()).Limit(limit).Offset(offset).OrderBy(orderBy).Tags(tags).OnlyActive(onlyActive).Execute()
+    resp, r, err := api_client.DAGApi.GetDags(context.Background()).Limit(limit).Offset(offset).OrderBy(orderBy).Tags(tags).OnlyActive(onlyActive).DagIdPattern(dagIdPattern).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DAGApi.GetDags``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -364,9 +365,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **int32** | The numbers of items to return. | [default to 100]
  **offset** | **int32** | The number of items to skip before starting to collect the result set. | 
- **orderBy** | **string** | The name of the field to order the results by. Prefix a field name with &#x60;-&#x60; to reverse the sort order.  | 
- **tags** | **[]string** | List of tags to filter results | 
- **onlyActive** | **bool** | Only return active DAGs. | [default to true]
+ **orderBy** | **string** | The name of the field to order the results by. Prefix a field name with &#x60;-&#x60; to reverse the sort order.  *New in version 2.1.0*  | 
+ **tags** | **[]string** | List of tags to filter results.  *New in version 2.2.0*  | 
+ **onlyActive** | **bool** | Only return active DAGs.  *New in version 2.1.1*  | [default to true]
+ **dagIdPattern** | **string** | If set, only return DAGs with dag_ids matching this pattern.  *New in version 2.3.0*  | 
 
 ### Return type
 
@@ -477,7 +479,7 @@ import (
 
 func main() {
     dagId := "dagId_example" // string | The DAG ID.
-    orderBy := "orderBy_example" // string | The name of the field to order the results by. Prefix a field name with `-` to reverse the sort order.  (optional)
+    orderBy := "orderBy_example" // string | The name of the field to order the results by. Prefix a field name with `-` to reverse the sort order.  *New in version 2.1.0*  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -507,7 +509,7 @@ Other parameters are passed through a pointer to a apiGetTasksRequest struct via
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **orderBy** | **string** | The name of the field to order the results by. Prefix a field name with &#x60;-&#x60; to reverse the sort order.  | 
+ **orderBy** | **string** | The name of the field to order the results by. Prefix a field name with &#x60;-&#x60; to reverse the sort order.  *New in version 2.1.0*  | 
 
 ### Return type
 

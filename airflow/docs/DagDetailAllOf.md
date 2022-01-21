@@ -27,11 +27,11 @@ Name | Type | Description | Notes
 **Catchup** | Pointer to **bool** |  | [optional] [readonly] 
 **Orientation** | Pointer to **string** |  | [optional] [readonly] 
 **Concurrency** | Pointer to **float32** |  | [optional] [readonly] 
-**StartDate** | Pointer to **NullableTime** |  | [optional] [readonly] 
+**StartDate** | Pointer to **NullableTime** | The DAG&#39;s start date.  *Changed in version 2.0.1*&amp;#58; Field becomes nullable.  | [optional] [readonly] 
 **DagRunTimeout** | Pointer to [**TimeDelta**](TimeDelta.md) |  | [optional] 
 **DocMd** | Pointer to **NullableString** |  | [optional] [readonly] 
 **DefaultView** | Pointer to **string** |  | [optional] [readonly] 
-**Params** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
+**Params** | Pointer to **map[string]interface{}** | User-specified DAG params.  *New in version 2.0.1*  | [optional] [readonly] 
 
 ## Methods
 

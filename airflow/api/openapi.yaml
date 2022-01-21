@@ -292,6 +292,8 @@ paths:
       - description: |
           The name of the field to order the results by.
           Prefix a field name with `-` to reverse the sort order.
+
+          *New in version 2.1.0*
         explode: true
         in: query
         name: order_by
@@ -513,6 +515,10 @@ paths:
       x-openapi-router-controller: airflow.api_connexion.endpoints.connection_endpoint
   /connections/test:
     post:
+      description: |
+        Test a connection.
+
+        *New in version 2.2.0*
       operationId: test_connection
       requestBody:
         content:
@@ -582,6 +588,8 @@ paths:
       - description: |
           The name of the field to order the results by.
           Prefix a field name with `-` to reverse the sort order.
+
+          *New in version 2.1.0*
         explode: true
         in: query
         name: order_by
@@ -589,7 +597,10 @@ paths:
         schema:
           type: string
         style: form
-      - description: List of tags to filter results
+      - description: |
+          List of tags to filter results.
+
+          *New in version 2.2.0*
         explode: true
         in: query
         name: tags
@@ -599,7 +610,10 @@ paths:
             type: string
           type: array
         style: form
-      - description: Only return active DAGs.
+      - description: |
+          Only return active DAGs.
+
+          *New in version 2.1.1*
         explode: true
         in: query
         name: only_active
@@ -607,6 +621,17 @@ paths:
         schema:
           default: true
           type: boolean
+        style: form
+      - description: |
+          If set, only return DAGs with dag_ids matching this pattern.
+
+          *New in version 2.3.0*
+        explode: true
+        in: query
+        name: dag_id_pattern
+        required: false
+        schema:
+          type: string
         style: form
       responses:
         "200":
@@ -629,7 +654,10 @@ paths:
   /dags/{dag_id}:
     delete:
       description: |
-        Deletes all metadata related to the DAG, including finished DAG Runs and Tasks. Logs are not deleted. This action cannot be undone.
+        Deletes all metadata related to the DAG, including finished DAG Runs and Tasks.
+        Logs are not deleted. This action cannot be undone.
+
+        *New in version 2.2.0*
       operationId: delete_dag
       parameters:
       - description: The DAG ID.
@@ -748,6 +776,8 @@ paths:
       requestBody:
         content:
           application/json:
+            example:
+              is_paused: true
             schema:
               $ref: '#/components/schemas/DAG'
         required: true
@@ -988,9 +1018,22 @@ paths:
           format: date-time
           type: string
         style: form
+      - description: The value can be repeated to retrieve multiple matching values
+          (OR condition).
+        explode: true
+        in: query
+        name: state
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
       - description: |
           The name of the field to order the results by.
           Prefix a field name with `-` to reverse the sort order.
+
+          *New in version 2.1.0*
         explode: true
         in: query
         name: order_by
@@ -1218,7 +1261,10 @@ paths:
       - DAGRun
       x-openapi-router-controller: airflow.api_connexion.endpoints.dag_run_endpoint
     patch:
-      description: Modify a DAG run
+      description: |
+        Modify a DAG run.
+
+        *New in version 2.2.0*
       operationId: update_dag_run_state
       parameters:
       - description: The DAG ID.
@@ -1306,6 +1352,8 @@ paths:
       - description: |
           The name of the field to order the results by.
           Prefix a field name with `-` to reverse the sort order.
+
+          *New in version 2.1.0*
         explode: true
         in: query
         name: order_by
@@ -1405,6 +1453,8 @@ paths:
       - description: |
           The name of the field to order the results by.
           Prefix a field name with `-` to reverse the sort order.
+
+          *New in version 2.1.0*
         explode: true
         in: query
         name: order_by
@@ -1504,6 +1554,8 @@ paths:
       - description: |
           The name of the field to order the results by.
           Prefix a field name with `-` to reverse the sort order.
+
+          *New in version 2.1.0*
         explode: true
         in: query
         name: order_by
@@ -1731,6 +1783,10 @@ paths:
       x-openapi-router-controller: airflow.api_connexion.endpoints.pool_endpoint
   /providers:
     get:
+      description: |
+        Get a list of providers.
+
+        *New in version 2.1.0*
       operationId: get_providers
       responses:
         "200":
@@ -2078,6 +2134,8 @@ paths:
       - description: |
           The name of the field to order the results by.
           Prefix a field name with `-` to reverse the sort order.
+
+          *New in version 2.1.0*
         explode: true
         in: query
         name: order_by
@@ -2655,6 +2713,8 @@ paths:
       - description: |
           The name of the field to order the results by.
           Prefix a field name with `-` to reverse the sort order.
+
+          *New in version 2.1.0*
         explode: true
         in: query
         name: order_by
@@ -2879,6 +2939,10 @@ paths:
       x-openapi-router-controller: airflow.api_connexion.endpoints.version_endpoint
   /plugins:
     get:
+      description: |
+        Get a list of loaded plugins.
+
+        *New in version 2.1.0*
       operationId: get_plugins
       parameters:
       - description: The numbers of items to return.
@@ -2932,6 +2996,10 @@ paths:
       x-openapi-router-controller: airflow.api_connexion.endpoints.plugin_endpoint
   /roles:
     get:
+      description: |
+        Get a list of roles.
+
+        *New in version 2.1.0*
       operationId: get_roles
       parameters:
       - description: The numbers of items to return.
@@ -2956,6 +3024,8 @@ paths:
       - description: |
           The name of the field to order the results by.
           Prefix a field name with `-` to reverse the sort order.
+
+          *New in version 2.1.0*
         explode: true
         in: query
         name: order_by
@@ -2988,6 +3058,10 @@ paths:
       - Role
       x-openapi-router-controller: airflow.api_connexion.endpoints.role_and_permission_endpoint
     post:
+      description: |
+        Create a new role.
+
+        *New in version 2.1.0*
       operationId: post_role
       requestBody:
         content:
@@ -3027,6 +3101,10 @@ paths:
       x-openapi-router-controller: airflow.api_connexion.endpoints.role_and_permission_endpoint
   /roles/{role_name}:
     delete:
+      description: |
+        Delete a role.
+
+        *New in version 2.1.0*
       operationId: delete_role
       parameters:
       - description: The role name
@@ -3070,6 +3148,10 @@ paths:
       - Role
       x-openapi-router-controller: airflow.api_connexion.endpoints.role_and_permission_endpoint
     get:
+      description: |
+        Get a role.
+
+        *New in version 2.1.0*
       operationId: get_role
       parameters:
       - description: The role name
@@ -3111,6 +3193,10 @@ paths:
       - Role
       x-openapi-router-controller: airflow.api_connexion.endpoints.role_and_permission_endpoint
     patch:
+      description: |
+        Update a role.
+
+        *New in version 2.1.0*
       operationId: patch_role
       parameters:
       - description: The role name
@@ -3177,6 +3263,10 @@ paths:
       x-openapi-router-controller: airflow.api_connexion.endpoints.role_and_permission_endpoint
   /permissions:
     get:
+      description: |
+        Get a list of permissions.
+
+        *New in version 2.1.0*
       operationId: get_permissions
       parameters:
       - description: The numbers of items to return.
@@ -3224,6 +3314,10 @@ paths:
       x-openapi-router-controller: airflow.api_connexion.endpoints.role_and_permission_endpoint
   /users:
     get:
+      description: |
+        Get a list of users.
+
+        *New in version 2.1.0*
       operationId: get_users
       parameters:
       - description: The numbers of items to return.
@@ -3248,6 +3342,8 @@ paths:
       - description: |
           The name of the field to order the results by.
           Prefix a field name with `-` to reverse the sort order.
+
+          *New in version 2.1.0*
         explode: true
         in: query
         name: order_by
@@ -3280,6 +3376,10 @@ paths:
       - User
       x-openapi-router-controller: airflow.api_connexion.endpoints.user_endpoint
     post:
+      description: |
+        Create a new user with unique username and email.
+
+        *New in version 2.2.0*
       operationId: post_user
       requestBody:
         content:
@@ -3325,9 +3425,16 @@ paths:
       x-openapi-router-controller: airflow.api_connexion.endpoints.user_endpoint
   /users/{username}:
     delete:
+      description: |
+        Delete a user with a specific username.
+
+        *New in version 2.2.0*
       operationId: delete_user
       parameters:
-      - description: The username of the user
+      - description: |
+          The username of the user.
+
+          *New in version 2.1.0*
         explode: false
         in: path
         name: username
@@ -3368,9 +3475,16 @@ paths:
       - User
       x-openapi-router-controller: airflow.api_connexion.endpoints.user_endpoint
     get:
+      description: |
+        Get a user with a specific username.
+
+        *New in version 2.1.0*
       operationId: get_user
       parameters:
-      - description: The username of the user
+      - description: |
+          The username of the user.
+
+          *New in version 2.1.0*
         explode: false
         in: path
         name: username
@@ -3409,9 +3523,16 @@ paths:
       - User
       x-openapi-router-controller: airflow.api_connexion.endpoints.user_endpoint
     patch:
+      description: |
+        Update fields for a user.
+
+        *New in version 2.2.0*
       operationId: patch_user
       parameters:
-      - description: The username of the user
+      - description: |
+          The username of the user.
+
+          *New in version 2.1.0*
         explode: false
         in: path
         name: username
@@ -3501,7 +3622,10 @@ components:
         type: integer
       style: form
     Username:
-      description: The username of the user
+      description: |
+        The username of the user.
+
+        *New in version 2.1.0*
       explode: false
       in: path
       name: username
@@ -3769,7 +3893,10 @@ components:
         type: array
       style: form
     FilterTags:
-      description: List of tags to filter results
+      description: |
+        List of tags to filter results.
+
+        *New in version 2.2.0*
       explode: true
       in: query
       name: tags
@@ -3783,6 +3910,8 @@ components:
       description: |
         The name of the field to order the results by.
         Prefix a field name with `-` to reverse the sort order.
+
+        *New in version 2.1.0*
       explode: true
       in: query
       name: order_by
@@ -3870,7 +3999,9 @@ components:
   schemas:
     UserCollectionItem:
       description: |
-        A user object
+        A user object.
+
+        *New in version 2.1.0*
       example:
         login_count: 0
         failed_login_count: 6
@@ -3887,19 +4018,31 @@ components:
         username: username
       properties:
         first_name:
-          description: The user firstname
+          description: |
+            The user's first name.
+
+            *Changed in version 2.2.0*&#58; A minimum character length requirement ('minLength') is added.
           minLength: 1
           type: string
         last_name:
-          description: The user lastname
+          description: |
+            The user's last name.
+
+            *Changed in version 2.2.0*&#58; A minimum character length requirement ('minLength') is added.
           minLength: 1
           type: string
         username:
-          description: The username
+          description: |
+            The username.
+
+            *Changed in version 2.2.0*&#58; A minimum character length requirement ('minLength') is added.
           minLength: 1
           type: string
         email:
-          description: The user's email
+          description: |
+            The user's email.
+
+            *Changed in version 2.2.0*&#58; A minimum character length requirement ('minLength') is added.
           minLength: 1
           type: string
         active:
@@ -3924,7 +4067,10 @@ components:
           readOnly: true
           type: integer
         roles:
-          description: User roles
+          description: |
+            User roles.
+
+            *Changed in version 2.2.0*&#58; Field is no longer read-only.
           items:
             $ref: '#/components/schemas/UserCollectionItem_roles'
           type: array
@@ -3945,13 +4091,19 @@ components:
       allOf:
       - $ref: '#/components/schemas/UserCollectionItem'
       - $ref: '#/components/schemas/User_allOf'
-      description: A user object with sensitive data
+      description: |
+        A user object with sensitive data.
+
+        *New in version 2.1.0*
       type: object
     UserCollection:
       allOf:
       - $ref: '#/components/schemas/UserCollection_allOf'
       - $ref: '#/components/schemas/CollectionInfo'
-      description: Collection of users.
+      description: |
+        Collection of users.
+
+        *New in version 2.1.0*
       type: object
     ConnectionCollectionItem:
       description: |
@@ -3985,7 +4137,10 @@ components:
       allOf:
       - $ref: '#/components/schemas/ConnectionCollection_allOf'
       - $ref: '#/components/schemas/CollectionInfo'
-      description: Collection of connections.
+      description: |
+        Collection of connections.
+
+        *Changed in version 2.1.0*&#58; 'total_entries' field is added.
       type: object
     Connection:
       allOf:
@@ -3993,7 +4148,10 @@ components:
       - $ref: '#/components/schemas/Connection_allOf'
       description: Full representation of the connection.
     ConnectionTest:
-      description: Connection test results.
+      description: |
+        Connection test results.
+
+        *New in version 2.2.0*
       example:
         message: message
         status: true
@@ -4038,7 +4196,12 @@ components:
           nullable: true
           type: boolean
         is_active:
-          description: Whether the DAG is currently seen by the scheduler(s).
+          description: |
+            Whether the DAG is currently seen by the scheduler(s).
+
+            *New in version 2.1.1*
+
+            *Changed in version 2.2.0*&#58; Field is read-only.
           nullable: true
           readOnly: true
           type: boolean
@@ -4080,7 +4243,10 @@ components:
       allOf:
       - $ref: '#/components/schemas/DAGCollection_allOf'
       - $ref: '#/components/schemas/CollectionInfo'
-      description: Collection of DAGs.
+      description: |
+        Collection of DAGs.
+
+        *Changed in version 2.1.0*&#58; 'total_entries' field is added.
       type: object
     DAGRun:
       example:
@@ -4119,6 +4285,8 @@ components:
             field of an existing object, the request fails with an BAD_REQUEST error.
 
             This together with DAG_ID are a unique key.
+
+            *New in version 2.2.0*
           format: date-time
           nullable: true
           type: string
@@ -4128,12 +4296,18 @@ components:
             The execution date. This is the same as logical_date, kept for backwards compatibility.
             If both this field and logical_date are provided but with different values, the request
             will fail with an BAD_REQUEST error.
+
+            *Changed in version 2.2.0*&#58; Field becomes nullable.
+
+            *Deprecated since version 2.2.0*&#58; Use 'logical_date' instead.
           format: date-time
           nullable: true
           type: string
         start_date:
           description: |
             The start time. The time when DAG run was actually created.
+
+            *Changed in version 2.1.3*&#58; Field becomes nullable.
           format: date-time
           nullable: true
           readOnly: true
@@ -4160,6 +4334,10 @@ components:
       - dag_id
       type: object
     UpdateDagRunState:
+      description: |
+        Modify the state of a DAG run.
+
+        *New in version 2.2.0*
       example:
         state: success
       properties:
@@ -4174,7 +4352,10 @@ components:
       allOf:
       - $ref: '#/components/schemas/DAGRunCollection_allOf'
       - $ref: '#/components/schemas/CollectionInfo'
-      description: Collection of DAG runs.
+      description: |
+        Collection of DAG runs.
+
+        *Changed in version 2.1.0*&#58; 'total_entries' field is added.
       type: object
     EventLog:
       description: Log of user operations via CLI or Web UI.
@@ -4233,7 +4414,10 @@ components:
       allOf:
       - $ref: '#/components/schemas/EventLogCollection_allOf'
       - $ref: '#/components/schemas/CollectionInfo'
-      description: Collection of event logs.
+      description: |
+        Collection of event logs.
+
+        *Changed in version 2.1.0*&#58; 'total_entries' field is added.
       type: object
     ImportError:
       example:
@@ -4264,7 +4448,10 @@ components:
       allOf:
       - $ref: '#/components/schemas/ImportErrorCollection_allOf'
       - $ref: '#/components/schemas/CollectionInfo'
-      description: Collection of import errors.
+      description: |
+        Collection of import errors.
+
+        *Changed in version 2.1.0*&#58; 'total_entries' field is added.
       type: object
     HealthInfo:
       description: Instance status information.
@@ -4306,6 +4493,7 @@ components:
         open_slots: 5
         slots: 0
         name: name
+        description: description
         used_slots: 1
         occupied_slots: 6
       properties:
@@ -4332,15 +4520,28 @@ components:
           description: The number of free slots at the moment.
           readOnly: true
           type: integer
+        description:
+          description: |
+            The description of the pool.
+
+            *New in version 2.3.0*
+          nullable: true
+          type: string
       type: object
     PoolCollection:
       allOf:
       - $ref: '#/components/schemas/PoolCollection_allOf'
       - $ref: '#/components/schemas/CollectionInfo'
-      description: Collection of pools.
+      description: |
+        Collection of pools.
+
+        *Changed in version 2.1.0*&#58; 'total_entries' field is added.
       type: object
     Provider:
-      description: The provider
+      description: |
+        The provider
+
+        *New in version 2.1.0*
       properties:
         package_name:
           description: The package name of the provider.
@@ -4353,6 +4554,10 @@ components:
           type: string
       type: object
     ProviderCollection:
+      description: |
+        Collection of providers.
+
+        *New in version 2.1.0*
       properties:
         providers:
           items:
@@ -4412,6 +4617,7 @@ components:
         duration: 0.8008281904610115
         hostname: hostname
         executor_config: executor_config
+        dag_run_id: dag_run_id
         try_number: 6
         dag_id: dag_id
         priority_weight: 5
@@ -4422,6 +4628,12 @@ components:
         task_id:
           type: string
         dag_id:
+          type: string
+        dag_run_id:
+          description: |
+            The DagRun ID for this task instance
+
+            *New in version 2.3.0*
           type: string
         execution_date:
           format: datetime
@@ -4456,6 +4668,8 @@ components:
         priority_weight:
           type: integer
         operator:
+          description: |
+            *Changed in version 2.1.1*&#58; Field becomes nullable.
           nullable: true
           type: string
         queued_when:
@@ -4473,7 +4687,10 @@ components:
       allOf:
       - $ref: '#/components/schemas/TaskInstanceCollection_allOf'
       - $ref: '#/components/schemas/CollectionInfo'
-      description: Collection of task instances.
+      description: |
+        Collection of task instances.
+
+        *Changed in version 2.1.0*&#58; 'total_entries' field is added.
       type: object
     TaskInstanceReference:
       example:
@@ -4528,7 +4745,10 @@ components:
       allOf:
       - $ref: '#/components/schemas/VariableCollection_allOf'
       - $ref: '#/components/schemas/CollectionInfo'
-      description: Collection of variables.
+      description: |
+        Collection of variables.
+
+        *Changed in version 2.1.0*&#58; 'total_entries' field is added.
       type: object
     Variable:
       allOf:
@@ -4558,7 +4778,10 @@ components:
       allOf:
       - $ref: '#/components/schemas/XComCollection_allOf'
       - $ref: '#/components/schemas/CollectionInfo'
-      description: Collection of XCom entries.
+      description: |
+        Collection of XCom entries.
+
+        *Changed in version 2.1.0*&#58; 'total_entries' field is added.
       type: object
     XCom:
       allOf:
@@ -4573,7 +4796,7 @@ components:
         DAG details.
 
         For details see:
-        (airflow.models.DAG)[https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/models/index.html#airflow.models.DAG]
+        [airflow.models.DAG](https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/models/index.html#airflow.models.DAG)
     ExtraLink:
       description: Additional links containing additional information about the task.
       example:
@@ -4615,7 +4838,7 @@ components:
     Task:
       description: |
         For details see:
-        (airflow.models.BaseOperator)[https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/models/index.html#airflow.models.BaseOperator]
+        [airflow.models.BaseOperator](https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/models/index.html#airflow.models.BaseOperator)
       example:
         owner: owner
         end_date: 2000-01-23T04:56:07.000+00:00
@@ -4869,7 +5092,10 @@ components:
           type: array
       type: object
     PluginCollectionItem:
-      description: Plugin Item
+      description: |
+        A plugin Item.
+
+        *New in version 2.1.0*
       properties:
         number:
           description: The plugin number
@@ -4934,10 +5160,16 @@ components:
       allOf:
       - $ref: '#/components/schemas/PluginCollection_allOf'
       - $ref: '#/components/schemas/CollectionInfo'
-      description: Plugin Collection
+      description: |
+        A collection of plugin.
+
+        *New in version 2.1.0*
       type: object
     Role:
-      description: Role item
+      description: |
+        a role item.
+
+        *New in version 2.1.0*
       example:
         name: name
         actions:
@@ -4951,7 +5183,11 @@ components:
             name: name
       properties:
         name:
-          description: The name of the role
+          description: |
+            The name of the role
+
+            *Changed in version 2.3.0*&#58; A minimum character length requirement ('minLength') is added.
+          minLength: 1
           type: string
         actions:
           items:
@@ -4962,10 +5198,16 @@ components:
       allOf:
       - $ref: '#/components/schemas/RoleCollection_allOf'
       - $ref: '#/components/schemas/CollectionInfo'
-      description: Role Collections
+      description: |
+        A collection of roles.
+
+        *New in version 2.1.0*
       type: object
     Action:
-      description: Action Item
+      description: |
+        An action Item.
+
+        *New in version 2.1.0*
       example:
         name: name
       properties:
@@ -4978,10 +5220,16 @@ components:
       allOf:
       - $ref: '#/components/schemas/ActionCollection_allOf'
       - $ref: '#/components/schemas/CollectionInfo'
-      description: Action Collection
+      description: |
+        A collection of actions.
+
+        *New in version 2.1.0*
       type: object
     Resource:
-      description: A "resource" on which permissions are granted.
+      description: |
+        A resource on which permissions are granted.
+
+        *New in version 2.1.0*
       example:
         name: name
       properties:
@@ -4991,7 +5239,10 @@ components:
           type: string
       type: object
     ActionResource:
-      description: The Action-Resource item
+      description: |
+        The Action-Resource item.
+
+        *New in version 2.1.0*
       example:
         resource:
           name: name
@@ -5091,7 +5342,10 @@ components:
             planned to be cleaned, but not modified in any way.
           type: boolean
         task_ids:
-          description: A list of task ids to clear.
+          description: |
+            A list of task ids to clear.
+
+            *New in version 2.1.0*
           items:
             type: string
           minItems: 1
@@ -5128,6 +5382,7 @@ components:
         include_future: true
         include_past: true
         execution_date: execution_date
+        dag_run_id: dag_run_id
         include_upstream: true
         new_state: success
         dry_run: true
@@ -5144,8 +5399,14 @@ components:
           description: The task ID.
           type: string
         execution_date:
-          description: The execution date.
+          description: The execution date. Either set this or dag_run_id but not both.
           format: datetime
+          type: string
+        dag_run_id:
+          description: |
+            The task instance's DAG run ID. Either set this or execution_date but not both.
+
+            *New in version 2.3.0*
           type: string
         include_upstream:
           description: If set to true, upstream tasks are also affected.
@@ -5180,11 +5441,16 @@ components:
         dag_ids:
         - dag_ids
         - dag_ids
+        states:
+        - states
+        - states
       properties:
         order_by:
           description: |
             The name of the field to order the results by. Prefix a field name
             with `-` to reverse the sort order.
+
+            *New in version 2.1.0*
           type: string
         page_offset:
           description: The number of items to skip before starting to collect the
@@ -5199,6 +5465,13 @@ components:
         dag_ids:
           description: |-
             Return objects with specific DAG IDs.
+            The value can be repeated to retrieve multiple matching values (OR condition).
+          items:
+            type: string
+          type: array
+        states:
+          description: |-
+            Return objects with specific states.
             The value can be repeated to retrieve multiple matching values (OR condition).
           items:
             type: string
@@ -5259,8 +5532,8 @@ components:
         duration_lte: 6.027456183070403
         end_date_gte: 2000-01-23T04:56:07.000+00:00
         state:
-        - state
-        - state
+        - null
+        - null
         start_date_lte: 2000-01-23T04:56:07.000+00:00
         dag_ids:
         - dag_ids
@@ -5334,7 +5607,7 @@ components:
           description: The value can be repeated to retrieve multiple matching values
             (OR condition).
           items:
-            type: string
+            $ref: '#/components/schemas/TaskState'
           type: array
         pool:
           description: The value can be repeated to retrieve multiple matching values
@@ -5513,7 +5786,12 @@ components:
           type: integer
       type: object
     TaskState:
-      description: Task state.
+      description: |
+        Task state.
+
+        *Changed in version 2.0.2*&#58; 'removed' is added as a possible value.
+
+        *Changed in version 2.2.0*&#58; 'deferred' and 'sensing' is added as a possible value.
       enum:
       - success
       - running
@@ -5530,7 +5808,10 @@ components:
       - removed
       type: string
     DagState:
-      description: DAG State.
+      description: |
+        DAG State.
+
+        *Changed in version 2.1.3*&#58; 'queued' is added as a possible value.
       enum:
       - queued
       - running
@@ -5538,7 +5819,10 @@ components:
       - failed
       type: string
     TriggerRule:
-      description: Trigger rule.
+      description: |
+        Trigger rule.
+
+        *Changed in version 2.2.0*&#58; 'none_failed_min_one_success' is added as a possible value.
       enum:
       - all_success
       - all_failed
@@ -5703,6 +5987,10 @@ components:
           readOnly: true
           type: number
         start_date:
+          description: |
+            The DAG's start date.
+
+            *Changed in version 2.0.1*&#58; Field becomes nullable.
           format: date-time
           nullable: true
           readOnly: true
@@ -5717,6 +6005,10 @@ components:
           readOnly: true
           type: string
         params:
+          description: |
+            User-specified DAG params.
+
+            *New in version 2.0.1*
           readOnly: true
           type: object
       type: object
