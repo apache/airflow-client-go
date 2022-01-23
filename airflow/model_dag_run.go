@@ -37,7 +37,7 @@ import (
 type DAGRun struct {
 	// Run ID.  The value of this field can be set only when creating the object. If you try to modify the field of an existing object, the request fails with an BAD_REQUEST error.  If not provided, a value will be generated based on execution_date.  If the specified dag_run_id is in use, the creation request fails with an ALREADY_EXISTS error.  This together with DAG_ID are a unique key. 
 	DagRunId NullableString `json:"dag_run_id,omitempty"`
-	DagId string `json:"dag_id"`
+	DagId *string `json:"dag_id,omitempty"`
 	// The logical date (previously called execution date). This is the time or interval covered by this DAG run, according to the DAG definition.  The value of this field can be set only when creating the object. If you try to modify the field of an existing object, the request fails with an BAD_REQUEST error.  This together with DAG_ID are a unique key.  *New in version 2.2.0* 
 	LogicalDate NullableTime `json:"logical_date,omitempty"`
 	// The execution date. This is the same as logical_date, kept for backwards compatibility. If both this field and logical_date are provided but with different values, the request will fail with an BAD_REQUEST error.  *Changed in version 2.2.0*&#58; Field becomes nullable.  *Deprecated since version 2.2.0*&#58; Use 'logical_date' instead. 
@@ -56,9 +56,8 @@ type DAGRun struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDAGRun(dagId string) *DAGRun {
+func NewDAGRun() *DAGRun {
 	this := DAGRun{}
-	this.DagId = dagId
 	return &this
 }
 
@@ -112,28 +111,36 @@ func (o *DAGRun) UnsetDagRunId() {
 	o.DagRunId.Unset()
 }
 
-// GetDagId returns the DagId field value
+// GetDagId returns the DagId field value if set, zero value otherwise.
 func (o *DAGRun) GetDagId() string {
-	if o == nil {
+	if o == nil || o.DagId == nil {
 		var ret string
 		return ret
 	}
-
-	return o.DagId
+	return *o.DagId
 }
 
-// GetDagIdOk returns a tuple with the DagId field value
+// GetDagIdOk returns a tuple with the DagId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DAGRun) GetDagIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil || o.DagId == nil {
 		return nil, false
 	}
-	return &o.DagId, true
+	return o.DagId, true
 }
 
-// SetDagId sets field value
+// HasDagId returns a boolean if a field has been set.
+func (o *DAGRun) HasDagId() bool {
+	if o != nil && o.DagId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDagId gets a reference to the given string and assigns it to the DagId field.
 func (o *DAGRun) SetDagId(v string) {
-	o.DagId = v
+	o.DagId = &v
 }
 
 // GetLogicalDate returns the LogicalDate field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -408,7 +415,7 @@ func (o DAGRun) MarshalJSON() ([]byte, error) {
 	if o.DagRunId.IsSet() {
 		toSerialize["dag_run_id"] = o.DagRunId.Get()
 	}
-	if true {
+	if o.DagId != nil {
 		toSerialize["dag_id"] = o.DagId
 	}
 	if o.LogicalDate.IsSet() {

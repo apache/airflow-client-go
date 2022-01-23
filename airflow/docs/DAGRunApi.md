@@ -349,7 +349,7 @@ import (
 
 func main() {
     dagId := "dagId_example" // string | The DAG ID.
-    dAGRun := *openapiclient.NewDAGRun("DagId_example") // DAGRun | 
+    dAGRun := *openapiclient.NewDAGRun() // DAGRun | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
