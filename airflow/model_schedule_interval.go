@@ -100,11 +100,18 @@ func (dst *ScheduleInterval) UnmarshalJSON(data []byte) error {
 	}
 
 	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.CronExpression = nil
-		dst.RelativeDelta = nil
-		dst.TimeDelta = nil
-
+		if dst.CronExpression != nil && dst.CronExpression.GetType() != "CronExpression" {
+			dst.CronExpression = nil
+		}
+		if dst.RelativeDelta != nil && dst.RelativeDelta.GetType() != "RelativeDelta" {
+			dst.RelativeDelta = nil
+		}
+		if dst.TimeDelta != nil && dst.TimeDelta.GetType() != "TimeDelta" {
+			dst.TimeDelta = nil
+		}
+		if in := dst.GetActualInstance(); in != nil {
+			return nil
+		}
 		return fmt.Errorf("Data matches more than one schema in oneOf(ScheduleInterval)")
 	} else if match == 1 {
 		return nil // exactly one match
