@@ -25,6 +25,8 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetExtraLinks**](TaskInstanceApi.md#GetExtraLinks) | **Get** /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/links | List extra links
 [**GetLog**](TaskInstanceApi.md#GetLog) | **Get** /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/logs/{task_try_number} | Get logs
+[**GetMappedTaskInstance**](TaskInstanceApi.md#GetMappedTaskInstance) | **Get** /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/{map_index} | Get a mapped task instance
+[**GetMappedTaskInstances**](TaskInstanceApi.md#GetMappedTaskInstances) | **Get** /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/listMapped | List mapped task instances
 [**GetTaskInstance**](TaskInstanceApi.md#GetTaskInstance) | **Get** /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id} | Get a task instance
 [**GetTaskInstances**](TaskInstanceApi.md#GetTaskInstances) | **Get** /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances | List task instances
 [**GetTaskInstancesBatch**](TaskInstanceApi.md#GetTaskInstancesBatch) | **Post** /dags/~/dagRuns/~/taskInstances/list | List task instances (batch)
@@ -184,6 +186,190 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: application/json, text/plain
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetMappedTaskInstance
+
+> TaskInstance GetMappedTaskInstance(ctx, dagId, dagRunId, taskId, mapIndex).Execute()
+
+Get a mapped task instance
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    dagId := "dagId_example" // string | The DAG ID.
+    dagRunId := "dagRunId_example" // string | The DAG run ID.
+    taskId := "taskId_example" // string | The task ID.
+    mapIndex := int32(56) // int32 | The map index.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.TaskInstanceApi.GetMappedTaskInstance(context.Background(), dagId, dagRunId, taskId, mapIndex).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `TaskInstanceApi.GetMappedTaskInstance``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetMappedTaskInstance`: TaskInstance
+    fmt.Fprintf(os.Stdout, "Response from `TaskInstanceApi.GetMappedTaskInstance`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**dagId** | **string** | The DAG ID. | 
+**dagRunId** | **string** | The DAG run ID. | 
+**taskId** | **string** | The task ID. | 
+**mapIndex** | **int32** | The map index. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetMappedTaskInstanceRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+
+### Return type
+
+[**TaskInstance**](TaskInstance.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetMappedTaskInstances
+
+> TaskInstance GetMappedTaskInstances(ctx, dagId, dagRunId, taskId).Limit(limit).Offset(offset).ExecutionDateGte(executionDateGte).ExecutionDateLte(executionDateLte).StartDateGte(startDateGte).StartDateLte(startDateLte).EndDateGte(endDateGte).EndDateLte(endDateLte).DurationGte(durationGte).DurationLte(durationLte).State(state).Pool(pool).Queue(queue).OrderBy(orderBy).Execute()
+
+List mapped task instances
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    "time"
+    openapiclient "./openapi"
+)
+
+func main() {
+    dagId := "dagId_example" // string | The DAG ID.
+    dagRunId := "dagRunId_example" // string | The DAG run ID.
+    taskId := "taskId_example" // string | The task ID.
+    limit := int32(56) // int32 | The numbers of items to return. (optional) (default to 100)
+    offset := int32(56) // int32 | The number of items to skip before starting to collect the result set. (optional)
+    executionDateGte := time.Now() // time.Time | Returns objects greater or equal to the specified date.  This can be combined with execution_date_lte parameter to receive only the selected period.  (optional)
+    executionDateLte := time.Now() // time.Time | Returns objects less than or equal to the specified date.  This can be combined with execution_date_gte parameter to receive only the selected period.  (optional)
+    startDateGte := time.Now() // time.Time | Returns objects greater or equal the specified date.  This can be combined with start_date_lte parameter to receive only the selected period.  (optional)
+    startDateLte := time.Now() // time.Time | Returns objects less or equal the specified date.  This can be combined with start_date_gte parameter to receive only the selected period.  (optional)
+    endDateGte := time.Now() // time.Time | Returns objects greater or equal the specified date.  This can be combined with start_date_lte parameter to receive only the selected period.  (optional)
+    endDateLte := time.Now() // time.Time | Returns objects less than or equal to the specified date.  This can be combined with start_date_gte parameter to receive only the selected period.  (optional)
+    durationGte := float32(8.14) // float32 | Returns objects greater than or equal to the specified values.  This can be combined with duration_lte parameter to receive only the selected period.  (optional)
+    durationLte := float32(8.14) // float32 | Returns objects less than or equal to the specified values.  This can be combined with duration_gte parameter to receive only the selected range.  (optional)
+    state := []string{"Inner_example"} // []string | The value can be repeated to retrieve multiple matching values (OR condition). (optional)
+    pool := []string{"Inner_example"} // []string | The value can be repeated to retrieve multiple matching values (OR condition). (optional)
+    queue := []string{"Inner_example"} // []string | The value can be repeated to retrieve multiple matching values (OR condition). (optional)
+    orderBy := "orderBy_example" // string | The name of the field to order the results by. Prefix a field name with `-` to reverse the sort order.  *New in version 2.1.0*  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.TaskInstanceApi.GetMappedTaskInstances(context.Background(), dagId, dagRunId, taskId).Limit(limit).Offset(offset).ExecutionDateGte(executionDateGte).ExecutionDateLte(executionDateLte).StartDateGte(startDateGte).StartDateLte(startDateLte).EndDateGte(endDateGte).EndDateLte(endDateLte).DurationGte(durationGte).DurationLte(durationLte).State(state).Pool(pool).Queue(queue).OrderBy(orderBy).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `TaskInstanceApi.GetMappedTaskInstances``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetMappedTaskInstances`: TaskInstance
+    fmt.Fprintf(os.Stdout, "Response from `TaskInstanceApi.GetMappedTaskInstances`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**dagId** | **string** | The DAG ID. | 
+**dagRunId** | **string** | The DAG run ID. | 
+**taskId** | **string** | The task ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetMappedTaskInstancesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+ **limit** | **int32** | The numbers of items to return. | [default to 100]
+ **offset** | **int32** | The number of items to skip before starting to collect the result set. | 
+ **executionDateGte** | **time.Time** | Returns objects greater or equal to the specified date.  This can be combined with execution_date_lte parameter to receive only the selected period.  | 
+ **executionDateLte** | **time.Time** | Returns objects less than or equal to the specified date.  This can be combined with execution_date_gte parameter to receive only the selected period.  | 
+ **startDateGte** | **time.Time** | Returns objects greater or equal the specified date.  This can be combined with start_date_lte parameter to receive only the selected period.  | 
+ **startDateLte** | **time.Time** | Returns objects less or equal the specified date.  This can be combined with start_date_gte parameter to receive only the selected period.  | 
+ **endDateGte** | **time.Time** | Returns objects greater or equal the specified date.  This can be combined with start_date_lte parameter to receive only the selected period.  | 
+ **endDateLte** | **time.Time** | Returns objects less than or equal to the specified date.  This can be combined with start_date_gte parameter to receive only the selected period.  | 
+ **durationGte** | **float32** | Returns objects greater than or equal to the specified values.  This can be combined with duration_lte parameter to receive only the selected period.  | 
+ **durationLte** | **float32** | Returns objects less than or equal to the specified values.  This can be combined with duration_gte parameter to receive only the selected range.  | 
+ **state** | **[]string** | The value can be repeated to retrieve multiple matching values (OR condition). | 
+ **pool** | **[]string** | The value can be repeated to retrieve multiple matching values (OR condition). | 
+ **queue** | **[]string** | The value can be repeated to retrieve multiple matching values (OR condition). | 
+ **orderBy** | **string** | The name of the field to order the results by. Prefix a field name with &#x60;-&#x60; to reverse the sort order.  *New in version 2.1.0*  | 
+
+### Return type
+
+[**TaskInstance**](TaskInstance.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
