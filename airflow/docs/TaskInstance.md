@@ -44,6 +44,7 @@ Name | Type | Description | Notes
 **Pid** | Pointer to **NullableInt32** |  | [optional] 
 **ExecutorConfig** | Pointer to **string** |  | [optional] 
 **SlaMiss** | Pointer to [**SLAMiss**](SLAMiss.md) |  | [optional] 
+**RenderedFields** | Pointer to **map[string]interface{}** | JSON object describing rendered fields.  *New in version 2.3.0*  | [optional] 
 
 ## Methods
 
@@ -648,6 +649,31 @@ SetSlaMiss sets SlaMiss field to given value.
 `func (o *TaskInstance) HasSlaMiss() bool`
 
 HasSlaMiss returns a boolean if a field has been set.
+
+### GetRenderedFields
+
+`func (o *TaskInstance) GetRenderedFields() map[string]interface{}`
+
+GetRenderedFields returns the RenderedFields field if non-nil, zero value otherwise.
+
+### GetRenderedFieldsOk
+
+`func (o *TaskInstance) GetRenderedFieldsOk() (*map[string]interface{}, bool)`
+
+GetRenderedFieldsOk returns a tuple with the RenderedFields field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRenderedFields
+
+`func (o *TaskInstance) SetRenderedFields(v map[string]interface{})`
+
+SetRenderedFields sets RenderedFields field to given value.
+
+### HasRenderedFields
+
+`func (o *TaskInstance) HasRenderedFields() bool`
+
+HasRenderedFields returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

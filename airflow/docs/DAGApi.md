@@ -31,6 +31,7 @@ Method | HTTP request | Description
 [**GetTask**](DAGApi.md#GetTask) | **Get** /dags/{dag_id}/tasks/{task_id} | Get simplified representation of a task
 [**GetTasks**](DAGApi.md#GetTasks) | **Get** /dags/{dag_id}/tasks | Get tasks for DAG
 [**PatchDag**](DAGApi.md#PatchDag) | **Patch** /dags/{dag_id} | Update a DAG
+[**PatchDags**](DAGApi.md#PatchDags) | **Patch** /dags | Update DAGs
 [**PostClearTaskInstances**](DAGApi.md#PostClearTaskInstances) | **Post** /dags/{dag_id}/clearTaskInstances | Clear a set of task instances
 [**PostSetTaskInstancesState**](DAGApi.md#PostSetTaskInstancesState) | **Post** /dags/{dag_id}/updateTaskInstancesState | Set a state of task instances
 
@@ -320,6 +321,8 @@ No authorization required
 
 List DAGs
 
+
+
 ### Example
 
 ```go
@@ -337,8 +340,8 @@ func main() {
     offset := int32(56) // int32 | The number of items to skip before starting to collect the result set. (optional)
     orderBy := "orderBy_example" // string | The name of the field to order the results by. Prefix a field name with `-` to reverse the sort order.  *New in version 2.1.0*  (optional)
     tags := []string{"Inner_example"} // []string | List of tags to filter results.  *New in version 2.2.0*  (optional)
-    onlyActive := true // bool | Only return active DAGs.  *New in version 2.1.1*  (optional) (default to true)
-    dagIdPattern := "dagIdPattern_example" // string | If set, only return DAGs with dag_ids matching this pattern.  *New in version 2.3.0*  (optional)
+    onlyActive := true // bool | Only filter active DAGs.  *New in version 2.1.1*  (optional) (default to true)
+    dagIdPattern := "dagIdPattern_example" // string | If set, only return DAGs with dag_ids matching this pattern.  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -367,8 +370,8 @@ Name | Type | Description  | Notes
  **offset** | **int32** | The number of items to skip before starting to collect the result set. | 
  **orderBy** | **string** | The name of the field to order the results by. Prefix a field name with &#x60;-&#x60; to reverse the sort order.  *New in version 2.1.0*  | 
  **tags** | **[]string** | List of tags to filter results.  *New in version 2.2.0*  | 
- **onlyActive** | **bool** | Only return active DAGs.  *New in version 2.1.1*  | [default to true]
- **dagIdPattern** | **string** | If set, only return DAGs with dag_ids matching this pattern.  *New in version 2.3.0*  | 
+ **onlyActive** | **bool** | Only filter active DAGs.  *New in version 2.1.1*  | [default to true]
+ **dagIdPattern** | **string** | If set, only return DAGs with dag_ids matching this pattern.  | 
 
 ### Return type
 
@@ -586,6 +589,84 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**DAG**](DAG.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PatchDags
+
+> DAGCollection PatchDags(ctx).DagIdPattern(dagIdPattern).DAG(dAG).Limit(limit).Offset(offset).Tags(tags).UpdateMask(updateMask).OnlyActive(onlyActive).Execute()
+
+Update DAGs
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    dagIdPattern := "dagIdPattern_example" // string | If set, only update DAGs with dag_ids matching this pattern. 
+    dAG := *openapiclient.NewDAG() // DAG | 
+    limit := int32(56) // int32 | The numbers of items to return. (optional) (default to 100)
+    offset := int32(56) // int32 | The number of items to skip before starting to collect the result set. (optional)
+    tags := []string{"Inner_example"} // []string | List of tags to filter results.  *New in version 2.2.0*  (optional)
+    updateMask := []string{"Inner_example"} // []string | The fields to update on the resource. If absent or empty, all modifiable fields are updated. A comma-separated list of fully qualified names of fields.  (optional)
+    onlyActive := true // bool | Only filter active DAGs.  *New in version 2.1.1*  (optional) (default to true)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DAGApi.PatchDags(context.Background()).DagIdPattern(dagIdPattern).DAG(dAG).Limit(limit).Offset(offset).Tags(tags).UpdateMask(updateMask).OnlyActive(onlyActive).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DAGApi.PatchDags``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PatchDags`: DAGCollection
+    fmt.Fprintf(os.Stdout, "Response from `DAGApi.PatchDags`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchDagsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **dagIdPattern** | **string** | If set, only update DAGs with dag_ids matching this pattern.  | 
+ **dAG** | [**DAG**](DAG.md) |  | 
+ **limit** | **int32** | The numbers of items to return. | [default to 100]
+ **offset** | **int32** | The number of items to skip before starting to collect the result set. | 
+ **tags** | **[]string** | List of tags to filter results.  *New in version 2.2.0*  | 
+ **updateMask** | **[]string** | The fields to update on the resource. If absent or empty, all modifiable fields are updated. A comma-separated list of fully qualified names of fields.  | 
+ **onlyActive** | **bool** | Only filter active DAGs.  *New in version 2.1.1*  | [default to true]
+
+### Return type
+
+[**DAGCollection**](DAGCollection.md)
 
 ### Authorization
 

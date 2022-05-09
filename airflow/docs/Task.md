@@ -31,6 +31,7 @@ Name | Type | Description | Notes
 **TriggerRule** | Pointer to [**TriggerRule**](TriggerRule.md) |  | [optional] 
 **ExtraLinks** | Pointer to [**[]TaskExtraLinks**](TaskExtraLinks.md) |  | [optional] [readonly] 
 **DependsOnPast** | Pointer to **bool** |  | [optional] [readonly] 
+**IsMapped** | Pointer to **bool** |  | [optional] [readonly] 
 **WaitForDownstream** | Pointer to **bool** |  | [optional] [readonly] 
 **Retries** | Pointer to **float32** |  | [optional] [readonly] 
 **Queue** | Pointer to **string** |  | [optional] [readonly] 
@@ -275,6 +276,31 @@ SetDependsOnPast sets DependsOnPast field to given value.
 `func (o *Task) HasDependsOnPast() bool`
 
 HasDependsOnPast returns a boolean if a field has been set.
+
+### GetIsMapped
+
+`func (o *Task) GetIsMapped() bool`
+
+GetIsMapped returns the IsMapped field if non-nil, zero value otherwise.
+
+### GetIsMappedOk
+
+`func (o *Task) GetIsMappedOk() (*bool, bool)`
+
+GetIsMappedOk returns a tuple with the IsMapped field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsMapped
+
+`func (o *Task) SetIsMapped(v bool)`
+
+SetIsMapped sets IsMapped field to given value.
+
+### HasIsMapped
+
+`func (o *Task) HasIsMapped() bool`
+
+HasIsMapped returns a boolean if a field has been set.
 
 ### GetWaitForDownstream
 

@@ -29,6 +29,10 @@ Name | Type | Description | Notes
 **ExecutionDate** | Pointer to **NullableTime** | The execution date. This is the same as logical_date, kept for backwards compatibility. If both this field and logical_date are provided but with different values, the request will fail with an BAD_REQUEST error.  *Changed in version 2.2.0*&amp;#58; Field becomes nullable.  *Deprecated since version 2.2.0*&amp;#58; Use &#39;logical_date&#39; instead.  | [optional] 
 **StartDate** | Pointer to **NullableTime** | The start time. The time when DAG run was actually created.  *Changed in version 2.1.3*&amp;#58; Field becomes nullable.  | [optional] [readonly] 
 **EndDate** | Pointer to **NullableTime** |  | [optional] [readonly] 
+**DataIntervalStart** | Pointer to **NullableTime** |  | [optional] [readonly] 
+**DataIntervalEnd** | Pointer to **NullableTime** |  | [optional] [readonly] 
+**LastSchedulingDecision** | Pointer to **NullableTime** |  | [optional] [readonly] 
+**RunType** | Pointer to **string** |  | [optional] [readonly] 
 **State** | Pointer to [**DagState**](DagState.md) |  | [optional] 
 **ExternalTrigger** | Pointer to **bool** |  | [optional] [readonly] [default to true]
 **Conf** | Pointer to **map[string]interface{}** | JSON object describing additional configuration parameters.  The value of this field can be set only when creating the object. If you try to modify the field of an existing object, the request fails with an BAD_REQUEST error.  | [optional] 
@@ -252,6 +256,136 @@ HasEndDate returns a boolean if a field has been set.
 `func (o *DAGRun) UnsetEndDate()`
 
 UnsetEndDate ensures that no value is present for EndDate, not even an explicit nil
+### GetDataIntervalStart
+
+`func (o *DAGRun) GetDataIntervalStart() time.Time`
+
+GetDataIntervalStart returns the DataIntervalStart field if non-nil, zero value otherwise.
+
+### GetDataIntervalStartOk
+
+`func (o *DAGRun) GetDataIntervalStartOk() (*time.Time, bool)`
+
+GetDataIntervalStartOk returns a tuple with the DataIntervalStart field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDataIntervalStart
+
+`func (o *DAGRun) SetDataIntervalStart(v time.Time)`
+
+SetDataIntervalStart sets DataIntervalStart field to given value.
+
+### HasDataIntervalStart
+
+`func (o *DAGRun) HasDataIntervalStart() bool`
+
+HasDataIntervalStart returns a boolean if a field has been set.
+
+### SetDataIntervalStartNil
+
+`func (o *DAGRun) SetDataIntervalStartNil(b bool)`
+
+ SetDataIntervalStartNil sets the value for DataIntervalStart to be an explicit nil
+
+### UnsetDataIntervalStart
+`func (o *DAGRun) UnsetDataIntervalStart()`
+
+UnsetDataIntervalStart ensures that no value is present for DataIntervalStart, not even an explicit nil
+### GetDataIntervalEnd
+
+`func (o *DAGRun) GetDataIntervalEnd() time.Time`
+
+GetDataIntervalEnd returns the DataIntervalEnd field if non-nil, zero value otherwise.
+
+### GetDataIntervalEndOk
+
+`func (o *DAGRun) GetDataIntervalEndOk() (*time.Time, bool)`
+
+GetDataIntervalEndOk returns a tuple with the DataIntervalEnd field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDataIntervalEnd
+
+`func (o *DAGRun) SetDataIntervalEnd(v time.Time)`
+
+SetDataIntervalEnd sets DataIntervalEnd field to given value.
+
+### HasDataIntervalEnd
+
+`func (o *DAGRun) HasDataIntervalEnd() bool`
+
+HasDataIntervalEnd returns a boolean if a field has been set.
+
+### SetDataIntervalEndNil
+
+`func (o *DAGRun) SetDataIntervalEndNil(b bool)`
+
+ SetDataIntervalEndNil sets the value for DataIntervalEnd to be an explicit nil
+
+### UnsetDataIntervalEnd
+`func (o *DAGRun) UnsetDataIntervalEnd()`
+
+UnsetDataIntervalEnd ensures that no value is present for DataIntervalEnd, not even an explicit nil
+### GetLastSchedulingDecision
+
+`func (o *DAGRun) GetLastSchedulingDecision() time.Time`
+
+GetLastSchedulingDecision returns the LastSchedulingDecision field if non-nil, zero value otherwise.
+
+### GetLastSchedulingDecisionOk
+
+`func (o *DAGRun) GetLastSchedulingDecisionOk() (*time.Time, bool)`
+
+GetLastSchedulingDecisionOk returns a tuple with the LastSchedulingDecision field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastSchedulingDecision
+
+`func (o *DAGRun) SetLastSchedulingDecision(v time.Time)`
+
+SetLastSchedulingDecision sets LastSchedulingDecision field to given value.
+
+### HasLastSchedulingDecision
+
+`func (o *DAGRun) HasLastSchedulingDecision() bool`
+
+HasLastSchedulingDecision returns a boolean if a field has been set.
+
+### SetLastSchedulingDecisionNil
+
+`func (o *DAGRun) SetLastSchedulingDecisionNil(b bool)`
+
+ SetLastSchedulingDecisionNil sets the value for LastSchedulingDecision to be an explicit nil
+
+### UnsetLastSchedulingDecision
+`func (o *DAGRun) UnsetLastSchedulingDecision()`
+
+UnsetLastSchedulingDecision ensures that no value is present for LastSchedulingDecision, not even an explicit nil
+### GetRunType
+
+`func (o *DAGRun) GetRunType() string`
+
+GetRunType returns the RunType field if non-nil, zero value otherwise.
+
+### GetRunTypeOk
+
+`func (o *DAGRun) GetRunTypeOk() (*string, bool)`
+
+GetRunTypeOk returns a tuple with the RunType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRunType
+
+`func (o *DAGRun) SetRunType(v string)`
+
+SetRunType sets RunType field to given value.
+
+### HasRunType
+
+`func (o *DAGRun) HasRunType() bool`
+
+HasRunType returns a boolean if a field has been set.
+
 ### GetState
 
 `func (o *DAGRun) GetState() DagState`
