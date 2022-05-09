@@ -32,6 +32,11 @@ Name | Type | Description | Notes
 **DocMd** | Pointer to **NullableString** |  | [optional] [readonly] 
 **DefaultView** | Pointer to **string** |  | [optional] [readonly] 
 **Params** | Pointer to **map[string]interface{}** | User-specified DAG params.  *New in version 2.0.1*  | [optional] [readonly] 
+**EndDate** | Pointer to **NullableTime** | The DAG&#39;s end date.  *New in version 2.3.0*.  | [optional] [readonly] 
+**IsPausedUponCreation** | Pointer to **NullableBool** | Whether the DAG is paused upon creation.  *New in version 2.3.0*  | [optional] [readonly] 
+**LastParsed** | Pointer to **NullableTime** | The last time the DAG was parsed.  *New in version 2.3.0*  | [optional] [readonly] 
+**TemplateSearchPath** | Pointer to **[]string** | The template search path.  *New in version 2.3.0*  | [optional] 
+**RenderTemplateAsNativeObj** | Pointer to **NullableBool** | Whether to render templates as native Python objects.  *New in version 2.3.0*  | [optional] [readonly] 
 
 ## Methods
 
@@ -297,6 +302,181 @@ SetParams sets Params field to given value.
 
 HasParams returns a boolean if a field has been set.
 
+### GetEndDate
+
+`func (o *DAGDetailAllOf) GetEndDate() time.Time`
+
+GetEndDate returns the EndDate field if non-nil, zero value otherwise.
+
+### GetEndDateOk
+
+`func (o *DAGDetailAllOf) GetEndDateOk() (*time.Time, bool)`
+
+GetEndDateOk returns a tuple with the EndDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEndDate
+
+`func (o *DAGDetailAllOf) SetEndDate(v time.Time)`
+
+SetEndDate sets EndDate field to given value.
+
+### HasEndDate
+
+`func (o *DAGDetailAllOf) HasEndDate() bool`
+
+HasEndDate returns a boolean if a field has been set.
+
+### SetEndDateNil
+
+`func (o *DAGDetailAllOf) SetEndDateNil(b bool)`
+
+ SetEndDateNil sets the value for EndDate to be an explicit nil
+
+### UnsetEndDate
+`func (o *DAGDetailAllOf) UnsetEndDate()`
+
+UnsetEndDate ensures that no value is present for EndDate, not even an explicit nil
+### GetIsPausedUponCreation
+
+`func (o *DAGDetailAllOf) GetIsPausedUponCreation() bool`
+
+GetIsPausedUponCreation returns the IsPausedUponCreation field if non-nil, zero value otherwise.
+
+### GetIsPausedUponCreationOk
+
+`func (o *DAGDetailAllOf) GetIsPausedUponCreationOk() (*bool, bool)`
+
+GetIsPausedUponCreationOk returns a tuple with the IsPausedUponCreation field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsPausedUponCreation
+
+`func (o *DAGDetailAllOf) SetIsPausedUponCreation(v bool)`
+
+SetIsPausedUponCreation sets IsPausedUponCreation field to given value.
+
+### HasIsPausedUponCreation
+
+`func (o *DAGDetailAllOf) HasIsPausedUponCreation() bool`
+
+HasIsPausedUponCreation returns a boolean if a field has been set.
+
+### SetIsPausedUponCreationNil
+
+`func (o *DAGDetailAllOf) SetIsPausedUponCreationNil(b bool)`
+
+ SetIsPausedUponCreationNil sets the value for IsPausedUponCreation to be an explicit nil
+
+### UnsetIsPausedUponCreation
+`func (o *DAGDetailAllOf) UnsetIsPausedUponCreation()`
+
+UnsetIsPausedUponCreation ensures that no value is present for IsPausedUponCreation, not even an explicit nil
+### GetLastParsed
+
+`func (o *DAGDetailAllOf) GetLastParsed() time.Time`
+
+GetLastParsed returns the LastParsed field if non-nil, zero value otherwise.
+
+### GetLastParsedOk
+
+`func (o *DAGDetailAllOf) GetLastParsedOk() (*time.Time, bool)`
+
+GetLastParsedOk returns a tuple with the LastParsed field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastParsed
+
+`func (o *DAGDetailAllOf) SetLastParsed(v time.Time)`
+
+SetLastParsed sets LastParsed field to given value.
+
+### HasLastParsed
+
+`func (o *DAGDetailAllOf) HasLastParsed() bool`
+
+HasLastParsed returns a boolean if a field has been set.
+
+### SetLastParsedNil
+
+`func (o *DAGDetailAllOf) SetLastParsedNil(b bool)`
+
+ SetLastParsedNil sets the value for LastParsed to be an explicit nil
+
+### UnsetLastParsed
+`func (o *DAGDetailAllOf) UnsetLastParsed()`
+
+UnsetLastParsed ensures that no value is present for LastParsed, not even an explicit nil
+### GetTemplateSearchPath
+
+`func (o *DAGDetailAllOf) GetTemplateSearchPath() []string`
+
+GetTemplateSearchPath returns the TemplateSearchPath field if non-nil, zero value otherwise.
+
+### GetTemplateSearchPathOk
+
+`func (o *DAGDetailAllOf) GetTemplateSearchPathOk() (*[]string, bool)`
+
+GetTemplateSearchPathOk returns a tuple with the TemplateSearchPath field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTemplateSearchPath
+
+`func (o *DAGDetailAllOf) SetTemplateSearchPath(v []string)`
+
+SetTemplateSearchPath sets TemplateSearchPath field to given value.
+
+### HasTemplateSearchPath
+
+`func (o *DAGDetailAllOf) HasTemplateSearchPath() bool`
+
+HasTemplateSearchPath returns a boolean if a field has been set.
+
+### SetTemplateSearchPathNil
+
+`func (o *DAGDetailAllOf) SetTemplateSearchPathNil(b bool)`
+
+ SetTemplateSearchPathNil sets the value for TemplateSearchPath to be an explicit nil
+
+### UnsetTemplateSearchPath
+`func (o *DAGDetailAllOf) UnsetTemplateSearchPath()`
+
+UnsetTemplateSearchPath ensures that no value is present for TemplateSearchPath, not even an explicit nil
+### GetRenderTemplateAsNativeObj
+
+`func (o *DAGDetailAllOf) GetRenderTemplateAsNativeObj() bool`
+
+GetRenderTemplateAsNativeObj returns the RenderTemplateAsNativeObj field if non-nil, zero value otherwise.
+
+### GetRenderTemplateAsNativeObjOk
+
+`func (o *DAGDetailAllOf) GetRenderTemplateAsNativeObjOk() (*bool, bool)`
+
+GetRenderTemplateAsNativeObjOk returns a tuple with the RenderTemplateAsNativeObj field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRenderTemplateAsNativeObj
+
+`func (o *DAGDetailAllOf) SetRenderTemplateAsNativeObj(v bool)`
+
+SetRenderTemplateAsNativeObj sets RenderTemplateAsNativeObj field to given value.
+
+### HasRenderTemplateAsNativeObj
+
+`func (o *DAGDetailAllOf) HasRenderTemplateAsNativeObj() bool`
+
+HasRenderTemplateAsNativeObj returns a boolean if a field has been set.
+
+### SetRenderTemplateAsNativeObjNil
+
+`func (o *DAGDetailAllOf) SetRenderTemplateAsNativeObjNil(b bool)`
+
+ SetRenderTemplateAsNativeObjNil sets the value for RenderTemplateAsNativeObj to be an explicit nil
+
+### UnsetRenderTemplateAsNativeObj
+`func (o *DAGDetailAllOf) UnsetRenderTemplateAsNativeObj()`
+
+UnsetRenderTemplateAsNativeObj ensures that no value is present for RenderTemplateAsNativeObj, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
