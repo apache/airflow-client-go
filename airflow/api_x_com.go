@@ -30,23 +30,23 @@ package airflow
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 // XComApiService XComApi service
 type XComApiService service
 
 type ApiGetXcomEntriesRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *XComApiService
 	dagId string
 	dagRunId string
@@ -66,7 +66,7 @@ func (r ApiGetXcomEntriesRequest) Offset(offset int32) ApiGetXcomEntriesRequest 
 	return r
 }
 
-func (r ApiGetXcomEntriesRequest) Execute() (XComCollection, *_nethttp.Response, error) {
+func (r ApiGetXcomEntriesRequest) Execute() (*XComCollection, *http.Response, error) {
 	return r.ApiService.GetXcomEntriesExecute(r)
 }
 
@@ -75,13 +75,13 @@ GetXcomEntries List XCom entries
 
 This endpoint allows specifying `~` as the dag_id, dag_run_id, task_id to retrieve XCOM entries for for all DAGs, DAG runs and task instances. XCom values won't be returned as they can be large. Use this endpoint to get a list of XCom entries and then fetch individual entry to get value.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param dagId The DAG ID.
  @param dagRunId The DAG run ID.
  @param taskId The task ID.
  @return ApiGetXcomEntriesRequest
 */
-func (a *XComApiService) GetXcomEntries(ctx _context.Context, dagId string, dagRunId string, taskId string) ApiGetXcomEntriesRequest {
+func (a *XComApiService) GetXcomEntries(ctx context.Context, dagId string, dagRunId string, taskId string) ApiGetXcomEntriesRequest {
 	return ApiGetXcomEntriesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -93,27 +93,27 @@ func (a *XComApiService) GetXcomEntries(ctx _context.Context, dagId string, dagR
 
 // Execute executes the request
 //  @return XComCollection
-func (a *XComApiService) GetXcomEntriesExecute(r ApiGetXcomEntriesRequest) (XComCollection, *_nethttp.Response, error) {
+func (a *XComApiService) GetXcomEntriesExecute(r ApiGetXcomEntriesRequest) (*XComCollection, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  XComCollection
+		localVarReturnValue  *XComCollection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "XComApiService.GetXcomEntries")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/xcomEntries"
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", _neturl.PathEscape(parameterToString(r.dagId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", _neturl.PathEscape(parameterToString(r.dagRunId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"task_id"+"}", _neturl.PathEscape(parameterToString(r.taskId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", url.PathEscape(parameterToString(r.dagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", url.PathEscape(parameterToString(r.dagRunId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"task_id"+"}", url.PathEscape(parameterToString(r.taskId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
@@ -148,15 +148,15 @@ func (a *XComApiService) GetXcomEntriesExecute(r ApiGetXcomEntriesRequest) (XCom
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -184,7 +184,7 @@ func (a *XComApiService) GetXcomEntriesExecute(r ApiGetXcomEntriesRequest) (XCom
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -195,7 +195,7 @@ func (a *XComApiService) GetXcomEntriesExecute(r ApiGetXcomEntriesRequest) (XCom
 }
 
 type ApiGetXcomEntryRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *XComApiService
 	dagId string
 	dagRunId string
@@ -210,21 +210,21 @@ func (r ApiGetXcomEntryRequest) Deserialize(deserialize bool) ApiGetXcomEntryReq
 	return r
 }
 
-func (r ApiGetXcomEntryRequest) Execute() (XCom, *_nethttp.Response, error) {
+func (r ApiGetXcomEntryRequest) Execute() (*XCom, *http.Response, error) {
 	return r.ApiService.GetXcomEntryExecute(r)
 }
 
 /*
 GetXcomEntry Get an XCom entry
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param dagId The DAG ID.
  @param dagRunId The DAG run ID.
  @param taskId The task ID.
  @param xcomKey The XCom key.
  @return ApiGetXcomEntryRequest
 */
-func (a *XComApiService) GetXcomEntry(ctx _context.Context, dagId string, dagRunId string, taskId string, xcomKey string) ApiGetXcomEntryRequest {
+func (a *XComApiService) GetXcomEntry(ctx context.Context, dagId string, dagRunId string, taskId string, xcomKey string) ApiGetXcomEntryRequest {
 	return ApiGetXcomEntryRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -237,28 +237,28 @@ func (a *XComApiService) GetXcomEntry(ctx _context.Context, dagId string, dagRun
 
 // Execute executes the request
 //  @return XCom
-func (a *XComApiService) GetXcomEntryExecute(r ApiGetXcomEntryRequest) (XCom, *_nethttp.Response, error) {
+func (a *XComApiService) GetXcomEntryExecute(r ApiGetXcomEntryRequest) (*XCom, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  XCom
+		localVarReturnValue  *XCom
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "XComApiService.GetXcomEntry")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/xcomEntries/{xcom_key}"
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", _neturl.PathEscape(parameterToString(r.dagId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", _neturl.PathEscape(parameterToString(r.dagRunId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"task_id"+"}", _neturl.PathEscape(parameterToString(r.taskId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"xcom_key"+"}", _neturl.PathEscape(parameterToString(r.xcomKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", url.PathEscape(parameterToString(r.dagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", url.PathEscape(parameterToString(r.dagRunId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"task_id"+"}", url.PathEscape(parameterToString(r.taskId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"xcom_key"+"}", url.PathEscape(parameterToString(r.xcomKey, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.deserialize != nil {
 		localVarQueryParams.Add("deserialize", parameterToString(*r.deserialize, ""))
@@ -290,15 +290,15 @@ func (a *XComApiService) GetXcomEntryExecute(r ApiGetXcomEntryRequest) (XCom, *_
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -336,7 +336,7 @@ func (a *XComApiService) GetXcomEntryExecute(r ApiGetXcomEntryRequest) (XCom, *_
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

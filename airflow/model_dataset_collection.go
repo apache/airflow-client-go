@@ -34,7 +34,7 @@ import (
 
 // DatasetCollection A collection of datasets.  *New in version 2.4.0* 
 type DatasetCollection struct {
-	Datasets *[]Dataset `json:"datasets,omitempty"`
+	Datasets []Dataset `json:"datasets,omitempty"`
 	// Count of objects in the current result set.
 	TotalEntries *int32 `json:"total_entries,omitempty"`
 }
@@ -62,12 +62,12 @@ func (o *DatasetCollection) GetDatasets() []Dataset {
 		var ret []Dataset
 		return ret
 	}
-	return *o.Datasets
+	return o.Datasets
 }
 
 // GetDatasetsOk returns a tuple with the Datasets field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DatasetCollection) GetDatasetsOk() (*[]Dataset, bool) {
+func (o *DatasetCollection) GetDatasetsOk() ([]Dataset, bool) {
 	if o == nil || o.Datasets == nil {
 		return nil, false
 	}
@@ -85,7 +85,7 @@ func (o *DatasetCollection) HasDatasets() bool {
 
 // SetDatasets gets a reference to the given []Dataset and assigns it to the Datasets field.
 func (o *DatasetCollection) SetDatasets(v []Dataset) {
-	o.Datasets = &v
+	o.Datasets = v
 }
 
 // GetTotalEntries returns the TotalEntries field value if set, zero value otherwise.

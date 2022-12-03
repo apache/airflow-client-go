@@ -30,29 +30,29 @@ package airflow
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 // UserApiService UserApi service
 type UserApiService service
 
 type ApiDeleteUserRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *UserApiService
 	username string
 }
 
 
-func (r ApiDeleteUserRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteUserRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteUserExecute(r)
 }
 
@@ -64,11 +64,11 @@ Delete a user with a specific username.
 *New in version 2.2.0*
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param username The username of the user.  *New in version 2.1.0* 
  @return ApiDeleteUserRequest
 */
-func (a *UserApiService) DeleteUser(ctx _context.Context, username string) ApiDeleteUserRequest {
+func (a *UserApiService) DeleteUser(ctx context.Context, username string) ApiDeleteUserRequest {
 	return ApiDeleteUserRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -77,24 +77,24 @@ func (a *UserApiService) DeleteUser(ctx _context.Context, username string) ApiDe
 }
 
 // Execute executes the request
-func (a *UserApiService) DeleteUserExecute(r ApiDeleteUserRequest) (*_nethttp.Response, error) {
+func (a *UserApiService) DeleteUserExecute(r ApiDeleteUserRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.DeleteUser")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/users/{username}"
-	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", _neturl.PathEscape(parameterToString(r.username, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterToString(r.username, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -123,15 +123,15 @@ func (a *UserApiService) DeleteUserExecute(r ApiDeleteUserRequest) (*_nethttp.Re
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -181,13 +181,13 @@ func (a *UserApiService) DeleteUserExecute(r ApiDeleteUserRequest) (*_nethttp.Re
 }
 
 type ApiGetUserRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *UserApiService
 	username string
 }
 
 
-func (r ApiGetUserRequest) Execute() (UserCollectionItem, *_nethttp.Response, error) {
+func (r ApiGetUserRequest) Execute() (*UserCollectionItem, *http.Response, error) {
 	return r.ApiService.GetUserExecute(r)
 }
 
@@ -199,11 +199,11 @@ Get a user with a specific username.
 *New in version 2.1.0*
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param username The username of the user.  *New in version 2.1.0* 
  @return ApiGetUserRequest
 */
-func (a *UserApiService) GetUser(ctx _context.Context, username string) ApiGetUserRequest {
+func (a *UserApiService) GetUser(ctx context.Context, username string) ApiGetUserRequest {
 	return ApiGetUserRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -213,25 +213,25 @@ func (a *UserApiService) GetUser(ctx _context.Context, username string) ApiGetUs
 
 // Execute executes the request
 //  @return UserCollectionItem
-func (a *UserApiService) GetUserExecute(r ApiGetUserRequest) (UserCollectionItem, *_nethttp.Response, error) {
+func (a *UserApiService) GetUserExecute(r ApiGetUserRequest) (*UserCollectionItem, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  UserCollectionItem
+		localVarReturnValue  *UserCollectionItem
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.GetUser")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/users/{username}"
-	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", _neturl.PathEscape(parameterToString(r.username, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterToString(r.username, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -260,15 +260,15 @@ func (a *UserApiService) GetUserExecute(r ApiGetUserRequest) (UserCollectionItem
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -306,7 +306,7 @@ func (a *UserApiService) GetUserExecute(r ApiGetUserRequest) (UserCollectionItem
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -317,7 +317,7 @@ func (a *UserApiService) GetUserExecute(r ApiGetUserRequest) (UserCollectionItem
 }
 
 type ApiGetUsersRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *UserApiService
 	limit *int32
 	offset *int32
@@ -340,7 +340,7 @@ func (r ApiGetUsersRequest) OrderBy(orderBy string) ApiGetUsersRequest {
 	return r
 }
 
-func (r ApiGetUsersRequest) Execute() (UserCollection, *_nethttp.Response, error) {
+func (r ApiGetUsersRequest) Execute() (*UserCollection, *http.Response, error) {
 	return r.ApiService.GetUsersExecute(r)
 }
 
@@ -352,10 +352,10 @@ Get a list of users.
 *New in version 2.1.0*
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetUsersRequest
 */
-func (a *UserApiService) GetUsers(ctx _context.Context) ApiGetUsersRequest {
+func (a *UserApiService) GetUsers(ctx context.Context) ApiGetUsersRequest {
 	return ApiGetUsersRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -364,24 +364,24 @@ func (a *UserApiService) GetUsers(ctx _context.Context) ApiGetUsersRequest {
 
 // Execute executes the request
 //  @return UserCollection
-func (a *UserApiService) GetUsersExecute(r ApiGetUsersRequest) (UserCollection, *_nethttp.Response, error) {
+func (a *UserApiService) GetUsersExecute(r ApiGetUsersRequest) (*UserCollection, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  UserCollection
+		localVarReturnValue  *UserCollection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.GetUsers")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/users"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
@@ -419,15 +419,15 @@ func (a *UserApiService) GetUsersExecute(r ApiGetUsersRequest) (UserCollection, 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -455,7 +455,7 @@ func (a *UserApiService) GetUsersExecute(r ApiGetUsersRequest) (UserCollection, 
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -466,7 +466,7 @@ func (a *UserApiService) GetUsersExecute(r ApiGetUsersRequest) (UserCollection, 
 }
 
 type ApiPatchUserRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *UserApiService
 	username string
 	user *User
@@ -483,7 +483,7 @@ func (r ApiPatchUserRequest) UpdateMask(updateMask []string) ApiPatchUserRequest
 	return r
 }
 
-func (r ApiPatchUserRequest) Execute() (Role, *_nethttp.Response, error) {
+func (r ApiPatchUserRequest) Execute() (*Role, *http.Response, error) {
 	return r.ApiService.PatchUserExecute(r)
 }
 
@@ -495,11 +495,11 @@ Update fields for a user.
 *New in version 2.2.0*
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param username The username of the user.  *New in version 2.1.0* 
  @return ApiPatchUserRequest
 */
-func (a *UserApiService) PatchUser(ctx _context.Context, username string) ApiPatchUserRequest {
+func (a *UserApiService) PatchUser(ctx context.Context, username string) ApiPatchUserRequest {
 	return ApiPatchUserRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -509,25 +509,25 @@ func (a *UserApiService) PatchUser(ctx _context.Context, username string) ApiPat
 
 // Execute executes the request
 //  @return Role
-func (a *UserApiService) PatchUserExecute(r ApiPatchUserRequest) (Role, *_nethttp.Response, error) {
+func (a *UserApiService) PatchUserExecute(r ApiPatchUserRequest) (*Role, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
+		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  Role
+		localVarReturnValue  *Role
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.PatchUser")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/users/{username}"
-	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", _neturl.PathEscape(parameterToString(r.username, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterToString(r.username, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.user == nil {
 		return localVarReturnValue, nil, reportError("user is required and must be specified")
 	}
@@ -564,15 +564,15 @@ func (a *UserApiService) PatchUserExecute(r ApiPatchUserRequest) (Role, *_nethtt
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -620,7 +620,7 @@ func (a *UserApiService) PatchUserExecute(r ApiPatchUserRequest) (Role, *_nethtt
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -631,7 +631,7 @@ func (a *UserApiService) PatchUserExecute(r ApiPatchUserRequest) (Role, *_nethtt
 }
 
 type ApiPostUserRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *UserApiService
 	user *User
 }
@@ -641,7 +641,7 @@ func (r ApiPostUserRequest) User(user User) ApiPostUserRequest {
 	return r
 }
 
-func (r ApiPostUserRequest) Execute() (User, *_nethttp.Response, error) {
+func (r ApiPostUserRequest) Execute() (*User, *http.Response, error) {
 	return r.ApiService.PostUserExecute(r)
 }
 
@@ -653,10 +653,10 @@ Create a new user with unique username and email.
 *New in version 2.2.0*
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPostUserRequest
 */
-func (a *UserApiService) PostUser(ctx _context.Context) ApiPostUserRequest {
+func (a *UserApiService) PostUser(ctx context.Context) ApiPostUserRequest {
 	return ApiPostUserRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -665,24 +665,24 @@ func (a *UserApiService) PostUser(ctx _context.Context) ApiPostUserRequest {
 
 // Execute executes the request
 //  @return User
-func (a *UserApiService) PostUserExecute(r ApiPostUserRequest) (User, *_nethttp.Response, error) {
+func (a *UserApiService) PostUserExecute(r ApiPostUserRequest) (*User, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  User
+		localVarReturnValue  *User
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiService.PostUser")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/users"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.user == nil {
 		return localVarReturnValue, nil, reportError("user is required and must be specified")
 	}
@@ -716,15 +716,15 @@ func (a *UserApiService) PostUserExecute(r ApiPostUserRequest) (User, *_nethttp.
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -772,7 +772,7 @@ func (a *UserApiService) PostUserExecute(r ApiPostUserRequest) (User, *_nethttp.
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

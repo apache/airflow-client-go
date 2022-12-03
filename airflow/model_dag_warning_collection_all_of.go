@@ -34,7 +34,7 @@ import (
 
 // DagWarningCollectionAllOf struct for DagWarningCollectionAllOf
 type DagWarningCollectionAllOf struct {
-	ImportErrors *[]DagWarning `json:"import_errors,omitempty"`
+	ImportErrors []DagWarning `json:"import_errors,omitempty"`
 }
 
 // NewDagWarningCollectionAllOf instantiates a new DagWarningCollectionAllOf object
@@ -60,12 +60,12 @@ func (o *DagWarningCollectionAllOf) GetImportErrors() []DagWarning {
 		var ret []DagWarning
 		return ret
 	}
-	return *o.ImportErrors
+	return o.ImportErrors
 }
 
 // GetImportErrorsOk returns a tuple with the ImportErrors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DagWarningCollectionAllOf) GetImportErrorsOk() (*[]DagWarning, bool) {
+func (o *DagWarningCollectionAllOf) GetImportErrorsOk() ([]DagWarning, bool) {
 	if o == nil || o.ImportErrors == nil {
 		return nil, false
 	}
@@ -83,7 +83,7 @@ func (o *DagWarningCollectionAllOf) HasImportErrors() bool {
 
 // SetImportErrors gets a reference to the given []DagWarning and assigns it to the ImportErrors field.
 func (o *DagWarningCollectionAllOf) SetImportErrors(v []DagWarning) {
-	o.ImportErrors = &v
+	o.ImportErrors = v
 }
 
 func (o DagWarningCollectionAllOf) MarshalJSON() ([]byte, error) {

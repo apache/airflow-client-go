@@ -34,7 +34,7 @@ import (
 
 // ProviderCollection Collection of providers.  *New in version 2.1.0* 
 type ProviderCollection struct {
-	Providers *[]Provider `json:"providers,omitempty"`
+	Providers []Provider `json:"providers,omitempty"`
 }
 
 // NewProviderCollection instantiates a new ProviderCollection object
@@ -60,12 +60,12 @@ func (o *ProviderCollection) GetProviders() []Provider {
 		var ret []Provider
 		return ret
 	}
-	return *o.Providers
+	return o.Providers
 }
 
 // GetProvidersOk returns a tuple with the Providers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProviderCollection) GetProvidersOk() (*[]Provider, bool) {
+func (o *ProviderCollection) GetProvidersOk() ([]Provider, bool) {
 	if o == nil || o.Providers == nil {
 		return nil, false
 	}
@@ -83,7 +83,7 @@ func (o *ProviderCollection) HasProviders() bool {
 
 // SetProviders gets a reference to the given []Provider and assigns it to the Providers field.
 func (o *ProviderCollection) SetProviders(v []Provider) {
-	o.Providers = &v
+	o.Providers = v
 }
 
 func (o ProviderCollection) MarshalJSON() ([]byte, error) {

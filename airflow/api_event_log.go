@@ -30,40 +30,40 @@ package airflow
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 // EventLogApiService EventLogApi service
 type EventLogApiService service
 
 type ApiGetEventLogRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *EventLogApiService
 	eventLogId int32
 }
 
 
-func (r ApiGetEventLogRequest) Execute() (EventLog, *_nethttp.Response, error) {
+func (r ApiGetEventLogRequest) Execute() (*EventLog, *http.Response, error) {
 	return r.ApiService.GetEventLogExecute(r)
 }
 
 /*
 GetEventLog Get a log entry
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param eventLogId The event log ID.
  @return ApiGetEventLogRequest
 */
-func (a *EventLogApiService) GetEventLog(ctx _context.Context, eventLogId int32) ApiGetEventLogRequest {
+func (a *EventLogApiService) GetEventLog(ctx context.Context, eventLogId int32) ApiGetEventLogRequest {
 	return ApiGetEventLogRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -73,25 +73,25 @@ func (a *EventLogApiService) GetEventLog(ctx _context.Context, eventLogId int32)
 
 // Execute executes the request
 //  @return EventLog
-func (a *EventLogApiService) GetEventLogExecute(r ApiGetEventLogRequest) (EventLog, *_nethttp.Response, error) {
+func (a *EventLogApiService) GetEventLogExecute(r ApiGetEventLogRequest) (*EventLog, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  EventLog
+		localVarReturnValue  *EventLog
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventLogApiService.GetEventLog")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/eventLogs/{event_log_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"event_log_id"+"}", _neturl.PathEscape(parameterToString(r.eventLogId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"event_log_id"+"}", url.PathEscape(parameterToString(r.eventLogId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -120,15 +120,15 @@ func (a *EventLogApiService) GetEventLogExecute(r ApiGetEventLogRequest) (EventL
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -166,7 +166,7 @@ func (a *EventLogApiService) GetEventLogExecute(r ApiGetEventLogRequest) (EventL
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -177,7 +177,7 @@ func (a *EventLogApiService) GetEventLogExecute(r ApiGetEventLogRequest) (EventL
 }
 
 type ApiGetEventLogsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *EventLogApiService
 	limit *int32
 	offset *int32
@@ -200,7 +200,7 @@ func (r ApiGetEventLogsRequest) OrderBy(orderBy string) ApiGetEventLogsRequest {
 	return r
 }
 
-func (r ApiGetEventLogsRequest) Execute() (EventLogCollection, *_nethttp.Response, error) {
+func (r ApiGetEventLogsRequest) Execute() (*EventLogCollection, *http.Response, error) {
 	return r.ApiService.GetEventLogsExecute(r)
 }
 
@@ -209,10 +209,10 @@ GetEventLogs List log entries
 
 List log entries from event log.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetEventLogsRequest
 */
-func (a *EventLogApiService) GetEventLogs(ctx _context.Context) ApiGetEventLogsRequest {
+func (a *EventLogApiService) GetEventLogs(ctx context.Context) ApiGetEventLogsRequest {
 	return ApiGetEventLogsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -221,24 +221,24 @@ func (a *EventLogApiService) GetEventLogs(ctx _context.Context) ApiGetEventLogsR
 
 // Execute executes the request
 //  @return EventLogCollection
-func (a *EventLogApiService) GetEventLogsExecute(r ApiGetEventLogsRequest) (EventLogCollection, *_nethttp.Response, error) {
+func (a *EventLogApiService) GetEventLogsExecute(r ApiGetEventLogsRequest) (*EventLogCollection, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  EventLogCollection
+		localVarReturnValue  *EventLogCollection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventLogApiService.GetEventLogs")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/eventLogs"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
@@ -276,15 +276,15 @@ func (a *EventLogApiService) GetEventLogsExecute(r ApiGetEventLogsRequest) (Even
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -312,7 +312,7 @@ func (a *EventLogApiService) GetEventLogsExecute(r ApiGetEventLogsRequest) (Even
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

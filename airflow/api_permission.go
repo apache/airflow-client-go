@@ -30,22 +30,22 @@ package airflow
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 // PermissionApiService PermissionApi service
 type PermissionApiService service
 
 type ApiGetPermissionsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *PermissionApiService
 	limit *int32
 	offset *int32
@@ -62,7 +62,7 @@ func (r ApiGetPermissionsRequest) Offset(offset int32) ApiGetPermissionsRequest 
 	return r
 }
 
-func (r ApiGetPermissionsRequest) Execute() (ActionCollection, *_nethttp.Response, error) {
+func (r ApiGetPermissionsRequest) Execute() (*ActionCollection, *http.Response, error) {
 	return r.ApiService.GetPermissionsExecute(r)
 }
 
@@ -74,10 +74,10 @@ Get a list of permissions.
 *New in version 2.1.0*
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetPermissionsRequest
 */
-func (a *PermissionApiService) GetPermissions(ctx _context.Context) ApiGetPermissionsRequest {
+func (a *PermissionApiService) GetPermissions(ctx context.Context) ApiGetPermissionsRequest {
 	return ApiGetPermissionsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -86,24 +86,24 @@ func (a *PermissionApiService) GetPermissions(ctx _context.Context) ApiGetPermis
 
 // Execute executes the request
 //  @return ActionCollection
-func (a *PermissionApiService) GetPermissionsExecute(r ApiGetPermissionsRequest) (ActionCollection, *_nethttp.Response, error) {
+func (a *PermissionApiService) GetPermissionsExecute(r ApiGetPermissionsRequest) (*ActionCollection, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  ActionCollection
+		localVarReturnValue  *ActionCollection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PermissionApiService.GetPermissions")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/permissions"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
@@ -138,15 +138,15 @@ func (a *PermissionApiService) GetPermissionsExecute(r ApiGetPermissionsRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -174,7 +174,7 @@ func (a *PermissionApiService) GetPermissionsExecute(r ApiGetPermissionsRequest)
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

@@ -34,7 +34,7 @@ import (
 
 // VariableCollection Collection of variables.  *Changed in version 2.1.0*&#58; 'total_entries' field is added. 
 type VariableCollection struct {
-	Variables *[]VariableCollectionItem `json:"variables,omitempty"`
+	Variables []VariableCollectionItem `json:"variables,omitempty"`
 	// Count of objects in the current result set.
 	TotalEntries *int32 `json:"total_entries,omitempty"`
 }
@@ -62,12 +62,12 @@ func (o *VariableCollection) GetVariables() []VariableCollectionItem {
 		var ret []VariableCollectionItem
 		return ret
 	}
-	return *o.Variables
+	return o.Variables
 }
 
 // GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VariableCollection) GetVariablesOk() (*[]VariableCollectionItem, bool) {
+func (o *VariableCollection) GetVariablesOk() ([]VariableCollectionItem, bool) {
 	if o == nil || o.Variables == nil {
 		return nil, false
 	}
@@ -85,7 +85,7 @@ func (o *VariableCollection) HasVariables() bool {
 
 // SetVariables gets a reference to the given []VariableCollectionItem and assigns it to the Variables field.
 func (o *VariableCollection) SetVariables(v []VariableCollectionItem) {
-	o.Variables = &v
+	o.Variables = v
 }
 
 // GetTotalEntries returns the TotalEntries field value if set, zero value otherwise.

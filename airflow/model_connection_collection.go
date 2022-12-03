@@ -34,7 +34,7 @@ import (
 
 // ConnectionCollection Collection of connections.  *Changed in version 2.1.0*&#58; 'total_entries' field is added. 
 type ConnectionCollection struct {
-	Connections *[]ConnectionCollectionItem `json:"connections,omitempty"`
+	Connections []ConnectionCollectionItem `json:"connections,omitempty"`
 	// Count of objects in the current result set.
 	TotalEntries *int32 `json:"total_entries,omitempty"`
 }
@@ -62,12 +62,12 @@ func (o *ConnectionCollection) GetConnections() []ConnectionCollectionItem {
 		var ret []ConnectionCollectionItem
 		return ret
 	}
-	return *o.Connections
+	return o.Connections
 }
 
 // GetConnectionsOk returns a tuple with the Connections field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConnectionCollection) GetConnectionsOk() (*[]ConnectionCollectionItem, bool) {
+func (o *ConnectionCollection) GetConnectionsOk() ([]ConnectionCollectionItem, bool) {
 	if o == nil || o.Connections == nil {
 		return nil, false
 	}
@@ -85,7 +85,7 @@ func (o *ConnectionCollection) HasConnections() bool {
 
 // SetConnections gets a reference to the given []ConnectionCollectionItem and assigns it to the Connections field.
 func (o *ConnectionCollection) SetConnections(v []ConnectionCollectionItem) {
-	o.Connections = &v
+	o.Connections = v
 }
 
 // GetTotalEntries returns the TotalEntries field value if set, zero value otherwise.

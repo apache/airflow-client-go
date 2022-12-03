@@ -30,10 +30,10 @@ package airflow
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
 	"time"
 	"reflect"
@@ -41,14 +41,14 @@ import (
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 // DAGRunApiService DAGRunApi service
 type DAGRunApiService service
 
 type ApiClearDagRunRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *DAGRunApiService
 	dagId string
 	dagRunId string
@@ -60,7 +60,7 @@ func (r ApiClearDagRunRequest) ClearDagRun(clearDagRun ClearDagRun) ApiClearDagR
 	return r
 }
 
-func (r ApiClearDagRunRequest) Execute() (DAGRun, *_nethttp.Response, error) {
+func (r ApiClearDagRunRequest) Execute() (*DAGRun, *http.Response, error) {
 	return r.ApiService.ClearDagRunExecute(r)
 }
 
@@ -72,12 +72,12 @@ Clear a DAG run.
 *New in version 2.4.0*
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param dagId The DAG ID.
  @param dagRunId The DAG run ID.
  @return ApiClearDagRunRequest
 */
-func (a *DAGRunApiService) ClearDagRun(ctx _context.Context, dagId string, dagRunId string) ApiClearDagRunRequest {
+func (a *DAGRunApiService) ClearDagRun(ctx context.Context, dagId string, dagRunId string) ApiClearDagRunRequest {
 	return ApiClearDagRunRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -88,26 +88,26 @@ func (a *DAGRunApiService) ClearDagRun(ctx _context.Context, dagId string, dagRu
 
 // Execute executes the request
 //  @return DAGRun
-func (a *DAGRunApiService) ClearDagRunExecute(r ApiClearDagRunRequest) (DAGRun, *_nethttp.Response, error) {
+func (a *DAGRunApiService) ClearDagRunExecute(r ApiClearDagRunRequest) (*DAGRun, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  DAGRun
+		localVarReturnValue  *DAGRun
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DAGRunApiService.ClearDagRun")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/dags/{dag_id}/dagRuns/{dag_run_id}/clear"
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", _neturl.PathEscape(parameterToString(r.dagId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", _neturl.PathEscape(parameterToString(r.dagRunId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", url.PathEscape(parameterToString(r.dagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", url.PathEscape(parameterToString(r.dagRunId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.clearDagRun == nil {
 		return localVarReturnValue, nil, reportError("clearDagRun is required and must be specified")
 	}
@@ -141,15 +141,15 @@ func (a *DAGRunApiService) ClearDagRunExecute(r ApiClearDagRunRequest) (DAGRun, 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -197,7 +197,7 @@ func (a *DAGRunApiService) ClearDagRunExecute(r ApiClearDagRunRequest) (DAGRun, 
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -208,26 +208,26 @@ func (a *DAGRunApiService) ClearDagRunExecute(r ApiClearDagRunRequest) (DAGRun, 
 }
 
 type ApiDeleteDagRunRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *DAGRunApiService
 	dagId string
 	dagRunId string
 }
 
 
-func (r ApiDeleteDagRunRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteDagRunRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteDagRunExecute(r)
 }
 
 /*
 DeleteDagRun Delete a DAG run
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param dagId The DAG ID.
  @param dagRunId The DAG run ID.
  @return ApiDeleteDagRunRequest
 */
-func (a *DAGRunApiService) DeleteDagRun(ctx _context.Context, dagId string, dagRunId string) ApiDeleteDagRunRequest {
+func (a *DAGRunApiService) DeleteDagRun(ctx context.Context, dagId string, dagRunId string) ApiDeleteDagRunRequest {
 	return ApiDeleteDagRunRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -237,25 +237,25 @@ func (a *DAGRunApiService) DeleteDagRun(ctx _context.Context, dagId string, dagR
 }
 
 // Execute executes the request
-func (a *DAGRunApiService) DeleteDagRunExecute(r ApiDeleteDagRunRequest) (*_nethttp.Response, error) {
+func (a *DAGRunApiService) DeleteDagRunExecute(r ApiDeleteDagRunRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DAGRunApiService.DeleteDagRun")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/dags/{dag_id}/dagRuns/{dag_run_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", _neturl.PathEscape(parameterToString(r.dagId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", _neturl.PathEscape(parameterToString(r.dagRunId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", url.PathEscape(parameterToString(r.dagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", url.PathEscape(parameterToString(r.dagRunId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -284,15 +284,15 @@ func (a *DAGRunApiService) DeleteDagRunExecute(r ApiDeleteDagRunRequest) (*_neth
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -342,26 +342,26 @@ func (a *DAGRunApiService) DeleteDagRunExecute(r ApiDeleteDagRunRequest) (*_neth
 }
 
 type ApiGetDagRunRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *DAGRunApiService
 	dagId string
 	dagRunId string
 }
 
 
-func (r ApiGetDagRunRequest) Execute() (DAGRun, *_nethttp.Response, error) {
+func (r ApiGetDagRunRequest) Execute() (*DAGRun, *http.Response, error) {
 	return r.ApiService.GetDagRunExecute(r)
 }
 
 /*
 GetDagRun Get a DAG run
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param dagId The DAG ID.
  @param dagRunId The DAG run ID.
  @return ApiGetDagRunRequest
 */
-func (a *DAGRunApiService) GetDagRun(ctx _context.Context, dagId string, dagRunId string) ApiGetDagRunRequest {
+func (a *DAGRunApiService) GetDagRun(ctx context.Context, dagId string, dagRunId string) ApiGetDagRunRequest {
 	return ApiGetDagRunRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -372,26 +372,26 @@ func (a *DAGRunApiService) GetDagRun(ctx _context.Context, dagId string, dagRunI
 
 // Execute executes the request
 //  @return DAGRun
-func (a *DAGRunApiService) GetDagRunExecute(r ApiGetDagRunRequest) (DAGRun, *_nethttp.Response, error) {
+func (a *DAGRunApiService) GetDagRunExecute(r ApiGetDagRunRequest) (*DAGRun, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  DAGRun
+		localVarReturnValue  *DAGRun
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DAGRunApiService.GetDagRun")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/dags/{dag_id}/dagRuns/{dag_run_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", _neturl.PathEscape(parameterToString(r.dagId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", _neturl.PathEscape(parameterToString(r.dagRunId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", url.PathEscape(parameterToString(r.dagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", url.PathEscape(parameterToString(r.dagRunId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -420,15 +420,15 @@ func (a *DAGRunApiService) GetDagRunExecute(r ApiGetDagRunRequest) (DAGRun, *_ne
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -466,7 +466,7 @@ func (a *DAGRunApiService) GetDagRunExecute(r ApiGetDagRunRequest) (DAGRun, *_ne
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -477,7 +477,7 @@ func (a *DAGRunApiService) GetDagRunExecute(r ApiGetDagRunRequest) (DAGRun, *_ne
 }
 
 type ApiGetDagRunsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *DAGRunApiService
 	dagId string
 	limit *int32
@@ -543,7 +543,7 @@ func (r ApiGetDagRunsRequest) OrderBy(orderBy string) ApiGetDagRunsRequest {
 	return r
 }
 
-func (r ApiGetDagRunsRequest) Execute() (DAGRunCollection, *_nethttp.Response, error) {
+func (r ApiGetDagRunsRequest) Execute() (*DAGRunCollection, *http.Response, error) {
 	return r.ApiService.GetDagRunsExecute(r)
 }
 
@@ -553,11 +553,11 @@ GetDagRuns List DAG runs
 This endpoint allows specifying `~` as the dag_id to retrieve DAG runs for all DAGs.
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param dagId The DAG ID.
  @return ApiGetDagRunsRequest
 */
-func (a *DAGRunApiService) GetDagRuns(ctx _context.Context, dagId string) ApiGetDagRunsRequest {
+func (a *DAGRunApiService) GetDagRuns(ctx context.Context, dagId string) ApiGetDagRunsRequest {
 	return ApiGetDagRunsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -567,25 +567,25 @@ func (a *DAGRunApiService) GetDagRuns(ctx _context.Context, dagId string) ApiGet
 
 // Execute executes the request
 //  @return DAGRunCollection
-func (a *DAGRunApiService) GetDagRunsExecute(r ApiGetDagRunsRequest) (DAGRunCollection, *_nethttp.Response, error) {
+func (a *DAGRunApiService) GetDagRunsExecute(r ApiGetDagRunsRequest) (*DAGRunCollection, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  DAGRunCollection
+		localVarReturnValue  *DAGRunCollection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DAGRunApiService.GetDagRuns")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/dags/{dag_id}/dagRuns"
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", _neturl.PathEscape(parameterToString(r.dagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", url.PathEscape(parameterToString(r.dagId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
@@ -652,15 +652,15 @@ func (a *DAGRunApiService) GetDagRunsExecute(r ApiGetDagRunsRequest) (DAGRunColl
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -678,7 +678,7 @@ func (a *DAGRunApiService) GetDagRunsExecute(r ApiGetDagRunsRequest) (DAGRunColl
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -689,7 +689,7 @@ func (a *DAGRunApiService) GetDagRunsExecute(r ApiGetDagRunsRequest) (DAGRunColl
 }
 
 type ApiGetDagRunsBatchRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *DAGRunApiService
 	listDagRunsForm *ListDagRunsForm
 }
@@ -699,7 +699,7 @@ func (r ApiGetDagRunsBatchRequest) ListDagRunsForm(listDagRunsForm ListDagRunsFo
 	return r
 }
 
-func (r ApiGetDagRunsBatchRequest) Execute() (DAGRunCollection, *_nethttp.Response, error) {
+func (r ApiGetDagRunsBatchRequest) Execute() (*DAGRunCollection, *http.Response, error) {
 	return r.ApiService.GetDagRunsBatchExecute(r)
 }
 
@@ -709,10 +709,10 @@ GetDagRunsBatch List DAG runs (batch)
 This endpoint is a POST to allow filtering across a large number of DAG IDs, where as a GET it would run in to maximum HTTP request URL length limit.
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetDagRunsBatchRequest
 */
-func (a *DAGRunApiService) GetDagRunsBatch(ctx _context.Context) ApiGetDagRunsBatchRequest {
+func (a *DAGRunApiService) GetDagRunsBatch(ctx context.Context) ApiGetDagRunsBatchRequest {
 	return ApiGetDagRunsBatchRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -721,24 +721,24 @@ func (a *DAGRunApiService) GetDagRunsBatch(ctx _context.Context) ApiGetDagRunsBa
 
 // Execute executes the request
 //  @return DAGRunCollection
-func (a *DAGRunApiService) GetDagRunsBatchExecute(r ApiGetDagRunsBatchRequest) (DAGRunCollection, *_nethttp.Response, error) {
+func (a *DAGRunApiService) GetDagRunsBatchExecute(r ApiGetDagRunsBatchRequest) (*DAGRunCollection, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  DAGRunCollection
+		localVarReturnValue  *DAGRunCollection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DAGRunApiService.GetDagRunsBatch")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/dags/~/dagRuns/list"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.listDagRunsForm == nil {
 		return localVarReturnValue, nil, reportError("listDagRunsForm is required and must be specified")
 	}
@@ -772,15 +772,15 @@ func (a *DAGRunApiService) GetDagRunsBatchExecute(r ApiGetDagRunsBatchRequest) (
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -818,7 +818,7 @@ func (a *DAGRunApiService) GetDagRunsBatchExecute(r ApiGetDagRunsBatchRequest) (
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -829,14 +829,14 @@ func (a *DAGRunApiService) GetDagRunsBatchExecute(r ApiGetDagRunsBatchRequest) (
 }
 
 type ApiGetUpstreamDatasetEventsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *DAGRunApiService
 	dagId string
 	dagRunId string
 }
 
 
-func (r ApiGetUpstreamDatasetEventsRequest) Execute() (DatasetEventCollection, *_nethttp.Response, error) {
+func (r ApiGetUpstreamDatasetEventsRequest) Execute() (*DatasetEventCollection, *http.Response, error) {
 	return r.ApiService.GetUpstreamDatasetEventsExecute(r)
 }
 
@@ -848,12 +848,12 @@ Get datasets for a dag run.
 *New in version 2.4.0*
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param dagId The DAG ID.
  @param dagRunId The DAG run ID.
  @return ApiGetUpstreamDatasetEventsRequest
 */
-func (a *DAGRunApiService) GetUpstreamDatasetEvents(ctx _context.Context, dagId string, dagRunId string) ApiGetUpstreamDatasetEventsRequest {
+func (a *DAGRunApiService) GetUpstreamDatasetEvents(ctx context.Context, dagId string, dagRunId string) ApiGetUpstreamDatasetEventsRequest {
 	return ApiGetUpstreamDatasetEventsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -864,26 +864,26 @@ func (a *DAGRunApiService) GetUpstreamDatasetEvents(ctx _context.Context, dagId 
 
 // Execute executes the request
 //  @return DatasetEventCollection
-func (a *DAGRunApiService) GetUpstreamDatasetEventsExecute(r ApiGetUpstreamDatasetEventsRequest) (DatasetEventCollection, *_nethttp.Response, error) {
+func (a *DAGRunApiService) GetUpstreamDatasetEventsExecute(r ApiGetUpstreamDatasetEventsRequest) (*DatasetEventCollection, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  DatasetEventCollection
+		localVarReturnValue  *DatasetEventCollection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DAGRunApiService.GetUpstreamDatasetEvents")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/dags/{dag_id}/dagRuns/{dag_run_id}/upstreamDatasetEvents"
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", _neturl.PathEscape(parameterToString(r.dagId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", _neturl.PathEscape(parameterToString(r.dagRunId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", url.PathEscape(parameterToString(r.dagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", url.PathEscape(parameterToString(r.dagRunId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -912,15 +912,15 @@ func (a *DAGRunApiService) GetUpstreamDatasetEventsExecute(r ApiGetUpstreamDatas
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -958,7 +958,7 @@ func (a *DAGRunApiService) GetUpstreamDatasetEventsExecute(r ApiGetUpstreamDatas
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -969,7 +969,7 @@ func (a *DAGRunApiService) GetUpstreamDatasetEventsExecute(r ApiGetUpstreamDatas
 }
 
 type ApiPostDagRunRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *DAGRunApiService
 	dagId string
 	dAGRun *DAGRun
@@ -980,18 +980,18 @@ func (r ApiPostDagRunRequest) DAGRun(dAGRun DAGRun) ApiPostDagRunRequest {
 	return r
 }
 
-func (r ApiPostDagRunRequest) Execute() (DAGRun, *_nethttp.Response, error) {
+func (r ApiPostDagRunRequest) Execute() (*DAGRun, *http.Response, error) {
 	return r.ApiService.PostDagRunExecute(r)
 }
 
 /*
 PostDagRun Trigger a new DAG run
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param dagId The DAG ID.
  @return ApiPostDagRunRequest
 */
-func (a *DAGRunApiService) PostDagRun(ctx _context.Context, dagId string) ApiPostDagRunRequest {
+func (a *DAGRunApiService) PostDagRun(ctx context.Context, dagId string) ApiPostDagRunRequest {
 	return ApiPostDagRunRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1001,25 +1001,25 @@ func (a *DAGRunApiService) PostDagRun(ctx _context.Context, dagId string) ApiPos
 
 // Execute executes the request
 //  @return DAGRun
-func (a *DAGRunApiService) PostDagRunExecute(r ApiPostDagRunRequest) (DAGRun, *_nethttp.Response, error) {
+func (a *DAGRunApiService) PostDagRunExecute(r ApiPostDagRunRequest) (*DAGRun, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  DAGRun
+		localVarReturnValue  *DAGRun
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DAGRunApiService.PostDagRun")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/dags/{dag_id}/dagRuns"
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", _neturl.PathEscape(parameterToString(r.dagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", url.PathEscape(parameterToString(r.dagId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.dAGRun == nil {
 		return localVarReturnValue, nil, reportError("dAGRun is required and must be specified")
 	}
@@ -1053,15 +1053,15 @@ func (a *DAGRunApiService) PostDagRunExecute(r ApiPostDagRunRequest) (DAGRun, *_
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1119,7 +1119,7 @@ func (a *DAGRunApiService) PostDagRunExecute(r ApiPostDagRunRequest) (DAGRun, *_
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1130,7 +1130,7 @@ func (a *DAGRunApiService) PostDagRunExecute(r ApiPostDagRunRequest) (DAGRun, *_
 }
 
 type ApiSetDagRunNoteRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *DAGRunApiService
 	dagId string
 	dagRunId string
@@ -1143,7 +1143,7 @@ func (r ApiSetDagRunNoteRequest) SetDagRunNote(setDagRunNote SetDagRunNote) ApiS
 	return r
 }
 
-func (r ApiSetDagRunNoteRequest) Execute() (DAGRun, *_nethttp.Response, error) {
+func (r ApiSetDagRunNoteRequest) Execute() (*DAGRun, *http.Response, error) {
 	return r.ApiService.SetDagRunNoteExecute(r)
 }
 
@@ -1155,12 +1155,12 @@ Update the manual user note of a DagRun.
 *New in version 2.5.0*
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param dagId The DAG ID.
  @param dagRunId The DAG run ID.
  @return ApiSetDagRunNoteRequest
 */
-func (a *DAGRunApiService) SetDagRunNote(ctx _context.Context, dagId string, dagRunId string) ApiSetDagRunNoteRequest {
+func (a *DAGRunApiService) SetDagRunNote(ctx context.Context, dagId string, dagRunId string) ApiSetDagRunNoteRequest {
 	return ApiSetDagRunNoteRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1171,26 +1171,26 @@ func (a *DAGRunApiService) SetDagRunNote(ctx _context.Context, dagId string, dag
 
 // Execute executes the request
 //  @return DAGRun
-func (a *DAGRunApiService) SetDagRunNoteExecute(r ApiSetDagRunNoteRequest) (DAGRun, *_nethttp.Response, error) {
+func (a *DAGRunApiService) SetDagRunNoteExecute(r ApiSetDagRunNoteRequest) (*DAGRun, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
+		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  DAGRun
+		localVarReturnValue  *DAGRun
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DAGRunApiService.SetDagRunNote")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/dags/{dag_id}/dagRuns/{dag_run_id}/setNote"
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", _neturl.PathEscape(parameterToString(r.dagId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", _neturl.PathEscape(parameterToString(r.dagRunId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", url.PathEscape(parameterToString(r.dagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", url.PathEscape(parameterToString(r.dagRunId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.setDagRunNote == nil {
 		return localVarReturnValue, nil, reportError("setDagRunNote is required and must be specified")
 	}
@@ -1224,15 +1224,15 @@ func (a *DAGRunApiService) SetDagRunNoteExecute(r ApiSetDagRunNoteRequest) (DAGR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1280,7 +1280,7 @@ func (a *DAGRunApiService) SetDagRunNoteExecute(r ApiSetDagRunNoteRequest) (DAGR
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1291,7 +1291,7 @@ func (a *DAGRunApiService) SetDagRunNoteExecute(r ApiSetDagRunNoteRequest) (DAGR
 }
 
 type ApiUpdateDagRunStateRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *DAGRunApiService
 	dagId string
 	dagRunId string
@@ -1303,7 +1303,7 @@ func (r ApiUpdateDagRunStateRequest) UpdateDagRunState(updateDagRunState UpdateD
 	return r
 }
 
-func (r ApiUpdateDagRunStateRequest) Execute() (DAGRun, *_nethttp.Response, error) {
+func (r ApiUpdateDagRunStateRequest) Execute() (*DAGRun, *http.Response, error) {
 	return r.ApiService.UpdateDagRunStateExecute(r)
 }
 
@@ -1315,12 +1315,12 @@ Modify a DAG run.
 *New in version 2.2.0*
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param dagId The DAG ID.
  @param dagRunId The DAG run ID.
  @return ApiUpdateDagRunStateRequest
 */
-func (a *DAGRunApiService) UpdateDagRunState(ctx _context.Context, dagId string, dagRunId string) ApiUpdateDagRunStateRequest {
+func (a *DAGRunApiService) UpdateDagRunState(ctx context.Context, dagId string, dagRunId string) ApiUpdateDagRunStateRequest {
 	return ApiUpdateDagRunStateRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1331,26 +1331,26 @@ func (a *DAGRunApiService) UpdateDagRunState(ctx _context.Context, dagId string,
 
 // Execute executes the request
 //  @return DAGRun
-func (a *DAGRunApiService) UpdateDagRunStateExecute(r ApiUpdateDagRunStateRequest) (DAGRun, *_nethttp.Response, error) {
+func (a *DAGRunApiService) UpdateDagRunStateExecute(r ApiUpdateDagRunStateRequest) (*DAGRun, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
+		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  DAGRun
+		localVarReturnValue  *DAGRun
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DAGRunApiService.UpdateDagRunState")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/dags/{dag_id}/dagRuns/{dag_run_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", _neturl.PathEscape(parameterToString(r.dagId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", _neturl.PathEscape(parameterToString(r.dagRunId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", url.PathEscape(parameterToString(r.dagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", url.PathEscape(parameterToString(r.dagRunId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.updateDagRunState == nil {
 		return localVarReturnValue, nil, reportError("updateDagRunState is required and must be specified")
 	}
@@ -1384,15 +1384,15 @@ func (a *DAGRunApiService) UpdateDagRunStateExecute(r ApiUpdateDagRunStateReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1440,7 +1440,7 @@ func (a *DAGRunApiService) UpdateDagRunStateExecute(r ApiUpdateDagRunStateReques
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

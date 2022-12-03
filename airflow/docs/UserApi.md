@@ -55,8 +55,8 @@ func main() {
     username := "username_example" // string | The username of the user.  *New in version 2.1.0* 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserApi.DeleteUser(context.Background(), username).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserApi.DeleteUser(context.Background(), username).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserApi.DeleteUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -123,8 +123,8 @@ func main() {
     username := "username_example" // string | The username of the user.  *New in version 2.1.0* 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserApi.GetUser(context.Background(), username).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserApi.GetUser(context.Background(), username).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -195,8 +195,8 @@ func main() {
     orderBy := "orderBy_example" // string | The name of the field to order the results by. Prefix a field name with `-` to reverse the sort order.  *New in version 2.1.0*  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserApi.GetUsers(context.Background()).Limit(limit).Offset(offset).OrderBy(orderBy).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserApi.GetUsers(context.Background()).Limit(limit).Offset(offset).OrderBy(orderBy).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetUsers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -265,8 +265,8 @@ func main() {
     updateMask := []string{"Inner_example"} // []string | The fields to update on the resource. If absent or empty, all modifiable fields are updated. A comma-separated list of fully qualified names of fields.  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserApi.PatchUser(context.Background(), username).User(user).UpdateMask(updateMask).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserApi.PatchUser(context.Background(), username).User(user).UpdateMask(updateMask).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserApi.PatchUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -337,8 +337,8 @@ func main() {
     user := *openapiclient.NewUser() // User | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserApi.PostUser(context.Background()).User(user).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserApi.PostUser(context.Background()).User(user).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserApi.PostUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

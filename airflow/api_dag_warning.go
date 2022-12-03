@@ -30,22 +30,22 @@ package airflow
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 // DagWarningApiService DagWarningApi service
 type DagWarningApiService service
 
 type ApiGetDagWarningsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *DagWarningApiService
 	dagId *string
 	warningType *string
@@ -80,17 +80,17 @@ func (r ApiGetDagWarningsRequest) OrderBy(orderBy string) ApiGetDagWarningsReque
 	return r
 }
 
-func (r ApiGetDagWarningsRequest) Execute() (DagWarningCollection, *_nethttp.Response, error) {
+func (r ApiGetDagWarningsRequest) Execute() (*DagWarningCollection, *http.Response, error) {
 	return r.ApiService.GetDagWarningsExecute(r)
 }
 
 /*
 GetDagWarnings List dag warnings
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetDagWarningsRequest
 */
-func (a *DagWarningApiService) GetDagWarnings(ctx _context.Context) ApiGetDagWarningsRequest {
+func (a *DagWarningApiService) GetDagWarnings(ctx context.Context) ApiGetDagWarningsRequest {
 	return ApiGetDagWarningsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -99,24 +99,24 @@ func (a *DagWarningApiService) GetDagWarnings(ctx _context.Context) ApiGetDagWar
 
 // Execute executes the request
 //  @return DagWarningCollection
-func (a *DagWarningApiService) GetDagWarningsExecute(r ApiGetDagWarningsRequest) (DagWarningCollection, *_nethttp.Response, error) {
+func (a *DagWarningApiService) GetDagWarningsExecute(r ApiGetDagWarningsRequest) (*DagWarningCollection, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  DagWarningCollection
+		localVarReturnValue  *DagWarningCollection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DagWarningApiService.GetDagWarnings")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/dagWarnings"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.dagId != nil {
 		localVarQueryParams.Add("dag_id", parameterToString(*r.dagId, ""))
@@ -160,15 +160,15 @@ func (a *DagWarningApiService) GetDagWarningsExecute(r ApiGetDagWarningsRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -196,7 +196,7 @@ func (a *DagWarningApiService) GetDagWarningsExecute(r ApiGetDagWarningsRequest)
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

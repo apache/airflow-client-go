@@ -34,7 +34,7 @@ import (
 
 // ActionCollection A collection of actions.  *New in version 2.1.0* 
 type ActionCollection struct {
-	Actions *[]Action `json:"actions,omitempty"`
+	Actions []Action `json:"actions,omitempty"`
 	// Count of objects in the current result set.
 	TotalEntries *int32 `json:"total_entries,omitempty"`
 }
@@ -62,12 +62,12 @@ func (o *ActionCollection) GetActions() []Action {
 		var ret []Action
 		return ret
 	}
-	return *o.Actions
+	return o.Actions
 }
 
 // GetActionsOk returns a tuple with the Actions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ActionCollection) GetActionsOk() (*[]Action, bool) {
+func (o *ActionCollection) GetActionsOk() ([]Action, bool) {
 	if o == nil || o.Actions == nil {
 		return nil, false
 	}
@@ -85,7 +85,7 @@ func (o *ActionCollection) HasActions() bool {
 
 // SetActions gets a reference to the given []Action and assigns it to the Actions field.
 func (o *ActionCollection) SetActions(v []Action) {
-	o.Actions = &v
+	o.Actions = v
 }
 
 // GetTotalEntries returns the TotalEntries field value if set, zero value otherwise.

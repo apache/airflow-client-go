@@ -41,7 +41,7 @@ type Task struct {
 	StartDate *time.Time `json:"start_date,omitempty"`
 	EndDate NullableTime `json:"end_date,omitempty"`
 	TriggerRule *TriggerRule `json:"trigger_rule,omitempty"`
-	ExtraLinks *[]TaskExtraLinks `json:"extra_links,omitempty"`
+	ExtraLinks []TaskExtraLinks `json:"extra_links,omitempty"`
 	DependsOnPast *bool `json:"depends_on_past,omitempty"`
 	IsMapped *bool `json:"is_mapped,omitempty"`
 	WaitForDownstream *bool `json:"wait_for_downstream,omitempty"`
@@ -58,9 +58,9 @@ type Task struct {
 	UiColor *string `json:"ui_color,omitempty"`
 	// Color in hexadecimal notation.
 	UiFgcolor *string `json:"ui_fgcolor,omitempty"`
-	TemplateFields *[]string `json:"template_fields,omitempty"`
+	TemplateFields []string `json:"template_fields,omitempty"`
 	SubDag *DAG `json:"sub_dag,omitempty"`
-	DownstreamTaskIds *[]string `json:"downstream_task_ids,omitempty"`
+	DownstreamTaskIds []string `json:"downstream_task_ids,omitempty"`
 }
 
 // NewTask instantiates a new Task object
@@ -288,12 +288,12 @@ func (o *Task) GetExtraLinks() []TaskExtraLinks {
 		var ret []TaskExtraLinks
 		return ret
 	}
-	return *o.ExtraLinks
+	return o.ExtraLinks
 }
 
 // GetExtraLinksOk returns a tuple with the ExtraLinks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Task) GetExtraLinksOk() (*[]TaskExtraLinks, bool) {
+func (o *Task) GetExtraLinksOk() ([]TaskExtraLinks, bool) {
 	if o == nil || o.ExtraLinks == nil {
 		return nil, false
 	}
@@ -311,7 +311,7 @@ func (o *Task) HasExtraLinks() bool {
 
 // SetExtraLinks gets a reference to the given []TaskExtraLinks and assigns it to the ExtraLinks field.
 func (o *Task) SetExtraLinks(v []TaskExtraLinks) {
-	o.ExtraLinks = &v
+	o.ExtraLinks = v
 }
 
 // GetDependsOnPast returns the DependsOnPast field value if set, zero value otherwise.
@@ -778,12 +778,12 @@ func (o *Task) GetTemplateFields() []string {
 		var ret []string
 		return ret
 	}
-	return *o.TemplateFields
+	return o.TemplateFields
 }
 
 // GetTemplateFieldsOk returns a tuple with the TemplateFields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Task) GetTemplateFieldsOk() (*[]string, bool) {
+func (o *Task) GetTemplateFieldsOk() ([]string, bool) {
 	if o == nil || o.TemplateFields == nil {
 		return nil, false
 	}
@@ -801,7 +801,7 @@ func (o *Task) HasTemplateFields() bool {
 
 // SetTemplateFields gets a reference to the given []string and assigns it to the TemplateFields field.
 func (o *Task) SetTemplateFields(v []string) {
-	o.TemplateFields = &v
+	o.TemplateFields = v
 }
 
 // GetSubDag returns the SubDag field value if set, zero value otherwise.
@@ -842,12 +842,12 @@ func (o *Task) GetDownstreamTaskIds() []string {
 		var ret []string
 		return ret
 	}
-	return *o.DownstreamTaskIds
+	return o.DownstreamTaskIds
 }
 
 // GetDownstreamTaskIdsOk returns a tuple with the DownstreamTaskIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Task) GetDownstreamTaskIdsOk() (*[]string, bool) {
+func (o *Task) GetDownstreamTaskIdsOk() ([]string, bool) {
 	if o == nil || o.DownstreamTaskIds == nil {
 		return nil, false
 	}
@@ -865,7 +865,7 @@ func (o *Task) HasDownstreamTaskIds() bool {
 
 // SetDownstreamTaskIds gets a reference to the given []string and assigns it to the DownstreamTaskIds field.
 func (o *Task) SetDownstreamTaskIds(v []string) {
-	o.DownstreamTaskIds = &v
+	o.DownstreamTaskIds = v
 }
 
 func (o Task) MarshalJSON() ([]byte, error) {

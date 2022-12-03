@@ -30,40 +30,40 @@ package airflow
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 // PoolApiService PoolApi service
 type PoolApiService service
 
 type ApiDeletePoolRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *PoolApiService
 	poolName string
 }
 
 
-func (r ApiDeletePoolRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeletePoolRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeletePoolExecute(r)
 }
 
 /*
 DeletePool Delete a pool
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param poolName The pool name.
  @return ApiDeletePoolRequest
 */
-func (a *PoolApiService) DeletePool(ctx _context.Context, poolName string) ApiDeletePoolRequest {
+func (a *PoolApiService) DeletePool(ctx context.Context, poolName string) ApiDeletePoolRequest {
 	return ApiDeletePoolRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -72,24 +72,24 @@ func (a *PoolApiService) DeletePool(ctx _context.Context, poolName string) ApiDe
 }
 
 // Execute executes the request
-func (a *PoolApiService) DeletePoolExecute(r ApiDeletePoolRequest) (*_nethttp.Response, error) {
+func (a *PoolApiService) DeletePoolExecute(r ApiDeletePoolRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PoolApiService.DeletePool")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/pools/{pool_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"pool_name"+"}", _neturl.PathEscape(parameterToString(r.poolName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"pool_name"+"}", url.PathEscape(parameterToString(r.poolName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -118,15 +118,15 @@ func (a *PoolApiService) DeletePoolExecute(r ApiDeletePoolRequest) (*_nethttp.Re
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -176,24 +176,24 @@ func (a *PoolApiService) DeletePoolExecute(r ApiDeletePoolRequest) (*_nethttp.Re
 }
 
 type ApiGetPoolRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *PoolApiService
 	poolName string
 }
 
 
-func (r ApiGetPoolRequest) Execute() (Pool, *_nethttp.Response, error) {
+func (r ApiGetPoolRequest) Execute() (*Pool, *http.Response, error) {
 	return r.ApiService.GetPoolExecute(r)
 }
 
 /*
 GetPool Get a pool
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param poolName The pool name.
  @return ApiGetPoolRequest
 */
-func (a *PoolApiService) GetPool(ctx _context.Context, poolName string) ApiGetPoolRequest {
+func (a *PoolApiService) GetPool(ctx context.Context, poolName string) ApiGetPoolRequest {
 	return ApiGetPoolRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -203,25 +203,25 @@ func (a *PoolApiService) GetPool(ctx _context.Context, poolName string) ApiGetPo
 
 // Execute executes the request
 //  @return Pool
-func (a *PoolApiService) GetPoolExecute(r ApiGetPoolRequest) (Pool, *_nethttp.Response, error) {
+func (a *PoolApiService) GetPoolExecute(r ApiGetPoolRequest) (*Pool, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  Pool
+		localVarReturnValue  *Pool
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PoolApiService.GetPool")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/pools/{pool_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"pool_name"+"}", _neturl.PathEscape(parameterToString(r.poolName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"pool_name"+"}", url.PathEscape(parameterToString(r.poolName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -250,15 +250,15 @@ func (a *PoolApiService) GetPoolExecute(r ApiGetPoolRequest) (Pool, *_nethttp.Re
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -296,7 +296,7 @@ func (a *PoolApiService) GetPoolExecute(r ApiGetPoolRequest) (Pool, *_nethttp.Re
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -307,7 +307,7 @@ func (a *PoolApiService) GetPoolExecute(r ApiGetPoolRequest) (Pool, *_nethttp.Re
 }
 
 type ApiGetPoolsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *PoolApiService
 	limit *int32
 	offset *int32
@@ -330,17 +330,17 @@ func (r ApiGetPoolsRequest) OrderBy(orderBy string) ApiGetPoolsRequest {
 	return r
 }
 
-func (r ApiGetPoolsRequest) Execute() (PoolCollection, *_nethttp.Response, error) {
+func (r ApiGetPoolsRequest) Execute() (*PoolCollection, *http.Response, error) {
 	return r.ApiService.GetPoolsExecute(r)
 }
 
 /*
 GetPools List pools
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetPoolsRequest
 */
-func (a *PoolApiService) GetPools(ctx _context.Context) ApiGetPoolsRequest {
+func (a *PoolApiService) GetPools(ctx context.Context) ApiGetPoolsRequest {
 	return ApiGetPoolsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -349,24 +349,24 @@ func (a *PoolApiService) GetPools(ctx _context.Context) ApiGetPoolsRequest {
 
 // Execute executes the request
 //  @return PoolCollection
-func (a *PoolApiService) GetPoolsExecute(r ApiGetPoolsRequest) (PoolCollection, *_nethttp.Response, error) {
+func (a *PoolApiService) GetPoolsExecute(r ApiGetPoolsRequest) (*PoolCollection, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  PoolCollection
+		localVarReturnValue  *PoolCollection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PoolApiService.GetPools")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/pools"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
@@ -404,15 +404,15 @@ func (a *PoolApiService) GetPoolsExecute(r ApiGetPoolsRequest) (PoolCollection, 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -440,7 +440,7 @@ func (a *PoolApiService) GetPoolsExecute(r ApiGetPoolsRequest) (PoolCollection, 
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -451,7 +451,7 @@ func (a *PoolApiService) GetPoolsExecute(r ApiGetPoolsRequest) (PoolCollection, 
 }
 
 type ApiPatchPoolRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *PoolApiService
 	poolName string
 	pool *Pool
@@ -468,18 +468,18 @@ func (r ApiPatchPoolRequest) UpdateMask(updateMask []string) ApiPatchPoolRequest
 	return r
 }
 
-func (r ApiPatchPoolRequest) Execute() (Pool, *_nethttp.Response, error) {
+func (r ApiPatchPoolRequest) Execute() (*Pool, *http.Response, error) {
 	return r.ApiService.PatchPoolExecute(r)
 }
 
 /*
 PatchPool Update a pool
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param poolName The pool name.
  @return ApiPatchPoolRequest
 */
-func (a *PoolApiService) PatchPool(ctx _context.Context, poolName string) ApiPatchPoolRequest {
+func (a *PoolApiService) PatchPool(ctx context.Context, poolName string) ApiPatchPoolRequest {
 	return ApiPatchPoolRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -489,25 +489,25 @@ func (a *PoolApiService) PatchPool(ctx _context.Context, poolName string) ApiPat
 
 // Execute executes the request
 //  @return Pool
-func (a *PoolApiService) PatchPoolExecute(r ApiPatchPoolRequest) (Pool, *_nethttp.Response, error) {
+func (a *PoolApiService) PatchPoolExecute(r ApiPatchPoolRequest) (*Pool, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
+		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  Pool
+		localVarReturnValue  *Pool
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PoolApiService.PatchPool")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/pools/{pool_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"pool_name"+"}", _neturl.PathEscape(parameterToString(r.poolName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"pool_name"+"}", url.PathEscape(parameterToString(r.poolName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.pool == nil {
 		return localVarReturnValue, nil, reportError("pool is required and must be specified")
 	}
@@ -544,15 +544,15 @@ func (a *PoolApiService) PatchPoolExecute(r ApiPatchPoolRequest) (Pool, *_nethtt
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -610,7 +610,7 @@ func (a *PoolApiService) PatchPoolExecute(r ApiPatchPoolRequest) (Pool, *_nethtt
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -621,7 +621,7 @@ func (a *PoolApiService) PatchPoolExecute(r ApiPatchPoolRequest) (Pool, *_nethtt
 }
 
 type ApiPostPoolRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *PoolApiService
 	pool *Pool
 }
@@ -631,17 +631,17 @@ func (r ApiPostPoolRequest) Pool(pool Pool) ApiPostPoolRequest {
 	return r
 }
 
-func (r ApiPostPoolRequest) Execute() (Pool, *_nethttp.Response, error) {
+func (r ApiPostPoolRequest) Execute() (*Pool, *http.Response, error) {
 	return r.ApiService.PostPoolExecute(r)
 }
 
 /*
 PostPool Create a pool
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPostPoolRequest
 */
-func (a *PoolApiService) PostPool(ctx _context.Context) ApiPostPoolRequest {
+func (a *PoolApiService) PostPool(ctx context.Context) ApiPostPoolRequest {
 	return ApiPostPoolRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -650,24 +650,24 @@ func (a *PoolApiService) PostPool(ctx _context.Context) ApiPostPoolRequest {
 
 // Execute executes the request
 //  @return Pool
-func (a *PoolApiService) PostPoolExecute(r ApiPostPoolRequest) (Pool, *_nethttp.Response, error) {
+func (a *PoolApiService) PostPoolExecute(r ApiPostPoolRequest) (*Pool, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  Pool
+		localVarReturnValue  *Pool
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PoolApiService.PostPool")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/pools"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.pool == nil {
 		return localVarReturnValue, nil, reportError("pool is required and must be specified")
 	}
@@ -701,15 +701,15 @@ func (a *PoolApiService) PostPoolExecute(r ApiPostPoolRequest) (Pool, *_nethttp.
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -747,7 +747,7 @@ func (a *PoolApiService) PostPoolExecute(r ApiPostPoolRequest) (Pool, *_nethttp.
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

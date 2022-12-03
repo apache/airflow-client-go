@@ -34,7 +34,7 @@ import (
 
 // DAGCollectionAllOf struct for DAGCollectionAllOf
 type DAGCollectionAllOf struct {
-	Dags *[]DAG `json:"dags,omitempty"`
+	Dags []DAG `json:"dags,omitempty"`
 }
 
 // NewDAGCollectionAllOf instantiates a new DAGCollectionAllOf object
@@ -60,12 +60,12 @@ func (o *DAGCollectionAllOf) GetDags() []DAG {
 		var ret []DAG
 		return ret
 	}
-	return *o.Dags
+	return o.Dags
 }
 
 // GetDagsOk returns a tuple with the Dags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DAGCollectionAllOf) GetDagsOk() (*[]DAG, bool) {
+func (o *DAGCollectionAllOf) GetDagsOk() ([]DAG, bool) {
 	if o == nil || o.Dags == nil {
 		return nil, false
 	}
@@ -83,7 +83,7 @@ func (o *DAGCollectionAllOf) HasDags() bool {
 
 // SetDags gets a reference to the given []DAG and assigns it to the Dags field.
 func (o *DAGCollectionAllOf) SetDags(v []DAG) {
-	o.Dags = &v
+	o.Dags = v
 }
 
 func (o DAGCollectionAllOf) MarshalJSON() ([]byte, error) {

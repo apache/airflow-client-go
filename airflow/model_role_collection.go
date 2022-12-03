@@ -34,7 +34,7 @@ import (
 
 // RoleCollection A collection of roles.  *New in version 2.1.0* 
 type RoleCollection struct {
-	Roles *[]Role `json:"roles,omitempty"`
+	Roles []Role `json:"roles,omitempty"`
 	// Count of objects in the current result set.
 	TotalEntries *int32 `json:"total_entries,omitempty"`
 }
@@ -62,12 +62,12 @@ func (o *RoleCollection) GetRoles() []Role {
 		var ret []Role
 		return ret
 	}
-	return *o.Roles
+	return o.Roles
 }
 
 // GetRolesOk returns a tuple with the Roles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RoleCollection) GetRolesOk() (*[]Role, bool) {
+func (o *RoleCollection) GetRolesOk() ([]Role, bool) {
 	if o == nil || o.Roles == nil {
 		return nil, false
 	}
@@ -85,7 +85,7 @@ func (o *RoleCollection) HasRoles() bool {
 
 // SetRoles gets a reference to the given []Role and assigns it to the Roles field.
 func (o *RoleCollection) SetRoles(v []Role) {
-	o.Roles = &v
+	o.Roles = v
 }
 
 // GetTotalEntries returns the TotalEntries field value if set, zero value otherwise.

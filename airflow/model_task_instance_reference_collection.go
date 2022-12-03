@@ -34,7 +34,7 @@ import (
 
 // TaskInstanceReferenceCollection struct for TaskInstanceReferenceCollection
 type TaskInstanceReferenceCollection struct {
-	TaskInstances *[]TaskInstanceReference `json:"task_instances,omitempty"`
+	TaskInstances []TaskInstanceReference `json:"task_instances,omitempty"`
 }
 
 // NewTaskInstanceReferenceCollection instantiates a new TaskInstanceReferenceCollection object
@@ -60,12 +60,12 @@ func (o *TaskInstanceReferenceCollection) GetTaskInstances() []TaskInstanceRefer
 		var ret []TaskInstanceReference
 		return ret
 	}
-	return *o.TaskInstances
+	return o.TaskInstances
 }
 
 // GetTaskInstancesOk returns a tuple with the TaskInstances field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TaskInstanceReferenceCollection) GetTaskInstancesOk() (*[]TaskInstanceReference, bool) {
+func (o *TaskInstanceReferenceCollection) GetTaskInstancesOk() ([]TaskInstanceReference, bool) {
 	if o == nil || o.TaskInstances == nil {
 		return nil, false
 	}
@@ -83,7 +83,7 @@ func (o *TaskInstanceReferenceCollection) HasTaskInstances() bool {
 
 // SetTaskInstances gets a reference to the given []TaskInstanceReference and assigns it to the TaskInstances field.
 func (o *TaskInstanceReferenceCollection) SetTaskInstances(v []TaskInstanceReference) {
-	o.TaskInstances = &v
+	o.TaskInstances = v
 }
 
 func (o TaskInstanceReferenceCollection) MarshalJSON() ([]byte, error) {

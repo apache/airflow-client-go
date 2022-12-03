@@ -34,7 +34,7 @@ import (
 
 // ImportErrorCollection Collection of import errors.  *Changed in version 2.1.0*&#58; 'total_entries' field is added. 
 type ImportErrorCollection struct {
-	ImportErrors *[]ImportError `json:"import_errors,omitempty"`
+	ImportErrors []ImportError `json:"import_errors,omitempty"`
 	// Count of objects in the current result set.
 	TotalEntries *int32 `json:"total_entries,omitempty"`
 }
@@ -62,12 +62,12 @@ func (o *ImportErrorCollection) GetImportErrors() []ImportError {
 		var ret []ImportError
 		return ret
 	}
-	return *o.ImportErrors
+	return o.ImportErrors
 }
 
 // GetImportErrorsOk returns a tuple with the ImportErrors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImportErrorCollection) GetImportErrorsOk() (*[]ImportError, bool) {
+func (o *ImportErrorCollection) GetImportErrorsOk() ([]ImportError, bool) {
 	if o == nil || o.ImportErrors == nil {
 		return nil, false
 	}
@@ -85,7 +85,7 @@ func (o *ImportErrorCollection) HasImportErrors() bool {
 
 // SetImportErrors gets a reference to the given []ImportError and assigns it to the ImportErrors field.
 func (o *ImportErrorCollection) SetImportErrors(v []ImportError) {
-	o.ImportErrors = &v
+	o.ImportErrors = v
 }
 
 // GetTotalEntries returns the TotalEntries field value if set, zero value otherwise.

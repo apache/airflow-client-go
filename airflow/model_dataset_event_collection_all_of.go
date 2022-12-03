@@ -34,7 +34,7 @@ import (
 
 // DatasetEventCollectionAllOf struct for DatasetEventCollectionAllOf
 type DatasetEventCollectionAllOf struct {
-	DatasetEvents *[]DatasetEvent `json:"dataset_events,omitempty"`
+	DatasetEvents []DatasetEvent `json:"dataset_events,omitempty"`
 }
 
 // NewDatasetEventCollectionAllOf instantiates a new DatasetEventCollectionAllOf object
@@ -60,12 +60,12 @@ func (o *DatasetEventCollectionAllOf) GetDatasetEvents() []DatasetEvent {
 		var ret []DatasetEvent
 		return ret
 	}
-	return *o.DatasetEvents
+	return o.DatasetEvents
 }
 
 // GetDatasetEventsOk returns a tuple with the DatasetEvents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DatasetEventCollectionAllOf) GetDatasetEventsOk() (*[]DatasetEvent, bool) {
+func (o *DatasetEventCollectionAllOf) GetDatasetEventsOk() ([]DatasetEvent, bool) {
 	if o == nil || o.DatasetEvents == nil {
 		return nil, false
 	}
@@ -83,7 +83,7 @@ func (o *DatasetEventCollectionAllOf) HasDatasetEvents() bool {
 
 // SetDatasetEvents gets a reference to the given []DatasetEvent and assigns it to the DatasetEvents field.
 func (o *DatasetEventCollectionAllOf) SetDatasetEvents(v []DatasetEvent) {
-	o.DatasetEvents = &v
+	o.DatasetEvents = v
 }
 
 func (o DatasetEventCollectionAllOf) MarshalJSON() ([]byte, error) {

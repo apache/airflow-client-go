@@ -30,10 +30,10 @@ package airflow
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
 	"time"
 	"reflect"
@@ -41,14 +41,14 @@ import (
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 // TaskInstanceApiService TaskInstanceApi service
 type TaskInstanceApiService service
 
 type ApiGetExtraLinksRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *TaskInstanceApiService
 	dagId string
 	dagRunId string
@@ -56,7 +56,7 @@ type ApiGetExtraLinksRequest struct {
 }
 
 
-func (r ApiGetExtraLinksRequest) Execute() (ExtraLinkCollection, *_nethttp.Response, error) {
+func (r ApiGetExtraLinksRequest) Execute() (*ExtraLinkCollection, *http.Response, error) {
 	return r.ApiService.GetExtraLinksExecute(r)
 }
 
@@ -66,13 +66,13 @@ GetExtraLinks List extra links
 List extra links for task instance.
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param dagId The DAG ID.
  @param dagRunId The DAG run ID.
  @param taskId The task ID.
  @return ApiGetExtraLinksRequest
 */
-func (a *TaskInstanceApiService) GetExtraLinks(ctx _context.Context, dagId string, dagRunId string, taskId string) ApiGetExtraLinksRequest {
+func (a *TaskInstanceApiService) GetExtraLinks(ctx context.Context, dagId string, dagRunId string, taskId string) ApiGetExtraLinksRequest {
 	return ApiGetExtraLinksRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -84,27 +84,27 @@ func (a *TaskInstanceApiService) GetExtraLinks(ctx _context.Context, dagId strin
 
 // Execute executes the request
 //  @return ExtraLinkCollection
-func (a *TaskInstanceApiService) GetExtraLinksExecute(r ApiGetExtraLinksRequest) (ExtraLinkCollection, *_nethttp.Response, error) {
+func (a *TaskInstanceApiService) GetExtraLinksExecute(r ApiGetExtraLinksRequest) (*ExtraLinkCollection, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  ExtraLinkCollection
+		localVarReturnValue  *ExtraLinkCollection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskInstanceApiService.GetExtraLinks")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/links"
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", _neturl.PathEscape(parameterToString(r.dagId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", _neturl.PathEscape(parameterToString(r.dagRunId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"task_id"+"}", _neturl.PathEscape(parameterToString(r.taskId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", url.PathEscape(parameterToString(r.dagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", url.PathEscape(parameterToString(r.dagRunId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"task_id"+"}", url.PathEscape(parameterToString(r.taskId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -133,15 +133,15 @@ func (a *TaskInstanceApiService) GetExtraLinksExecute(r ApiGetExtraLinksRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -179,7 +179,7 @@ func (a *TaskInstanceApiService) GetExtraLinksExecute(r ApiGetExtraLinksRequest)
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -190,7 +190,7 @@ func (a *TaskInstanceApiService) GetExtraLinksExecute(r ApiGetExtraLinksRequest)
 }
 
 type ApiGetLogRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *TaskInstanceApiService
 	dagId string
 	dagRunId string
@@ -217,7 +217,7 @@ func (r ApiGetLogRequest) Token(token string) ApiGetLogRequest {
 	return r
 }
 
-func (r ApiGetLogRequest) Execute() (InlineResponse200, *_nethttp.Response, error) {
+func (r ApiGetLogRequest) Execute() (*InlineResponse200, *http.Response, error) {
 	return r.ApiService.GetLogExecute(r)
 }
 
@@ -226,14 +226,14 @@ GetLog Get logs
 
 Get logs for a specific task instance and its try number.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param dagId The DAG ID.
  @param dagRunId The DAG run ID.
  @param taskId The task ID.
  @param taskTryNumber The task try number.
  @return ApiGetLogRequest
 */
-func (a *TaskInstanceApiService) GetLog(ctx _context.Context, dagId string, dagRunId string, taskId string, taskTryNumber int32) ApiGetLogRequest {
+func (a *TaskInstanceApiService) GetLog(ctx context.Context, dagId string, dagRunId string, taskId string, taskTryNumber int32) ApiGetLogRequest {
 	return ApiGetLogRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -246,28 +246,28 @@ func (a *TaskInstanceApiService) GetLog(ctx _context.Context, dagId string, dagR
 
 // Execute executes the request
 //  @return InlineResponse200
-func (a *TaskInstanceApiService) GetLogExecute(r ApiGetLogRequest) (InlineResponse200, *_nethttp.Response, error) {
+func (a *TaskInstanceApiService) GetLogExecute(r ApiGetLogRequest) (*InlineResponse200, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  InlineResponse200
+		localVarReturnValue  *InlineResponse200
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskInstanceApiService.GetLog")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/logs/{task_try_number}"
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", _neturl.PathEscape(parameterToString(r.dagId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", _neturl.PathEscape(parameterToString(r.dagRunId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"task_id"+"}", _neturl.PathEscape(parameterToString(r.taskId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"task_try_number"+"}", _neturl.PathEscape(parameterToString(r.taskTryNumber, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", url.PathEscape(parameterToString(r.dagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", url.PathEscape(parameterToString(r.dagRunId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"task_id"+"}", url.PathEscape(parameterToString(r.taskId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"task_try_number"+"}", url.PathEscape(parameterToString(r.taskTryNumber, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.fullContent != nil {
 		localVarQueryParams.Add("full_content", parameterToString(*r.fullContent, ""))
@@ -305,15 +305,15 @@ func (a *TaskInstanceApiService) GetLogExecute(r ApiGetLogRequest) (InlineRespon
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -361,7 +361,7 @@ func (a *TaskInstanceApiService) GetLogExecute(r ApiGetLogRequest) (InlineRespon
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -372,7 +372,7 @@ func (a *TaskInstanceApiService) GetLogExecute(r ApiGetLogRequest) (InlineRespon
 }
 
 type ApiGetMappedTaskInstanceRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *TaskInstanceApiService
 	dagId string
 	dagRunId string
@@ -381,7 +381,7 @@ type ApiGetMappedTaskInstanceRequest struct {
 }
 
 
-func (r ApiGetMappedTaskInstanceRequest) Execute() (TaskInstance, *_nethttp.Response, error) {
+func (r ApiGetMappedTaskInstanceRequest) Execute() (*TaskInstance, *http.Response, error) {
 	return r.ApiService.GetMappedTaskInstanceExecute(r)
 }
 
@@ -393,14 +393,14 @@ Get details of a mapped task instance.
 *New in version 2.3.0*
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param dagId The DAG ID.
  @param dagRunId The DAG run ID.
  @param taskId The task ID.
  @param mapIndex The map index.
  @return ApiGetMappedTaskInstanceRequest
 */
-func (a *TaskInstanceApiService) GetMappedTaskInstance(ctx _context.Context, dagId string, dagRunId string, taskId string, mapIndex int32) ApiGetMappedTaskInstanceRequest {
+func (a *TaskInstanceApiService) GetMappedTaskInstance(ctx context.Context, dagId string, dagRunId string, taskId string, mapIndex int32) ApiGetMappedTaskInstanceRequest {
 	return ApiGetMappedTaskInstanceRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -413,28 +413,28 @@ func (a *TaskInstanceApiService) GetMappedTaskInstance(ctx _context.Context, dag
 
 // Execute executes the request
 //  @return TaskInstance
-func (a *TaskInstanceApiService) GetMappedTaskInstanceExecute(r ApiGetMappedTaskInstanceRequest) (TaskInstance, *_nethttp.Response, error) {
+func (a *TaskInstanceApiService) GetMappedTaskInstanceExecute(r ApiGetMappedTaskInstanceRequest) (*TaskInstance, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  TaskInstance
+		localVarReturnValue  *TaskInstance
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskInstanceApiService.GetMappedTaskInstance")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/{map_index}"
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", _neturl.PathEscape(parameterToString(r.dagId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", _neturl.PathEscape(parameterToString(r.dagRunId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"task_id"+"}", _neturl.PathEscape(parameterToString(r.taskId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"map_index"+"}", _neturl.PathEscape(parameterToString(r.mapIndex, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", url.PathEscape(parameterToString(r.dagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", url.PathEscape(parameterToString(r.dagRunId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"task_id"+"}", url.PathEscape(parameterToString(r.taskId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"map_index"+"}", url.PathEscape(parameterToString(r.mapIndex, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -463,15 +463,15 @@ func (a *TaskInstanceApiService) GetMappedTaskInstanceExecute(r ApiGetMappedTask
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -509,7 +509,7 @@ func (a *TaskInstanceApiService) GetMappedTaskInstanceExecute(r ApiGetMappedTask
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -520,7 +520,7 @@ func (a *TaskInstanceApiService) GetMappedTaskInstanceExecute(r ApiGetMappedTask
 }
 
 type ApiGetMappedTaskInstancesRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *TaskInstanceApiService
 	dagId string
 	dagRunId string
@@ -612,7 +612,7 @@ func (r ApiGetMappedTaskInstancesRequest) OrderBy(orderBy string) ApiGetMappedTa
 	return r
 }
 
-func (r ApiGetMappedTaskInstancesRequest) Execute() (TaskInstanceCollection, *_nethttp.Response, error) {
+func (r ApiGetMappedTaskInstancesRequest) Execute() (*TaskInstanceCollection, *http.Response, error) {
 	return r.ApiService.GetMappedTaskInstancesExecute(r)
 }
 
@@ -624,13 +624,13 @@ Get details of all mapped task instances.
 *New in version 2.3.0*
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param dagId The DAG ID.
  @param dagRunId The DAG run ID.
  @param taskId The task ID.
  @return ApiGetMappedTaskInstancesRequest
 */
-func (a *TaskInstanceApiService) GetMappedTaskInstances(ctx _context.Context, dagId string, dagRunId string, taskId string) ApiGetMappedTaskInstancesRequest {
+func (a *TaskInstanceApiService) GetMappedTaskInstances(ctx context.Context, dagId string, dagRunId string, taskId string) ApiGetMappedTaskInstancesRequest {
 	return ApiGetMappedTaskInstancesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -642,27 +642,27 @@ func (a *TaskInstanceApiService) GetMappedTaskInstances(ctx _context.Context, da
 
 // Execute executes the request
 //  @return TaskInstanceCollection
-func (a *TaskInstanceApiService) GetMappedTaskInstancesExecute(r ApiGetMappedTaskInstancesRequest) (TaskInstanceCollection, *_nethttp.Response, error) {
+func (a *TaskInstanceApiService) GetMappedTaskInstancesExecute(r ApiGetMappedTaskInstancesRequest) (*TaskInstanceCollection, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  TaskInstanceCollection
+		localVarReturnValue  *TaskInstanceCollection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskInstanceApiService.GetMappedTaskInstances")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/listMapped"
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", _neturl.PathEscape(parameterToString(r.dagId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", _neturl.PathEscape(parameterToString(r.dagRunId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"task_id"+"}", _neturl.PathEscape(parameterToString(r.taskId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", url.PathEscape(parameterToString(r.dagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", url.PathEscape(parameterToString(r.dagRunId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"task_id"+"}", url.PathEscape(parameterToString(r.taskId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
@@ -757,15 +757,15 @@ func (a *TaskInstanceApiService) GetMappedTaskInstancesExecute(r ApiGetMappedTas
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -803,7 +803,7 @@ func (a *TaskInstanceApiService) GetMappedTaskInstancesExecute(r ApiGetMappedTas
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -814,7 +814,7 @@ func (a *TaskInstanceApiService) GetMappedTaskInstancesExecute(r ApiGetMappedTas
 }
 
 type ApiGetTaskInstanceRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *TaskInstanceApiService
 	dagId string
 	dagRunId string
@@ -822,20 +822,20 @@ type ApiGetTaskInstanceRequest struct {
 }
 
 
-func (r ApiGetTaskInstanceRequest) Execute() (TaskInstance, *_nethttp.Response, error) {
+func (r ApiGetTaskInstanceRequest) Execute() (*TaskInstance, *http.Response, error) {
 	return r.ApiService.GetTaskInstanceExecute(r)
 }
 
 /*
 GetTaskInstance Get a task instance
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param dagId The DAG ID.
  @param dagRunId The DAG run ID.
  @param taskId The task ID.
  @return ApiGetTaskInstanceRequest
 */
-func (a *TaskInstanceApiService) GetTaskInstance(ctx _context.Context, dagId string, dagRunId string, taskId string) ApiGetTaskInstanceRequest {
+func (a *TaskInstanceApiService) GetTaskInstance(ctx context.Context, dagId string, dagRunId string, taskId string) ApiGetTaskInstanceRequest {
 	return ApiGetTaskInstanceRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -847,27 +847,27 @@ func (a *TaskInstanceApiService) GetTaskInstance(ctx _context.Context, dagId str
 
 // Execute executes the request
 //  @return TaskInstance
-func (a *TaskInstanceApiService) GetTaskInstanceExecute(r ApiGetTaskInstanceRequest) (TaskInstance, *_nethttp.Response, error) {
+func (a *TaskInstanceApiService) GetTaskInstanceExecute(r ApiGetTaskInstanceRequest) (*TaskInstance, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  TaskInstance
+		localVarReturnValue  *TaskInstance
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskInstanceApiService.GetTaskInstance")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", _neturl.PathEscape(parameterToString(r.dagId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", _neturl.PathEscape(parameterToString(r.dagRunId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"task_id"+"}", _neturl.PathEscape(parameterToString(r.taskId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", url.PathEscape(parameterToString(r.dagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", url.PathEscape(parameterToString(r.dagRunId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"task_id"+"}", url.PathEscape(parameterToString(r.taskId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -896,15 +896,15 @@ func (a *TaskInstanceApiService) GetTaskInstanceExecute(r ApiGetTaskInstanceRequ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -942,7 +942,7 @@ func (a *TaskInstanceApiService) GetTaskInstanceExecute(r ApiGetTaskInstanceRequ
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -953,7 +953,7 @@ func (a *TaskInstanceApiService) GetTaskInstanceExecute(r ApiGetTaskInstanceRequ
 }
 
 type ApiGetTaskInstancesRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *TaskInstanceApiService
 	dagId string
 	dagRunId string
@@ -1038,7 +1038,7 @@ func (r ApiGetTaskInstancesRequest) Offset(offset int32) ApiGetTaskInstancesRequ
 	return r
 }
 
-func (r ApiGetTaskInstancesRequest) Execute() (TaskInstanceCollection, *_nethttp.Response, error) {
+func (r ApiGetTaskInstancesRequest) Execute() (*TaskInstanceCollection, *http.Response, error) {
 	return r.ApiService.GetTaskInstancesExecute(r)
 }
 
@@ -1048,12 +1048,12 @@ GetTaskInstances List task instances
 This endpoint allows specifying `~` as the dag_id, dag_run_id to retrieve DAG runs for all DAGs and DAG runs.
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param dagId The DAG ID.
  @param dagRunId The DAG run ID.
  @return ApiGetTaskInstancesRequest
 */
-func (a *TaskInstanceApiService) GetTaskInstances(ctx _context.Context, dagId string, dagRunId string) ApiGetTaskInstancesRequest {
+func (a *TaskInstanceApiService) GetTaskInstances(ctx context.Context, dagId string, dagRunId string) ApiGetTaskInstancesRequest {
 	return ApiGetTaskInstancesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1064,26 +1064,26 @@ func (a *TaskInstanceApiService) GetTaskInstances(ctx _context.Context, dagId st
 
 // Execute executes the request
 //  @return TaskInstanceCollection
-func (a *TaskInstanceApiService) GetTaskInstancesExecute(r ApiGetTaskInstancesRequest) (TaskInstanceCollection, *_nethttp.Response, error) {
+func (a *TaskInstanceApiService) GetTaskInstancesExecute(r ApiGetTaskInstancesRequest) (*TaskInstanceCollection, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  TaskInstanceCollection
+		localVarReturnValue  *TaskInstanceCollection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskInstanceApiService.GetTaskInstances")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances"
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", _neturl.PathEscape(parameterToString(r.dagId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", _neturl.PathEscape(parameterToString(r.dagRunId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", url.PathEscape(parameterToString(r.dagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", url.PathEscape(parameterToString(r.dagRunId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.executionDateGte != nil {
 		localVarQueryParams.Add("execution_date_gte", parameterToString(*r.executionDateGte, ""))
@@ -1175,15 +1175,15 @@ func (a *TaskInstanceApiService) GetTaskInstancesExecute(r ApiGetTaskInstancesRe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1211,7 +1211,7 @@ func (a *TaskInstanceApiService) GetTaskInstancesExecute(r ApiGetTaskInstancesRe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1222,7 +1222,7 @@ func (a *TaskInstanceApiService) GetTaskInstancesExecute(r ApiGetTaskInstancesRe
 }
 
 type ApiGetTaskInstancesBatchRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *TaskInstanceApiService
 	listTaskInstanceForm *ListTaskInstanceForm
 }
@@ -1232,7 +1232,7 @@ func (r ApiGetTaskInstancesBatchRequest) ListTaskInstanceForm(listTaskInstanceFo
 	return r
 }
 
-func (r ApiGetTaskInstancesBatchRequest) Execute() (TaskInstanceCollection, *_nethttp.Response, error) {
+func (r ApiGetTaskInstancesBatchRequest) Execute() (*TaskInstanceCollection, *http.Response, error) {
 	return r.ApiService.GetTaskInstancesBatchExecute(r)
 }
 
@@ -1243,10 +1243,10 @@ List task instances from all DAGs and DAG runs.
 This endpoint is a POST to allow filtering across a large number of DAG IDs, where as a GET it would run in to maximum HTTP request URL length limits.
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetTaskInstancesBatchRequest
 */
-func (a *TaskInstanceApiService) GetTaskInstancesBatch(ctx _context.Context) ApiGetTaskInstancesBatchRequest {
+func (a *TaskInstanceApiService) GetTaskInstancesBatch(ctx context.Context) ApiGetTaskInstancesBatchRequest {
 	return ApiGetTaskInstancesBatchRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1255,24 +1255,24 @@ func (a *TaskInstanceApiService) GetTaskInstancesBatch(ctx _context.Context) Api
 
 // Execute executes the request
 //  @return TaskInstanceCollection
-func (a *TaskInstanceApiService) GetTaskInstancesBatchExecute(r ApiGetTaskInstancesBatchRequest) (TaskInstanceCollection, *_nethttp.Response, error) {
+func (a *TaskInstanceApiService) GetTaskInstancesBatchExecute(r ApiGetTaskInstancesBatchRequest) (*TaskInstanceCollection, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  TaskInstanceCollection
+		localVarReturnValue  *TaskInstanceCollection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskInstanceApiService.GetTaskInstancesBatch")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/dags/~/dagRuns/~/taskInstances/list"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.listTaskInstanceForm == nil {
 		return localVarReturnValue, nil, reportError("listTaskInstanceForm is required and must be specified")
 	}
@@ -1306,15 +1306,15 @@ func (a *TaskInstanceApiService) GetTaskInstancesBatchExecute(r ApiGetTaskInstan
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1352,7 +1352,7 @@ func (a *TaskInstanceApiService) GetTaskInstancesBatchExecute(r ApiGetTaskInstan
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1363,7 +1363,7 @@ func (a *TaskInstanceApiService) GetTaskInstancesBatchExecute(r ApiGetTaskInstan
 }
 
 type ApiPatchMappedTaskInstanceRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *TaskInstanceApiService
 	dagId string
 	dagRunId string
@@ -1378,7 +1378,7 @@ func (r ApiPatchMappedTaskInstanceRequest) UpdateTaskInstance(updateTaskInstance
 	return r
 }
 
-func (r ApiPatchMappedTaskInstanceRequest) Execute() (TaskInstanceReference, *_nethttp.Response, error) {
+func (r ApiPatchMappedTaskInstanceRequest) Execute() (*TaskInstanceReference, *http.Response, error) {
 	return r.ApiService.PatchMappedTaskInstanceExecute(r)
 }
 
@@ -1389,14 +1389,14 @@ Updates the state for single mapped task instance.
 *New in version 2.5.0*
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param dagId The DAG ID.
  @param dagRunId The DAG run ID.
  @param taskId The task ID.
  @param mapIndex The map index.
  @return ApiPatchMappedTaskInstanceRequest
 */
-func (a *TaskInstanceApiService) PatchMappedTaskInstance(ctx _context.Context, dagId string, dagRunId string, taskId string, mapIndex int32) ApiPatchMappedTaskInstanceRequest {
+func (a *TaskInstanceApiService) PatchMappedTaskInstance(ctx context.Context, dagId string, dagRunId string, taskId string, mapIndex int32) ApiPatchMappedTaskInstanceRequest {
 	return ApiPatchMappedTaskInstanceRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1409,28 +1409,28 @@ func (a *TaskInstanceApiService) PatchMappedTaskInstance(ctx _context.Context, d
 
 // Execute executes the request
 //  @return TaskInstanceReference
-func (a *TaskInstanceApiService) PatchMappedTaskInstanceExecute(r ApiPatchMappedTaskInstanceRequest) (TaskInstanceReference, *_nethttp.Response, error) {
+func (a *TaskInstanceApiService) PatchMappedTaskInstanceExecute(r ApiPatchMappedTaskInstanceRequest) (*TaskInstanceReference, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
+		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  TaskInstanceReference
+		localVarReturnValue  *TaskInstanceReference
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskInstanceApiService.PatchMappedTaskInstance")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/{map_index}"
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", _neturl.PathEscape(parameterToString(r.dagId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", _neturl.PathEscape(parameterToString(r.dagRunId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"task_id"+"}", _neturl.PathEscape(parameterToString(r.taskId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"map_index"+"}", _neturl.PathEscape(parameterToString(r.mapIndex, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", url.PathEscape(parameterToString(r.dagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", url.PathEscape(parameterToString(r.dagRunId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"task_id"+"}", url.PathEscape(parameterToString(r.taskId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"map_index"+"}", url.PathEscape(parameterToString(r.mapIndex, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -1461,15 +1461,15 @@ func (a *TaskInstanceApiService) PatchMappedTaskInstanceExecute(r ApiPatchMapped
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1507,7 +1507,7 @@ func (a *TaskInstanceApiService) PatchMappedTaskInstanceExecute(r ApiPatchMapped
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1518,7 +1518,7 @@ func (a *TaskInstanceApiService) PatchMappedTaskInstanceExecute(r ApiPatchMapped
 }
 
 type ApiPatchTaskInstanceRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *TaskInstanceApiService
 	dagId string
 	dagRunId string
@@ -1532,7 +1532,7 @@ func (r ApiPatchTaskInstanceRequest) UpdateTaskInstance(updateTaskInstance Updat
 	return r
 }
 
-func (r ApiPatchTaskInstanceRequest) Execute() (TaskInstanceReference, *_nethttp.Response, error) {
+func (r ApiPatchTaskInstanceRequest) Execute() (*TaskInstanceReference, *http.Response, error) {
 	return r.ApiService.PatchTaskInstanceExecute(r)
 }
 
@@ -1543,13 +1543,13 @@ Updates the state for single task instance.
 *New in version 2.5.0*
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param dagId The DAG ID.
  @param dagRunId The DAG run ID.
  @param taskId The task ID.
  @return ApiPatchTaskInstanceRequest
 */
-func (a *TaskInstanceApiService) PatchTaskInstance(ctx _context.Context, dagId string, dagRunId string, taskId string) ApiPatchTaskInstanceRequest {
+func (a *TaskInstanceApiService) PatchTaskInstance(ctx context.Context, dagId string, dagRunId string, taskId string) ApiPatchTaskInstanceRequest {
 	return ApiPatchTaskInstanceRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1561,27 +1561,27 @@ func (a *TaskInstanceApiService) PatchTaskInstance(ctx _context.Context, dagId s
 
 // Execute executes the request
 //  @return TaskInstanceReference
-func (a *TaskInstanceApiService) PatchTaskInstanceExecute(r ApiPatchTaskInstanceRequest) (TaskInstanceReference, *_nethttp.Response, error) {
+func (a *TaskInstanceApiService) PatchTaskInstanceExecute(r ApiPatchTaskInstanceRequest) (*TaskInstanceReference, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
+		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  TaskInstanceReference
+		localVarReturnValue  *TaskInstanceReference
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskInstanceApiService.PatchTaskInstance")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", _neturl.PathEscape(parameterToString(r.dagId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", _neturl.PathEscape(parameterToString(r.dagRunId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"task_id"+"}", _neturl.PathEscape(parameterToString(r.taskId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", url.PathEscape(parameterToString(r.dagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", url.PathEscape(parameterToString(r.dagRunId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"task_id"+"}", url.PathEscape(parameterToString(r.taskId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.updateTaskInstance == nil {
 		return localVarReturnValue, nil, reportError("updateTaskInstance is required and must be specified")
 	}
@@ -1615,15 +1615,15 @@ func (a *TaskInstanceApiService) PatchTaskInstanceExecute(r ApiPatchTaskInstance
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1661,7 +1661,7 @@ func (a *TaskInstanceApiService) PatchTaskInstanceExecute(r ApiPatchTaskInstance
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

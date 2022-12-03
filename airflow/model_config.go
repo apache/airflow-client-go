@@ -34,7 +34,7 @@ import (
 
 // Config The configuration.
 type Config struct {
-	Sections *[]ConfigSection `json:"sections,omitempty"`
+	Sections []ConfigSection `json:"sections,omitempty"`
 }
 
 // NewConfig instantiates a new Config object
@@ -60,12 +60,12 @@ func (o *Config) GetSections() []ConfigSection {
 		var ret []ConfigSection
 		return ret
 	}
-	return *o.Sections
+	return o.Sections
 }
 
 // GetSectionsOk returns a tuple with the Sections field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Config) GetSectionsOk() (*[]ConfigSection, bool) {
+func (o *Config) GetSectionsOk() ([]ConfigSection, bool) {
 	if o == nil || o.Sections == nil {
 		return nil, false
 	}
@@ -83,7 +83,7 @@ func (o *Config) HasSections() bool {
 
 // SetSections gets a reference to the given []ConfigSection and assigns it to the Sections field.
 func (o *Config) SetSections(v []ConfigSection) {
-	o.Sections = &v
+	o.Sections = v
 }
 
 func (o Config) MarshalJSON() ([]byte, error) {

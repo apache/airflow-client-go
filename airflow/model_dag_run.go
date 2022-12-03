@@ -53,7 +53,7 @@ type DAGRun struct {
 	State *DagState `json:"state,omitempty"`
 	ExternalTrigger *bool `json:"external_trigger,omitempty"`
 	// JSON object describing additional configuration parameters.  The value of this field can be set only when creating the object. If you try to modify the field of an existing object, the request fails with an BAD_REQUEST error. 
-	Conf *map[string]interface{} `json:"conf,omitempty"`
+	Conf map[string]interface{} `json:"conf,omitempty"`
 	// Contains manually entered notes by the user about the DagRun.  *New in version 2.5.0* 
 	Note NullableString `json:"note,omitempty"`
 }
@@ -548,12 +548,12 @@ func (o *DAGRun) GetConf() map[string]interface{} {
 		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Conf
+	return o.Conf
 }
 
 // GetConfOk returns a tuple with the Conf field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DAGRun) GetConfOk() (*map[string]interface{}, bool) {
+func (o *DAGRun) GetConfOk() (map[string]interface{}, bool) {
 	if o == nil || o.Conf == nil {
 		return nil, false
 	}
@@ -571,7 +571,7 @@ func (o *DAGRun) HasConf() bool {
 
 // SetConf gets a reference to the given map[string]interface{} and assigns it to the Conf field.
 func (o *DAGRun) SetConf(v map[string]interface{}) {
-	o.Conf = &v
+	o.Conf = v
 }
 
 // GetNote returns the Note field value if set, zero value otherwise (both if not set or set to explicit null).

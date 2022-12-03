@@ -34,7 +34,7 @@ import (
 
 // DatasetCollectionAllOf struct for DatasetCollectionAllOf
 type DatasetCollectionAllOf struct {
-	Datasets *[]Dataset `json:"datasets,omitempty"`
+	Datasets []Dataset `json:"datasets,omitempty"`
 }
 
 // NewDatasetCollectionAllOf instantiates a new DatasetCollectionAllOf object
@@ -60,12 +60,12 @@ func (o *DatasetCollectionAllOf) GetDatasets() []Dataset {
 		var ret []Dataset
 		return ret
 	}
-	return *o.Datasets
+	return o.Datasets
 }
 
 // GetDatasetsOk returns a tuple with the Datasets field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DatasetCollectionAllOf) GetDatasetsOk() (*[]Dataset, bool) {
+func (o *DatasetCollectionAllOf) GetDatasetsOk() ([]Dataset, bool) {
 	if o == nil || o.Datasets == nil {
 		return nil, false
 	}
@@ -83,7 +83,7 @@ func (o *DatasetCollectionAllOf) HasDatasets() bool {
 
 // SetDatasets gets a reference to the given []Dataset and assigns it to the Datasets field.
 func (o *DatasetCollectionAllOf) SetDatasets(v []Dataset) {
-	o.Datasets = &v
+	o.Datasets = v
 }
 
 func (o DatasetCollectionAllOf) MarshalJSON() ([]byte, error) {

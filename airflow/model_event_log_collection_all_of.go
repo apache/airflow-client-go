@@ -34,7 +34,7 @@ import (
 
 // EventLogCollectionAllOf struct for EventLogCollectionAllOf
 type EventLogCollectionAllOf struct {
-	EventLogs *[]EventLog `json:"event_logs,omitempty"`
+	EventLogs []EventLog `json:"event_logs,omitempty"`
 }
 
 // NewEventLogCollectionAllOf instantiates a new EventLogCollectionAllOf object
@@ -60,12 +60,12 @@ func (o *EventLogCollectionAllOf) GetEventLogs() []EventLog {
 		var ret []EventLog
 		return ret
 	}
-	return *o.EventLogs
+	return o.EventLogs
 }
 
 // GetEventLogsOk returns a tuple with the EventLogs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventLogCollectionAllOf) GetEventLogsOk() (*[]EventLog, bool) {
+func (o *EventLogCollectionAllOf) GetEventLogsOk() ([]EventLog, bool) {
 	if o == nil || o.EventLogs == nil {
 		return nil, false
 	}
@@ -83,7 +83,7 @@ func (o *EventLogCollectionAllOf) HasEventLogs() bool {
 
 // SetEventLogs gets a reference to the given []EventLog and assigns it to the EventLogs field.
 func (o *EventLogCollectionAllOf) SetEventLogs(v []EventLog) {
-	o.EventLogs = &v
+	o.EventLogs = v
 }
 
 func (o EventLogCollectionAllOf) MarshalJSON() ([]byte, error) {

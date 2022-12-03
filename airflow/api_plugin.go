@@ -30,22 +30,22 @@ package airflow
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 // PluginApiService PluginApi service
 type PluginApiService service
 
 type ApiGetPluginsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *PluginApiService
 	limit *int32
 	offset *int32
@@ -62,7 +62,7 @@ func (r ApiGetPluginsRequest) Offset(offset int32) ApiGetPluginsRequest {
 	return r
 }
 
-func (r ApiGetPluginsRequest) Execute() (PluginCollection, *_nethttp.Response, error) {
+func (r ApiGetPluginsRequest) Execute() (*PluginCollection, *http.Response, error) {
 	return r.ApiService.GetPluginsExecute(r)
 }
 
@@ -74,10 +74,10 @@ Get a list of loaded plugins.
 *New in version 2.1.0*
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetPluginsRequest
 */
-func (a *PluginApiService) GetPlugins(ctx _context.Context) ApiGetPluginsRequest {
+func (a *PluginApiService) GetPlugins(ctx context.Context) ApiGetPluginsRequest {
 	return ApiGetPluginsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -86,24 +86,24 @@ func (a *PluginApiService) GetPlugins(ctx _context.Context) ApiGetPluginsRequest
 
 // Execute executes the request
 //  @return PluginCollection
-func (a *PluginApiService) GetPluginsExecute(r ApiGetPluginsRequest) (PluginCollection, *_nethttp.Response, error) {
+func (a *PluginApiService) GetPluginsExecute(r ApiGetPluginsRequest) (*PluginCollection, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  PluginCollection
+		localVarReturnValue  *PluginCollection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PluginApiService.GetPlugins")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/plugins"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
@@ -138,15 +138,15 @@ func (a *PluginApiService) GetPluginsExecute(r ApiGetPluginsRequest) (PluginColl
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -184,7 +184,7 @@ func (a *PluginApiService) GetPluginsExecute(r ApiGetPluginsRequest) (PluginColl
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

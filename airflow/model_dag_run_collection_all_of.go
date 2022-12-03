@@ -34,7 +34,7 @@ import (
 
 // DAGRunCollectionAllOf struct for DAGRunCollectionAllOf
 type DAGRunCollectionAllOf struct {
-	DagRuns *[]DAGRun `json:"dag_runs,omitempty"`
+	DagRuns []DAGRun `json:"dag_runs,omitempty"`
 }
 
 // NewDAGRunCollectionAllOf instantiates a new DAGRunCollectionAllOf object
@@ -60,12 +60,12 @@ func (o *DAGRunCollectionAllOf) GetDagRuns() []DAGRun {
 		var ret []DAGRun
 		return ret
 	}
-	return *o.DagRuns
+	return o.DagRuns
 }
 
 // GetDagRunsOk returns a tuple with the DagRuns field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DAGRunCollectionAllOf) GetDagRunsOk() (*[]DAGRun, bool) {
+func (o *DAGRunCollectionAllOf) GetDagRunsOk() ([]DAGRun, bool) {
 	if o == nil || o.DagRuns == nil {
 		return nil, false
 	}
@@ -83,7 +83,7 @@ func (o *DAGRunCollectionAllOf) HasDagRuns() bool {
 
 // SetDagRuns gets a reference to the given []DAGRun and assigns it to the DagRuns field.
 func (o *DAGRunCollectionAllOf) SetDagRuns(v []DAGRun) {
-	o.DagRuns = &v
+	o.DagRuns = v
 }
 
 func (o DAGRunCollectionAllOf) MarshalJSON() ([]byte, error) {

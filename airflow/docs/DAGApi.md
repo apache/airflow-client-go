@@ -63,8 +63,8 @@ func main() {
     dagId := "dagId_example" // string | The DAG ID.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DAGApi.DeleteDag(context.Background(), dagId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DAGApi.DeleteDag(context.Background(), dagId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DAGApi.DeleteDag``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -131,8 +131,8 @@ func main() {
     dagId := "dagId_example" // string | The DAG ID.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DAGApi.GetDag(context.Background(), dagId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DAGApi.GetDag(context.Background(), dagId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DAGApi.GetDag``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -201,8 +201,8 @@ func main() {
     dagId := "dagId_example" // string | The DAG ID.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DAGApi.GetDagDetails(context.Background(), dagId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DAGApi.GetDagDetails(context.Background(), dagId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DAGApi.GetDagDetails``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -271,8 +271,8 @@ func main() {
     fileToken := "fileToken_example" // string | The key containing the encrypted path to the file. Encryption and decryption take place only on the server. This prevents the client from reading an non-DAG file. This also ensures API extensibility, because the format of encrypted data may change. 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DAGApi.GetDagSource(context.Background(), fileToken).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DAGApi.GetDagSource(context.Background(), fileToken).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DAGApi.GetDagSource``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -346,8 +346,8 @@ func main() {
     dagIdPattern := "dagIdPattern_example" // string | If set, only return DAGs with dag_ids matching this pattern.  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DAGApi.GetDags(context.Background()).Limit(limit).Offset(offset).OrderBy(orderBy).Tags(tags).OnlyActive(onlyActive).DagIdPattern(dagIdPattern).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DAGApi.GetDags(context.Background()).Limit(limit).Offset(offset).OrderBy(orderBy).Tags(tags).OnlyActive(onlyActive).DagIdPattern(dagIdPattern).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DAGApi.GetDags``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -416,8 +416,8 @@ func main() {
     taskId := "taskId_example" // string | The task ID.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DAGApi.GetTask(context.Background(), dagId, taskId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DAGApi.GetTask(context.Background(), dagId, taskId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DAGApi.GetTask``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -487,8 +487,8 @@ func main() {
     orderBy := "orderBy_example" // string | The name of the field to order the results by. Prefix a field name with `-` to reverse the sort order.  *New in version 2.1.0*  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DAGApi.GetTasks(context.Background(), dagId).OrderBy(orderBy).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DAGApi.GetTasks(context.Background(), dagId).OrderBy(orderBy).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DAGApi.GetTasks``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -558,8 +558,8 @@ func main() {
     updateMask := []string{"Inner_example"} // []string | The fields to update on the resource. If absent or empty, all modifiable fields are updated. A comma-separated list of fully qualified names of fields.  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DAGApi.PatchDag(context.Background(), dagId).DAG(dAG).UpdateMask(updateMask).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DAGApi.PatchDag(context.Background(), dagId).DAG(dAG).UpdateMask(updateMask).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DAGApi.PatchDag``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -636,8 +636,8 @@ func main() {
     onlyActive := true // bool | Only filter active DAGs.  *New in version 2.1.1*  (optional) (default to true)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DAGApi.PatchDags(context.Background()).DagIdPattern(dagIdPattern).DAG(dAG).Limit(limit).Offset(offset).Tags(tags).UpdateMask(updateMask).OnlyActive(onlyActive).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DAGApi.PatchDags(context.Background()).DagIdPattern(dagIdPattern).DAG(dAG).Limit(limit).Offset(offset).Tags(tags).UpdateMask(updateMask).OnlyActive(onlyActive).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DAGApi.PatchDags``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -709,8 +709,8 @@ func main() {
     clearTaskInstances := *openapiclient.NewClearTaskInstances() // ClearTaskInstances | Parameters of action
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DAGApi.PostClearTaskInstances(context.Background(), dagId).ClearTaskInstances(clearTaskInstances).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DAGApi.PostClearTaskInstances(context.Background(), dagId).ClearTaskInstances(clearTaskInstances).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DAGApi.PostClearTaskInstances``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -781,8 +781,8 @@ func main() {
     updateTaskInstancesState := *openapiclient.NewUpdateTaskInstancesState() // UpdateTaskInstancesState | Parameters of action
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DAGApi.PostSetTaskInstancesState(context.Background(), dagId).UpdateTaskInstancesState(updateTaskInstancesState).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DAGApi.PostSetTaskInstancesState(context.Background(), dagId).UpdateTaskInstancesState(updateTaskInstancesState).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DAGApi.PostSetTaskInstancesState``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -856,8 +856,8 @@ func main() {
     setTaskInstanceNote := *openapiclient.NewSetTaskInstanceNote("Note_example") // SetTaskInstanceNote | Parameters of set Task Instance note.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DAGApi.SetMappedTaskInstanceNote(context.Background(), dagId, dagRunId, taskId, mapIndex).SetTaskInstanceNote(setTaskInstanceNote).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DAGApi.SetMappedTaskInstanceNote(context.Background(), dagId, dagRunId, taskId, mapIndex).SetTaskInstanceNote(setTaskInstanceNote).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DAGApi.SetMappedTaskInstanceNote``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -936,8 +936,8 @@ func main() {
     setTaskInstanceNote := *openapiclient.NewSetTaskInstanceNote("Note_example") // SetTaskInstanceNote | Parameters of set Task Instance note.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DAGApi.SetTaskInstanceNote(context.Background(), dagId, dagRunId, taskId).SetTaskInstanceNote(setTaskInstanceNote).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DAGApi.SetTaskInstanceNote(context.Background(), dagId, dagRunId, taskId).SetTaskInstanceNote(setTaskInstanceNote).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DAGApi.SetTaskInstanceNote``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

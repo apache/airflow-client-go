@@ -34,7 +34,7 @@ import (
 
 // VariableCollectionAllOf struct for VariableCollectionAllOf
 type VariableCollectionAllOf struct {
-	Variables *[]VariableCollectionItem `json:"variables,omitempty"`
+	Variables []VariableCollectionItem `json:"variables,omitempty"`
 }
 
 // NewVariableCollectionAllOf instantiates a new VariableCollectionAllOf object
@@ -60,12 +60,12 @@ func (o *VariableCollectionAllOf) GetVariables() []VariableCollectionItem {
 		var ret []VariableCollectionItem
 		return ret
 	}
-	return *o.Variables
+	return o.Variables
 }
 
 // GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VariableCollectionAllOf) GetVariablesOk() (*[]VariableCollectionItem, bool) {
+func (o *VariableCollectionAllOf) GetVariablesOk() ([]VariableCollectionItem, bool) {
 	if o == nil || o.Variables == nil {
 		return nil, false
 	}
@@ -83,7 +83,7 @@ func (o *VariableCollectionAllOf) HasVariables() bool {
 
 // SetVariables gets a reference to the given []VariableCollectionItem and assigns it to the Variables field.
 func (o *VariableCollectionAllOf) SetVariables(v []VariableCollectionItem) {
-	o.Variables = &v
+	o.Variables = v
 }
 
 func (o VariableCollectionAllOf) MarshalJSON() ([]byte, error) {

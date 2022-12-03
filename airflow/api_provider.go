@@ -30,27 +30,27 @@ package airflow
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 // ProviderApiService ProviderApi service
 type ProviderApiService service
 
 type ApiGetProvidersRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *ProviderApiService
 }
 
 
-func (r ApiGetProvidersRequest) Execute() (ProviderCollection, *_nethttp.Response, error) {
+func (r ApiGetProvidersRequest) Execute() (*ProviderCollection, *http.Response, error) {
 	return r.ApiService.GetProvidersExecute(r)
 }
 
@@ -62,10 +62,10 @@ Get a list of providers.
 *New in version 2.1.0*
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetProvidersRequest
 */
-func (a *ProviderApiService) GetProviders(ctx _context.Context) ApiGetProvidersRequest {
+func (a *ProviderApiService) GetProviders(ctx context.Context) ApiGetProvidersRequest {
 	return ApiGetProvidersRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -74,24 +74,24 @@ func (a *ProviderApiService) GetProviders(ctx _context.Context) ApiGetProvidersR
 
 // Execute executes the request
 //  @return ProviderCollection
-func (a *ProviderApiService) GetProvidersExecute(r ApiGetProvidersRequest) (ProviderCollection, *_nethttp.Response, error) {
+func (a *ProviderApiService) GetProvidersExecute(r ApiGetProvidersRequest) (*ProviderCollection, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  ProviderCollection
+		localVarReturnValue  *ProviderCollection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProviderApiService.GetProviders")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/providers"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -120,15 +120,15 @@ func (a *ProviderApiService) GetProvidersExecute(r ApiGetProvidersRequest) (Prov
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -156,7 +156,7 @@ func (a *ProviderApiService) GetProvidersExecute(r ApiGetProvidersRequest) (Prov
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

@@ -48,7 +48,7 @@ type DatasetEvent struct {
 	SourceRunId NullableString `json:"source_run_id,omitempty"`
 	// The task map index that updated the dataset.
 	SourceMapIndex NullableInt32 `json:"source_map_index,omitempty"`
-	CreatedDagruns *[]BasicDAGRun `json:"created_dagruns,omitempty"`
+	CreatedDagruns []BasicDAGRun `json:"created_dagruns,omitempty"`
 	// The dataset event creation time
 	Timestamp *string `json:"timestamp,omitempty"`
 }
@@ -146,11 +146,11 @@ func (o *DatasetEvent) GetExtra() map[string]interface{} {
 // GetExtraOk returns a tuple with the Extra field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *DatasetEvent) GetExtraOk() (*map[string]interface{}, bool) {
+func (o *DatasetEvent) GetExtraOk() (map[string]interface{}, bool) {
 	if o == nil || o.Extra == nil {
 		return nil, false
 	}
-	return &o.Extra, true
+	return o.Extra, true
 }
 
 // HasExtra returns a boolean if a field has been set.
@@ -341,12 +341,12 @@ func (o *DatasetEvent) GetCreatedDagruns() []BasicDAGRun {
 		var ret []BasicDAGRun
 		return ret
 	}
-	return *o.CreatedDagruns
+	return o.CreatedDagruns
 }
 
 // GetCreatedDagrunsOk returns a tuple with the CreatedDagruns field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DatasetEvent) GetCreatedDagrunsOk() (*[]BasicDAGRun, bool) {
+func (o *DatasetEvent) GetCreatedDagrunsOk() ([]BasicDAGRun, bool) {
 	if o == nil || o.CreatedDagruns == nil {
 		return nil, false
 	}
@@ -364,7 +364,7 @@ func (o *DatasetEvent) HasCreatedDagruns() bool {
 
 // SetCreatedDagruns gets a reference to the given []BasicDAGRun and assigns it to the CreatedDagruns field.
 func (o *DatasetEvent) SetCreatedDagruns(v []BasicDAGRun) {
-	o.CreatedDagruns = &v
+	o.CreatedDagruns = v
 }
 
 // GetTimestamp returns the Timestamp field value if set, zero value otherwise.

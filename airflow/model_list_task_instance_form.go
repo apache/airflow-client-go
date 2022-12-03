@@ -36,7 +36,7 @@ import (
 // ListTaskInstanceForm struct for ListTaskInstanceForm
 type ListTaskInstanceForm struct {
 	// Return objects with specific DAG IDs. The value can be repeated to retrieve multiple matching values (OR condition).
-	DagIds *[]string `json:"dag_ids,omitempty"`
+	DagIds []string `json:"dag_ids,omitempty"`
 	// Returns objects greater or equal to the specified date.  This can be combined with execution_date_lte parameter to receive only the selected period. 
 	ExecutionDateGte *time.Time `json:"execution_date_gte,omitempty"`
 	// Returns objects less than or equal to the specified date.  This can be combined with execution_date_gte parameter to receive only the selected period. 
@@ -54,11 +54,11 @@ type ListTaskInstanceForm struct {
 	// Returns objects less than or equal to the specified values.  This can be combined with duration_gte parameter to receive only the selected range. 
 	DurationLte *float32 `json:"duration_lte,omitempty"`
 	// The value can be repeated to retrieve multiple matching values (OR condition).
-	State *[]TaskState `json:"state,omitempty"`
+	State []TaskState `json:"state,omitempty"`
 	// The value can be repeated to retrieve multiple matching values (OR condition).
-	Pool *[]string `json:"pool,omitempty"`
+	Pool []string `json:"pool,omitempty"`
 	// The value can be repeated to retrieve multiple matching values (OR condition).
-	Queue *[]string `json:"queue,omitempty"`
+	Queue []string `json:"queue,omitempty"`
 }
 
 // NewListTaskInstanceForm instantiates a new ListTaskInstanceForm object
@@ -84,12 +84,12 @@ func (o *ListTaskInstanceForm) GetDagIds() []string {
 		var ret []string
 		return ret
 	}
-	return *o.DagIds
+	return o.DagIds
 }
 
 // GetDagIdsOk returns a tuple with the DagIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ListTaskInstanceForm) GetDagIdsOk() (*[]string, bool) {
+func (o *ListTaskInstanceForm) GetDagIdsOk() ([]string, bool) {
 	if o == nil || o.DagIds == nil {
 		return nil, false
 	}
@@ -107,7 +107,7 @@ func (o *ListTaskInstanceForm) HasDagIds() bool {
 
 // SetDagIds gets a reference to the given []string and assigns it to the DagIds field.
 func (o *ListTaskInstanceForm) SetDagIds(v []string) {
-	o.DagIds = &v
+	o.DagIds = v
 }
 
 // GetExecutionDateGte returns the ExecutionDateGte field value if set, zero value otherwise.
@@ -372,12 +372,12 @@ func (o *ListTaskInstanceForm) GetState() []TaskState {
 		var ret []TaskState
 		return ret
 	}
-	return *o.State
+	return o.State
 }
 
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ListTaskInstanceForm) GetStateOk() (*[]TaskState, bool) {
+func (o *ListTaskInstanceForm) GetStateOk() ([]TaskState, bool) {
 	if o == nil || o.State == nil {
 		return nil, false
 	}
@@ -395,7 +395,7 @@ func (o *ListTaskInstanceForm) HasState() bool {
 
 // SetState gets a reference to the given []TaskState and assigns it to the State field.
 func (o *ListTaskInstanceForm) SetState(v []TaskState) {
-	o.State = &v
+	o.State = v
 }
 
 // GetPool returns the Pool field value if set, zero value otherwise.
@@ -404,12 +404,12 @@ func (o *ListTaskInstanceForm) GetPool() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Pool
+	return o.Pool
 }
 
 // GetPoolOk returns a tuple with the Pool field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ListTaskInstanceForm) GetPoolOk() (*[]string, bool) {
+func (o *ListTaskInstanceForm) GetPoolOk() ([]string, bool) {
 	if o == nil || o.Pool == nil {
 		return nil, false
 	}
@@ -427,7 +427,7 @@ func (o *ListTaskInstanceForm) HasPool() bool {
 
 // SetPool gets a reference to the given []string and assigns it to the Pool field.
 func (o *ListTaskInstanceForm) SetPool(v []string) {
-	o.Pool = &v
+	o.Pool = v
 }
 
 // GetQueue returns the Queue field value if set, zero value otherwise.
@@ -436,12 +436,12 @@ func (o *ListTaskInstanceForm) GetQueue() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Queue
+	return o.Queue
 }
 
 // GetQueueOk returns a tuple with the Queue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ListTaskInstanceForm) GetQueueOk() (*[]string, bool) {
+func (o *ListTaskInstanceForm) GetQueueOk() ([]string, bool) {
 	if o == nil || o.Queue == nil {
 		return nil, false
 	}
@@ -459,7 +459,7 @@ func (o *ListTaskInstanceForm) HasQueue() bool {
 
 // SetQueue gets a reference to the given []string and assigns it to the Queue field.
 func (o *ListTaskInstanceForm) SetQueue(v []string) {
-	o.Queue = &v
+	o.Queue = v
 }
 
 func (o ListTaskInstanceForm) MarshalJSON() ([]byte, error) {

@@ -34,7 +34,7 @@ import (
 
 // PluginCollection A collection of plugin.  *New in version 2.1.0* 
 type PluginCollection struct {
-	Plugins *[]PluginCollectionItem `json:"plugins,omitempty"`
+	Plugins []PluginCollectionItem `json:"plugins,omitempty"`
 	// Count of objects in the current result set.
 	TotalEntries *int32 `json:"total_entries,omitempty"`
 }
@@ -62,12 +62,12 @@ func (o *PluginCollection) GetPlugins() []PluginCollectionItem {
 		var ret []PluginCollectionItem
 		return ret
 	}
-	return *o.Plugins
+	return o.Plugins
 }
 
 // GetPluginsOk returns a tuple with the Plugins field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PluginCollection) GetPluginsOk() (*[]PluginCollectionItem, bool) {
+func (o *PluginCollection) GetPluginsOk() ([]PluginCollectionItem, bool) {
 	if o == nil || o.Plugins == nil {
 		return nil, false
 	}
@@ -85,7 +85,7 @@ func (o *PluginCollection) HasPlugins() bool {
 
 // SetPlugins gets a reference to the given []PluginCollectionItem and assigns it to the Plugins field.
 func (o *PluginCollection) SetPlugins(v []PluginCollectionItem) {
-	o.Plugins = &v
+	o.Plugins = v
 }
 
 // GetTotalEntries returns the TotalEntries field value if set, zero value otherwise.

@@ -60,7 +60,7 @@ type DAGDetail struct {
 	Fileloc *string `json:"fileloc,omitempty"`
 	// The key containing the encrypted path to the file. Encryption and decryption take place only on the server. This prevents the client from reading an non-DAG file. This also ensures API extensibility, because the format of encrypted data may change. 
 	FileToken *string `json:"file_token,omitempty"`
-	Owners *[]string `json:"owners,omitempty"`
+	Owners []string `json:"owners,omitempty"`
 	// User-provided DAG description, which can consist of several sentences or paragraphs that describe DAG contents. 
 	Description NullableString `json:"description,omitempty"`
 	ScheduleInterval NullableScheduleInterval `json:"schedule_interval,omitempty"`
@@ -93,7 +93,7 @@ type DAGDetail struct {
 	DagRunTimeout *TimeDelta `json:"dag_run_timeout,omitempty"`
 	DocMd NullableString `json:"doc_md,omitempty"`
 	// User-specified DAG params.  *New in version 2.0.1* 
-	Params *map[string]interface{} `json:"params,omitempty"`
+	Params map[string]interface{} `json:"params,omitempty"`
 	// The DAG's end date.  *New in version 2.3.0*. 
 	EndDate NullableTime `json:"end_date,omitempty"`
 	// Whether the DAG is paused upon creation.  *New in version 2.3.0* 
@@ -625,12 +625,12 @@ func (o *DAGDetail) GetOwners() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Owners
+	return o.Owners
 }
 
 // GetOwnersOk returns a tuple with the Owners field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DAGDetail) GetOwnersOk() (*[]string, bool) {
+func (o *DAGDetail) GetOwnersOk() ([]string, bool) {
 	if o == nil || o.Owners == nil {
 		return nil, false
 	}
@@ -648,7 +648,7 @@ func (o *DAGDetail) HasOwners() bool {
 
 // SetOwners gets a reference to the given []string and assigns it to the Owners field.
 func (o *DAGDetail) SetOwners(v []string) {
-	o.Owners = &v
+	o.Owners = v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -789,11 +789,11 @@ func (o *DAGDetail) GetTags() []Tag {
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *DAGDetail) GetTagsOk() (*[]Tag, bool) {
+func (o *DAGDetail) GetTagsOk() ([]Tag, bool) {
 	if o == nil || o.Tags == nil {
 		return nil, false
 	}
-	return &o.Tags, true
+	return o.Tags, true
 }
 
 // HasTags returns a boolean if a field has been set.
@@ -1396,12 +1396,12 @@ func (o *DAGDetail) GetParams() map[string]interface{} {
 		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Params
+	return o.Params
 }
 
 // GetParamsOk returns a tuple with the Params field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DAGDetail) GetParamsOk() (*map[string]interface{}, bool) {
+func (o *DAGDetail) GetParamsOk() (map[string]interface{}, bool) {
 	if o == nil || o.Params == nil {
 		return nil, false
 	}
@@ -1419,7 +1419,7 @@ func (o *DAGDetail) HasParams() bool {
 
 // SetParams gets a reference to the given map[string]interface{} and assigns it to the Params field.
 func (o *DAGDetail) SetParams(v map[string]interface{}) {
-	o.Params = &v
+	o.Params = v
 }
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1560,11 +1560,11 @@ func (o *DAGDetail) GetTemplateSearchPath() []string {
 // GetTemplateSearchPathOk returns a tuple with the TemplateSearchPath field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *DAGDetail) GetTemplateSearchPathOk() (*[]string, bool) {
+func (o *DAGDetail) GetTemplateSearchPathOk() ([]string, bool) {
 	if o == nil || o.TemplateSearchPath == nil {
 		return nil, false
 	}
-	return &o.TemplateSearchPath, true
+	return o.TemplateSearchPath, true
 }
 
 // HasTemplateSearchPath returns a boolean if a field has been set.

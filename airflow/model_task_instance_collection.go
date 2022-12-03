@@ -34,7 +34,7 @@ import (
 
 // TaskInstanceCollection Collection of task instances.  *Changed in version 2.1.0*&#58; 'total_entries' field is added. 
 type TaskInstanceCollection struct {
-	TaskInstances *[]TaskInstance `json:"task_instances,omitempty"`
+	TaskInstances []TaskInstance `json:"task_instances,omitempty"`
 	// Count of objects in the current result set.
 	TotalEntries *int32 `json:"total_entries,omitempty"`
 }
@@ -62,12 +62,12 @@ func (o *TaskInstanceCollection) GetTaskInstances() []TaskInstance {
 		var ret []TaskInstance
 		return ret
 	}
-	return *o.TaskInstances
+	return o.TaskInstances
 }
 
 // GetTaskInstancesOk returns a tuple with the TaskInstances field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TaskInstanceCollection) GetTaskInstancesOk() (*[]TaskInstance, bool) {
+func (o *TaskInstanceCollection) GetTaskInstancesOk() ([]TaskInstance, bool) {
 	if o == nil || o.TaskInstances == nil {
 		return nil, false
 	}
@@ -85,7 +85,7 @@ func (o *TaskInstanceCollection) HasTaskInstances() bool {
 
 // SetTaskInstances gets a reference to the given []TaskInstance and assigns it to the TaskInstances field.
 func (o *TaskInstanceCollection) SetTaskInstances(v []TaskInstance) {
-	o.TaskInstances = &v
+	o.TaskInstances = v
 }
 
 // GetTotalEntries returns the TotalEntries field value if set, zero value otherwise.

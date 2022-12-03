@@ -34,7 +34,7 @@ import (
 
 // UserCollectionAllOf struct for UserCollectionAllOf
 type UserCollectionAllOf struct {
-	Users *[]UserCollectionItem `json:"users,omitempty"`
+	Users []UserCollectionItem `json:"users,omitempty"`
 }
 
 // NewUserCollectionAllOf instantiates a new UserCollectionAllOf object
@@ -60,12 +60,12 @@ func (o *UserCollectionAllOf) GetUsers() []UserCollectionItem {
 		var ret []UserCollectionItem
 		return ret
 	}
-	return *o.Users
+	return o.Users
 }
 
 // GetUsersOk returns a tuple with the Users field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserCollectionAllOf) GetUsersOk() (*[]UserCollectionItem, bool) {
+func (o *UserCollectionAllOf) GetUsersOk() ([]UserCollectionItem, bool) {
 	if o == nil || o.Users == nil {
 		return nil, false
 	}
@@ -83,7 +83,7 @@ func (o *UserCollectionAllOf) HasUsers() bool {
 
 // SetUsers gets a reference to the given []UserCollectionItem and assigns it to the Users field.
 func (o *UserCollectionAllOf) SetUsers(v []UserCollectionItem) {
-	o.Users = &v
+	o.Users = v
 }
 
 func (o UserCollectionAllOf) MarshalJSON() ([]byte, error) {

@@ -30,40 +30,40 @@ package airflow
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 // ConnectionApiService ConnectionApi service
 type ConnectionApiService service
 
 type ApiDeleteConnectionRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *ConnectionApiService
 	connectionId string
 }
 
 
-func (r ApiDeleteConnectionRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteConnectionRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteConnectionExecute(r)
 }
 
 /*
 DeleteConnection Delete a connection
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param connectionId The connection ID.
  @return ApiDeleteConnectionRequest
 */
-func (a *ConnectionApiService) DeleteConnection(ctx _context.Context, connectionId string) ApiDeleteConnectionRequest {
+func (a *ConnectionApiService) DeleteConnection(ctx context.Context, connectionId string) ApiDeleteConnectionRequest {
 	return ApiDeleteConnectionRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -72,24 +72,24 @@ func (a *ConnectionApiService) DeleteConnection(ctx _context.Context, connection
 }
 
 // Execute executes the request
-func (a *ConnectionApiService) DeleteConnectionExecute(r ApiDeleteConnectionRequest) (*_nethttp.Response, error) {
+func (a *ConnectionApiService) DeleteConnectionExecute(r ApiDeleteConnectionRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConnectionApiService.DeleteConnection")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/connections/{connection_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"connection_id"+"}", _neturl.PathEscape(parameterToString(r.connectionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"connection_id"+"}", url.PathEscape(parameterToString(r.connectionId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -118,15 +118,15 @@ func (a *ConnectionApiService) DeleteConnectionExecute(r ApiDeleteConnectionRequ
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -176,24 +176,24 @@ func (a *ConnectionApiService) DeleteConnectionExecute(r ApiDeleteConnectionRequ
 }
 
 type ApiGetConnectionRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *ConnectionApiService
 	connectionId string
 }
 
 
-func (r ApiGetConnectionRequest) Execute() (Connection, *_nethttp.Response, error) {
+func (r ApiGetConnectionRequest) Execute() (*Connection, *http.Response, error) {
 	return r.ApiService.GetConnectionExecute(r)
 }
 
 /*
 GetConnection Get a connection
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param connectionId The connection ID.
  @return ApiGetConnectionRequest
 */
-func (a *ConnectionApiService) GetConnection(ctx _context.Context, connectionId string) ApiGetConnectionRequest {
+func (a *ConnectionApiService) GetConnection(ctx context.Context, connectionId string) ApiGetConnectionRequest {
 	return ApiGetConnectionRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -203,25 +203,25 @@ func (a *ConnectionApiService) GetConnection(ctx _context.Context, connectionId 
 
 // Execute executes the request
 //  @return Connection
-func (a *ConnectionApiService) GetConnectionExecute(r ApiGetConnectionRequest) (Connection, *_nethttp.Response, error) {
+func (a *ConnectionApiService) GetConnectionExecute(r ApiGetConnectionRequest) (*Connection, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  Connection
+		localVarReturnValue  *Connection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConnectionApiService.GetConnection")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/connections/{connection_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"connection_id"+"}", _neturl.PathEscape(parameterToString(r.connectionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"connection_id"+"}", url.PathEscape(parameterToString(r.connectionId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -250,15 +250,15 @@ func (a *ConnectionApiService) GetConnectionExecute(r ApiGetConnectionRequest) (
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -296,7 +296,7 @@ func (a *ConnectionApiService) GetConnectionExecute(r ApiGetConnectionRequest) (
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -307,7 +307,7 @@ func (a *ConnectionApiService) GetConnectionExecute(r ApiGetConnectionRequest) (
 }
 
 type ApiGetConnectionsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *ConnectionApiService
 	limit *int32
 	offset *int32
@@ -330,17 +330,17 @@ func (r ApiGetConnectionsRequest) OrderBy(orderBy string) ApiGetConnectionsReque
 	return r
 }
 
-func (r ApiGetConnectionsRequest) Execute() (ConnectionCollection, *_nethttp.Response, error) {
+func (r ApiGetConnectionsRequest) Execute() (*ConnectionCollection, *http.Response, error) {
 	return r.ApiService.GetConnectionsExecute(r)
 }
 
 /*
 GetConnections List connections
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetConnectionsRequest
 */
-func (a *ConnectionApiService) GetConnections(ctx _context.Context) ApiGetConnectionsRequest {
+func (a *ConnectionApiService) GetConnections(ctx context.Context) ApiGetConnectionsRequest {
 	return ApiGetConnectionsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -349,24 +349,24 @@ func (a *ConnectionApiService) GetConnections(ctx _context.Context) ApiGetConnec
 
 // Execute executes the request
 //  @return ConnectionCollection
-func (a *ConnectionApiService) GetConnectionsExecute(r ApiGetConnectionsRequest) (ConnectionCollection, *_nethttp.Response, error) {
+func (a *ConnectionApiService) GetConnectionsExecute(r ApiGetConnectionsRequest) (*ConnectionCollection, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  ConnectionCollection
+		localVarReturnValue  *ConnectionCollection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConnectionApiService.GetConnections")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/connections"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
@@ -404,15 +404,15 @@ func (a *ConnectionApiService) GetConnectionsExecute(r ApiGetConnectionsRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -440,7 +440,7 @@ func (a *ConnectionApiService) GetConnectionsExecute(r ApiGetConnectionsRequest)
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -451,7 +451,7 @@ func (a *ConnectionApiService) GetConnectionsExecute(r ApiGetConnectionsRequest)
 }
 
 type ApiPatchConnectionRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *ConnectionApiService
 	connectionId string
 	connection *Connection
@@ -468,18 +468,18 @@ func (r ApiPatchConnectionRequest) UpdateMask(updateMask []string) ApiPatchConne
 	return r
 }
 
-func (r ApiPatchConnectionRequest) Execute() (Connection, *_nethttp.Response, error) {
+func (r ApiPatchConnectionRequest) Execute() (*Connection, *http.Response, error) {
 	return r.ApiService.PatchConnectionExecute(r)
 }
 
 /*
 PatchConnection Update a connection
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param connectionId The connection ID.
  @return ApiPatchConnectionRequest
 */
-func (a *ConnectionApiService) PatchConnection(ctx _context.Context, connectionId string) ApiPatchConnectionRequest {
+func (a *ConnectionApiService) PatchConnection(ctx context.Context, connectionId string) ApiPatchConnectionRequest {
 	return ApiPatchConnectionRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -489,25 +489,25 @@ func (a *ConnectionApiService) PatchConnection(ctx _context.Context, connectionI
 
 // Execute executes the request
 //  @return Connection
-func (a *ConnectionApiService) PatchConnectionExecute(r ApiPatchConnectionRequest) (Connection, *_nethttp.Response, error) {
+func (a *ConnectionApiService) PatchConnectionExecute(r ApiPatchConnectionRequest) (*Connection, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
+		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  Connection
+		localVarReturnValue  *Connection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConnectionApiService.PatchConnection")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/connections/{connection_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"connection_id"+"}", _neturl.PathEscape(parameterToString(r.connectionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"connection_id"+"}", url.PathEscape(parameterToString(r.connectionId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.connection == nil {
 		return localVarReturnValue, nil, reportError("connection is required and must be specified")
 	}
@@ -544,15 +544,15 @@ func (a *ConnectionApiService) PatchConnectionExecute(r ApiPatchConnectionReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -600,7 +600,7 @@ func (a *ConnectionApiService) PatchConnectionExecute(r ApiPatchConnectionReques
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -611,7 +611,7 @@ func (a *ConnectionApiService) PatchConnectionExecute(r ApiPatchConnectionReques
 }
 
 type ApiPostConnectionRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *ConnectionApiService
 	connection *Connection
 }
@@ -621,17 +621,17 @@ func (r ApiPostConnectionRequest) Connection(connection Connection) ApiPostConne
 	return r
 }
 
-func (r ApiPostConnectionRequest) Execute() (Connection, *_nethttp.Response, error) {
+func (r ApiPostConnectionRequest) Execute() (*Connection, *http.Response, error) {
 	return r.ApiService.PostConnectionExecute(r)
 }
 
 /*
 PostConnection Create a connection
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPostConnectionRequest
 */
-func (a *ConnectionApiService) PostConnection(ctx _context.Context) ApiPostConnectionRequest {
+func (a *ConnectionApiService) PostConnection(ctx context.Context) ApiPostConnectionRequest {
 	return ApiPostConnectionRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -640,24 +640,24 @@ func (a *ConnectionApiService) PostConnection(ctx _context.Context) ApiPostConne
 
 // Execute executes the request
 //  @return Connection
-func (a *ConnectionApiService) PostConnectionExecute(r ApiPostConnectionRequest) (Connection, *_nethttp.Response, error) {
+func (a *ConnectionApiService) PostConnectionExecute(r ApiPostConnectionRequest) (*Connection, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  Connection
+		localVarReturnValue  *Connection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConnectionApiService.PostConnection")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/connections"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.connection == nil {
 		return localVarReturnValue, nil, reportError("connection is required and must be specified")
 	}
@@ -691,15 +691,15 @@ func (a *ConnectionApiService) PostConnectionExecute(r ApiPostConnectionRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -737,7 +737,7 @@ func (a *ConnectionApiService) PostConnectionExecute(r ApiPostConnectionRequest)
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -748,7 +748,7 @@ func (a *ConnectionApiService) PostConnectionExecute(r ApiPostConnectionRequest)
 }
 
 type ApiTestConnectionRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *ConnectionApiService
 	connection *Connection
 }
@@ -758,7 +758,7 @@ func (r ApiTestConnectionRequest) Connection(connection Connection) ApiTestConne
 	return r
 }
 
-func (r ApiTestConnectionRequest) Execute() (ConnectionTest, *_nethttp.Response, error) {
+func (r ApiTestConnectionRequest) Execute() (*ConnectionTest, *http.Response, error) {
 	return r.ApiService.TestConnectionExecute(r)
 }
 
@@ -770,10 +770,10 @@ Test a connection.
 *New in version 2.2.0*
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiTestConnectionRequest
 */
-func (a *ConnectionApiService) TestConnection(ctx _context.Context) ApiTestConnectionRequest {
+func (a *ConnectionApiService) TestConnection(ctx context.Context) ApiTestConnectionRequest {
 	return ApiTestConnectionRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -782,24 +782,24 @@ func (a *ConnectionApiService) TestConnection(ctx _context.Context) ApiTestConne
 
 // Execute executes the request
 //  @return ConnectionTest
-func (a *ConnectionApiService) TestConnectionExecute(r ApiTestConnectionRequest) (ConnectionTest, *_nethttp.Response, error) {
+func (a *ConnectionApiService) TestConnectionExecute(r ApiTestConnectionRequest) (*ConnectionTest, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  ConnectionTest
+		localVarReturnValue  *ConnectionTest
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConnectionApiService.TestConnection")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/connections/test"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.connection == nil {
 		return localVarReturnValue, nil, reportError("connection is required and must be specified")
 	}
@@ -833,15 +833,15 @@ func (a *ConnectionApiService) TestConnectionExecute(r ApiTestConnectionRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -889,7 +889,7 @@ func (a *ConnectionApiService) TestConnectionExecute(r ApiTestConnectionRequest)
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

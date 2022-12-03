@@ -34,7 +34,7 @@ import (
 
 // TaskCollection Collection of tasks.
 type TaskCollection struct {
-	Tasks *[]Task `json:"tasks,omitempty"`
+	Tasks []Task `json:"tasks,omitempty"`
 }
 
 // NewTaskCollection instantiates a new TaskCollection object
@@ -60,12 +60,12 @@ func (o *TaskCollection) GetTasks() []Task {
 		var ret []Task
 		return ret
 	}
-	return *o.Tasks
+	return o.Tasks
 }
 
 // GetTasksOk returns a tuple with the Tasks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TaskCollection) GetTasksOk() (*[]Task, bool) {
+func (o *TaskCollection) GetTasksOk() ([]Task, bool) {
 	if o == nil || o.Tasks == nil {
 		return nil, false
 	}
@@ -83,7 +83,7 @@ func (o *TaskCollection) HasTasks() bool {
 
 // SetTasks gets a reference to the given []Task and assigns it to the Tasks field.
 func (o *TaskCollection) SetTasks(v []Task) {
-	o.Tasks = &v
+	o.Tasks = v
 }
 
 func (o TaskCollection) MarshalJSON() ([]byte, error) {

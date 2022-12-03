@@ -34,7 +34,7 @@ import (
 
 // ConnectionCollectionAllOf struct for ConnectionCollectionAllOf
 type ConnectionCollectionAllOf struct {
-	Connections *[]ConnectionCollectionItem `json:"connections,omitempty"`
+	Connections []ConnectionCollectionItem `json:"connections,omitempty"`
 }
 
 // NewConnectionCollectionAllOf instantiates a new ConnectionCollectionAllOf object
@@ -60,12 +60,12 @@ func (o *ConnectionCollectionAllOf) GetConnections() []ConnectionCollectionItem 
 		var ret []ConnectionCollectionItem
 		return ret
 	}
-	return *o.Connections
+	return o.Connections
 }
 
 // GetConnectionsOk returns a tuple with the Connections field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConnectionCollectionAllOf) GetConnectionsOk() (*[]ConnectionCollectionItem, bool) {
+func (o *ConnectionCollectionAllOf) GetConnectionsOk() ([]ConnectionCollectionItem, bool) {
 	if o == nil || o.Connections == nil {
 		return nil, false
 	}
@@ -83,7 +83,7 @@ func (o *ConnectionCollectionAllOf) HasConnections() bool {
 
 // SetConnections gets a reference to the given []ConnectionCollectionItem and assigns it to the Connections field.
 func (o *ConnectionCollectionAllOf) SetConnections(v []ConnectionCollectionItem) {
-	o.Connections = &v
+	o.Connections = v
 }
 
 func (o ConnectionCollectionAllOf) MarshalJSON() ([]byte, error) {

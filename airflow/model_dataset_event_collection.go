@@ -34,7 +34,7 @@ import (
 
 // DatasetEventCollection A collection of dataset events.  *New in version 2.4.0* 
 type DatasetEventCollection struct {
-	DatasetEvents *[]DatasetEvent `json:"dataset_events,omitempty"`
+	DatasetEvents []DatasetEvent `json:"dataset_events,omitempty"`
 	// Count of objects in the current result set.
 	TotalEntries *int32 `json:"total_entries,omitempty"`
 }
@@ -62,12 +62,12 @@ func (o *DatasetEventCollection) GetDatasetEvents() []DatasetEvent {
 		var ret []DatasetEvent
 		return ret
 	}
-	return *o.DatasetEvents
+	return o.DatasetEvents
 }
 
 // GetDatasetEventsOk returns a tuple with the DatasetEvents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DatasetEventCollection) GetDatasetEventsOk() (*[]DatasetEvent, bool) {
+func (o *DatasetEventCollection) GetDatasetEventsOk() ([]DatasetEvent, bool) {
 	if o == nil || o.DatasetEvents == nil {
 		return nil, false
 	}
@@ -85,7 +85,7 @@ func (o *DatasetEventCollection) HasDatasetEvents() bool {
 
 // SetDatasetEvents gets a reference to the given []DatasetEvent and assigns it to the DatasetEvents field.
 func (o *DatasetEventCollection) SetDatasetEvents(v []DatasetEvent) {
-	o.DatasetEvents = &v
+	o.DatasetEvents = v
 }
 
 // GetTotalEntries returns the TotalEntries field value if set, zero value otherwise.

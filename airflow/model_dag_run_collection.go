@@ -34,7 +34,7 @@ import (
 
 // DAGRunCollection Collection of DAG runs.  *Changed in version 2.1.0*&#58; 'total_entries' field is added. 
 type DAGRunCollection struct {
-	DagRuns *[]DAGRun `json:"dag_runs,omitempty"`
+	DagRuns []DAGRun `json:"dag_runs,omitempty"`
 	// Count of objects in the current result set.
 	TotalEntries *int32 `json:"total_entries,omitempty"`
 }
@@ -62,12 +62,12 @@ func (o *DAGRunCollection) GetDagRuns() []DAGRun {
 		var ret []DAGRun
 		return ret
 	}
-	return *o.DagRuns
+	return o.DagRuns
 }
 
 // GetDagRunsOk returns a tuple with the DagRuns field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DAGRunCollection) GetDagRunsOk() (*[]DAGRun, bool) {
+func (o *DAGRunCollection) GetDagRunsOk() ([]DAGRun, bool) {
 	if o == nil || o.DagRuns == nil {
 		return nil, false
 	}
@@ -85,7 +85,7 @@ func (o *DAGRunCollection) HasDagRuns() bool {
 
 // SetDagRuns gets a reference to the given []DAGRun and assigns it to the DagRuns field.
 func (o *DAGRunCollection) SetDagRuns(v []DAGRun) {
-	o.DagRuns = &v
+	o.DagRuns = v
 }
 
 // GetTotalEntries returns the TotalEntries field value if set, zero value otherwise.

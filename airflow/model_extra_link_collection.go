@@ -34,7 +34,7 @@ import (
 
 // ExtraLinkCollection The collection of extra links.
 type ExtraLinkCollection struct {
-	ExtraLinks *[]ExtraLink `json:"extra_links,omitempty"`
+	ExtraLinks []ExtraLink `json:"extra_links,omitempty"`
 }
 
 // NewExtraLinkCollection instantiates a new ExtraLinkCollection object
@@ -60,12 +60,12 @@ func (o *ExtraLinkCollection) GetExtraLinks() []ExtraLink {
 		var ret []ExtraLink
 		return ret
 	}
-	return *o.ExtraLinks
+	return o.ExtraLinks
 }
 
 // GetExtraLinksOk returns a tuple with the ExtraLinks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExtraLinkCollection) GetExtraLinksOk() (*[]ExtraLink, bool) {
+func (o *ExtraLinkCollection) GetExtraLinksOk() ([]ExtraLink, bool) {
 	if o == nil || o.ExtraLinks == nil {
 		return nil, false
 	}
@@ -83,7 +83,7 @@ func (o *ExtraLinkCollection) HasExtraLinks() bool {
 
 // SetExtraLinks gets a reference to the given []ExtraLink and assigns it to the ExtraLinks field.
 func (o *ExtraLinkCollection) SetExtraLinks(v []ExtraLink) {
-	o.ExtraLinks = &v
+	o.ExtraLinks = v
 }
 
 func (o ExtraLinkCollection) MarshalJSON() ([]byte, error) {

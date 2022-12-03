@@ -34,7 +34,7 @@ import (
 
 // ActionCollectionAllOf struct for ActionCollectionAllOf
 type ActionCollectionAllOf struct {
-	Actions *[]Action `json:"actions,omitempty"`
+	Actions []Action `json:"actions,omitempty"`
 }
 
 // NewActionCollectionAllOf instantiates a new ActionCollectionAllOf object
@@ -60,12 +60,12 @@ func (o *ActionCollectionAllOf) GetActions() []Action {
 		var ret []Action
 		return ret
 	}
-	return *o.Actions
+	return o.Actions
 }
 
 // GetActionsOk returns a tuple with the Actions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ActionCollectionAllOf) GetActionsOk() (*[]Action, bool) {
+func (o *ActionCollectionAllOf) GetActionsOk() ([]Action, bool) {
 	if o == nil || o.Actions == nil {
 		return nil, false
 	}
@@ -83,7 +83,7 @@ func (o *ActionCollectionAllOf) HasActions() bool {
 
 // SetActions gets a reference to the given []Action and assigns it to the Actions field.
 func (o *ActionCollectionAllOf) SetActions(v []Action) {
-	o.Actions = &v
+	o.Actions = v
 }
 
 func (o ActionCollectionAllOf) MarshalJSON() ([]byte, error) {

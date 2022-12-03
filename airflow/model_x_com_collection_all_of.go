@@ -34,7 +34,7 @@ import (
 
 // XComCollectionAllOf struct for XComCollectionAllOf
 type XComCollectionAllOf struct {
-	XcomEntries *[]XComCollectionItem `json:"xcom_entries,omitempty"`
+	XcomEntries []XComCollectionItem `json:"xcom_entries,omitempty"`
 }
 
 // NewXComCollectionAllOf instantiates a new XComCollectionAllOf object
@@ -60,12 +60,12 @@ func (o *XComCollectionAllOf) GetXcomEntries() []XComCollectionItem {
 		var ret []XComCollectionItem
 		return ret
 	}
-	return *o.XcomEntries
+	return o.XcomEntries
 }
 
 // GetXcomEntriesOk returns a tuple with the XcomEntries field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *XComCollectionAllOf) GetXcomEntriesOk() (*[]XComCollectionItem, bool) {
+func (o *XComCollectionAllOf) GetXcomEntriesOk() ([]XComCollectionItem, bool) {
 	if o == nil || o.XcomEntries == nil {
 		return nil, false
 	}
@@ -83,7 +83,7 @@ func (o *XComCollectionAllOf) HasXcomEntries() bool {
 
 // SetXcomEntries gets a reference to the given []XComCollectionItem and assigns it to the XcomEntries field.
 func (o *XComCollectionAllOf) SetXcomEntries(v []XComCollectionItem) {
-	o.XcomEntries = &v
+	o.XcomEntries = v
 }
 
 func (o XComCollectionAllOf) MarshalJSON() ([]byte, error) {

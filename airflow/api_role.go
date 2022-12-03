@@ -30,29 +30,29 @@ package airflow
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 // RoleApiService RoleApi service
 type RoleApiService service
 
 type ApiDeleteRoleRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *RoleApiService
 	roleName string
 }
 
 
-func (r ApiDeleteRoleRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteRoleRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteRoleExecute(r)
 }
 
@@ -64,11 +64,11 @@ Delete a role.
 *New in version 2.1.0*
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param roleName The role name
  @return ApiDeleteRoleRequest
 */
-func (a *RoleApiService) DeleteRole(ctx _context.Context, roleName string) ApiDeleteRoleRequest {
+func (a *RoleApiService) DeleteRole(ctx context.Context, roleName string) ApiDeleteRoleRequest {
 	return ApiDeleteRoleRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -77,24 +77,24 @@ func (a *RoleApiService) DeleteRole(ctx _context.Context, roleName string) ApiDe
 }
 
 // Execute executes the request
-func (a *RoleApiService) DeleteRoleExecute(r ApiDeleteRoleRequest) (*_nethttp.Response, error) {
+func (a *RoleApiService) DeleteRoleExecute(r ApiDeleteRoleRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleApiService.DeleteRole")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/roles/{role_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", _neturl.PathEscape(parameterToString(r.roleName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", url.PathEscape(parameterToString(r.roleName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -123,15 +123,15 @@ func (a *RoleApiService) DeleteRoleExecute(r ApiDeleteRoleRequest) (*_nethttp.Re
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -181,13 +181,13 @@ func (a *RoleApiService) DeleteRoleExecute(r ApiDeleteRoleRequest) (*_nethttp.Re
 }
 
 type ApiGetRoleRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *RoleApiService
 	roleName string
 }
 
 
-func (r ApiGetRoleRequest) Execute() (Role, *_nethttp.Response, error) {
+func (r ApiGetRoleRequest) Execute() (*Role, *http.Response, error) {
 	return r.ApiService.GetRoleExecute(r)
 }
 
@@ -199,11 +199,11 @@ Get a role.
 *New in version 2.1.0*
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param roleName The role name
  @return ApiGetRoleRequest
 */
-func (a *RoleApiService) GetRole(ctx _context.Context, roleName string) ApiGetRoleRequest {
+func (a *RoleApiService) GetRole(ctx context.Context, roleName string) ApiGetRoleRequest {
 	return ApiGetRoleRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -213,25 +213,25 @@ func (a *RoleApiService) GetRole(ctx _context.Context, roleName string) ApiGetRo
 
 // Execute executes the request
 //  @return Role
-func (a *RoleApiService) GetRoleExecute(r ApiGetRoleRequest) (Role, *_nethttp.Response, error) {
+func (a *RoleApiService) GetRoleExecute(r ApiGetRoleRequest) (*Role, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  Role
+		localVarReturnValue  *Role
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleApiService.GetRole")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/roles/{role_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", _neturl.PathEscape(parameterToString(r.roleName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", url.PathEscape(parameterToString(r.roleName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -260,15 +260,15 @@ func (a *RoleApiService) GetRoleExecute(r ApiGetRoleRequest) (Role, *_nethttp.Re
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -306,7 +306,7 @@ func (a *RoleApiService) GetRoleExecute(r ApiGetRoleRequest) (Role, *_nethttp.Re
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -317,7 +317,7 @@ func (a *RoleApiService) GetRoleExecute(r ApiGetRoleRequest) (Role, *_nethttp.Re
 }
 
 type ApiGetRolesRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *RoleApiService
 	limit *int32
 	offset *int32
@@ -340,7 +340,7 @@ func (r ApiGetRolesRequest) OrderBy(orderBy string) ApiGetRolesRequest {
 	return r
 }
 
-func (r ApiGetRolesRequest) Execute() (RoleCollection, *_nethttp.Response, error) {
+func (r ApiGetRolesRequest) Execute() (*RoleCollection, *http.Response, error) {
 	return r.ApiService.GetRolesExecute(r)
 }
 
@@ -352,10 +352,10 @@ Get a list of roles.
 *New in version 2.1.0*
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetRolesRequest
 */
-func (a *RoleApiService) GetRoles(ctx _context.Context) ApiGetRolesRequest {
+func (a *RoleApiService) GetRoles(ctx context.Context) ApiGetRolesRequest {
 	return ApiGetRolesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -364,24 +364,24 @@ func (a *RoleApiService) GetRoles(ctx _context.Context) ApiGetRolesRequest {
 
 // Execute executes the request
 //  @return RoleCollection
-func (a *RoleApiService) GetRolesExecute(r ApiGetRolesRequest) (RoleCollection, *_nethttp.Response, error) {
+func (a *RoleApiService) GetRolesExecute(r ApiGetRolesRequest) (*RoleCollection, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  RoleCollection
+		localVarReturnValue  *RoleCollection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleApiService.GetRoles")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/roles"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
@@ -419,15 +419,15 @@ func (a *RoleApiService) GetRolesExecute(r ApiGetRolesRequest) (RoleCollection, 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -455,7 +455,7 @@ func (a *RoleApiService) GetRolesExecute(r ApiGetRolesRequest) (RoleCollection, 
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -466,7 +466,7 @@ func (a *RoleApiService) GetRolesExecute(r ApiGetRolesRequest) (RoleCollection, 
 }
 
 type ApiPatchRoleRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *RoleApiService
 	roleName string
 	role *Role
@@ -483,7 +483,7 @@ func (r ApiPatchRoleRequest) UpdateMask(updateMask []string) ApiPatchRoleRequest
 	return r
 }
 
-func (r ApiPatchRoleRequest) Execute() (Role, *_nethttp.Response, error) {
+func (r ApiPatchRoleRequest) Execute() (*Role, *http.Response, error) {
 	return r.ApiService.PatchRoleExecute(r)
 }
 
@@ -495,11 +495,11 @@ Update a role.
 *New in version 2.1.0*
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param roleName The role name
  @return ApiPatchRoleRequest
 */
-func (a *RoleApiService) PatchRole(ctx _context.Context, roleName string) ApiPatchRoleRequest {
+func (a *RoleApiService) PatchRole(ctx context.Context, roleName string) ApiPatchRoleRequest {
 	return ApiPatchRoleRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -509,25 +509,25 @@ func (a *RoleApiService) PatchRole(ctx _context.Context, roleName string) ApiPat
 
 // Execute executes the request
 //  @return Role
-func (a *RoleApiService) PatchRoleExecute(r ApiPatchRoleRequest) (Role, *_nethttp.Response, error) {
+func (a *RoleApiService) PatchRoleExecute(r ApiPatchRoleRequest) (*Role, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
+		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  Role
+		localVarReturnValue  *Role
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleApiService.PatchRole")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/roles/{role_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", _neturl.PathEscape(parameterToString(r.roleName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", url.PathEscape(parameterToString(r.roleName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.role == nil {
 		return localVarReturnValue, nil, reportError("role is required and must be specified")
 	}
@@ -564,15 +564,15 @@ func (a *RoleApiService) PatchRoleExecute(r ApiPatchRoleRequest) (Role, *_nethtt
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -620,7 +620,7 @@ func (a *RoleApiService) PatchRoleExecute(r ApiPatchRoleRequest) (Role, *_nethtt
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -631,7 +631,7 @@ func (a *RoleApiService) PatchRoleExecute(r ApiPatchRoleRequest) (Role, *_nethtt
 }
 
 type ApiPostRoleRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *RoleApiService
 	role *Role
 }
@@ -641,7 +641,7 @@ func (r ApiPostRoleRequest) Role(role Role) ApiPostRoleRequest {
 	return r
 }
 
-func (r ApiPostRoleRequest) Execute() (Role, *_nethttp.Response, error) {
+func (r ApiPostRoleRequest) Execute() (*Role, *http.Response, error) {
 	return r.ApiService.PostRoleExecute(r)
 }
 
@@ -653,10 +653,10 @@ Create a new role.
 *New in version 2.1.0*
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPostRoleRequest
 */
-func (a *RoleApiService) PostRole(ctx _context.Context) ApiPostRoleRequest {
+func (a *RoleApiService) PostRole(ctx context.Context) ApiPostRoleRequest {
 	return ApiPostRoleRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -665,24 +665,24 @@ func (a *RoleApiService) PostRole(ctx _context.Context) ApiPostRoleRequest {
 
 // Execute executes the request
 //  @return Role
-func (a *RoleApiService) PostRoleExecute(r ApiPostRoleRequest) (Role, *_nethttp.Response, error) {
+func (a *RoleApiService) PostRoleExecute(r ApiPostRoleRequest) (*Role, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  Role
+		localVarReturnValue  *Role
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleApiService.PostRole")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/roles"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.role == nil {
 		return localVarReturnValue, nil, reportError("role is required and must be specified")
 	}
@@ -716,15 +716,15 @@ func (a *RoleApiService) PostRoleExecute(r ApiPostRoleRequest) (Role, *_nethttp.
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -762,7 +762,7 @@ func (a *RoleApiService) PostRoleExecute(r ApiPostRoleRequest) (Role, *_nethttp.
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

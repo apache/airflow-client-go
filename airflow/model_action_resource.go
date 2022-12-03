@@ -34,8 +34,8 @@ import (
 
 // ActionResource The Action-Resource item.  *New in version 2.1.0* 
 type ActionResource struct {
-	Action *Action `json:"action,omitempty"`
-	Resource *Resource `json:"resource,omitempty"`
+	Action Action `json:"action,omitempty"`
+	Resource Resource `json:"resource,omitempty"`
 }
 
 // NewActionResource instantiates a new ActionResource object
@@ -61,12 +61,12 @@ func (o *ActionResource) GetAction() Action {
 		var ret Action
 		return ret
 	}
-	return *o.Action
+	return o.Action
 }
 
 // GetActionOk returns a tuple with the Action field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ActionResource) GetActionOk() (*Action, bool) {
+func (o *ActionResource) GetActionOk() (Action, bool) {
 	if o == nil || o.Action == nil {
 		return nil, false
 	}
@@ -84,7 +84,7 @@ func (o *ActionResource) HasAction() bool {
 
 // SetAction gets a reference to the given Action and assigns it to the Action field.
 func (o *ActionResource) SetAction(v Action) {
-	o.Action = &v
+	o.Action = v
 }
 
 // GetResource returns the Resource field value if set, zero value otherwise.
@@ -93,12 +93,12 @@ func (o *ActionResource) GetResource() Resource {
 		var ret Resource
 		return ret
 	}
-	return *o.Resource
+	return o.Resource
 }
 
 // GetResourceOk returns a tuple with the Resource field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ActionResource) GetResourceOk() (*Resource, bool) {
+func (o *ActionResource) GetResourceOk() (Resource, bool) {
 	if o == nil || o.Resource == nil {
 		return nil, false
 	}
@@ -116,7 +116,7 @@ func (o *ActionResource) HasResource() bool {
 
 // SetResource gets a reference to the given Resource and assigns it to the Resource field.
 func (o *ActionResource) SetResource(v Resource) {
-	o.Resource = &v
+	o.Resource = v
 }
 
 func (o ActionResource) MarshalJSON() ([]byte, error) {

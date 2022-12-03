@@ -37,21 +37,21 @@ type PluginCollectionItem struct {
 	// The name of the plugin
 	Name *string `json:"name,omitempty"`
 	// The plugin hooks
-	Hooks *[]*string `json:"hooks,omitempty"`
+	Hooks []*string `json:"hooks,omitempty"`
 	// The plugin executors
-	Executors *[]*string `json:"executors,omitempty"`
+	Executors []*string `json:"executors,omitempty"`
 	// The plugin macros
-	Macros *[]*map[string]interface{} `json:"macros,omitempty"`
+	Macros []*map[string]interface{} `json:"macros,omitempty"`
 	// The flask blueprints
-	FlaskBlueprints *[]*map[string]interface{} `json:"flask_blueprints,omitempty"`
+	FlaskBlueprints []*map[string]interface{} `json:"flask_blueprints,omitempty"`
 	// The appuilder views
-	AppbuilderViews *[]*map[string]interface{} `json:"appbuilder_views,omitempty"`
+	AppbuilderViews []*map[string]interface{} `json:"appbuilder_views,omitempty"`
 	// The Flask Appbuilder menu items
-	AppbuilderMenuItems *[]*map[string]interface{} `json:"appbuilder_menu_items,omitempty"`
+	AppbuilderMenuItems []*map[string]interface{} `json:"appbuilder_menu_items,omitempty"`
 	// The global operator extra links
-	GlobalOperatorExtraLinks *[]*map[string]interface{} `json:"global_operator_extra_links,omitempty"`
+	GlobalOperatorExtraLinks []*map[string]interface{} `json:"global_operator_extra_links,omitempty"`
 	// Operator extra links
-	OperatorExtraLinks *[]*map[string]interface{} `json:"operator_extra_links,omitempty"`
+	OperatorExtraLinks []*map[string]interface{} `json:"operator_extra_links,omitempty"`
 	// The plugin source
 	Source NullableString `json:"source,omitempty"`
 }
@@ -111,12 +111,12 @@ func (o *PluginCollectionItem) GetHooks() []*string {
 		var ret []*string
 		return ret
 	}
-	return *o.Hooks
+	return o.Hooks
 }
 
 // GetHooksOk returns a tuple with the Hooks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PluginCollectionItem) GetHooksOk() (*[]*string, bool) {
+func (o *PluginCollectionItem) GetHooksOk() ([]*string, bool) {
 	if o == nil || o.Hooks == nil {
 		return nil, false
 	}
@@ -134,7 +134,7 @@ func (o *PluginCollectionItem) HasHooks() bool {
 
 // SetHooks gets a reference to the given []*string and assigns it to the Hooks field.
 func (o *PluginCollectionItem) SetHooks(v []*string) {
-	o.Hooks = &v
+	o.Hooks = v
 }
 
 // GetExecutors returns the Executors field value if set, zero value otherwise.
@@ -143,12 +143,12 @@ func (o *PluginCollectionItem) GetExecutors() []*string {
 		var ret []*string
 		return ret
 	}
-	return *o.Executors
+	return o.Executors
 }
 
 // GetExecutorsOk returns a tuple with the Executors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PluginCollectionItem) GetExecutorsOk() (*[]*string, bool) {
+func (o *PluginCollectionItem) GetExecutorsOk() ([]*string, bool) {
 	if o == nil || o.Executors == nil {
 		return nil, false
 	}
@@ -166,7 +166,7 @@ func (o *PluginCollectionItem) HasExecutors() bool {
 
 // SetExecutors gets a reference to the given []*string and assigns it to the Executors field.
 func (o *PluginCollectionItem) SetExecutors(v []*string) {
-	o.Executors = &v
+	o.Executors = v
 }
 
 // GetMacros returns the Macros field value if set, zero value otherwise.
@@ -175,12 +175,12 @@ func (o *PluginCollectionItem) GetMacros() []*map[string]interface{} {
 		var ret []*map[string]interface{}
 		return ret
 	}
-	return *o.Macros
+	return o.Macros
 }
 
 // GetMacrosOk returns a tuple with the Macros field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PluginCollectionItem) GetMacrosOk() (*[]*map[string]interface{}, bool) {
+func (o *PluginCollectionItem) GetMacrosOk() ([]*map[string]interface{}, bool) {
 	if o == nil || o.Macros == nil {
 		return nil, false
 	}
@@ -198,7 +198,7 @@ func (o *PluginCollectionItem) HasMacros() bool {
 
 // SetMacros gets a reference to the given []*map[string]interface{} and assigns it to the Macros field.
 func (o *PluginCollectionItem) SetMacros(v []*map[string]interface{}) {
-	o.Macros = &v
+	o.Macros = v
 }
 
 // GetFlaskBlueprints returns the FlaskBlueprints field value if set, zero value otherwise.
@@ -207,12 +207,12 @@ func (o *PluginCollectionItem) GetFlaskBlueprints() []*map[string]interface{} {
 		var ret []*map[string]interface{}
 		return ret
 	}
-	return *o.FlaskBlueprints
+	return o.FlaskBlueprints
 }
 
 // GetFlaskBlueprintsOk returns a tuple with the FlaskBlueprints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PluginCollectionItem) GetFlaskBlueprintsOk() (*[]*map[string]interface{}, bool) {
+func (o *PluginCollectionItem) GetFlaskBlueprintsOk() ([]*map[string]interface{}, bool) {
 	if o == nil || o.FlaskBlueprints == nil {
 		return nil, false
 	}
@@ -230,7 +230,7 @@ func (o *PluginCollectionItem) HasFlaskBlueprints() bool {
 
 // SetFlaskBlueprints gets a reference to the given []*map[string]interface{} and assigns it to the FlaskBlueprints field.
 func (o *PluginCollectionItem) SetFlaskBlueprints(v []*map[string]interface{}) {
-	o.FlaskBlueprints = &v
+	o.FlaskBlueprints = v
 }
 
 // GetAppbuilderViews returns the AppbuilderViews field value if set, zero value otherwise.
@@ -239,12 +239,12 @@ func (o *PluginCollectionItem) GetAppbuilderViews() []*map[string]interface{} {
 		var ret []*map[string]interface{}
 		return ret
 	}
-	return *o.AppbuilderViews
+	return o.AppbuilderViews
 }
 
 // GetAppbuilderViewsOk returns a tuple with the AppbuilderViews field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PluginCollectionItem) GetAppbuilderViewsOk() (*[]*map[string]interface{}, bool) {
+func (o *PluginCollectionItem) GetAppbuilderViewsOk() ([]*map[string]interface{}, bool) {
 	if o == nil || o.AppbuilderViews == nil {
 		return nil, false
 	}
@@ -262,7 +262,7 @@ func (o *PluginCollectionItem) HasAppbuilderViews() bool {
 
 // SetAppbuilderViews gets a reference to the given []*map[string]interface{} and assigns it to the AppbuilderViews field.
 func (o *PluginCollectionItem) SetAppbuilderViews(v []*map[string]interface{}) {
-	o.AppbuilderViews = &v
+	o.AppbuilderViews = v
 }
 
 // GetAppbuilderMenuItems returns the AppbuilderMenuItems field value if set, zero value otherwise.
@@ -271,12 +271,12 @@ func (o *PluginCollectionItem) GetAppbuilderMenuItems() []*map[string]interface{
 		var ret []*map[string]interface{}
 		return ret
 	}
-	return *o.AppbuilderMenuItems
+	return o.AppbuilderMenuItems
 }
 
 // GetAppbuilderMenuItemsOk returns a tuple with the AppbuilderMenuItems field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PluginCollectionItem) GetAppbuilderMenuItemsOk() (*[]*map[string]interface{}, bool) {
+func (o *PluginCollectionItem) GetAppbuilderMenuItemsOk() ([]*map[string]interface{}, bool) {
 	if o == nil || o.AppbuilderMenuItems == nil {
 		return nil, false
 	}
@@ -294,7 +294,7 @@ func (o *PluginCollectionItem) HasAppbuilderMenuItems() bool {
 
 // SetAppbuilderMenuItems gets a reference to the given []*map[string]interface{} and assigns it to the AppbuilderMenuItems field.
 func (o *PluginCollectionItem) SetAppbuilderMenuItems(v []*map[string]interface{}) {
-	o.AppbuilderMenuItems = &v
+	o.AppbuilderMenuItems = v
 }
 
 // GetGlobalOperatorExtraLinks returns the GlobalOperatorExtraLinks field value if set, zero value otherwise.
@@ -303,12 +303,12 @@ func (o *PluginCollectionItem) GetGlobalOperatorExtraLinks() []*map[string]inter
 		var ret []*map[string]interface{}
 		return ret
 	}
-	return *o.GlobalOperatorExtraLinks
+	return o.GlobalOperatorExtraLinks
 }
 
 // GetGlobalOperatorExtraLinksOk returns a tuple with the GlobalOperatorExtraLinks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PluginCollectionItem) GetGlobalOperatorExtraLinksOk() (*[]*map[string]interface{}, bool) {
+func (o *PluginCollectionItem) GetGlobalOperatorExtraLinksOk() ([]*map[string]interface{}, bool) {
 	if o == nil || o.GlobalOperatorExtraLinks == nil {
 		return nil, false
 	}
@@ -326,7 +326,7 @@ func (o *PluginCollectionItem) HasGlobalOperatorExtraLinks() bool {
 
 // SetGlobalOperatorExtraLinks gets a reference to the given []*map[string]interface{} and assigns it to the GlobalOperatorExtraLinks field.
 func (o *PluginCollectionItem) SetGlobalOperatorExtraLinks(v []*map[string]interface{}) {
-	o.GlobalOperatorExtraLinks = &v
+	o.GlobalOperatorExtraLinks = v
 }
 
 // GetOperatorExtraLinks returns the OperatorExtraLinks field value if set, zero value otherwise.
@@ -335,12 +335,12 @@ func (o *PluginCollectionItem) GetOperatorExtraLinks() []*map[string]interface{}
 		var ret []*map[string]interface{}
 		return ret
 	}
-	return *o.OperatorExtraLinks
+	return o.OperatorExtraLinks
 }
 
 // GetOperatorExtraLinksOk returns a tuple with the OperatorExtraLinks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PluginCollectionItem) GetOperatorExtraLinksOk() (*[]*map[string]interface{}, bool) {
+func (o *PluginCollectionItem) GetOperatorExtraLinksOk() ([]*map[string]interface{}, bool) {
 	if o == nil || o.OperatorExtraLinks == nil {
 		return nil, false
 	}
@@ -358,7 +358,7 @@ func (o *PluginCollectionItem) HasOperatorExtraLinks() bool {
 
 // SetOperatorExtraLinks gets a reference to the given []*map[string]interface{} and assigns it to the OperatorExtraLinks field.
 func (o *PluginCollectionItem) SetOperatorExtraLinks(v []*map[string]interface{}) {
-	o.OperatorExtraLinks = &v
+	o.OperatorExtraLinks = v
 }
 
 // GetSource returns the Source field value if set, zero value otherwise (both if not set or set to explicit null).

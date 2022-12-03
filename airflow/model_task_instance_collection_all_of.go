@@ -34,7 +34,7 @@ import (
 
 // TaskInstanceCollectionAllOf struct for TaskInstanceCollectionAllOf
 type TaskInstanceCollectionAllOf struct {
-	TaskInstances *[]TaskInstance `json:"task_instances,omitempty"`
+	TaskInstances []TaskInstance `json:"task_instances,omitempty"`
 }
 
 // NewTaskInstanceCollectionAllOf instantiates a new TaskInstanceCollectionAllOf object
@@ -60,12 +60,12 @@ func (o *TaskInstanceCollectionAllOf) GetTaskInstances() []TaskInstance {
 		var ret []TaskInstance
 		return ret
 	}
-	return *o.TaskInstances
+	return o.TaskInstances
 }
 
 // GetTaskInstancesOk returns a tuple with the TaskInstances field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TaskInstanceCollectionAllOf) GetTaskInstancesOk() (*[]TaskInstance, bool) {
+func (o *TaskInstanceCollectionAllOf) GetTaskInstancesOk() ([]TaskInstance, bool) {
 	if o == nil || o.TaskInstances == nil {
 		return nil, false
 	}
@@ -83,7 +83,7 @@ func (o *TaskInstanceCollectionAllOf) HasTaskInstances() bool {
 
 // SetTaskInstances gets a reference to the given []TaskInstance and assigns it to the TaskInstances field.
 func (o *TaskInstanceCollectionAllOf) SetTaskInstances(v []TaskInstance) {
-	o.TaskInstances = &v
+	o.TaskInstances = v
 }
 
 func (o TaskInstanceCollectionAllOf) MarshalJSON() ([]byte, error) {

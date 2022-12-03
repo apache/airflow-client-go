@@ -61,8 +61,8 @@ func main() {
     taskId := "taskId_example" // string | The task ID.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TaskInstanceApi.GetExtraLinks(context.Background(), dagId, dagRunId, taskId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TaskInstanceApi.GetExtraLinks(context.Background(), dagId, dagRunId, taskId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TaskInstanceApi.GetExtraLinks``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -141,8 +141,8 @@ func main() {
     token := "token_example" // string | A token that allows you to continue fetching logs. If passed, it will specify the location from which the download should be continued.  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TaskInstanceApi.GetLog(context.Background(), dagId, dagRunId, taskId, taskTryNumber).FullContent(fullContent).MapIndex(mapIndex).Token(token).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TaskInstanceApi.GetLog(context.Background(), dagId, dagRunId, taskId, taskTryNumber).FullContent(fullContent).MapIndex(mapIndex).Token(token).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TaskInstanceApi.GetLog``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -223,8 +223,8 @@ func main() {
     mapIndex := int32(56) // int32 | The map index.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TaskInstanceApi.GetMappedTaskInstance(context.Background(), dagId, dagRunId, taskId, mapIndex).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TaskInstanceApi.GetMappedTaskInstance(context.Background(), dagId, dagRunId, taskId, mapIndex).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TaskInstanceApi.GetMappedTaskInstance``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -316,8 +316,8 @@ func main() {
     orderBy := "orderBy_example" // string | The name of the field to order the results by. Prefix a field name with `-` to reverse the sort order.  *New in version 2.1.0*  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TaskInstanceApi.GetMappedTaskInstances(context.Background(), dagId, dagRunId, taskId).Limit(limit).Offset(offset).ExecutionDateGte(executionDateGte).ExecutionDateLte(executionDateLte).StartDateGte(startDateGte).StartDateLte(startDateLte).EndDateGte(endDateGte).EndDateLte(endDateLte).DurationGte(durationGte).DurationLte(durationLte).State(state).Pool(pool).Queue(queue).OrderBy(orderBy).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TaskInstanceApi.GetMappedTaskInstances(context.Background(), dagId, dagRunId, taskId).Limit(limit).Offset(offset).ExecutionDateGte(executionDateGte).ExecutionDateLte(executionDateLte).StartDateGte(startDateGte).StartDateLte(startDateLte).EndDateGte(endDateGte).EndDateLte(endDateLte).DurationGte(durationGte).DurationLte(durationLte).State(state).Pool(pool).Queue(queue).OrderBy(orderBy).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TaskInstanceApi.GetMappedTaskInstances``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -404,8 +404,8 @@ func main() {
     taskId := "taskId_example" // string | The task ID.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TaskInstanceApi.GetTaskInstance(context.Background(), dagId, dagRunId, taskId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TaskInstanceApi.GetTaskInstance(context.Background(), dagId, dagRunId, taskId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TaskInstanceApi.GetTaskInstance``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -493,8 +493,8 @@ func main() {
     offset := int32(56) // int32 | The number of items to skip before starting to collect the result set. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TaskInstanceApi.GetTaskInstances(context.Background(), dagId, dagRunId).ExecutionDateGte(executionDateGte).ExecutionDateLte(executionDateLte).StartDateGte(startDateGte).StartDateLte(startDateLte).EndDateGte(endDateGte).EndDateLte(endDateLte).DurationGte(durationGte).DurationLte(durationLte).State(state).Pool(pool).Queue(queue).Limit(limit).Offset(offset).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TaskInstanceApi.GetTaskInstances(context.Background(), dagId, dagRunId).ExecutionDateGte(executionDateGte).ExecutionDateLte(executionDateLte).StartDateGte(startDateGte).StartDateLte(startDateLte).EndDateGte(endDateGte).EndDateLte(endDateLte).DurationGte(durationGte).DurationLte(durationLte).State(state).Pool(pool).Queue(queue).Limit(limit).Offset(offset).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TaskInstanceApi.GetTaskInstances``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -578,8 +578,8 @@ func main() {
     listTaskInstanceForm := *openapiclient.NewListTaskInstanceForm() // ListTaskInstanceForm | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TaskInstanceApi.GetTaskInstancesBatch(context.Background()).ListTaskInstanceForm(listTaskInstanceForm).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TaskInstanceApi.GetTaskInstancesBatch(context.Background()).ListTaskInstanceForm(listTaskInstanceForm).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TaskInstanceApi.GetTaskInstancesBatch``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -648,8 +648,8 @@ func main() {
     updateTaskInstance := *openapiclient.NewUpdateTaskInstance() // UpdateTaskInstance | Parameters of action (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TaskInstanceApi.PatchMappedTaskInstance(context.Background(), dagId, dagRunId, taskId, mapIndex).UpdateTaskInstance(updateTaskInstance).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TaskInstanceApi.PatchMappedTaskInstance(context.Background(), dagId, dagRunId, taskId, mapIndex).UpdateTaskInstance(updateTaskInstance).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TaskInstanceApi.PatchMappedTaskInstance``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -728,8 +728,8 @@ func main() {
     updateTaskInstance := *openapiclient.NewUpdateTaskInstance() // UpdateTaskInstance | Parameters of action
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TaskInstanceApi.PatchTaskInstance(context.Background(), dagId, dagRunId, taskId).UpdateTaskInstance(updateTaskInstance).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TaskInstanceApi.PatchTaskInstance(context.Background(), dagId, dagRunId, taskId).UpdateTaskInstance(updateTaskInstance).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TaskInstanceApi.PatchTaskInstance``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

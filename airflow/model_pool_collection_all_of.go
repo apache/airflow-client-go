@@ -34,7 +34,7 @@ import (
 
 // PoolCollectionAllOf struct for PoolCollectionAllOf
 type PoolCollectionAllOf struct {
-	Pools *[]Pool `json:"pools,omitempty"`
+	Pools []Pool `json:"pools,omitempty"`
 }
 
 // NewPoolCollectionAllOf instantiates a new PoolCollectionAllOf object
@@ -60,12 +60,12 @@ func (o *PoolCollectionAllOf) GetPools() []Pool {
 		var ret []Pool
 		return ret
 	}
-	return *o.Pools
+	return o.Pools
 }
 
 // GetPoolsOk returns a tuple with the Pools field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PoolCollectionAllOf) GetPoolsOk() (*[]Pool, bool) {
+func (o *PoolCollectionAllOf) GetPoolsOk() ([]Pool, bool) {
 	if o == nil || o.Pools == nil {
 		return nil, false
 	}
@@ -83,7 +83,7 @@ func (o *PoolCollectionAllOf) HasPools() bool {
 
 // SetPools gets a reference to the given []Pool and assigns it to the Pools field.
 func (o *PoolCollectionAllOf) SetPools(v []Pool) {
-	o.Pools = &v
+	o.Pools = v
 }
 
 func (o PoolCollectionAllOf) MarshalJSON() ([]byte, error) {

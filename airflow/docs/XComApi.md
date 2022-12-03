@@ -56,8 +56,8 @@ func main() {
     offset := int32(56) // int32 | The number of items to skip before starting to collect the result set. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.XComApi.GetXcomEntries(context.Background(), dagId, dagRunId, taskId).Limit(limit).Offset(offset).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.XComApi.GetXcomEntries(context.Background(), dagId, dagRunId, taskId).Limit(limit).Offset(offset).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `XComApi.GetXcomEntries``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -134,8 +134,8 @@ func main() {
     deserialize := true // bool | Whether to deserialize an XCom value when using a custom XCom backend.  The XCom API endpoint calls `orm_deserialize_value` by default since an XCom may contain value that is potentially expensive to deserialize in the web server. Setting this to true overrides the consideration, and calls `deserialize_value` instead.  This parameter is not meaningful when using the default XCom backend.  *New in version 2.4.0*  (optional) (default to false)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.XComApi.GetXcomEntry(context.Background(), dagId, dagRunId, taskId, xcomKey).Deserialize(deserialize).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.XComApi.GetXcomEntry(context.Background(), dagId, dagRunId, taskId, xcomKey).Deserialize(deserialize).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `XComApi.GetXcomEntry``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

@@ -30,40 +30,40 @@ package airflow
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 // VariableApiService VariableApi service
 type VariableApiService service
 
 type ApiDeleteVariableRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *VariableApiService
 	variableKey string
 }
 
 
-func (r ApiDeleteVariableRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteVariableRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteVariableExecute(r)
 }
 
 /*
 DeleteVariable Delete a variable
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param variableKey The variable Key.
  @return ApiDeleteVariableRequest
 */
-func (a *VariableApiService) DeleteVariable(ctx _context.Context, variableKey string) ApiDeleteVariableRequest {
+func (a *VariableApiService) DeleteVariable(ctx context.Context, variableKey string) ApiDeleteVariableRequest {
 	return ApiDeleteVariableRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -72,24 +72,24 @@ func (a *VariableApiService) DeleteVariable(ctx _context.Context, variableKey st
 }
 
 // Execute executes the request
-func (a *VariableApiService) DeleteVariableExecute(r ApiDeleteVariableRequest) (*_nethttp.Response, error) {
+func (a *VariableApiService) DeleteVariableExecute(r ApiDeleteVariableRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VariableApiService.DeleteVariable")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/variables/{variable_key}"
-	localVarPath = strings.Replace(localVarPath, "{"+"variable_key"+"}", _neturl.PathEscape(parameterToString(r.variableKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"variable_key"+"}", url.PathEscape(parameterToString(r.variableKey, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -118,15 +118,15 @@ func (a *VariableApiService) DeleteVariableExecute(r ApiDeleteVariableRequest) (
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -176,13 +176,13 @@ func (a *VariableApiService) DeleteVariableExecute(r ApiDeleteVariableRequest) (
 }
 
 type ApiGetVariableRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *VariableApiService
 	variableKey string
 }
 
 
-func (r ApiGetVariableRequest) Execute() (Variable, *_nethttp.Response, error) {
+func (r ApiGetVariableRequest) Execute() (*Variable, *http.Response, error) {
 	return r.ApiService.GetVariableExecute(r)
 }
 
@@ -191,11 +191,11 @@ GetVariable Get a variable
 
 Get a variable by key.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param variableKey The variable Key.
  @return ApiGetVariableRequest
 */
-func (a *VariableApiService) GetVariable(ctx _context.Context, variableKey string) ApiGetVariableRequest {
+func (a *VariableApiService) GetVariable(ctx context.Context, variableKey string) ApiGetVariableRequest {
 	return ApiGetVariableRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -205,25 +205,25 @@ func (a *VariableApiService) GetVariable(ctx _context.Context, variableKey strin
 
 // Execute executes the request
 //  @return Variable
-func (a *VariableApiService) GetVariableExecute(r ApiGetVariableRequest) (Variable, *_nethttp.Response, error) {
+func (a *VariableApiService) GetVariableExecute(r ApiGetVariableRequest) (*Variable, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  Variable
+		localVarReturnValue  *Variable
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VariableApiService.GetVariable")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/variables/{variable_key}"
-	localVarPath = strings.Replace(localVarPath, "{"+"variable_key"+"}", _neturl.PathEscape(parameterToString(r.variableKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"variable_key"+"}", url.PathEscape(parameterToString(r.variableKey, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -252,15 +252,15 @@ func (a *VariableApiService) GetVariableExecute(r ApiGetVariableRequest) (Variab
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -298,7 +298,7 @@ func (a *VariableApiService) GetVariableExecute(r ApiGetVariableRequest) (Variab
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -309,7 +309,7 @@ func (a *VariableApiService) GetVariableExecute(r ApiGetVariableRequest) (Variab
 }
 
 type ApiGetVariablesRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *VariableApiService
 	limit *int32
 	offset *int32
@@ -332,7 +332,7 @@ func (r ApiGetVariablesRequest) OrderBy(orderBy string) ApiGetVariablesRequest {
 	return r
 }
 
-func (r ApiGetVariablesRequest) Execute() (VariableCollection, *_nethttp.Response, error) {
+func (r ApiGetVariablesRequest) Execute() (*VariableCollection, *http.Response, error) {
 	return r.ApiService.GetVariablesExecute(r)
 }
 
@@ -341,10 +341,10 @@ GetVariables List variables
 
 The collection does not contain data. To get data, you must get a single entity.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetVariablesRequest
 */
-func (a *VariableApiService) GetVariables(ctx _context.Context) ApiGetVariablesRequest {
+func (a *VariableApiService) GetVariables(ctx context.Context) ApiGetVariablesRequest {
 	return ApiGetVariablesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -353,24 +353,24 @@ func (a *VariableApiService) GetVariables(ctx _context.Context) ApiGetVariablesR
 
 // Execute executes the request
 //  @return VariableCollection
-func (a *VariableApiService) GetVariablesExecute(r ApiGetVariablesRequest) (VariableCollection, *_nethttp.Response, error) {
+func (a *VariableApiService) GetVariablesExecute(r ApiGetVariablesRequest) (*VariableCollection, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  VariableCollection
+		localVarReturnValue  *VariableCollection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VariableApiService.GetVariables")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/variables"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
@@ -408,15 +408,15 @@ func (a *VariableApiService) GetVariablesExecute(r ApiGetVariablesRequest) (Vari
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -444,7 +444,7 @@ func (a *VariableApiService) GetVariablesExecute(r ApiGetVariablesRequest) (Vari
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -455,7 +455,7 @@ func (a *VariableApiService) GetVariablesExecute(r ApiGetVariablesRequest) (Vari
 }
 
 type ApiPatchVariableRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *VariableApiService
 	variableKey string
 	variable *Variable
@@ -472,7 +472,7 @@ func (r ApiPatchVariableRequest) UpdateMask(updateMask []string) ApiPatchVariabl
 	return r
 }
 
-func (r ApiPatchVariableRequest) Execute() (Variable, *_nethttp.Response, error) {
+func (r ApiPatchVariableRequest) Execute() (*Variable, *http.Response, error) {
 	return r.ApiService.PatchVariableExecute(r)
 }
 
@@ -481,11 +481,11 @@ PatchVariable Update a variable
 
 Update a variable by key.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param variableKey The variable Key.
  @return ApiPatchVariableRequest
 */
-func (a *VariableApiService) PatchVariable(ctx _context.Context, variableKey string) ApiPatchVariableRequest {
+func (a *VariableApiService) PatchVariable(ctx context.Context, variableKey string) ApiPatchVariableRequest {
 	return ApiPatchVariableRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -495,25 +495,25 @@ func (a *VariableApiService) PatchVariable(ctx _context.Context, variableKey str
 
 // Execute executes the request
 //  @return Variable
-func (a *VariableApiService) PatchVariableExecute(r ApiPatchVariableRequest) (Variable, *_nethttp.Response, error) {
+func (a *VariableApiService) PatchVariableExecute(r ApiPatchVariableRequest) (*Variable, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
+		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  Variable
+		localVarReturnValue  *Variable
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VariableApiService.PatchVariable")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/variables/{variable_key}"
-	localVarPath = strings.Replace(localVarPath, "{"+"variable_key"+"}", _neturl.PathEscape(parameterToString(r.variableKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"variable_key"+"}", url.PathEscape(parameterToString(r.variableKey, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.variable == nil {
 		return localVarReturnValue, nil, reportError("variable is required and must be specified")
 	}
@@ -550,15 +550,15 @@ func (a *VariableApiService) PatchVariableExecute(r ApiPatchVariableRequest) (Va
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -606,7 +606,7 @@ func (a *VariableApiService) PatchVariableExecute(r ApiPatchVariableRequest) (Va
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -617,7 +617,7 @@ func (a *VariableApiService) PatchVariableExecute(r ApiPatchVariableRequest) (Va
 }
 
 type ApiPostVariablesRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *VariableApiService
 	variable *Variable
 }
@@ -627,17 +627,17 @@ func (r ApiPostVariablesRequest) Variable(variable Variable) ApiPostVariablesReq
 	return r
 }
 
-func (r ApiPostVariablesRequest) Execute() (Variable, *_nethttp.Response, error) {
+func (r ApiPostVariablesRequest) Execute() (*Variable, *http.Response, error) {
 	return r.ApiService.PostVariablesExecute(r)
 }
 
 /*
 PostVariables Create a variable
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPostVariablesRequest
 */
-func (a *VariableApiService) PostVariables(ctx _context.Context) ApiPostVariablesRequest {
+func (a *VariableApiService) PostVariables(ctx context.Context) ApiPostVariablesRequest {
 	return ApiPostVariablesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -646,24 +646,24 @@ func (a *VariableApiService) PostVariables(ctx _context.Context) ApiPostVariable
 
 // Execute executes the request
 //  @return Variable
-func (a *VariableApiService) PostVariablesExecute(r ApiPostVariablesRequest) (Variable, *_nethttp.Response, error) {
+func (a *VariableApiService) PostVariablesExecute(r ApiPostVariablesRequest) (*Variable, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  Variable
+		localVarReturnValue  *Variable
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VariableApiService.PostVariables")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/variables"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.variable == nil {
 		return localVarReturnValue, nil, reportError("variable is required and must be specified")
 	}
@@ -697,15 +697,15 @@ func (a *VariableApiService) PostVariablesExecute(r ApiPostVariablesRequest) (Va
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -743,7 +743,7 @@ func (a *VariableApiService) PostVariablesExecute(r ApiPostVariablesRequest) (Va
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

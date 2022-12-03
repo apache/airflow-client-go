@@ -34,7 +34,7 @@ import (
 
 // RoleCollectionAllOf struct for RoleCollectionAllOf
 type RoleCollectionAllOf struct {
-	Roles *[]Role `json:"roles,omitempty"`
+	Roles []Role `json:"roles,omitempty"`
 }
 
 // NewRoleCollectionAllOf instantiates a new RoleCollectionAllOf object
@@ -60,12 +60,12 @@ func (o *RoleCollectionAllOf) GetRoles() []Role {
 		var ret []Role
 		return ret
 	}
-	return *o.Roles
+	return o.Roles
 }
 
 // GetRolesOk returns a tuple with the Roles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RoleCollectionAllOf) GetRolesOk() (*[]Role, bool) {
+func (o *RoleCollectionAllOf) GetRolesOk() ([]Role, bool) {
 	if o == nil || o.Roles == nil {
 		return nil, false
 	}
@@ -83,7 +83,7 @@ func (o *RoleCollectionAllOf) HasRoles() bool {
 
 // SetRoles gets a reference to the given []Role and assigns it to the Roles field.
 func (o *RoleCollectionAllOf) SetRoles(v []Role) {
-	o.Roles = &v
+	o.Roles = v
 }
 
 func (o RoleCollectionAllOf) MarshalJSON() ([]byte, error) {

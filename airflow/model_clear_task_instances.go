@@ -37,7 +37,7 @@ type ClearTaskInstances struct {
 	// If set, don't actually run this operation. The response will contain a list of task instances planned to be cleaned, but not modified in any way. 
 	DryRun *bool `json:"dry_run,omitempty"`
 	// A list of task ids to clear.  *New in version 2.1.0* 
-	TaskIds *[]string `json:"task_ids,omitempty"`
+	TaskIds []string `json:"task_ids,omitempty"`
 	// The minimum execution date to clear.
 	StartDate *string `json:"start_date,omitempty"`
 	// The maximum execution date to clear.
@@ -147,12 +147,12 @@ func (o *ClearTaskInstances) GetTaskIds() []string {
 		var ret []string
 		return ret
 	}
-	return *o.TaskIds
+	return o.TaskIds
 }
 
 // GetTaskIdsOk returns a tuple with the TaskIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ClearTaskInstances) GetTaskIdsOk() (*[]string, bool) {
+func (o *ClearTaskInstances) GetTaskIdsOk() ([]string, bool) {
 	if o == nil || o.TaskIds == nil {
 		return nil, false
 	}
@@ -170,7 +170,7 @@ func (o *ClearTaskInstances) HasTaskIds() bool {
 
 // SetTaskIds gets a reference to the given []string and assigns it to the TaskIds field.
 func (o *ClearTaskInstances) SetTaskIds(v []string) {
-	o.TaskIds = &v
+	o.TaskIds = v
 }
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise.

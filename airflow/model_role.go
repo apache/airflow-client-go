@@ -36,7 +36,7 @@ import (
 type Role struct {
 	// The name of the role  *Changed in version 2.3.0*&#58; A minimum character length requirement ('minLength') is added. 
 	Name *string `json:"name,omitempty"`
-	Actions *[]ActionResource `json:"actions,omitempty"`
+	Actions []ActionResource `json:"actions,omitempty"`
 }
 
 // NewRole instantiates a new Role object
@@ -94,12 +94,12 @@ func (o *Role) GetActions() []ActionResource {
 		var ret []ActionResource
 		return ret
 	}
-	return *o.Actions
+	return o.Actions
 }
 
 // GetActionsOk returns a tuple with the Actions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Role) GetActionsOk() (*[]ActionResource, bool) {
+func (o *Role) GetActionsOk() ([]ActionResource, bool) {
 	if o == nil || o.Actions == nil {
 		return nil, false
 	}
@@ -117,7 +117,7 @@ func (o *Role) HasActions() bool {
 
 // SetActions gets a reference to the given []ActionResource and assigns it to the Actions field.
 func (o *Role) SetActions(v []ActionResource) {
-	o.Actions = &v
+	o.Actions = v
 }
 
 func (o Role) MarshalJSON() ([]byte, error) {

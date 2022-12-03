@@ -44,8 +44,8 @@ type Dataset struct {
 	CreatedAt *string `json:"created_at,omitempty"`
 	// The dataset update time
 	UpdatedAt *string `json:"updated_at,omitempty"`
-	ConsumingDags *[]DagScheduleDatasetReference `json:"consuming_dags,omitempty"`
-	ProducingTasks *[]TaskOutletDatasetReference `json:"producing_tasks,omitempty"`
+	ConsumingDags []DagScheduleDatasetReference `json:"consuming_dags,omitempty"`
+	ProducingTasks []TaskOutletDatasetReference `json:"producing_tasks,omitempty"`
 }
 
 // NewDataset instantiates a new Dataset object
@@ -141,11 +141,11 @@ func (o *Dataset) GetExtra() map[string]interface{} {
 // GetExtraOk returns a tuple with the Extra field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Dataset) GetExtraOk() (*map[string]interface{}, bool) {
+func (o *Dataset) GetExtraOk() (map[string]interface{}, bool) {
 	if o == nil || o.Extra == nil {
 		return nil, false
 	}
-	return &o.Extra, true
+	return o.Extra, true
 }
 
 // HasExtra returns a boolean if a field has been set.
@@ -232,12 +232,12 @@ func (o *Dataset) GetConsumingDags() []DagScheduleDatasetReference {
 		var ret []DagScheduleDatasetReference
 		return ret
 	}
-	return *o.ConsumingDags
+	return o.ConsumingDags
 }
 
 // GetConsumingDagsOk returns a tuple with the ConsumingDags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Dataset) GetConsumingDagsOk() (*[]DagScheduleDatasetReference, bool) {
+func (o *Dataset) GetConsumingDagsOk() ([]DagScheduleDatasetReference, bool) {
 	if o == nil || o.ConsumingDags == nil {
 		return nil, false
 	}
@@ -255,7 +255,7 @@ func (o *Dataset) HasConsumingDags() bool {
 
 // SetConsumingDags gets a reference to the given []DagScheduleDatasetReference and assigns it to the ConsumingDags field.
 func (o *Dataset) SetConsumingDags(v []DagScheduleDatasetReference) {
-	o.ConsumingDags = &v
+	o.ConsumingDags = v
 }
 
 // GetProducingTasks returns the ProducingTasks field value if set, zero value otherwise.
@@ -264,12 +264,12 @@ func (o *Dataset) GetProducingTasks() []TaskOutletDatasetReference {
 		var ret []TaskOutletDatasetReference
 		return ret
 	}
-	return *o.ProducingTasks
+	return o.ProducingTasks
 }
 
 // GetProducingTasksOk returns a tuple with the ProducingTasks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Dataset) GetProducingTasksOk() (*[]TaskOutletDatasetReference, bool) {
+func (o *Dataset) GetProducingTasksOk() ([]TaskOutletDatasetReference, bool) {
 	if o == nil || o.ProducingTasks == nil {
 		return nil, false
 	}
@@ -287,7 +287,7 @@ func (o *Dataset) HasProducingTasks() bool {
 
 // SetProducingTasks gets a reference to the given []TaskOutletDatasetReference and assigns it to the ProducingTasks field.
 func (o *Dataset) SetProducingTasks(v []TaskOutletDatasetReference) {
-	o.ProducingTasks = &v
+	o.ProducingTasks = v
 }
 
 func (o Dataset) MarshalJSON() ([]byte, error) {

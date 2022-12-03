@@ -59,7 +59,7 @@ type TaskInstance struct {
 	ExecutorConfig *string `json:"executor_config,omitempty"`
 	SlaMiss NullableSLAMiss `json:"sla_miss,omitempty"`
 	// JSON object describing rendered fields.  *New in version 2.3.0* 
-	RenderedFields *map[string]interface{} `json:"rendered_fields,omitempty"`
+	RenderedFields map[string]interface{} `json:"rendered_fields,omitempty"`
 	Trigger *Trigger `json:"trigger,omitempty"`
 	TriggererJob *Job `json:"triggerer_job,omitempty"`
 	// Contains manually entered notes by the user about the TaskInstance.  *New in version 2.5.0* 
@@ -883,12 +883,12 @@ func (o *TaskInstance) GetRenderedFields() map[string]interface{} {
 		var ret map[string]interface{}
 		return ret
 	}
-	return *o.RenderedFields
+	return o.RenderedFields
 }
 
 // GetRenderedFieldsOk returns a tuple with the RenderedFields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TaskInstance) GetRenderedFieldsOk() (*map[string]interface{}, bool) {
+func (o *TaskInstance) GetRenderedFieldsOk() (map[string]interface{}, bool) {
 	if o == nil || o.RenderedFields == nil {
 		return nil, false
 	}
@@ -906,7 +906,7 @@ func (o *TaskInstance) HasRenderedFields() bool {
 
 // SetRenderedFields gets a reference to the given map[string]interface{} and assigns it to the RenderedFields field.
 func (o *TaskInstance) SetRenderedFields(v map[string]interface{}) {
-	o.RenderedFields = &v
+	o.RenderedFields = v
 }
 
 // GetTrigger returns the Trigger field value if set, zero value otherwise.

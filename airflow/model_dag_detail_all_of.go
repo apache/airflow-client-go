@@ -45,7 +45,7 @@ type DAGDetailAllOf struct {
 	DocMd NullableString `json:"doc_md,omitempty"`
 	DefaultView *string `json:"default_view,omitempty"`
 	// User-specified DAG params.  *New in version 2.0.1* 
-	Params *map[string]interface{} `json:"params,omitempty"`
+	Params map[string]interface{} `json:"params,omitempty"`
 	// The DAG's end date.  *New in version 2.3.0*. 
 	EndDate NullableTime `json:"end_date,omitempty"`
 	// Whether the DAG is paused upon creation.  *New in version 2.3.0* 
@@ -357,12 +357,12 @@ func (o *DAGDetailAllOf) GetParams() map[string]interface{} {
 		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Params
+	return o.Params
 }
 
 // GetParamsOk returns a tuple with the Params field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DAGDetailAllOf) GetParamsOk() (*map[string]interface{}, bool) {
+func (o *DAGDetailAllOf) GetParamsOk() (map[string]interface{}, bool) {
 	if o == nil || o.Params == nil {
 		return nil, false
 	}
@@ -380,7 +380,7 @@ func (o *DAGDetailAllOf) HasParams() bool {
 
 // SetParams gets a reference to the given map[string]interface{} and assigns it to the Params field.
 func (o *DAGDetailAllOf) SetParams(v map[string]interface{}) {
-	o.Params = &v
+	o.Params = v
 }
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -521,11 +521,11 @@ func (o *DAGDetailAllOf) GetTemplateSearchPath() []string {
 // GetTemplateSearchPathOk returns a tuple with the TemplateSearchPath field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *DAGDetailAllOf) GetTemplateSearchPathOk() (*[]string, bool) {
+func (o *DAGDetailAllOf) GetTemplateSearchPathOk() ([]string, bool) {
 	if o == nil || o.TemplateSearchPath == nil {
 		return nil, false
 	}
-	return &o.TemplateSearchPath, true
+	return o.TemplateSearchPath, true
 }
 
 // HasTemplateSearchPath returns a boolean if a field has been set.

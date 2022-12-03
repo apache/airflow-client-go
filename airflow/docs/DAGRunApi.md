@@ -61,8 +61,8 @@ func main() {
     clearDagRun := *openapiclient.NewClearDagRun() // ClearDagRun | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DAGRunApi.ClearDagRun(context.Background(), dagId, dagRunId).ClearDagRun(clearDagRun).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DAGRunApi.ClearDagRun(context.Background(), dagId, dagRunId).ClearDagRun(clearDagRun).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DAGRunApi.ClearDagRun``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -133,8 +133,8 @@ func main() {
     dagRunId := "dagRunId_example" // string | The DAG run ID.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DAGRunApi.DeleteDagRun(context.Background(), dagId, dagRunId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DAGRunApi.DeleteDagRun(context.Background(), dagId, dagRunId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DAGRunApi.DeleteDagRun``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -202,8 +202,8 @@ func main() {
     dagRunId := "dagRunId_example" // string | The DAG run ID.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DAGRunApi.GetDagRun(context.Background(), dagId, dagRunId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DAGRunApi.GetDagRun(context.Background(), dagId, dagRunId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DAGRunApi.GetDagRun``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -285,8 +285,8 @@ func main() {
     orderBy := "orderBy_example" // string | The name of the field to order the results by. Prefix a field name with `-` to reverse the sort order.  *New in version 2.1.0*  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DAGRunApi.GetDagRuns(context.Background(), dagId).Limit(limit).Offset(offset).ExecutionDateGte(executionDateGte).ExecutionDateLte(executionDateLte).StartDateGte(startDateGte).StartDateLte(startDateLte).EndDateGte(endDateGte).EndDateLte(endDateLte).State(state).OrderBy(orderBy).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DAGRunApi.GetDagRuns(context.Background(), dagId).Limit(limit).Offset(offset).ExecutionDateGte(executionDateGte).ExecutionDateLte(executionDateLte).StartDateGte(startDateGte).StartDateLte(startDateLte).EndDateGte(endDateGte).EndDateLte(endDateLte).State(state).OrderBy(orderBy).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DAGRunApi.GetDagRuns``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -365,8 +365,8 @@ func main() {
     listDagRunsForm := *openapiclient.NewListDagRunsForm() // ListDagRunsForm | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DAGRunApi.GetDagRunsBatch(context.Background()).ListDagRunsForm(listDagRunsForm).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DAGRunApi.GetDagRunsBatch(context.Background()).ListDagRunsForm(listDagRunsForm).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DAGRunApi.GetDagRunsBatch``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -432,8 +432,8 @@ func main() {
     dagRunId := "dagRunId_example" // string | The DAG run ID.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DAGRunApi.GetUpstreamDatasetEvents(context.Background(), dagId, dagRunId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DAGRunApi.GetUpstreamDatasetEvents(context.Background(), dagId, dagRunId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DAGRunApi.GetUpstreamDatasetEvents``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -503,8 +503,8 @@ func main() {
     dAGRun := *openapiclient.NewDAGRun() // DAGRun | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DAGRunApi.PostDagRun(context.Background(), dagId).DAGRun(dAGRun).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DAGRunApi.PostDagRun(context.Background(), dagId).DAGRun(dAGRun).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DAGRunApi.PostDagRun``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -576,8 +576,8 @@ func main() {
     setDagRunNote := *openapiclient.NewSetDagRunNote() // SetDagRunNote | Parameters of set DagRun note.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DAGRunApi.SetDagRunNote(context.Background(), dagId, dagRunId).SetDagRunNote(setDagRunNote).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DAGRunApi.SetDagRunNote(context.Background(), dagId, dagRunId).SetDagRunNote(setDagRunNote).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DAGRunApi.SetDagRunNote``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -651,8 +651,8 @@ func main() {
     updateDagRunState := *openapiclient.NewUpdateDagRunState() // UpdateDagRunState | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DAGRunApi.UpdateDagRunState(context.Background(), dagId, dagRunId).UpdateDagRunState(updateDagRunState).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DAGRunApi.UpdateDagRunState(context.Background(), dagId, dagRunId).UpdateDagRunState(updateDagRunState).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DAGRunApi.UpdateDagRunState``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

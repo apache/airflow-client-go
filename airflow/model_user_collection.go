@@ -34,7 +34,7 @@ import (
 
 // UserCollection Collection of users.  *New in version 2.1.0* 
 type UserCollection struct {
-	Users *[]UserCollectionItem `json:"users,omitempty"`
+	Users []UserCollectionItem `json:"users,omitempty"`
 	// Count of objects in the current result set.
 	TotalEntries *int32 `json:"total_entries,omitempty"`
 }
@@ -62,12 +62,12 @@ func (o *UserCollection) GetUsers() []UserCollectionItem {
 		var ret []UserCollectionItem
 		return ret
 	}
-	return *o.Users
+	return o.Users
 }
 
 // GetUsersOk returns a tuple with the Users field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserCollection) GetUsersOk() (*[]UserCollectionItem, bool) {
+func (o *UserCollection) GetUsersOk() ([]UserCollectionItem, bool) {
 	if o == nil || o.Users == nil {
 		return nil, false
 	}
@@ -85,7 +85,7 @@ func (o *UserCollection) HasUsers() bool {
 
 // SetUsers gets a reference to the given []UserCollectionItem and assigns it to the Users field.
 func (o *UserCollection) SetUsers(v []UserCollectionItem) {
-	o.Users = &v
+	o.Users = v
 }
 
 // GetTotalEntries returns the TotalEntries field value if set, zero value otherwise.

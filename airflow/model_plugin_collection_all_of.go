@@ -34,7 +34,7 @@ import (
 
 // PluginCollectionAllOf struct for PluginCollectionAllOf
 type PluginCollectionAllOf struct {
-	Plugins *[]PluginCollectionItem `json:"plugins,omitempty"`
+	Plugins []PluginCollectionItem `json:"plugins,omitempty"`
 }
 
 // NewPluginCollectionAllOf instantiates a new PluginCollectionAllOf object
@@ -60,12 +60,12 @@ func (o *PluginCollectionAllOf) GetPlugins() []PluginCollectionItem {
 		var ret []PluginCollectionItem
 		return ret
 	}
-	return *o.Plugins
+	return o.Plugins
 }
 
 // GetPluginsOk returns a tuple with the Plugins field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PluginCollectionAllOf) GetPluginsOk() (*[]PluginCollectionItem, bool) {
+func (o *PluginCollectionAllOf) GetPluginsOk() ([]PluginCollectionItem, bool) {
 	if o == nil || o.Plugins == nil {
 		return nil, false
 	}
@@ -83,7 +83,7 @@ func (o *PluginCollectionAllOf) HasPlugins() bool {
 
 // SetPlugins gets a reference to the given []PluginCollectionItem and assigns it to the Plugins field.
 func (o *PluginCollectionAllOf) SetPlugins(v []PluginCollectionItem) {
-	o.Plugins = &v
+	o.Plugins = v
 }
 
 func (o PluginCollectionAllOf) MarshalJSON() ([]byte, error) {

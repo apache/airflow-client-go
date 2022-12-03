@@ -42,9 +42,9 @@ type ListDagRunsForm struct {
 	// The numbers of items to return.
 	PageLimit *int32 `json:"page_limit,omitempty"`
 	// Return objects with specific DAG IDs. The value can be repeated to retrieve multiple matching values (OR condition).
-	DagIds *[]string `json:"dag_ids,omitempty"`
+	DagIds []string `json:"dag_ids,omitempty"`
 	// Return objects with specific states. The value can be repeated to retrieve multiple matching values (OR condition).
-	States *[]string `json:"states,omitempty"`
+	States []string `json:"states,omitempty"`
 	// Returns objects greater or equal to the specified date.  This can be combined with execution_date_lte key to receive only the selected period. 
 	ExecutionDateGte *time.Time `json:"execution_date_gte,omitempty"`
 	// Returns objects less than or equal to the specified date.  This can be combined with execution_date_gte key to receive only the selected period. 
@@ -182,12 +182,12 @@ func (o *ListDagRunsForm) GetDagIds() []string {
 		var ret []string
 		return ret
 	}
-	return *o.DagIds
+	return o.DagIds
 }
 
 // GetDagIdsOk returns a tuple with the DagIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ListDagRunsForm) GetDagIdsOk() (*[]string, bool) {
+func (o *ListDagRunsForm) GetDagIdsOk() ([]string, bool) {
 	if o == nil || o.DagIds == nil {
 		return nil, false
 	}
@@ -205,7 +205,7 @@ func (o *ListDagRunsForm) HasDagIds() bool {
 
 // SetDagIds gets a reference to the given []string and assigns it to the DagIds field.
 func (o *ListDagRunsForm) SetDagIds(v []string) {
-	o.DagIds = &v
+	o.DagIds = v
 }
 
 // GetStates returns the States field value if set, zero value otherwise.
@@ -214,12 +214,12 @@ func (o *ListDagRunsForm) GetStates() []string {
 		var ret []string
 		return ret
 	}
-	return *o.States
+	return o.States
 }
 
 // GetStatesOk returns a tuple with the States field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ListDagRunsForm) GetStatesOk() (*[]string, bool) {
+func (o *ListDagRunsForm) GetStatesOk() ([]string, bool) {
 	if o == nil || o.States == nil {
 		return nil, false
 	}
@@ -237,7 +237,7 @@ func (o *ListDagRunsForm) HasStates() bool {
 
 // SetStates gets a reference to the given []string and assigns it to the States field.
 func (o *ListDagRunsForm) SetStates(v []string) {
-	o.States = &v
+	o.States = v
 }
 
 // GetExecutionDateGte returns the ExecutionDateGte field value if set, zero value otherwise.

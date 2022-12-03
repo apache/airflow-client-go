@@ -34,7 +34,7 @@ import (
 
 // DagWarningCollection Collection of DAG warnings. 
 type DagWarningCollection struct {
-	ImportErrors *[]DagWarning `json:"import_errors,omitempty"`
+	ImportErrors []DagWarning `json:"import_errors,omitempty"`
 	// Count of objects in the current result set.
 	TotalEntries *int32 `json:"total_entries,omitempty"`
 }
@@ -62,12 +62,12 @@ func (o *DagWarningCollection) GetImportErrors() []DagWarning {
 		var ret []DagWarning
 		return ret
 	}
-	return *o.ImportErrors
+	return o.ImportErrors
 }
 
 // GetImportErrorsOk returns a tuple with the ImportErrors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DagWarningCollection) GetImportErrorsOk() (*[]DagWarning, bool) {
+func (o *DagWarningCollection) GetImportErrorsOk() ([]DagWarning, bool) {
 	if o == nil || o.ImportErrors == nil {
 		return nil, false
 	}
@@ -85,7 +85,7 @@ func (o *DagWarningCollection) HasImportErrors() bool {
 
 // SetImportErrors gets a reference to the given []DagWarning and assigns it to the ImportErrors field.
 func (o *DagWarningCollection) SetImportErrors(v []DagWarning) {
-	o.ImportErrors = &v
+	o.ImportErrors = v
 }
 
 // GetTotalEntries returns the TotalEntries field value if set, zero value otherwise.

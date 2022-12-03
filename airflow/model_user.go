@@ -51,7 +51,7 @@ type User struct {
 	// The number of times the login failed
 	FailedLoginCount NullableInt32 `json:"failed_login_count,omitempty"`
 	// User roles.  *Changed in version 2.2.0*&#58; Field is no longer read-only. 
-	Roles *[]UserCollectionItemRoles `json:"roles,omitempty"`
+	Roles []UserCollectionItemRoles `json:"roles,omitempty"`
 	// The date user was created
 	CreatedOn NullableString `json:"created_on,omitempty"`
 	// The date user was changed
@@ -378,12 +378,12 @@ func (o *User) GetRoles() []UserCollectionItemRoles {
 		var ret []UserCollectionItemRoles
 		return ret
 	}
-	return *o.Roles
+	return o.Roles
 }
 
 // GetRolesOk returns a tuple with the Roles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *User) GetRolesOk() (*[]UserCollectionItemRoles, bool) {
+func (o *User) GetRolesOk() ([]UserCollectionItemRoles, bool) {
 	if o == nil || o.Roles == nil {
 		return nil, false
 	}
@@ -401,7 +401,7 @@ func (o *User) HasRoles() bool {
 
 // SetRoles gets a reference to the given []UserCollectionItemRoles and assigns it to the Roles field.
 func (o *User) SetRoles(v []UserCollectionItemRoles) {
-	o.Roles = &v
+	o.Roles = v
 }
 
 // GetCreatedOn returns the CreatedOn field value if set, zero value otherwise (both if not set or set to explicit null).

@@ -30,40 +30,40 @@ package airflow
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 // ImportErrorApiService ImportErrorApi service
 type ImportErrorApiService service
 
 type ApiGetImportErrorRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *ImportErrorApiService
 	importErrorId int32
 }
 
 
-func (r ApiGetImportErrorRequest) Execute() (ImportError, *_nethttp.Response, error) {
+func (r ApiGetImportErrorRequest) Execute() (*ImportError, *http.Response, error) {
 	return r.ApiService.GetImportErrorExecute(r)
 }
 
 /*
 GetImportError Get an import error
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param importErrorId The import error ID.
  @return ApiGetImportErrorRequest
 */
-func (a *ImportErrorApiService) GetImportError(ctx _context.Context, importErrorId int32) ApiGetImportErrorRequest {
+func (a *ImportErrorApiService) GetImportError(ctx context.Context, importErrorId int32) ApiGetImportErrorRequest {
 	return ApiGetImportErrorRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -73,25 +73,25 @@ func (a *ImportErrorApiService) GetImportError(ctx _context.Context, importError
 
 // Execute executes the request
 //  @return ImportError
-func (a *ImportErrorApiService) GetImportErrorExecute(r ApiGetImportErrorRequest) (ImportError, *_nethttp.Response, error) {
+func (a *ImportErrorApiService) GetImportErrorExecute(r ApiGetImportErrorRequest) (*ImportError, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  ImportError
+		localVarReturnValue  *ImportError
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportErrorApiService.GetImportError")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/importErrors/{import_error_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"import_error_id"+"}", _neturl.PathEscape(parameterToString(r.importErrorId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"import_error_id"+"}", url.PathEscape(parameterToString(r.importErrorId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -120,15 +120,15 @@ func (a *ImportErrorApiService) GetImportErrorExecute(r ApiGetImportErrorRequest
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -166,7 +166,7 @@ func (a *ImportErrorApiService) GetImportErrorExecute(r ApiGetImportErrorRequest
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -177,7 +177,7 @@ func (a *ImportErrorApiService) GetImportErrorExecute(r ApiGetImportErrorRequest
 }
 
 type ApiGetImportErrorsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *ImportErrorApiService
 	limit *int32
 	offset *int32
@@ -200,17 +200,17 @@ func (r ApiGetImportErrorsRequest) OrderBy(orderBy string) ApiGetImportErrorsReq
 	return r
 }
 
-func (r ApiGetImportErrorsRequest) Execute() (ImportErrorCollection, *_nethttp.Response, error) {
+func (r ApiGetImportErrorsRequest) Execute() (*ImportErrorCollection, *http.Response, error) {
 	return r.ApiService.GetImportErrorsExecute(r)
 }
 
 /*
 GetImportErrors List import errors
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetImportErrorsRequest
 */
-func (a *ImportErrorApiService) GetImportErrors(ctx _context.Context) ApiGetImportErrorsRequest {
+func (a *ImportErrorApiService) GetImportErrors(ctx context.Context) ApiGetImportErrorsRequest {
 	return ApiGetImportErrorsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -219,24 +219,24 @@ func (a *ImportErrorApiService) GetImportErrors(ctx _context.Context) ApiGetImpo
 
 // Execute executes the request
 //  @return ImportErrorCollection
-func (a *ImportErrorApiService) GetImportErrorsExecute(r ApiGetImportErrorsRequest) (ImportErrorCollection, *_nethttp.Response, error) {
+func (a *ImportErrorApiService) GetImportErrorsExecute(r ApiGetImportErrorsRequest) (*ImportErrorCollection, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  ImportErrorCollection
+		localVarReturnValue  *ImportErrorCollection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportErrorApiService.GetImportErrors")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/importErrors"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
@@ -274,15 +274,15 @@ func (a *ImportErrorApiService) GetImportErrorsExecute(r ApiGetImportErrorsReque
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -310,7 +310,7 @@ func (a *ImportErrorApiService) GetImportErrorsExecute(r ApiGetImportErrorsReque
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

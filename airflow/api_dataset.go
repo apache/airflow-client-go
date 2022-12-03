@@ -30,29 +30,29 @@ package airflow
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 // DatasetApiService DatasetApi service
 type DatasetApiService service
 
 type ApiGetDatasetRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *DatasetApiService
 	uri string
 }
 
 
-func (r ApiGetDatasetRequest) Execute() (Dataset, *_nethttp.Response, error) {
+func (r ApiGetDatasetRequest) Execute() (*Dataset, *http.Response, error) {
 	return r.ApiService.GetDatasetExecute(r)
 }
 
@@ -61,11 +61,11 @@ GetDataset Get a dataset
 
 Get a dataset by uri.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uri The encoded Dataset URI
  @return ApiGetDatasetRequest
 */
-func (a *DatasetApiService) GetDataset(ctx _context.Context, uri string) ApiGetDatasetRequest {
+func (a *DatasetApiService) GetDataset(ctx context.Context, uri string) ApiGetDatasetRequest {
 	return ApiGetDatasetRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -75,25 +75,25 @@ func (a *DatasetApiService) GetDataset(ctx _context.Context, uri string) ApiGetD
 
 // Execute executes the request
 //  @return Dataset
-func (a *DatasetApiService) GetDatasetExecute(r ApiGetDatasetRequest) (Dataset, *_nethttp.Response, error) {
+func (a *DatasetApiService) GetDatasetExecute(r ApiGetDatasetRequest) (*Dataset, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  Dataset
+		localVarReturnValue  *Dataset
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DatasetApiService.GetDataset")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/datasets/{uri}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uri"+"}", _neturl.PathEscape(parameterToString(r.uri, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uri"+"}", url.PathEscape(parameterToString(r.uri, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -122,15 +122,15 @@ func (a *DatasetApiService) GetDatasetExecute(r ApiGetDatasetRequest) (Dataset, 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -168,7 +168,7 @@ func (a *DatasetApiService) GetDatasetExecute(r ApiGetDatasetRequest) (Dataset, 
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -179,7 +179,7 @@ func (a *DatasetApiService) GetDatasetExecute(r ApiGetDatasetRequest) (Dataset, 
 }
 
 type ApiGetDatasetEventsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *DatasetApiService
 	limit *int32
 	offset *int32
@@ -232,7 +232,7 @@ func (r ApiGetDatasetEventsRequest) SourceMapIndex(sourceMapIndex int32) ApiGetD
 	return r
 }
 
-func (r ApiGetDatasetEventsRequest) Execute() (DatasetEventCollection, *_nethttp.Response, error) {
+func (r ApiGetDatasetEventsRequest) Execute() (*DatasetEventCollection, *http.Response, error) {
 	return r.ApiService.GetDatasetEventsExecute(r)
 }
 
@@ -241,10 +241,10 @@ GetDatasetEvents Get dataset events
 
 Get dataset events
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetDatasetEventsRequest
 */
-func (a *DatasetApiService) GetDatasetEvents(ctx _context.Context) ApiGetDatasetEventsRequest {
+func (a *DatasetApiService) GetDatasetEvents(ctx context.Context) ApiGetDatasetEventsRequest {
 	return ApiGetDatasetEventsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -253,24 +253,24 @@ func (a *DatasetApiService) GetDatasetEvents(ctx _context.Context) ApiGetDataset
 
 // Execute executes the request
 //  @return DatasetEventCollection
-func (a *DatasetApiService) GetDatasetEventsExecute(r ApiGetDatasetEventsRequest) (DatasetEventCollection, *_nethttp.Response, error) {
+func (a *DatasetApiService) GetDatasetEventsExecute(r ApiGetDatasetEventsRequest) (*DatasetEventCollection, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  DatasetEventCollection
+		localVarReturnValue  *DatasetEventCollection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DatasetApiService.GetDatasetEvents")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/datasets/events"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
@@ -323,15 +323,15 @@ func (a *DatasetApiService) GetDatasetEventsExecute(r ApiGetDatasetEventsRequest
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -369,7 +369,7 @@ func (a *DatasetApiService) GetDatasetEventsExecute(r ApiGetDatasetEventsRequest
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -380,7 +380,7 @@ func (a *DatasetApiService) GetDatasetEventsExecute(r ApiGetDatasetEventsRequest
 }
 
 type ApiGetDatasetsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *DatasetApiService
 	limit *int32
 	offset *int32
@@ -409,17 +409,17 @@ func (r ApiGetDatasetsRequest) UriPattern(uriPattern string) ApiGetDatasetsReque
 	return r
 }
 
-func (r ApiGetDatasetsRequest) Execute() (DatasetCollection, *_nethttp.Response, error) {
+func (r ApiGetDatasetsRequest) Execute() (*DatasetCollection, *http.Response, error) {
 	return r.ApiService.GetDatasetsExecute(r)
 }
 
 /*
 GetDatasets List datasets
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetDatasetsRequest
 */
-func (a *DatasetApiService) GetDatasets(ctx _context.Context) ApiGetDatasetsRequest {
+func (a *DatasetApiService) GetDatasets(ctx context.Context) ApiGetDatasetsRequest {
 	return ApiGetDatasetsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -428,24 +428,24 @@ func (a *DatasetApiService) GetDatasets(ctx _context.Context) ApiGetDatasetsRequ
 
 // Execute executes the request
 //  @return DatasetCollection
-func (a *DatasetApiService) GetDatasetsExecute(r ApiGetDatasetsRequest) (DatasetCollection, *_nethttp.Response, error) {
+func (a *DatasetApiService) GetDatasetsExecute(r ApiGetDatasetsRequest) (*DatasetCollection, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  DatasetCollection
+		localVarReturnValue  *DatasetCollection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DatasetApiService.GetDatasets")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/datasets"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
@@ -486,15 +486,15 @@ func (a *DatasetApiService) GetDatasetsExecute(r ApiGetDatasetsRequest) (Dataset
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -522,7 +522,7 @@ func (a *DatasetApiService) GetDatasetsExecute(r ApiGetDatasetsRequest) (Dataset
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -533,14 +533,14 @@ func (a *DatasetApiService) GetDatasetsExecute(r ApiGetDatasetsRequest) (Dataset
 }
 
 type ApiGetUpstreamDatasetEventsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *DatasetApiService
 	dagId string
 	dagRunId string
 }
 
 
-func (r ApiGetUpstreamDatasetEventsRequest) Execute() (DatasetEventCollection, *_nethttp.Response, error) {
+func (r ApiGetUpstreamDatasetEventsRequest) Execute() (*DatasetEventCollection, *http.Response, error) {
 	return r.ApiService.GetUpstreamDatasetEventsExecute(r)
 }
 
@@ -552,12 +552,12 @@ Get datasets for a dag run.
 *New in version 2.4.0*
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param dagId The DAG ID.
  @param dagRunId The DAG run ID.
  @return ApiGetUpstreamDatasetEventsRequest
 */
-func (a *DatasetApiService) GetUpstreamDatasetEvents(ctx _context.Context, dagId string, dagRunId string) ApiGetUpstreamDatasetEventsRequest {
+func (a *DatasetApiService) GetUpstreamDatasetEvents(ctx context.Context, dagId string, dagRunId string) ApiGetUpstreamDatasetEventsRequest {
 	return ApiGetUpstreamDatasetEventsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -568,26 +568,26 @@ func (a *DatasetApiService) GetUpstreamDatasetEvents(ctx _context.Context, dagId
 
 // Execute executes the request
 //  @return DatasetEventCollection
-func (a *DatasetApiService) GetUpstreamDatasetEventsExecute(r ApiGetUpstreamDatasetEventsRequest) (DatasetEventCollection, *_nethttp.Response, error) {
+func (a *DatasetApiService) GetUpstreamDatasetEventsExecute(r ApiGetUpstreamDatasetEventsRequest) (*DatasetEventCollection, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  DatasetEventCollection
+		localVarReturnValue  *DatasetEventCollection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DatasetApiService.GetUpstreamDatasetEvents")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/dags/{dag_id}/dagRuns/{dag_run_id}/upstreamDatasetEvents"
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", _neturl.PathEscape(parameterToString(r.dagId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", _neturl.PathEscape(parameterToString(r.dagRunId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_id"+"}", url.PathEscape(parameterToString(r.dagId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"dag_run_id"+"}", url.PathEscape(parameterToString(r.dagRunId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -616,15 +616,15 @@ func (a *DatasetApiService) GetUpstreamDatasetEventsExecute(r ApiGetUpstreamData
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -662,7 +662,7 @@ func (a *DatasetApiService) GetUpstreamDatasetEventsExecute(r ApiGetUpstreamData
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

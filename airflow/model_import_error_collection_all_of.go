@@ -34,7 +34,7 @@ import (
 
 // ImportErrorCollectionAllOf struct for ImportErrorCollectionAllOf
 type ImportErrorCollectionAllOf struct {
-	ImportErrors *[]ImportError `json:"import_errors,omitempty"`
+	ImportErrors []ImportError `json:"import_errors,omitempty"`
 }
 
 // NewImportErrorCollectionAllOf instantiates a new ImportErrorCollectionAllOf object
@@ -60,12 +60,12 @@ func (o *ImportErrorCollectionAllOf) GetImportErrors() []ImportError {
 		var ret []ImportError
 		return ret
 	}
-	return *o.ImportErrors
+	return o.ImportErrors
 }
 
 // GetImportErrorsOk returns a tuple with the ImportErrors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImportErrorCollectionAllOf) GetImportErrorsOk() (*[]ImportError, bool) {
+func (o *ImportErrorCollectionAllOf) GetImportErrorsOk() ([]ImportError, bool) {
 	if o == nil || o.ImportErrors == nil {
 		return nil, false
 	}
@@ -83,7 +83,7 @@ func (o *ImportErrorCollectionAllOf) HasImportErrors() bool {
 
 // SetImportErrors gets a reference to the given []ImportError and assigns it to the ImportErrors field.
 func (o *ImportErrorCollectionAllOf) SetImportErrors(v []ImportError) {
-	o.ImportErrors = &v
+	o.ImportErrors = v
 }
 
 func (o ImportErrorCollectionAllOf) MarshalJSON() ([]byte, error) {

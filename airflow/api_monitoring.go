@@ -30,27 +30,27 @@ package airflow
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 // MonitoringApiService MonitoringApi service
 type MonitoringApiService service
 
 type ApiGetHealthRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *MonitoringApiService
 }
 
 
-func (r ApiGetHealthRequest) Execute() (HealthInfo, *_nethttp.Response, error) {
+func (r ApiGetHealthRequest) Execute() (*HealthInfo, *http.Response, error) {
 	return r.ApiService.GetHealthExecute(r)
 }
 
@@ -61,10 +61,10 @@ Get the status of Airflow's metadatabase and scheduler. It includes info about
 metadatabase and last heartbeat of scheduler.
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetHealthRequest
 */
-func (a *MonitoringApiService) GetHealth(ctx _context.Context) ApiGetHealthRequest {
+func (a *MonitoringApiService) GetHealth(ctx context.Context) ApiGetHealthRequest {
 	return ApiGetHealthRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -73,24 +73,24 @@ func (a *MonitoringApiService) GetHealth(ctx _context.Context) ApiGetHealthReque
 
 // Execute executes the request
 //  @return HealthInfo
-func (a *MonitoringApiService) GetHealthExecute(r ApiGetHealthRequest) (HealthInfo, *_nethttp.Response, error) {
+func (a *MonitoringApiService) GetHealthExecute(r ApiGetHealthRequest) (*HealthInfo, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  HealthInfo
+		localVarReturnValue  *HealthInfo
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MonitoringApiService.GetHealth")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/health"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -119,15 +119,15 @@ func (a *MonitoringApiService) GetHealthExecute(r ApiGetHealthRequest) (HealthIn
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -136,7 +136,7 @@ func (a *MonitoringApiService) GetHealthExecute(r ApiGetHealthRequest) (HealthIn
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -147,22 +147,22 @@ func (a *MonitoringApiService) GetHealthExecute(r ApiGetHealthRequest) (HealthIn
 }
 
 type ApiGetVersionRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *MonitoringApiService
 }
 
 
-func (r ApiGetVersionRequest) Execute() (VersionInfo, *_nethttp.Response, error) {
+func (r ApiGetVersionRequest) Execute() (*VersionInfo, *http.Response, error) {
 	return r.ApiService.GetVersionExecute(r)
 }
 
 /*
 GetVersion Get version information
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetVersionRequest
 */
-func (a *MonitoringApiService) GetVersion(ctx _context.Context) ApiGetVersionRequest {
+func (a *MonitoringApiService) GetVersion(ctx context.Context) ApiGetVersionRequest {
 	return ApiGetVersionRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -171,24 +171,24 @@ func (a *MonitoringApiService) GetVersion(ctx _context.Context) ApiGetVersionReq
 
 // Execute executes the request
 //  @return VersionInfo
-func (a *MonitoringApiService) GetVersionExecute(r ApiGetVersionRequest) (VersionInfo, *_nethttp.Response, error) {
+func (a *MonitoringApiService) GetVersionExecute(r ApiGetVersionRequest) (*VersionInfo, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  VersionInfo
+		localVarReturnValue  *VersionInfo
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MonitoringApiService.GetVersion")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/version"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -217,15 +217,15 @@ func (a *MonitoringApiService) GetVersionExecute(r ApiGetVersionRequest) (Versio
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -234,7 +234,7 @@ func (a *MonitoringApiService) GetVersionExecute(r ApiGetVersionRequest) (Versio
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

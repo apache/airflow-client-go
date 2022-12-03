@@ -34,7 +34,7 @@ import (
 
 // DAGCollection Collection of DAGs.  *Changed in version 2.1.0*&#58; 'total_entries' field is added. 
 type DAGCollection struct {
-	Dags *[]DAG `json:"dags,omitempty"`
+	Dags []DAG `json:"dags,omitempty"`
 	// Count of objects in the current result set.
 	TotalEntries *int32 `json:"total_entries,omitempty"`
 }
@@ -62,12 +62,12 @@ func (o *DAGCollection) GetDags() []DAG {
 		var ret []DAG
 		return ret
 	}
-	return *o.Dags
+	return o.Dags
 }
 
 // GetDagsOk returns a tuple with the Dags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DAGCollection) GetDagsOk() (*[]DAG, bool) {
+func (o *DAGCollection) GetDagsOk() ([]DAG, bool) {
 	if o == nil || o.Dags == nil {
 		return nil, false
 	}
@@ -85,7 +85,7 @@ func (o *DAGCollection) HasDags() bool {
 
 // SetDags gets a reference to the given []DAG and assigns it to the Dags field.
 func (o *DAGCollection) SetDags(v []DAG) {
-	o.Dags = &v
+	o.Dags = v
 }
 
 // GetTotalEntries returns the TotalEntries field value if set, zero value otherwise.

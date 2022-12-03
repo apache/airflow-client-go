@@ -34,7 +34,7 @@ import (
 
 // XComCollection Collection of XCom entries.  *Changed in version 2.1.0*&#58; 'total_entries' field is added. 
 type XComCollection struct {
-	XcomEntries *[]XComCollectionItem `json:"xcom_entries,omitempty"`
+	XcomEntries []XComCollectionItem `json:"xcom_entries,omitempty"`
 	// Count of objects in the current result set.
 	TotalEntries *int32 `json:"total_entries,omitempty"`
 }
@@ -62,12 +62,12 @@ func (o *XComCollection) GetXcomEntries() []XComCollectionItem {
 		var ret []XComCollectionItem
 		return ret
 	}
-	return *o.XcomEntries
+	return o.XcomEntries
 }
 
 // GetXcomEntriesOk returns a tuple with the XcomEntries field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *XComCollection) GetXcomEntriesOk() (*[]XComCollectionItem, bool) {
+func (o *XComCollection) GetXcomEntriesOk() ([]XComCollectionItem, bool) {
 	if o == nil || o.XcomEntries == nil {
 		return nil, false
 	}
@@ -85,7 +85,7 @@ func (o *XComCollection) HasXcomEntries() bool {
 
 // SetXcomEntries gets a reference to the given []XComCollectionItem and assigns it to the XcomEntries field.
 func (o *XComCollection) SetXcomEntries(v []XComCollectionItem) {
-	o.XcomEntries = &v
+	o.XcomEntries = v
 }
 
 // GetTotalEntries returns the TotalEntries field value if set, zero value otherwise.

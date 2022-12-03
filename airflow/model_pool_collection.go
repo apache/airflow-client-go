@@ -34,7 +34,7 @@ import (
 
 // PoolCollection Collection of pools.  *Changed in version 2.1.0*&#58; 'total_entries' field is added. 
 type PoolCollection struct {
-	Pools *[]Pool `json:"pools,omitempty"`
+	Pools []Pool `json:"pools,omitempty"`
 	// Count of objects in the current result set.
 	TotalEntries *int32 `json:"total_entries,omitempty"`
 }
@@ -62,12 +62,12 @@ func (o *PoolCollection) GetPools() []Pool {
 		var ret []Pool
 		return ret
 	}
-	return *o.Pools
+	return o.Pools
 }
 
 // GetPoolsOk returns a tuple with the Pools field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PoolCollection) GetPoolsOk() (*[]Pool, bool) {
+func (o *PoolCollection) GetPoolsOk() ([]Pool, bool) {
 	if o == nil || o.Pools == nil {
 		return nil, false
 	}
@@ -85,7 +85,7 @@ func (o *PoolCollection) HasPools() bool {
 
 // SetPools gets a reference to the given []Pool and assigns it to the Pools field.
 func (o *PoolCollection) SetPools(v []Pool) {
-	o.Pools = &v
+	o.Pools = v
 }
 
 // GetTotalEntries returns the TotalEntries field value if set, zero value otherwise.

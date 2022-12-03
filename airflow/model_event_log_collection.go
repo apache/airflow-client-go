@@ -34,7 +34,7 @@ import (
 
 // EventLogCollection Collection of event logs.  *Changed in version 2.1.0*&#58; 'total_entries' field is added. 
 type EventLogCollection struct {
-	EventLogs *[]EventLog `json:"event_logs,omitempty"`
+	EventLogs []EventLog `json:"event_logs,omitempty"`
 	// Count of objects in the current result set.
 	TotalEntries *int32 `json:"total_entries,omitempty"`
 }
@@ -62,12 +62,12 @@ func (o *EventLogCollection) GetEventLogs() []EventLog {
 		var ret []EventLog
 		return ret
 	}
-	return *o.EventLogs
+	return o.EventLogs
 }
 
 // GetEventLogsOk returns a tuple with the EventLogs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventLogCollection) GetEventLogsOk() (*[]EventLog, bool) {
+func (o *EventLogCollection) GetEventLogsOk() ([]EventLog, bool) {
 	if o == nil || o.EventLogs == nil {
 		return nil, false
 	}
@@ -85,7 +85,7 @@ func (o *EventLogCollection) HasEventLogs() bool {
 
 // SetEventLogs gets a reference to the given []EventLog and assigns it to the EventLogs field.
 func (o *EventLogCollection) SetEventLogs(v []EventLog) {
-	o.EventLogs = &v
+	o.EventLogs = v
 }
 
 // GetTotalEntries returns the TotalEntries field value if set, zero value otherwise.
