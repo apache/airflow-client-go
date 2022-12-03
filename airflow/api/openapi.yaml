@@ -234,7 +234,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Airflow API (Stable)
-  version: 1.0.0
+  version: 2.4.0
 externalDocs:
   url: https://airflow.apache.org/docs/apache-airflow/stable/
 servers:
@@ -257,6 +257,8 @@ tags:
 - name: Role
 - name: Permission
 - name: User
+- name: DagWarning
+- name: Dataset
 paths:
   /connections:
     get:
@@ -932,7 +934,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ClearTaskInstance'
+              $ref: '#/components/schemas/ClearTaskInstances'
         description: Parameters of action
         required: true
       responses:
@@ -962,6 +964,164 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: A specified resource is not found.
       summary: Clear a set of task instances
+      tags:
+      - DAG
+      x-openapi-router-controller: airflow.api_connexion.endpoints.task_instance_endpoint
+  /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/setNote:
+    patch:
+      description: |
+        Update the manual user note of a non-mapped Task Instance.
+
+        *New in version 2.5.0*
+      operationId: set_task_instance_note
+      parameters:
+      - description: The DAG ID.
+        explode: false
+        in: path
+        name: dag_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The DAG run ID.
+        explode: false
+        in: path
+        name: dag_run_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The task ID.
+        explode: false
+        in: path
+        name: task_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetTaskInstanceNote'
+        description: Parameters of set Task Instance note.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskInstance'
+          description: Success.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client specified an invalid argument.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Request not authenticated due to missing, invalid, authentication
+            info.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client does not have sufficient permission.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A specified resource is not found.
+      summary: Update the TaskInstance note.
+      tags:
+      - DAG
+      x-openapi-router-controller: airflow.api_connexion.endpoints.task_instance_endpoint
+  /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/{map_index}/setNote:
+    patch:
+      description: |
+        Update the manual user note of a mapped Task Instance.
+
+        *New in version 2.5.0*
+      operationId: set_mapped_task_instance_note
+      parameters:
+      - description: The DAG ID.
+        explode: false
+        in: path
+        name: dag_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The DAG run ID.
+        explode: false
+        in: path
+        name: dag_run_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The task ID.
+        explode: false
+        in: path
+        name: task_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The map index.
+        explode: false
+        in: path
+        name: map_index
+        required: true
+        schema:
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetTaskInstanceNote'
+        description: Parameters of set Task Instance note.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskInstance'
+          description: Success.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client specified an invalid argument.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Request not authenticated due to missing, invalid, authentication
+            info.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client does not have sufficient permission.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A specified resource is not found.
+      summary: Update the TaskInstance note.
       tags:
       - DAG
       x-openapi-router-controller: airflow.api_connexion.endpoints.task_instance_endpoint
@@ -1425,6 +1585,194 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: A specified resource is not found.
       summary: Modify a DAG run
+      tags:
+      - DAGRun
+      x-openapi-router-controller: airflow.api_connexion.endpoints.dag_run_endpoint
+  /dags/{dag_id}/dagRuns/{dag_run_id}/clear:
+    post:
+      description: |
+        Clear a DAG run.
+
+        *New in version 2.4.0*
+      operationId: clear_dag_run
+      parameters:
+      - description: The DAG ID.
+        explode: false
+        in: path
+        name: dag_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The DAG run ID.
+        explode: false
+        in: path
+        name: dag_run_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClearDagRun'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DAGRun'
+          description: Success.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client specified an invalid argument.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Request not authenticated due to missing, invalid, authentication
+            info.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client does not have sufficient permission.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A specified resource is not found.
+      summary: Clear a DAG run
+      tags:
+      - DAGRun
+      x-openapi-router-controller: airflow.api_connexion.endpoints.dag_run_endpoint
+  /dags/{dag_id}/dagRuns/{dag_run_id}/upstreamDatasetEvents:
+    get:
+      description: |
+        Get datasets for a dag run.
+
+        *New in version 2.4.0*
+      operationId: get_upstream_dataset_events
+      parameters:
+      - description: The DAG ID.
+        explode: false
+        in: path
+        name: dag_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The DAG run ID.
+        explode: false
+        in: path
+        name: dag_run_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasetEventCollection'
+          description: Success.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Request not authenticated due to missing, invalid, authentication
+            info.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client does not have sufficient permission.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A specified resource is not found.
+      summary: Get dataset events for a DAG run
+      tags:
+      - DAGRun
+      - Dataset
+      x-openapi-router-controller: airflow.api_connexion.endpoints.dag_run_endpoint
+  /dags/{dag_id}/dagRuns/{dag_run_id}/setNote:
+    patch:
+      description: |
+        Update the manual user note of a DagRun.
+
+        *New in version 2.5.0*
+      operationId: set_dag_run_note
+      parameters:
+      - description: The DAG ID.
+        explode: false
+        in: path
+        name: dag_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The DAG run ID.
+        explode: false
+        in: path
+        name: dag_run_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetDagRunNote'
+        description: Parameters of set DagRun note.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DAGRun'
+          description: Success.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client specified an invalid argument.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Request not authenticated due to missing, invalid, authentication
+            info.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client does not have sufficient permission.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A specified resource is not found.
+      summary: Update the DagRun note.
       tags:
       - DAGRun
       x-openapi-router-controller: airflow.api_connexion.endpoints.dag_run_endpoint
@@ -2167,6 +2515,73 @@ paths:
       tags:
       - TaskInstance
       x-openapi-router-controller: airflow.api_connexion.endpoints.task_instance_endpoint
+    patch:
+      description: |
+        Updates the state for single task instance.
+        *New in version 2.5.0*
+      operationId: patch_task_instance
+      parameters:
+      - description: The DAG ID.
+        explode: false
+        in: path
+        name: dag_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The DAG run ID.
+        explode: false
+        in: path
+        name: dag_run_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The task ID.
+        explode: false
+        in: path
+        name: task_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTaskInstance'
+        description: Parameters of action
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskInstanceReference'
+          description: Success.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Request not authenticated due to missing, invalid, authentication
+            info.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client does not have sufficient permission.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A specified resource is not found.
+      summary: Updates the state of a task instance
+      tags:
+      - TaskInstance
+      x-openapi-router-controller: airflow.api_connexion.endpoints.task_instance_endpoint
   /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/{map_index}:
     get:
       description: |
@@ -2234,6 +2649,80 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: A specified resource is not found.
       summary: Get a mapped task instance
+      tags:
+      - TaskInstance
+      x-openapi-router-controller: airflow.api_connexion.endpoints.task_instance_endpoint
+    patch:
+      description: |
+        Updates the state for single mapped task instance.
+        *New in version 2.5.0*
+      operationId: patch_mapped_task_instance
+      parameters:
+      - description: The DAG ID.
+        explode: false
+        in: path
+        name: dag_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The DAG run ID.
+        explode: false
+        in: path
+        name: dag_run_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The task ID.
+        explode: false
+        in: path
+        name: task_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The map index.
+        explode: false
+        in: path
+        name: map_index
+        required: true
+        schema:
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTaskInstance'
+        description: Parameters of action
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskInstanceReference'
+          description: Success.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Request not authenticated due to missing, invalid, authentication
+            info.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client does not have sufficient permission.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A specified resource is not found.
+      summary: Updates the state of a mapped task instance
       tags:
       - TaskInstance
       x-openapi-router-controller: airflow.api_connexion.endpoints.task_instance_endpoint
@@ -2432,7 +2921,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TaskInstance'
+                $ref: '#/components/schemas/TaskInstanceCollection'
           description: Success.
         "401":
           content:
@@ -2608,6 +3097,7 @@ paths:
         name: variable_key
         required: true
         schema:
+          format: path
           type: string
         style: simple
       responses:
@@ -2652,6 +3142,7 @@ paths:
         name: variable_key
         required: true
         schema:
+          format: path
           type: string
         style: simple
       responses:
@@ -2694,6 +3185,7 @@ paths:
         name: variable_key
         required: true
         schema:
+          format: path
           type: string
         style: simple
       - description: |
@@ -2861,6 +3353,24 @@ paths:
         schema:
           type: string
         style: simple
+      - description: |
+          Whether to deserialize an XCom value when using a custom XCom backend.
+
+          The XCom API endpoint calls `orm_deserialize_value` by default since an XCom may contain value
+          that is potentially expensive to deserialize in the web server. Setting this to true overrides
+          the consideration, and calls `deserialize_value` instead.
+
+          This parameter is not meaningful when using the default XCom backend.
+
+          *New in version 2.4.0*
+        explode: true
+        in: query
+        name: deserialize
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
       responses:
         "200":
           content:
@@ -2997,6 +3507,14 @@ paths:
         required: false
         schema:
           type: boolean
+        style: form
+      - description: Filter on map index for mapped task.
+        explode: true
+        in: query
+        name: map_index
+        required: false
+        schema:
+          type: integer
         style: form
       - description: |
           A token that allows you to continue fetching logs.
@@ -3251,6 +3769,299 @@ paths:
       tags:
       - DAG
       x-openapi-router-controller: airflow.api_connexion.endpoints.dag_source_endpoint
+  /dagWarnings:
+    get:
+      operationId: get_dag_warnings
+      parameters:
+      - description: If set, only return DAG warnings with this dag_id.
+        explode: true
+        in: query
+        name: dag_id
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If set, only return DAG warnings with this type.
+        explode: true
+        in: query
+        name: warning_type
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The numbers of items to return.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          type: integer
+        style: form
+      - description: The number of items to skip before starting to collect the result
+          set.
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+        style: form
+      - description: |
+          The name of the field to order the results by.
+          Prefix a field name with `-` to reverse the sort order.
+
+          *New in version 2.1.0*
+        explode: true
+        in: query
+        name: order_by
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DagWarningCollection'
+          description: Success.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Request not authenticated due to missing, invalid, authentication
+            info.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client does not have sufficient permission.
+      summary: List dag warnings
+      tags:
+      - DagWarning
+      x-openapi-router-controller: airflow.api_connexion.endpoints.dag_warning_endpoint
+  /datasets:
+    get:
+      operationId: get_datasets
+      parameters:
+      - description: The numbers of items to return.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          type: integer
+        style: form
+      - description: The number of items to skip before starting to collect the result
+          set.
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+        style: form
+      - description: |
+          The name of the field to order the results by.
+          Prefix a field name with `-` to reverse the sort order.
+
+          *New in version 2.1.0*
+        explode: true
+        in: query
+        name: order_by
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: |
+          If set, only return datasets with uris matching this pattern.
+        explode: true
+        in: query
+        name: uri_pattern
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasetCollection'
+          description: Success.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Request not authenticated due to missing, invalid, authentication
+            info.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client does not have sufficient permission.
+      summary: List datasets
+      tags:
+      - Dataset
+      x-openapi-router-controller: airflow.api_connexion.endpoints.dataset_endpoint
+  /datasets/{uri}:
+    get:
+      description: Get a dataset by uri.
+      operationId: get_dataset
+      parameters:
+      - description: The encoded Dataset URI
+        explode: false
+        in: path
+        name: uri
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dataset'
+          description: Success.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Request not authenticated due to missing, invalid, authentication
+            info.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client does not have sufficient permission.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A specified resource is not found.
+      summary: Get a dataset
+      tags:
+      - Dataset
+      x-openapi-router-controller: airflow.api_connexion.endpoints.dataset_endpoint
+  /datasets/events:
+    get:
+      description: Get dataset events
+      operationId: get_dataset_events
+      parameters:
+      - description: The numbers of items to return.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          type: integer
+        style: form
+      - description: The number of items to skip before starting to collect the result
+          set.
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+        style: form
+      - description: |
+          The name of the field to order the results by.
+          Prefix a field name with `-` to reverse the sort order.
+
+          *New in version 2.1.0*
+        explode: true
+        in: query
+        name: order_by
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The Dataset ID that updated the dataset.
+        explode: true
+        in: query
+        name: dataset_id
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The DAG ID that updated the dataset.
+        explode: true
+        in: query
+        name: source_dag_id
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The task ID that updated the dataset.
+        explode: true
+        in: query
+        name: source_task_id
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The DAG run ID that updated the dataset.
+        explode: true
+        in: query
+        name: source_run_id
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The map index that updated the dataset.
+        explode: true
+        in: query
+        name: source_map_index
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasetEventCollection'
+          description: Success.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Request not authenticated due to missing, invalid, authentication
+            info.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client does not have sufficient permission.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A specified resource is not found.
+      summary: Get dataset events
+      tags:
+      - Dataset
+      x-openapi-router-controller: airflow.api_connexion.endpoints.dataset_endpoint
   /config:
     get:
       operationId: get_config
@@ -4107,6 +4918,16 @@ components:
       schema:
         type: integer
       style: simple
+    DatasetURI:
+      description: The encoded Dataset URI
+      explode: false
+      in: path
+      name: uri
+      required: true
+      schema:
+        format: path
+        type: string
+      style: simple
     PoolName:
       description: The pool name.
       explode: false
@@ -4123,6 +4944,7 @@ components:
       name: variable_key
       required: true
       schema:
+        format: path
         type: string
       style: simple
     FullContent:
@@ -4308,6 +5130,60 @@ components:
           type: string
         type: array
       style: form
+    FilterDatasetID:
+      description: The Dataset ID that updated the dataset.
+      explode: true
+      in: query
+      name: dataset_id
+      required: false
+      schema:
+        type: integer
+      style: form
+    FilterSourceDAGID:
+      description: The DAG ID that updated the dataset.
+      explode: true
+      in: query
+      name: source_dag_id
+      required: false
+      schema:
+        type: string
+      style: form
+    FilterSourceTaskID:
+      description: The task ID that updated the dataset.
+      explode: true
+      in: query
+      name: source_task_id
+      required: false
+      schema:
+        type: string
+      style: form
+    FilterSourceRunID:
+      description: The DAG run ID that updated the dataset.
+      explode: true
+      in: query
+      name: source_run_id
+      required: false
+      schema:
+        type: string
+      style: form
+    FilterSourceMapIndex:
+      description: The map index that updated the dataset.
+      explode: true
+      in: query
+      name: source_map_index
+      required: false
+      schema:
+        type: integer
+      style: form
+    FilterMapIndex:
+      description: Filter on map index for mapped task.
+      explode: true
+      in: query
+      name: map_index
+      required: false
+      schema:
+        type: integer
+      style: form
     OrderBy:
       description: |
         The name of the field to order the results by.
@@ -4436,15 +5312,13 @@ components:
           description: |
             The user's first name.
 
-            *Changed in version 2.2.0*&#58; A minimum character length requirement ('minLength') is added.
-          minLength: 1
+            *Changed in version 2.4.0*&#58; The requirement for this to be non-empty was removed.
           type: string
         last_name:
           description: |
             The user's last name.
 
-            *Changed in version 2.2.0*&#58; A minimum character length requirement ('minLength') is added.
-          minLength: 1
+            *Changed in version 2.4.0*&#58; The requirement for this to be non-empty was removed.
           type: string
         username:
           description: |
@@ -4530,6 +5404,10 @@ components:
           type: string
         conn_type:
           description: The connection type.
+          type: string
+        description:
+          description: The description of the connection.
+          nullable: true
           type: string
         host:
           description: Host of the connection.
@@ -4809,6 +5687,7 @@ components:
     DAGRun:
       example:
         end_date: 2000-01-23T04:56:07.000+00:00
+        note: note
         execution_date: 2000-01-23T04:56:07.000+00:00
         external_trigger: true
         conf: '{}'
@@ -4899,6 +5778,7 @@ components:
           - backfill
           - manual
           - scheduled
+          - dataset_triggered
           readOnly: true
           type: string
         state:
@@ -4914,6 +5794,13 @@ components:
             The value of this field can be set only when creating the object. If you try to modify the
             field of an existing object, the request fails with an BAD_REQUEST error.
           type: object
+        note:
+          description: |
+            Contains manually entered notes by the user about the DagRun.
+
+            *New in version 2.5.0*
+          nullable: true
+          type: string
       type: object
     UpdateDagRunState:
       description: |
@@ -4939,6 +5826,41 @@ components:
         Collection of DAG runs.
 
         *Changed in version 2.1.0*&#58; 'total_entries' field is added.
+      type: object
+    DagWarning:
+      properties:
+        dag_id:
+          description: The dag_id.
+          readOnly: true
+          type: string
+        warning_type:
+          description: The warning type for the dag warning.
+          readOnly: true
+          type: string
+        message:
+          description: The message for the dag warning.
+          readOnly: true
+          type: string
+        timestamp:
+          description: The time when this warning was logged.
+          format: datetime
+          readOnly: true
+          type: string
+      type: object
+    DagWarningCollection:
+      allOf:
+      - $ref: '#/components/schemas/DagWarningCollection_allOf'
+      - $ref: '#/components/schemas/CollectionInfo'
+      description: |
+        Collection of DAG warnings.
+      type: object
+    SetDagRunNote:
+      example:
+        note: note
+      properties:
+        note:
+          description: Custom notes left by users for this Dag Run.
+          type: string
       type: object
     EventLog:
       description: Log of user operations via CLI or Web UI.
@@ -5156,6 +6078,7 @@ components:
         task_id: task_id
         dag_id: dag_id
         timestamp: timestamp
+      nullable: true
       properties:
         task_id:
           description: The task ID.
@@ -5178,17 +6101,81 @@ components:
         notification_sent:
           type: boolean
       type: object
+    Trigger:
+      example:
+        classpath: classpath
+        kwargs: kwargs
+        id: 9
+        created_date: created_date
+        triggerer_id: 3
+      properties:
+        id:
+          type: integer
+        classpath:
+          type: string
+        kwargs:
+          type: string
+        created_date:
+          format: datetime
+          type: string
+        triggerer_id:
+          nullable: true
+          type: integer
+      type: object
+    Job:
+      example:
+        job_type: job_type
+        end_date: end_date
+        unixname: unixname
+        latest_heartbeat: latest_heartbeat
+        hostname: hostname
+        id: 2
+        dag_id: dag_id
+        state: state
+        executor_class: executor_class
+        start_date: start_date
+      properties:
+        id:
+          type: integer
+        dag_id:
+          nullable: true
+          type: string
+        state:
+          nullable: true
+          type: string
+        job_type:
+          nullable: true
+          type: string
+        start_date:
+          format: datetime
+          nullable: true
+          type: string
+        end_date:
+          format: datetime
+          nullable: true
+          type: string
+        latest_heartbeat:
+          format: datetime
+          nullable: true
+          type: string
+        executor_class:
+          nullable: true
+          type: string
+        hostname:
+          nullable: true
+          type: string
+        unixname:
+          nullable: true
+          type: string
+      type: object
     TaskInstance:
       example:
         end_date: end_date
         unixname: unixname
+        note: note
         rendered_fields: '{}'
-        execution_date: execution_date
-        pool_slots: 5
-        pool: pool
         task_id: task_id
-        pid: 2
-        max_tries: 1
+        pid: 7
         operator: operator
         sla_miss:
           notification_sent: true
@@ -5200,14 +6187,36 @@ components:
           timestamp: timestamp
         duration: 0.8008281904610115
         hostname: hostname
+        dag_id: dag_id
+        priority_weight: 2
+        start_date: start_date
+        queued_when: queued_when
+        triggerer_job:
+          job_type: job_type
+          end_date: end_date
+          unixname: unixname
+          latest_heartbeat: latest_heartbeat
+          hostname: hostname
+          id: 2
+          dag_id: dag_id
+          state: state
+          executor_class: executor_class
+          start_date: start_date
+        execution_date: execution_date
+        pool_slots: 5
+        pool: pool
+        map_index: 1
+        max_tries: 5
+        trigger:
+          classpath: classpath
+          kwargs: kwargs
+          id: 9
+          created_date: created_date
+          triggerer_id: 3
         executor_config: executor_config
         dag_run_id: dag_run_id
         try_number: 6
-        dag_id: dag_id
-        priority_weight: 5
         queue: queue
-        start_date: start_date
-        queued_when: queued_when
       properties:
         task_id:
           type: string
@@ -5237,6 +6246,8 @@ components:
           $ref: '#/components/schemas/TaskState'
         try_number:
           type: integer
+        map_index:
+          type: integer
         max_tries:
           type: integer
         hostname:
@@ -5248,8 +6259,10 @@ components:
         pool_slots:
           type: integer
         queue:
+          nullable: true
           type: string
         priority_weight:
+          nullable: true
           type: integer
         operator:
           description: |
@@ -5272,6 +6285,17 @@ components:
 
             *New in version 2.3.0*
           type: object
+        trigger:
+          $ref: '#/components/schemas/Trigger'
+        triggerer_job:
+          $ref: '#/components/schemas/Job'
+        note:
+          description: |
+            Contains manually entered notes by the user about the TaskInstance.
+
+            *New in version 2.5.0*
+          nullable: true
+          type: string
       type: object
     TaskInstanceCollection:
       allOf:
@@ -5329,6 +6353,13 @@ components:
         The value field are only available when retrieving a single object due to the sensitivity of this data.
       properties:
         key:
+          type: string
+        description:
+          description: |
+            The description of the variable.
+
+            *New in version 2.4.0*
+          nullable: true
           type: string
       type: object
     VariableCollection:
@@ -5539,6 +6570,7 @@ components:
           readOnly: true
           type: number
         queue:
+          nullable: true
           readOnly: true
           type: string
         pool:
@@ -5738,9 +6770,6 @@ components:
 
         *New in version 2.1.0*
       properties:
-        number:
-          description: The plugin number
-          type: string
         name:
           description: The name of the plugin
           type: string
@@ -5895,6 +6924,222 @@ components:
         resource:
           $ref: '#/components/schemas/Resource'
       type: object
+    Dataset:
+      description: |
+        A dataset item.
+
+        *New in version 2.4.0*
+      example:
+        consuming_dags:
+        - updated_at: updated_at
+          created_at: created_at
+          dag_id: dag_id
+        - updated_at: updated_at
+          created_at: created_at
+          dag_id: dag_id
+        updated_at: updated_at
+        extra: '{}'
+        producing_tasks:
+        - updated_at: updated_at
+          created_at: created_at
+          task_id: task_id
+          dag_id: dag_id
+        - updated_at: updated_at
+          created_at: created_at
+          task_id: task_id
+          dag_id: dag_id
+        created_at: created_at
+        id: 0
+        uri: uri
+      properties:
+        id:
+          description: The dataset id
+          type: integer
+        uri:
+          description: The dataset uri
+          nullable: false
+          type: string
+        extra:
+          description: The dataset extra
+          nullable: true
+          type: object
+        created_at:
+          description: The dataset creation time
+          nullable: false
+          type: string
+        updated_at:
+          description: The dataset update time
+          nullable: false
+          type: string
+        consuming_dags:
+          items:
+            $ref: '#/components/schemas/DagScheduleDatasetReference'
+          type: array
+        producing_tasks:
+          items:
+            $ref: '#/components/schemas/TaskOutletDatasetReference'
+          type: array
+      type: object
+    TaskOutletDatasetReference:
+      description: |
+        A datasets reference to an upstream task.
+
+        *New in version 2.4.0*
+      example:
+        updated_at: updated_at
+        created_at: created_at
+        task_id: task_id
+        dag_id: dag_id
+      properties:
+        dag_id:
+          description: The DAG ID that updates the dataset.
+          nullable: true
+          type: string
+        task_id:
+          description: The task ID that updates the dataset.
+          nullable: true
+          type: string
+        created_at:
+          description: The dataset creation time
+          nullable: false
+          type: string
+        updated_at:
+          description: The dataset update time
+          nullable: false
+          type: string
+      type: object
+    DagScheduleDatasetReference:
+      description: |
+        A datasets reference to a downstream DAG.
+
+        *New in version 2.4.0*
+      example:
+        updated_at: updated_at
+        created_at: created_at
+        dag_id: dag_id
+      properties:
+        dag_id:
+          description: The DAG ID that depends on the dataset.
+          nullable: true
+          type: string
+        created_at:
+          description: The dataset reference creation time
+          nullable: false
+          type: string
+        updated_at:
+          description: The dataset reference update time
+          nullable: false
+          type: string
+      type: object
+    DatasetCollection:
+      allOf:
+      - $ref: '#/components/schemas/DatasetCollection_allOf'
+      - $ref: '#/components/schemas/CollectionInfo'
+      description: |
+        A collection of datasets.
+
+        *New in version 2.4.0*
+      type: object
+    DatasetEvent:
+      description: |
+        A dataset event.
+
+        *New in version 2.4.0*
+      properties:
+        dataset_id:
+          description: The dataset id
+          type: integer
+        dataset_uri:
+          description: The URI of the dataset
+          nullable: false
+          type: string
+        extra:
+          description: The dataset event extra
+          nullable: true
+          type: object
+        source_dag_id:
+          description: The DAG ID that updated the dataset.
+          nullable: true
+          type: string
+        source_task_id:
+          description: The task ID that updated the dataset.
+          nullable: true
+          type: string
+        source_run_id:
+          description: The DAG run ID that updated the dataset.
+          nullable: true
+          type: string
+        source_map_index:
+          description: The task map index that updated the dataset.
+          nullable: true
+          type: integer
+        created_dagruns:
+          items:
+            $ref: '#/components/schemas/BasicDAGRun'
+          type: array
+        timestamp:
+          description: The dataset event creation time
+          nullable: false
+          type: string
+      type: object
+    BasicDAGRun:
+      properties:
+        run_id:
+          description: |
+            Run ID.
+          type: string
+        dag_id:
+          readOnly: true
+          type: string
+        logical_date:
+          description: |
+            The logical date (previously called execution date). This is the time or interval covered by
+            this DAG run, according to the DAG definition.
+
+            The value of this field can be set only when creating the object. If you try to modify the
+            field of an existing object, the request fails with an BAD_REQUEST error.
+
+            This together with DAG_ID are a unique key.
+
+            *New in version 2.2.0*
+          format: date-time
+          type: string
+        start_date:
+          description: |
+            The start time. The time when DAG run was actually created.
+
+            *Changed in version 2.1.3*&#58; Field becomes nullable.
+          format: date-time
+          nullable: true
+          readOnly: true
+          type: string
+        end_date:
+          format: date-time
+          nullable: true
+          readOnly: true
+          type: string
+        data_interval_start:
+          format: date-time
+          nullable: true
+          readOnly: true
+          type: string
+        data_interval_end:
+          format: date-time
+          nullable: true
+          readOnly: true
+          type: string
+        state:
+          $ref: '#/components/schemas/DagState'
+      type: object
+    DatasetEventCollection:
+      allOf:
+      - $ref: '#/components/schemas/DatasetEventCollection_allOf'
+      - $ref: '#/components/schemas/CollectionInfo'
+      description: |
+        A collection of dataset events.
+
+        *New in version 2.4.0*
+      type: object
     ConfigOption:
       description: The option of configuration.
       example:
@@ -5962,18 +7207,34 @@ components:
           nullable: true
           type: string
       type: object
-    ClearTaskInstance:
+    ClearDagRun:
+      example:
+        dry_run: true
+      properties:
+        dry_run:
+          default: true
+          description: |
+            If set, don't actually run this operation. The response will contain a list of task instances
+            planned to be cleaned, but not modified in any way.
+          type: boolean
+      type: object
+    ClearTaskInstances:
       example:
         end_date: end_date
-        only_running: false
+        include_future: false
+        include_past: false
         reset_dag_runs: true
         include_parentdag: true
         include_subdags: true
-        dry_run: true
-        only_failed: true
         task_ids:
         - task_ids
         - task_ids
+        include_downstream: false
+        only_running: false
+        dag_run_id: dag_run_id
+        include_upstream: false
+        dry_run: true
+        only_failed: true
         start_date: start_date
       properties:
         dry_run:
@@ -6016,6 +7277,26 @@ components:
           type: boolean
         reset_dag_runs:
           description: Set state of DAG runs to RUNNING.
+          type: boolean
+        dag_run_id:
+          description: The DagRun ID for this task instance
+          nullable: true
+          type: string
+        include_upstream:
+          default: false
+          description: If set to true, upstream tasks are also affected.
+          type: boolean
+        include_downstream:
+          default: false
+          description: If set to true, downstream tasks are also affected.
+          type: boolean
+        include_future:
+          default: false
+          description: If set to True, also tasks from future DAG Runs are affected.
+          type: boolean
+        include_past:
+          default: false
+          description: If set to True, also tasks from past DAG Runs are affected.
           type: boolean
       type: object
     UpdateTaskInstancesState:
@@ -6067,6 +7348,34 @@ components:
           - success
           - failed
           type: string
+      type: object
+    UpdateTaskInstance:
+      example:
+        new_state: success
+        dry_run: false
+      properties:
+        dry_run:
+          default: false
+          description: |
+            If set, don't actually run this operation. The response will contain the task instance
+            planned to be affected, but won't be modified in any way.
+          type: boolean
+        new_state:
+          description: Expected new state.
+          enum:
+          - success
+          - failed
+          type: string
+      type: object
+    SetTaskInstanceNote:
+      example:
+        note: note
+      properties:
+        note:
+          description: The custom note to set for this Task Instance.
+          type: string
+      required:
+      - note
       type: object
     ListDagRunsForm:
       example:
@@ -6273,6 +7582,7 @@ components:
         execution_date to figure out the next schedule.
       discriminator:
         propertyName: __type
+      nullable: true
       readOnly: true
     TimeDelta:
       description: Time delta
@@ -6432,7 +7742,10 @@ components:
 
         *Changed in version 2.0.2*&#58; 'removed' is added as a possible value.
 
-        *Changed in version 2.2.0*&#58; 'deferred' and 'sensing' is added as a possible value.
+        *Changed in version 2.2.0*&#58; 'deferred' is added as a possible value.
+
+        *Changed in version 2.4.0*&#58; 'sensing' state has been removed.
+        *Changed in version 2.4.2*&#58; 'restarting' is added as a possible value
       enum:
       - success
       - running
@@ -6445,8 +7758,8 @@ components:
       - none
       - scheduled
       - deferred
-      - sensing
       - removed
+      - restarting
       type: string
     DagState:
       description: |
@@ -6559,6 +7872,13 @@ components:
         dag_runs:
           items:
             $ref: '#/components/schemas/DAGRun'
+          type: array
+      type: object
+    DagWarningCollection_allOf:
+      properties:
+        import_errors:
+          items:
+            $ref: '#/components/schemas/DagWarning'
           type: array
       type: object
     EventLogCollection_allOf:
@@ -6724,6 +8044,20 @@ components:
         actions:
           items:
             $ref: '#/components/schemas/Action'
+          type: array
+      type: object
+    DatasetCollection_allOf:
+      properties:
+        datasets:
+          items:
+            $ref: '#/components/schemas/Dataset'
+          type: array
+      type: object
+    DatasetEventCollection_allOf:
+      properties:
+        dataset_events:
+          items:
+            $ref: '#/components/schemas/DatasetEvent'
           type: array
       type: object
   securitySchemes:

@@ -24,6 +24,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Key** | Pointer to **string** |  | [optional] 
+**Description** | Pointer to **NullableString** | The description of the variable.  *New in version 2.4.0*  | [optional] 
 **Value** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -70,6 +71,41 @@ SetKey sets Key field to given value.
 
 HasKey returns a boolean if a field has been set.
 
+### GetDescription
+
+`func (o *Variable) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *Variable) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *Variable) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *Variable) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
+
+### SetDescriptionNil
+
+`func (o *Variable) SetDescriptionNil(b bool)`
+
+ SetDescriptionNil sets the value for Description to be an explicit nil
+
+### UnsetDescription
+`func (o *Variable) UnsetDescription()`
+
+UnsetDescription ensures that no value is present for Description, not even an explicit nil
 ### GetValue
 
 `func (o *Variable) GetValue() string`

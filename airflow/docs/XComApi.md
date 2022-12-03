@@ -110,7 +110,7 @@ No authorization required
 
 ## GetXcomEntry
 
-> XCom GetXcomEntry(ctx, dagId, dagRunId, taskId, xcomKey).Execute()
+> XCom GetXcomEntry(ctx, dagId, dagRunId, taskId, xcomKey).Deserialize(deserialize).Execute()
 
 Get an XCom entry
 
@@ -131,10 +131,11 @@ func main() {
     dagRunId := "dagRunId_example" // string | The DAG run ID.
     taskId := "taskId_example" // string | The task ID.
     xcomKey := "xcomKey_example" // string | The XCom key.
+    deserialize := true // bool | Whether to deserialize an XCom value when using a custom XCom backend.  The XCom API endpoint calls `orm_deserialize_value` by default since an XCom may contain value that is potentially expensive to deserialize in the web server. Setting this to true overrides the consideration, and calls `deserialize_value` instead.  This parameter is not meaningful when using the default XCom backend.  *New in version 2.4.0*  (optional) (default to false)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.XComApi.GetXcomEntry(context.Background(), dagId, dagRunId, taskId, xcomKey).Execute()
+    resp, r, err := api_client.XComApi.GetXcomEntry(context.Background(), dagId, dagRunId, taskId, xcomKey).Deserialize(deserialize).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `XComApi.GetXcomEntry``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -166,6 +167,7 @@ Name | Type | Description  | Notes
 
 
 
+ **deserialize** | **bool** | Whether to deserialize an XCom value when using a custom XCom backend.  The XCom API endpoint calls &#x60;orm_deserialize_value&#x60; by default since an XCom may contain value that is potentially expensive to deserialize in the web server. Setting this to true overrides the consideration, and calls &#x60;deserialize_value&#x60; instead.  This parameter is not meaningful when using the default XCom backend.  *New in version 2.4.0*  | [default to false]
 
 ### Return type
 
