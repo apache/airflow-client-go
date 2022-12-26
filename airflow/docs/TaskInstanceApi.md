@@ -30,6 +30,10 @@ Method | HTTP request | Description
 [**GetTaskInstance**](TaskInstanceApi.md#GetTaskInstance) | **Get** /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id} | Get a task instance
 [**GetTaskInstances**](TaskInstanceApi.md#GetTaskInstances) | **Get** /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances | List task instances
 [**GetTaskInstancesBatch**](TaskInstanceApi.md#GetTaskInstancesBatch) | **Post** /dags/~/dagRuns/~/taskInstances/list | List task instances (batch)
+[**PatchMappedTaskInstance**](TaskInstanceApi.md#PatchMappedTaskInstance) | **Patch** /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/{map_index} | Updates the state of a mapped task instance
+[**PatchTaskInstance**](TaskInstanceApi.md#PatchTaskInstance) | **Patch** /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id} | Updates the state of a task instance
+[**SetMappedTaskInstanceNote**](TaskInstanceApi.md#SetMappedTaskInstanceNote) | **Patch** /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/{map_index}/setNote | Update the TaskInstance note.
+[**SetTaskInstanceNote**](TaskInstanceApi.md#SetTaskInstanceNote) | **Patch** /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/setNote | Update the TaskInstance note.
 
 
 
@@ -111,7 +115,7 @@ No authorization required
 
 ## GetLog
 
-> InlineResponse200 GetLog(ctx, dagId, dagRunId, taskId, taskTryNumber).FullContent(fullContent).Token(token).Execute()
+> InlineResponse200 GetLog(ctx, dagId, dagRunId, taskId, taskTryNumber).FullContent(fullContent).MapIndex(mapIndex).Token(token).Execute()
 
 Get logs
 
@@ -135,11 +139,12 @@ func main() {
     taskId := "taskId_example" // string | The task ID.
     taskTryNumber := int32(56) // int32 | The task try number.
     fullContent := true // bool | A full content will be returned. By default, only the first fragment will be returned.  (optional)
+    mapIndex := int32(56) // int32 | Filter on map index for mapped task. (optional)
     token := "token_example" // string | A token that allows you to continue fetching logs. If passed, it will specify the location from which the download should be continued.  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TaskInstanceApi.GetLog(context.Background(), dagId, dagRunId, taskId, taskTryNumber).FullContent(fullContent).Token(token).Execute()
+    resp, r, err := api_client.TaskInstanceApi.GetLog(context.Background(), dagId, dagRunId, taskId, taskTryNumber).FullContent(fullContent).MapIndex(mapIndex).Token(token).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TaskInstanceApi.GetLog``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -172,6 +177,7 @@ Name | Type | Description  | Notes
 
 
  **fullContent** | **bool** | A full content will be returned. By default, only the first fragment will be returned.  | 
+ **mapIndex** | **int32** | Filter on map index for mapped task. | 
  **token** | **string** | A token that allows you to continue fetching logs. If passed, it will specify the location from which the download should be continued.  | 
 
 ### Return type
@@ -273,7 +279,7 @@ No authorization required
 
 ## GetMappedTaskInstances
 
-> TaskInstance GetMappedTaskInstances(ctx, dagId, dagRunId, taskId).Limit(limit).Offset(offset).ExecutionDateGte(executionDateGte).ExecutionDateLte(executionDateLte).StartDateGte(startDateGte).StartDateLte(startDateLte).EndDateGte(endDateGte).EndDateLte(endDateLte).DurationGte(durationGte).DurationLte(durationLte).State(state).Pool(pool).Queue(queue).OrderBy(orderBy).Execute()
+> TaskInstanceCollection GetMappedTaskInstances(ctx, dagId, dagRunId, taskId).Limit(limit).Offset(offset).ExecutionDateGte(executionDateGte).ExecutionDateLte(executionDateLte).StartDateGte(startDateGte).StartDateLte(startDateLte).EndDateGte(endDateGte).EndDateLte(endDateLte).DurationGte(durationGte).DurationLte(durationLte).State(state).Pool(pool).Queue(queue).OrderBy(orderBy).Execute()
 
 List mapped task instances
 
@@ -318,7 +324,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `TaskInstanceApi.GetMappedTaskInstances``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetMappedTaskInstances`: TaskInstance
+    // response from `GetMappedTaskInstances`: TaskInstanceCollection
     fmt.Fprintf(os.Stdout, "Response from `TaskInstanceApi.GetMappedTaskInstances`: %v\n", resp)
 }
 ```
@@ -360,7 +366,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskInstance**](TaskInstance.md)
+[**TaskInstanceCollection**](TaskInstanceCollection.md)
 
 ### Authorization
 
@@ -601,6 +607,324 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**TaskInstanceCollection**](TaskInstanceCollection.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PatchMappedTaskInstance
+
+> TaskInstanceReference PatchMappedTaskInstance(ctx, dagId, dagRunId, taskId, mapIndex).UpdateTaskInstance(updateTaskInstance).Execute()
+
+Updates the state of a mapped task instance
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    dagId := "dagId_example" // string | The DAG ID.
+    dagRunId := "dagRunId_example" // string | The DAG run ID.
+    taskId := "taskId_example" // string | The task ID.
+    mapIndex := int32(56) // int32 | The map index.
+    updateTaskInstance := *openapiclient.NewUpdateTaskInstance() // UpdateTaskInstance | Parameters of action (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.TaskInstanceApi.PatchMappedTaskInstance(context.Background(), dagId, dagRunId, taskId, mapIndex).UpdateTaskInstance(updateTaskInstance).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `TaskInstanceApi.PatchMappedTaskInstance``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PatchMappedTaskInstance`: TaskInstanceReference
+    fmt.Fprintf(os.Stdout, "Response from `TaskInstanceApi.PatchMappedTaskInstance`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**dagId** | **string** | The DAG ID. | 
+**dagRunId** | **string** | The DAG run ID. | 
+**taskId** | **string** | The task ID. | 
+**mapIndex** | **int32** | The map index. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchMappedTaskInstanceRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+ **updateTaskInstance** | [**UpdateTaskInstance**](UpdateTaskInstance.md) | Parameters of action | 
+
+### Return type
+
+[**TaskInstanceReference**](TaskInstanceReference.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PatchTaskInstance
+
+> TaskInstanceReference PatchTaskInstance(ctx, dagId, dagRunId, taskId).UpdateTaskInstance(updateTaskInstance).Execute()
+
+Updates the state of a task instance
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    dagId := "dagId_example" // string | The DAG ID.
+    dagRunId := "dagRunId_example" // string | The DAG run ID.
+    taskId := "taskId_example" // string | The task ID.
+    updateTaskInstance := *openapiclient.NewUpdateTaskInstance() // UpdateTaskInstance | Parameters of action
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.TaskInstanceApi.PatchTaskInstance(context.Background(), dagId, dagRunId, taskId).UpdateTaskInstance(updateTaskInstance).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `TaskInstanceApi.PatchTaskInstance``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PatchTaskInstance`: TaskInstanceReference
+    fmt.Fprintf(os.Stdout, "Response from `TaskInstanceApi.PatchTaskInstance`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**dagId** | **string** | The DAG ID. | 
+**dagRunId** | **string** | The DAG run ID. | 
+**taskId** | **string** | The task ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchTaskInstanceRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+ **updateTaskInstance** | [**UpdateTaskInstance**](UpdateTaskInstance.md) | Parameters of action | 
+
+### Return type
+
+[**TaskInstanceReference**](TaskInstanceReference.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SetMappedTaskInstanceNote
+
+> TaskInstance SetMappedTaskInstanceNote(ctx, dagId, dagRunId, taskId, mapIndex).SetTaskInstanceNote(setTaskInstanceNote).Execute()
+
+Update the TaskInstance note.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    dagId := "dagId_example" // string | The DAG ID.
+    dagRunId := "dagRunId_example" // string | The DAG run ID.
+    taskId := "taskId_example" // string | The task ID.
+    mapIndex := int32(56) // int32 | The map index.
+    setTaskInstanceNote := *openapiclient.NewSetTaskInstanceNote("Note_example") // SetTaskInstanceNote | Parameters of set Task Instance note.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.TaskInstanceApi.SetMappedTaskInstanceNote(context.Background(), dagId, dagRunId, taskId, mapIndex).SetTaskInstanceNote(setTaskInstanceNote).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `TaskInstanceApi.SetMappedTaskInstanceNote``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `SetMappedTaskInstanceNote`: TaskInstance
+    fmt.Fprintf(os.Stdout, "Response from `TaskInstanceApi.SetMappedTaskInstanceNote`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**dagId** | **string** | The DAG ID. | 
+**dagRunId** | **string** | The DAG run ID. | 
+**taskId** | **string** | The task ID. | 
+**mapIndex** | **int32** | The map index. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSetMappedTaskInstanceNoteRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+ **setTaskInstanceNote** | [**SetTaskInstanceNote**](SetTaskInstanceNote.md) | Parameters of set Task Instance note. | 
+
+### Return type
+
+[**TaskInstance**](TaskInstance.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SetTaskInstanceNote
+
+> TaskInstance SetTaskInstanceNote(ctx, dagId, dagRunId, taskId).SetTaskInstanceNote(setTaskInstanceNote).Execute()
+
+Update the TaskInstance note.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    dagId := "dagId_example" // string | The DAG ID.
+    dagRunId := "dagRunId_example" // string | The DAG run ID.
+    taskId := "taskId_example" // string | The task ID.
+    setTaskInstanceNote := *openapiclient.NewSetTaskInstanceNote("Note_example") // SetTaskInstanceNote | Parameters of set Task Instance note.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.TaskInstanceApi.SetTaskInstanceNote(context.Background(), dagId, dagRunId, taskId).SetTaskInstanceNote(setTaskInstanceNote).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `TaskInstanceApi.SetTaskInstanceNote``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `SetTaskInstanceNote`: TaskInstance
+    fmt.Fprintf(os.Stdout, "Response from `TaskInstanceApi.SetTaskInstanceNote`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**dagId** | **string** | The DAG ID. | 
+**dagRunId** | **string** | The DAG run ID. | 
+**taskId** | **string** | The task ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSetTaskInstanceNoteRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+ **setTaskInstanceNote** | [**SetTaskInstanceNote**](SetTaskInstanceNote.md) | Parameters of set Task Instance note. | 
+
+### Return type
+
+[**TaskInstance**](TaskInstance.md)
 
 ### Authorization
 

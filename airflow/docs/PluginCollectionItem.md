@@ -23,7 +23,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Number** | Pointer to **string** | The plugin number | [optional] 
 **Name** | Pointer to **string** | The name of the plugin | [optional] 
 **Hooks** | Pointer to **[]string** | The plugin hooks | [optional] 
 **Executors** | Pointer to **[]string** | The plugin executors | [optional] 
@@ -53,31 +52,6 @@ will change when the set of required properties is changed
 NewPluginCollectionItemWithDefaults instantiates a new PluginCollectionItem object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetNumber
-
-`func (o *PluginCollectionItem) GetNumber() string`
-
-GetNumber returns the Number field if non-nil, zero value otherwise.
-
-### GetNumberOk
-
-`func (o *PluginCollectionItem) GetNumberOk() (*string, bool)`
-
-GetNumberOk returns a tuple with the Number field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetNumber
-
-`func (o *PluginCollectionItem) SetNumber(v string)`
-
-SetNumber sets Number field to given value.
-
-### HasNumber
-
-`func (o *PluginCollectionItem) HasNumber() bool`
-
-HasNumber returns a boolean if a field has been set.
 
 ### GetName
 

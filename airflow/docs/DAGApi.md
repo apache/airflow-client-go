@@ -684,7 +684,7 @@ No authorization required
 
 ## PostClearTaskInstances
 
-> TaskInstanceReferenceCollection PostClearTaskInstances(ctx, dagId).ClearTaskInstance(clearTaskInstance).Execute()
+> TaskInstanceReferenceCollection PostClearTaskInstances(ctx, dagId).ClearTaskInstances(clearTaskInstances).Execute()
 
 Clear a set of task instances
 
@@ -704,11 +704,11 @@ import (
 
 func main() {
     dagId := "dagId_example" // string | The DAG ID.
-    clearTaskInstance := *openapiclient.NewClearTaskInstance() // ClearTaskInstance | Parameters of action
+    clearTaskInstances := *openapiclient.NewClearTaskInstances() // ClearTaskInstances | Parameters of action
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DAGApi.PostClearTaskInstances(context.Background(), dagId).ClearTaskInstance(clearTaskInstance).Execute()
+    resp, r, err := api_client.DAGApi.PostClearTaskInstances(context.Background(), dagId).ClearTaskInstances(clearTaskInstances).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DAGApi.PostClearTaskInstances``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -734,7 +734,7 @@ Other parameters are passed through a pointer to a apiPostClearTaskInstancesRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **clearTaskInstance** | [**ClearTaskInstance**](ClearTaskInstance.md) | Parameters of action | 
+ **clearTaskInstances** | [**ClearTaskInstances**](ClearTaskInstances.md) | Parameters of action | 
 
 ### Return type
 

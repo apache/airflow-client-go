@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ConnectionId** | Pointer to **string** | The connection ID. | [optional] 
 **ConnType** | Pointer to **string** | The connection type. | [optional] 
+**Description** | Pointer to **NullableString** | The description of the connection. | [optional] 
 **Host** | Pointer to **NullableString** | Host of the connection. | [optional] 
 **Login** | Pointer to **NullableString** | Login of the connection. | [optional] 
 **Schema** | Pointer to **NullableString** | Schema of the connection. | [optional] 
@@ -101,6 +102,41 @@ SetConnType sets ConnType field to given value.
 
 HasConnType returns a boolean if a field has been set.
 
+### GetDescription
+
+`func (o *Connection) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *Connection) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *Connection) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *Connection) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
+
+### SetDescriptionNil
+
+`func (o *Connection) SetDescriptionNil(b bool)`
+
+ SetDescriptionNil sets the value for Description to be an explicit nil
+
+### UnsetDescription
+`func (o *Connection) UnsetDescription()`
+
+UnsetDescription ensures that no value is present for Description, not even an explicit nil
 ### GetHost
 
 `func (o *Connection) GetHost() string`
