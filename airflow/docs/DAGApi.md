@@ -34,6 +34,8 @@ Method | HTTP request | Description
 [**PatchDags**](DAGApi.md#PatchDags) | **Patch** /dags | Update DAGs
 [**PostClearTaskInstances**](DAGApi.md#PostClearTaskInstances) | **Post** /dags/{dag_id}/clearTaskInstances | Clear a set of task instances
 [**PostSetTaskInstancesState**](DAGApi.md#PostSetTaskInstancesState) | **Post** /dags/{dag_id}/updateTaskInstancesState | Set a state of task instances
+[**SetMappedTaskInstanceNote**](DAGApi.md#SetMappedTaskInstanceNote) | **Patch** /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/{map_index}/setNote | Update the TaskInstance note.
+[**SetTaskInstanceNote**](DAGApi.md#SetTaskInstanceNote) | **Patch** /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/setNote | Update the TaskInstance note.
 
 
 
@@ -93,7 +95,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Basic](../README.md#Basic), [Kerberos](../README.md#Kerberos)
 
 ### HTTP request headers
 
@@ -163,7 +165,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Basic](../README.md#Basic), [Kerberos](../README.md#Kerberos)
 
 ### HTTP request headers
 
@@ -233,7 +235,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Basic](../README.md#Basic), [Kerberos](../README.md#Kerberos)
 
 ### HTTP request headers
 
@@ -303,7 +305,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Basic](../README.md#Basic), [Kerberos](../README.md#Kerberos)
 
 ### HTTP request headers
 
@@ -379,7 +381,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Basic](../README.md#Basic), [Kerberos](../README.md#Kerberos)
 
 ### HTTP request headers
 
@@ -450,7 +452,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Basic](../README.md#Basic), [Kerberos](../README.md#Kerberos)
 
 ### HTTP request headers
 
@@ -520,7 +522,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Basic](../README.md#Basic), [Kerberos](../README.md#Kerberos)
 
 ### HTTP request headers
 
@@ -592,7 +594,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Basic](../README.md#Basic), [Kerberos](../README.md#Kerberos)
 
 ### HTTP request headers
 
@@ -670,7 +672,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Basic](../README.md#Basic), [Kerberos](../README.md#Kerberos)
 
 ### HTTP request headers
 
@@ -684,7 +686,7 @@ No authorization required
 
 ## PostClearTaskInstances
 
-> TaskInstanceReferenceCollection PostClearTaskInstances(ctx, dagId).ClearTaskInstance(clearTaskInstance).Execute()
+> TaskInstanceReferenceCollection PostClearTaskInstances(ctx, dagId).ClearTaskInstances(clearTaskInstances).Execute()
 
 Clear a set of task instances
 
@@ -704,11 +706,11 @@ import (
 
 func main() {
     dagId := "dagId_example" // string | The DAG ID.
-    clearTaskInstance := *openapiclient.NewClearTaskInstance() // ClearTaskInstance | Parameters of action
+    clearTaskInstances := *openapiclient.NewClearTaskInstances() // ClearTaskInstances | Parameters of action
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DAGApi.PostClearTaskInstances(context.Background(), dagId).ClearTaskInstance(clearTaskInstance).Execute()
+    resp, r, err := api_client.DAGApi.PostClearTaskInstances(context.Background(), dagId).ClearTaskInstances(clearTaskInstances).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DAGApi.PostClearTaskInstances``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -734,7 +736,7 @@ Other parameters are passed through a pointer to a apiPostClearTaskInstancesRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **clearTaskInstance** | [**ClearTaskInstance**](ClearTaskInstance.md) | Parameters of action | 
+ **clearTaskInstances** | [**ClearTaskInstances**](ClearTaskInstances.md) | Parameters of action | 
 
 ### Return type
 
@@ -742,7 +744,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Basic](../README.md#Basic), [Kerberos](../README.md#Kerberos)
 
 ### HTTP request headers
 
@@ -814,7 +816,166 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Basic](../README.md#Basic), [Kerberos](../README.md#Kerberos)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SetMappedTaskInstanceNote
+
+> TaskInstance SetMappedTaskInstanceNote(ctx, dagId, dagRunId, taskId, mapIndex).SetTaskInstanceNote(setTaskInstanceNote).Execute()
+
+Update the TaskInstance note.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    dagId := "dagId_example" // string | The DAG ID.
+    dagRunId := "dagRunId_example" // string | The DAG run ID.
+    taskId := "taskId_example" // string | The task ID.
+    mapIndex := int32(56) // int32 | The map index.
+    setTaskInstanceNote := *openapiclient.NewSetTaskInstanceNote("Note_example") // SetTaskInstanceNote | Parameters of set Task Instance note.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DAGApi.SetMappedTaskInstanceNote(context.Background(), dagId, dagRunId, taskId, mapIndex).SetTaskInstanceNote(setTaskInstanceNote).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DAGApi.SetMappedTaskInstanceNote``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `SetMappedTaskInstanceNote`: TaskInstance
+    fmt.Fprintf(os.Stdout, "Response from `DAGApi.SetMappedTaskInstanceNote`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**dagId** | **string** | The DAG ID. | 
+**dagRunId** | **string** | The DAG run ID. | 
+**taskId** | **string** | The task ID. | 
+**mapIndex** | **int32** | The map index. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSetMappedTaskInstanceNoteRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+ **setTaskInstanceNote** | [**SetTaskInstanceNote**](SetTaskInstanceNote.md) | Parameters of set Task Instance note. | 
+
+### Return type
+
+[**TaskInstance**](TaskInstance.md)
+
+### Authorization
+
+[Basic](../README.md#Basic), [Kerberos](../README.md#Kerberos)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SetTaskInstanceNote
+
+> TaskInstance SetTaskInstanceNote(ctx, dagId, dagRunId, taskId).SetTaskInstanceNote(setTaskInstanceNote).Execute()
+
+Update the TaskInstance note.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    dagId := "dagId_example" // string | The DAG ID.
+    dagRunId := "dagRunId_example" // string | The DAG run ID.
+    taskId := "taskId_example" // string | The task ID.
+    setTaskInstanceNote := *openapiclient.NewSetTaskInstanceNote("Note_example") // SetTaskInstanceNote | Parameters of set Task Instance note.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DAGApi.SetTaskInstanceNote(context.Background(), dagId, dagRunId, taskId).SetTaskInstanceNote(setTaskInstanceNote).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DAGApi.SetTaskInstanceNote``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `SetTaskInstanceNote`: TaskInstance
+    fmt.Fprintf(os.Stdout, "Response from `DAGApi.SetTaskInstanceNote`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**dagId** | **string** | The DAG ID. | 
+**dagRunId** | **string** | The DAG run ID. | 
+**taskId** | **string** | The task ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSetTaskInstanceNoteRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+ **setTaskInstanceNote** | [**SetTaskInstanceNote**](SetTaskInstanceNote.md) | Parameters of set Task Instance note. | 
+
+### Return type
+
+[**TaskInstance**](TaskInstance.md)
+
+### Authorization
+
+[Basic](../README.md#Basic), [Kerberos](../README.md#Kerberos)
 
 ### HTTP request headers
 

@@ -34,7 +34,7 @@ Name | Type | Description | Notes
 **IsMapped** | Pointer to **bool** |  | [optional] [readonly] 
 **WaitForDownstream** | Pointer to **bool** |  | [optional] [readonly] 
 **Retries** | Pointer to **float32** |  | [optional] [readonly] 
-**Queue** | Pointer to **string** |  | [optional] [readonly] 
+**Queue** | Pointer to **NullableString** |  | [optional] [readonly] 
 **Pool** | Pointer to **string** |  | [optional] [readonly] 
 **PoolSlots** | Pointer to **float32** |  | [optional] [readonly] 
 **ExecutionTimeout** | Pointer to [**TimeDelta**](TimeDelta.md) |  | [optional] 
@@ -377,6 +377,16 @@ SetQueue sets Queue field to given value.
 
 HasQueue returns a boolean if a field has been set.
 
+### SetQueueNil
+
+`func (o *Task) SetQueueNil(b bool)`
+
+ SetQueueNil sets the value for Queue to be an explicit nil
+
+### UnsetQueue
+`func (o *Task) UnsetQueue()`
+
+UnsetQueue ensures that no value is present for Queue, not even an explicit nil
 ### GetPool
 
 `func (o *Task) GetPool() string`

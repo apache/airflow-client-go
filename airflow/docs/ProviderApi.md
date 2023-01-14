@@ -76,7 +76,7 @@ Other parameters are passed through a pointer to a apiGetProvidersRequest struct
 
 ### Authorization
 
-No authorization required
+[Basic](../README.md#Basic), [Kerberos](../README.md#Kerberos)
 
 ### HTTP request headers
 

@@ -74,7 +74,7 @@ Other parameters are passed through a pointer to a apiGetConfigRequest struct vi
 
 ### Authorization
 
-No authorization required
+[Basic](../README.md#Basic), [Kerberos](../README.md#Kerberos)
 
 ### HTTP request headers
 
