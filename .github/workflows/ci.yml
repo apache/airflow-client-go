@@ -19,16 +19,16 @@ name: CI
 
 on:
   push:
-    branches: ['master', 'main']
+    branches: ['main']
   pull_request:
-    branches: ['master', 'main']
+    branches: ['main']
 
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@main
       - uses: actions/setup-python@v1
         with:
           python-version: '3.x'
@@ -44,7 +44,7 @@ jobs:
         go_version: [1.13, 1.14, 1.15, 1.16]
     steps:
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@main
 
       - name: Set up Go
         uses: actions/setup-go@v1
