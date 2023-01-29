@@ -297,6 +297,10 @@ Verify that the packages appear in [airflow](https://dist.apache.org/repos/dist/
 
 - Merge the PR
 
+## Create release on GitHub
+
+Create a new release on GitHub with the release notes and assets from the release svn.
+
 ## Notify developers of release
 
 See Airflow process documented [here](https://github.com/apache/airflow/blob/master/dev/README_RELEASE_AIRFLOW.md#notify-developers-of-release) (just replace Airflow with Airflow Client)
