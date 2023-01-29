@@ -148,7 +148,7 @@ Subject:
 
 ```shell script
 cat <<EOF
-[VOTE] Release Airflow Go Client ${VERSION_WITHOUT_RC} from Airflow ${AIRFLOW_VERSION}
+[VOTE] Release Airflow Go Client ${VERSION_WITHOUT_RC} from ${VERSION}
 EOF
 ```
 
