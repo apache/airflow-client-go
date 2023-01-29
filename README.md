@@ -58,15 +58,3 @@ func main() {
 
 See [README](./airflow/README.md#documentation-for-api-endpoints) for full client API documentation.
 
-
-Release process
----------------
-
-Go client is versioned using [semantic import
-versioning](https://blog.golang.org/versioning-proposal).
-
-To release a new version `1.x.y`, simply push a new tag to this repo named
-`airflow/v1.x.y`.
-
-Major version upgrade requires changing package import path based on semantic
-import versioning, which needs to be done manually.
