@@ -300,3 +300,7 @@ Verify that the packages appear in [airflow](https://dist.apache.org/repos/dist/
 ## Notify developers of release
 
 See Airflow process documented [here](https://github.com/apache/airflow/blob/master/dev/README_RELEASE_AIRFLOW.md#notify-developers-of-release) (just replace Airflow with Airflow Client)
+
+## Add release data to Apache Committee Report Helper
+
+Add the release data (version and date) at: https://reporter.apache.org/addrelease.html?airflow
