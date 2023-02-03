@@ -36,6 +36,7 @@ Name | Type | Description | Notes
 **State** | Pointer to [**DagState**](DagState.md) |  | [optional] 
 **ExternalTrigger** | Pointer to **bool** |  | [optional] [readonly] [default to true]
 **Conf** | Pointer to **map[string]interface{}** | JSON object describing additional configuration parameters.  The value of this field can be set only when creating the object. If you try to modify the field of an existing object, the request fails with an BAD_REQUEST error.  | [optional] 
+**Note** | Pointer to **NullableString** | Contains manually entered notes by the user about the DagRun.  *New in version 2.5.0*  | [optional] 
 
 ## Methods
 
@@ -461,6 +462,41 @@ SetConf sets Conf field to given value.
 
 HasConf returns a boolean if a field has been set.
 
+### GetNote
+
+`func (o *DAGRun) GetNote() string`
+
+GetNote returns the Note field if non-nil, zero value otherwise.
+
+### GetNoteOk
+
+`func (o *DAGRun) GetNoteOk() (*string, bool)`
+
+GetNoteOk returns a tuple with the Note field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNote
+
+`func (o *DAGRun) SetNote(v string)`
+
+SetNote sets Note field to given value.
+
+### HasNote
+
+`func (o *DAGRun) HasNote() bool`
+
+HasNote returns a boolean if a field has been set.
+
+### SetNoteNil
+
+`func (o *DAGRun) SetNoteNil(b bool)`
+
+ SetNoteNil sets the value for Note to be an explicit nil
+
+### UnsetNote
+`func (o *DAGRun) UnsetNote()`
+
+UnsetNote ensures that no value is present for Note, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

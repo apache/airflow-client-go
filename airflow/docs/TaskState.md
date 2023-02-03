@@ -44,9 +44,9 @@
 
 * `DEFERRED` (value: `"deferred"`)
 
-* `SENSING` (value: `"sensing"`)
-
 * `REMOVED` (value: `"removed"`)
+
+* `RESTARTING` (value: `"restarting"`)
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -38,7 +38,7 @@ Name | Type | Description | Notes
 **FileToken** | Pointer to **string** | The key containing the encrypted path to the file. Encryption and decryption take place only on the server. This prevents the client from reading an non-DAG file. This also ensures API extensibility, because the format of encrypted data may change.  | [optional] [readonly] 
 **Owners** | Pointer to **[]string** |  | [optional] [readonly] 
 **Description** | Pointer to **NullableString** | User-provided DAG description, which can consist of several sentences or paragraphs that describe DAG contents.  | [optional] [readonly] 
-**ScheduleInterval** | Pointer to [**ScheduleInterval**](ScheduleInterval.md) |  | [optional] 
+**ScheduleInterval** | Pointer to [**NullableScheduleInterval**](ScheduleInterval.md) |  | [optional] 
 **TimetableDescription** | Pointer to **NullableString** | Timetable/Schedule Interval description.  *New in version 2.3.0*  | [optional] [readonly] 
 **Tags** | Pointer to [**[]Tag**](Tag.md) | List of tags. | [optional] [readonly] 
 **MaxActiveTasks** | Pointer to **NullableInt32** | Maximum number of active tasks that can be run on the DAG  *New in version 2.3.0*  | [optional] [readonly] 
@@ -572,6 +572,16 @@ SetScheduleInterval sets ScheduleInterval field to given value.
 
 HasScheduleInterval returns a boolean if a field has been set.
 
+### SetScheduleIntervalNil
+
+`func (o *DAGDetail) SetScheduleIntervalNil(b bool)`
+
+ SetScheduleIntervalNil sets the value for ScheduleInterval to be an explicit nil
+
+### UnsetScheduleInterval
+`func (o *DAGDetail) UnsetScheduleInterval()`
+
+UnsetScheduleInterval ensures that no value is present for ScheduleInterval, not even an explicit nil
 ### GetTimetableDescription
 
 `func (o *DAGDetail) GetTimetableDescription() string`

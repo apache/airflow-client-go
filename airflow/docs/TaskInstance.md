@@ -32,19 +32,23 @@ Name | Type | Description | Notes
 **Duration** | Pointer to **NullableFloat32** |  | [optional] 
 **State** | Pointer to [**TaskState**](TaskState.md) |  | [optional] 
 **TryNumber** | Pointer to **int32** |  | [optional] 
+**MapIndex** | Pointer to **int32** |  | [optional] 
 **MaxTries** | Pointer to **int32** |  | [optional] 
 **Hostname** | Pointer to **string** |  | [optional] 
 **Unixname** | Pointer to **string** |  | [optional] 
 **Pool** | Pointer to **string** |  | [optional] 
 **PoolSlots** | Pointer to **int32** |  | [optional] 
-**Queue** | Pointer to **string** |  | [optional] 
-**PriorityWeight** | Pointer to **int32** |  | [optional] 
+**Queue** | Pointer to **NullableString** |  | [optional] 
+**PriorityWeight** | Pointer to **NullableInt32** |  | [optional] 
 **Operator** | Pointer to **NullableString** | *Changed in version 2.1.1*&amp;#58; Field becomes nullable.  | [optional] 
 **QueuedWhen** | Pointer to **NullableString** |  | [optional] 
 **Pid** | Pointer to **NullableInt32** |  | [optional] 
 **ExecutorConfig** | Pointer to **string** |  | [optional] 
-**SlaMiss** | Pointer to [**SLAMiss**](SLAMiss.md) |  | [optional] 
+**SlaMiss** | Pointer to [**NullableSLAMiss**](SLAMiss.md) |  | [optional] 
 **RenderedFields** | Pointer to **map[string]interface{}** | JSON object describing rendered fields.  *New in version 2.3.0*  | [optional] 
+**Trigger** | Pointer to [**Trigger**](Trigger.md) |  | [optional] 
+**TriggererJob** | Pointer to [**Job**](Job.md) |  | [optional] 
+**Note** | Pointer to **NullableString** | Contains manually entered notes by the user about the TaskInstance.  *New in version 2.5.0*  | [optional] 
 
 ## Methods
 
@@ -320,6 +324,31 @@ SetTryNumber sets TryNumber field to given value.
 
 HasTryNumber returns a boolean if a field has been set.
 
+### GetMapIndex
+
+`func (o *TaskInstance) GetMapIndex() int32`
+
+GetMapIndex returns the MapIndex field if non-nil, zero value otherwise.
+
+### GetMapIndexOk
+
+`func (o *TaskInstance) GetMapIndexOk() (*int32, bool)`
+
+GetMapIndexOk returns a tuple with the MapIndex field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMapIndex
+
+`func (o *TaskInstance) SetMapIndex(v int32)`
+
+SetMapIndex sets MapIndex field to given value.
+
+### HasMapIndex
+
+`func (o *TaskInstance) HasMapIndex() bool`
+
+HasMapIndex returns a boolean if a field has been set.
+
 ### GetMaxTries
 
 `func (o *TaskInstance) GetMaxTries() int32`
@@ -470,6 +499,16 @@ SetQueue sets Queue field to given value.
 
 HasQueue returns a boolean if a field has been set.
 
+### SetQueueNil
+
+`func (o *TaskInstance) SetQueueNil(b bool)`
+
+ SetQueueNil sets the value for Queue to be an explicit nil
+
+### UnsetQueue
+`func (o *TaskInstance) UnsetQueue()`
+
+UnsetQueue ensures that no value is present for Queue, not even an explicit nil
 ### GetPriorityWeight
 
 `func (o *TaskInstance) GetPriorityWeight() int32`
@@ -495,6 +534,16 @@ SetPriorityWeight sets PriorityWeight field to given value.
 
 HasPriorityWeight returns a boolean if a field has been set.
 
+### SetPriorityWeightNil
+
+`func (o *TaskInstance) SetPriorityWeightNil(b bool)`
+
+ SetPriorityWeightNil sets the value for PriorityWeight to be an explicit nil
+
+### UnsetPriorityWeight
+`func (o *TaskInstance) UnsetPriorityWeight()`
+
+UnsetPriorityWeight ensures that no value is present for PriorityWeight, not even an explicit nil
 ### GetOperator
 
 `func (o *TaskInstance) GetOperator() string`
@@ -650,6 +699,16 @@ SetSlaMiss sets SlaMiss field to given value.
 
 HasSlaMiss returns a boolean if a field has been set.
 
+### SetSlaMissNil
+
+`func (o *TaskInstance) SetSlaMissNil(b bool)`
+
+ SetSlaMissNil sets the value for SlaMiss to be an explicit nil
+
+### UnsetSlaMiss
+`func (o *TaskInstance) UnsetSlaMiss()`
+
+UnsetSlaMiss ensures that no value is present for SlaMiss, not even an explicit nil
 ### GetRenderedFields
 
 `func (o *TaskInstance) GetRenderedFields() map[string]interface{}`
@@ -675,6 +734,91 @@ SetRenderedFields sets RenderedFields field to given value.
 
 HasRenderedFields returns a boolean if a field has been set.
 
+### GetTrigger
+
+`func (o *TaskInstance) GetTrigger() Trigger`
+
+GetTrigger returns the Trigger field if non-nil, zero value otherwise.
+
+### GetTriggerOk
+
+`func (o *TaskInstance) GetTriggerOk() (*Trigger, bool)`
+
+GetTriggerOk returns a tuple with the Trigger field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTrigger
+
+`func (o *TaskInstance) SetTrigger(v Trigger)`
+
+SetTrigger sets Trigger field to given value.
+
+### HasTrigger
+
+`func (o *TaskInstance) HasTrigger() bool`
+
+HasTrigger returns a boolean if a field has been set.
+
+### GetTriggererJob
+
+`func (o *TaskInstance) GetTriggererJob() Job`
+
+GetTriggererJob returns the TriggererJob field if non-nil, zero value otherwise.
+
+### GetTriggererJobOk
+
+`func (o *TaskInstance) GetTriggererJobOk() (*Job, bool)`
+
+GetTriggererJobOk returns a tuple with the TriggererJob field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTriggererJob
+
+`func (o *TaskInstance) SetTriggererJob(v Job)`
+
+SetTriggererJob sets TriggererJob field to given value.
+
+### HasTriggererJob
+
+`func (o *TaskInstance) HasTriggererJob() bool`
+
+HasTriggererJob returns a boolean if a field has been set.
+
+### GetNote
+
+`func (o *TaskInstance) GetNote() string`
+
+GetNote returns the Note field if non-nil, zero value otherwise.
+
+### GetNoteOk
+
+`func (o *TaskInstance) GetNoteOk() (*string, bool)`
+
+GetNoteOk returns a tuple with the Note field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNote
+
+`func (o *TaskInstance) SetNote(v string)`
+
+SetNote sets Note field to given value.
+
+### HasNote
+
+`func (o *TaskInstance) HasNote() bool`
+
+HasNote returns a boolean if a field has been set.
+
+### SetNoteNil
+
+`func (o *TaskInstance) SetNoteNil(b bool)`
+
+ SetNoteNil sets the value for Note to be an explicit nil
+
+### UnsetNote
+`func (o *TaskInstance) UnsetNote()`
+
+UnsetNote ensures that no value is present for Note, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
