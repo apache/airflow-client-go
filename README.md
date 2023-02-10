@@ -23,6 +23,13 @@ Go Airflow OpenAPI client generated from [openapi
 spec](https://github.com/apache/airflow/blob/master/clients/gen/go.sh).
 
 
+Install
+-------
+
+```
+go get github.com/apache/airflow-client-go/airflow@latest
+```
+
 Usage
 -----
 
