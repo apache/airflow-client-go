@@ -24,7 +24,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Users** | Pointer to [**[]UserCollectionItem**](UserCollectionItem.md) |  | [optional] 
-**TotalEntries** | Pointer to **int32** | Count of objects in the current result set. | [optional] 
+**TotalEntries** | Pointer to **int32** | Count of total objects in the current result set before pagination parameters (limit, offset) are applied.  | [optional] 
 
 ## Methods
 
