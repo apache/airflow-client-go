@@ -52,6 +52,7 @@ docs/DAGRun.md
 docs/DAGRunApi.md
 docs/DAGRunCollection.md
 docs/DAGRunCollectionAllOf.md
+docs/DagProcessorStatus.md
 docs/DagScheduleDatasetReference.md
 docs/DagState.md
 docs/DagWarning.md
@@ -123,6 +124,7 @@ docs/TaskState.md
 docs/TimeDelta.md
 docs/Trigger.md
 docs/TriggerRule.md
+docs/TriggererStatus.md
 docs/UpdateDagRunState.md
 docs/UpdateTaskInstance.md
 docs/UpdateTaskInstancesState.md
@@ -173,6 +175,7 @@ model_dag_collection.go
 model_dag_collection_all_of.go
 model_dag_detail.go
 model_dag_detail_all_of.go
+model_dag_processor_status.go
 model_dag_run.go
 model_dag_run_collection.go
 model_dag_run_collection_all_of.go
@@ -236,6 +239,7 @@ model_task_state.go
 model_time_delta.go
 model_trigger.go
 model_trigger_rule.go
+model_triggerer_status.go
 model_update_dag_run_state.go
 model_update_task_instance.go
 model_update_task_instances_state.go

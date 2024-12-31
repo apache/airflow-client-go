@@ -24,6 +24,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DagIds** | Pointer to **[]string** | Return objects with specific DAG IDs. The value can be repeated to retrieve multiple matching values (OR condition). | [optional] 
+**DagRunIds** | Pointer to **[]string** | Return objects with specific DAG Run IDs. The value can be repeated to retrieve multiple matching values (OR condition). *New in version 2.7.1* | [optional] 
+**TaskIds** | Pointer to **[]string** | Return objects with specific task IDs. The value can be repeated to retrieve multiple matching values (OR condition). *New in version 2.7.1* | [optional] 
 **ExecutionDateGte** | Pointer to **time.Time** | Returns objects greater or equal to the specified date.  This can be combined with execution_date_lte parameter to receive only the selected period.  | [optional] 
 **ExecutionDateLte** | Pointer to **time.Time** | Returns objects less than or equal to the specified date.  This can be combined with execution_date_gte parameter to receive only the selected period.  | [optional] 
 **StartDateGte** | Pointer to **time.Time** | Returns objects greater or equal the specified date.  This can be combined with start_date_lte parameter to receive only the selected period.  | [optional] 
@@ -79,6 +81,56 @@ SetDagIds sets DagIds field to given value.
 `func (o *ListTaskInstanceForm) HasDagIds() bool`
 
 HasDagIds returns a boolean if a field has been set.
+
+### GetDagRunIds
+
+`func (o *ListTaskInstanceForm) GetDagRunIds() []string`
+
+GetDagRunIds returns the DagRunIds field if non-nil, zero value otherwise.
+
+### GetDagRunIdsOk
+
+`func (o *ListTaskInstanceForm) GetDagRunIdsOk() (*[]string, bool)`
+
+GetDagRunIdsOk returns a tuple with the DagRunIds field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDagRunIds
+
+`func (o *ListTaskInstanceForm) SetDagRunIds(v []string)`
+
+SetDagRunIds sets DagRunIds field to given value.
+
+### HasDagRunIds
+
+`func (o *ListTaskInstanceForm) HasDagRunIds() bool`
+
+HasDagRunIds returns a boolean if a field has been set.
+
+### GetTaskIds
+
+`func (o *ListTaskInstanceForm) GetTaskIds() []string`
+
+GetTaskIds returns the TaskIds field if non-nil, zero value otherwise.
+
+### GetTaskIdsOk
+
+`func (o *ListTaskInstanceForm) GetTaskIdsOk() (*[]string, bool)`
+
+GetTaskIdsOk returns a tuple with the TaskIds field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTaskIds
+
+`func (o *ListTaskInstanceForm) SetTaskIds(v []string)`
+
+SetTaskIds sets TaskIds field to given value.
+
+### HasTaskIds
+
+`func (o *ListTaskInstanceForm) HasTaskIds() bool`
+
+HasTaskIds returns a boolean if a field has been set.
 
 ### GetExecutionDateGte
 

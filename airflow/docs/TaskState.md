@@ -22,6 +22,8 @@
 ## Enum
 
 
+* `NULL` (value: `"null"`)
+
 * `SUCCESS` (value: `"success"`)
 
 * `RUNNING` (value: `"running"`)

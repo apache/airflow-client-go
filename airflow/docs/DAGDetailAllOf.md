@@ -28,7 +28,7 @@ Name | Type | Description | Notes
 **Orientation** | Pointer to **string** |  | [optional] [readonly] 
 **Concurrency** | Pointer to **float32** |  | [optional] [readonly] 
 **StartDate** | Pointer to **NullableTime** | The DAG&#39;s start date.  *Changed in version 2.0.1*&amp;#58; Field becomes nullable.  | [optional] [readonly] 
-**DagRunTimeout** | Pointer to [**TimeDelta**](TimeDelta.md) |  | [optional] 
+**DagRunTimeout** | Pointer to [**NullableTimeDelta**](TimeDelta.md) |  | [optional] 
 **DocMd** | Pointer to **NullableString** |  | [optional] [readonly] 
 **DefaultView** | Pointer to **string** |  | [optional] [readonly] 
 **Params** | Pointer to **map[string]interface{}** | User-specified DAG params.  *New in version 2.0.1*  | [optional] [readonly] 
@@ -217,6 +217,16 @@ SetDagRunTimeout sets DagRunTimeout field to given value.
 
 HasDagRunTimeout returns a boolean if a field has been set.
 
+### SetDagRunTimeoutNil
+
+`func (o *DAGDetailAllOf) SetDagRunTimeoutNil(b bool)`
+
+ SetDagRunTimeoutNil sets the value for DagRunTimeout to be an explicit nil
+
+### UnsetDagRunTimeout
+`func (o *DAGDetailAllOf) UnsetDagRunTimeout()`
+
+UnsetDagRunTimeout ensures that no value is present for DagRunTimeout, not even an explicit nil
 ### GetDocMd
 
 `func (o *DAGDetailAllOf) GetDocMd() string`

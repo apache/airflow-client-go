@@ -30,7 +30,7 @@ Name | Type | Description | Notes
 **StartDate** | Pointer to **NullableString** |  | [optional] 
 **EndDate** | Pointer to **NullableString** |  | [optional] 
 **Duration** | Pointer to **NullableFloat32** |  | [optional] 
-**State** | Pointer to [**TaskState**](TaskState.md) |  | [optional] 
+**State** | Pointer to [**NullableTaskState**](TaskState.md) |  | [optional] 
 **TryNumber** | Pointer to **int32** |  | [optional] 
 **MapIndex** | Pointer to **int32** |  | [optional] 
 **MaxTries** | Pointer to **int32** |  | [optional] 
@@ -46,8 +46,8 @@ Name | Type | Description | Notes
 **ExecutorConfig** | Pointer to **string** |  | [optional] 
 **SlaMiss** | Pointer to [**NullableSLAMiss**](SLAMiss.md) |  | [optional] 
 **RenderedFields** | Pointer to **map[string]interface{}** | JSON object describing rendered fields.  *New in version 2.3.0*  | [optional] 
-**Trigger** | Pointer to [**Trigger**](Trigger.md) |  | [optional] 
-**TriggererJob** | Pointer to [**Job**](Job.md) |  | [optional] 
+**Trigger** | Pointer to [**NullableTrigger**](Trigger.md) |  | [optional] 
+**TriggererJob** | Pointer to [**NullableJob**](Job.md) |  | [optional] 
 **Note** | Pointer to **NullableString** | Contains manually entered notes by the user about the TaskInstance.  *New in version 2.5.0*  | [optional] 
 
 ## Methods
@@ -299,6 +299,16 @@ SetState sets State field to given value.
 
 HasState returns a boolean if a field has been set.
 
+### SetStateNil
+
+`func (o *TaskInstance) SetStateNil(b bool)`
+
+ SetStateNil sets the value for State to be an explicit nil
+
+### UnsetState
+`func (o *TaskInstance) UnsetState()`
+
+UnsetState ensures that no value is present for State, not even an explicit nil
 ### GetTryNumber
 
 `func (o *TaskInstance) GetTryNumber() int32`
@@ -759,6 +769,16 @@ SetTrigger sets Trigger field to given value.
 
 HasTrigger returns a boolean if a field has been set.
 
+### SetTriggerNil
+
+`func (o *TaskInstance) SetTriggerNil(b bool)`
+
+ SetTriggerNil sets the value for Trigger to be an explicit nil
+
+### UnsetTrigger
+`func (o *TaskInstance) UnsetTrigger()`
+
+UnsetTrigger ensures that no value is present for Trigger, not even an explicit nil
 ### GetTriggererJob
 
 `func (o *TaskInstance) GetTriggererJob() Job`
@@ -784,6 +804,16 @@ SetTriggererJob sets TriggererJob field to given value.
 
 HasTriggererJob returns a boolean if a field has been set.
 
+### SetTriggererJobNil
+
+`func (o *TaskInstance) SetTriggererJobNil(b bool)`
+
+ SetTriggererJobNil sets the value for TriggererJob to be an explicit nil
+
+### UnsetTriggererJob
+`func (o *TaskInstance) UnsetTriggererJob()`
+
+UnsetTriggererJob ensures that no value is present for TriggererJob, not even an explicit nil
 ### GetNote
 
 `func (o *TaskInstance) GetNote() string`

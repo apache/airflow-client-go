@@ -17,9 +17,10 @@
  under the License.
  -->
 
-# v2.5.0
 
-Apache Airflow API version: 2.5.x
+# v2.7.0
+
+Apache Airflow API version: 2.7.x
 
 ### Major changes:
 
@@ -31,11 +32,4 @@ Apache Airflow API version: 2.5.x
 
 ### New API supported:
 
-- GET /datasets/events | Get dataset events
-- GET /datasets | Get datasets
-- GET /datasets/{id} | Get a dataset
-- POST /dags/{dag_id}/dagRuns/{dag_run_id}/clear | Clear a dagrun endpoint
-- GET /dags/{dag_id}/dagRuns/{dag_run_id}/upstreamDatasetEvents | Get dataset events for a DAG run
-- PATCH /dags | Update DAGs
-- GET /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/{map_index} | Get a mapped task instance
-- GET /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/listMapped | List mapped task instances
+- Enable pools to consider deferred tasks

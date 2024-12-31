@@ -23,8 +23,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Status** | Pointer to [**HealthStatus**](HealthStatus.md) |  | [optional] 
-**LatestSchedulerHeartbeat** | Pointer to **NullableString** | The time the scheduler last do a heartbeat. | [optional] [readonly] 
+**Status** | Pointer to [**NullableHealthStatus**](HealthStatus.md) |  | [optional] 
+**LatestSchedulerHeartbeat** | Pointer to **NullableString** | The time the scheduler last did a heartbeat. | [optional] [readonly] 
 
 ## Methods
 
@@ -70,6 +70,16 @@ SetStatus sets Status field to given value.
 
 HasStatus returns a boolean if a field has been set.
 
+### SetStatusNil
+
+`func (o *SchedulerStatus) SetStatusNil(b bool)`
+
+ SetStatusNil sets the value for Status to be an explicit nil
+
+### UnsetStatus
+`func (o *SchedulerStatus) UnsetStatus()`
+
+UnsetStatus ensures that no value is present for Status, not even an explicit nil
 ### GetLatestSchedulerHeartbeat
 
 `func (o *SchedulerStatus) GetLatestSchedulerHeartbeat() string`

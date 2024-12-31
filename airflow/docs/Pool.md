@@ -25,11 +25,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** | The name of pool. | [optional] 
 **Slots** | Pointer to **int32** | The maximum number of slots that can be assigned to tasks. One job may occupy one or more slots.  | [optional] 
-**OccupiedSlots** | Pointer to **int32** | The number of slots used by running/queued tasks at the moment. | [optional] [readonly] 
-**UsedSlots** | Pointer to **int32** | The number of slots used by running tasks at the moment. | [optional] [readonly] 
+**OccupiedSlots** | Pointer to **int32** | The number of slots used by running/queued tasks at the moment. May include deferred tasks if &#39;include_deferred&#39; is set to true. | [optional] [readonly] 
+**RunningSlots** | Pointer to **int32** | The number of slots used by running tasks at the moment. | [optional] [readonly] 
 **QueuedSlots** | Pointer to **int32** | The number of slots used by queued tasks at the moment. | [optional] [readonly] 
 **OpenSlots** | Pointer to **int32** | The number of free slots at the moment. | [optional] [readonly] 
+**ScheduledSlots** | Pointer to **int32** | The number of slots used by scheduled tasks at the moment. | [optional] [readonly] 
+**DeferredSlots** | Pointer to **int32** | The number of slots used by deferred tasks at the moment. Relevant if &#39;include_deferred&#39; is set to true.  *New in version 2.7.0*  | [optional] [readonly] 
 **Description** | Pointer to **NullableString** | The description of the pool.  *New in version 2.3.0*  | [optional] 
+**IncludeDeferred** | Pointer to **bool** | If set to true, deferred tasks are considered when calculating open pool slots.  *New in version 2.7.0*  | [optional] 
 
 ## Methods
 
@@ -125,30 +128,30 @@ SetOccupiedSlots sets OccupiedSlots field to given value.
 
 HasOccupiedSlots returns a boolean if a field has been set.
 
-### GetUsedSlots
+### GetRunningSlots
 
-`func (o *Pool) GetUsedSlots() int32`
+`func (o *Pool) GetRunningSlots() int32`
 
-GetUsedSlots returns the UsedSlots field if non-nil, zero value otherwise.
+GetRunningSlots returns the RunningSlots field if non-nil, zero value otherwise.
 
-### GetUsedSlotsOk
+### GetRunningSlotsOk
 
-`func (o *Pool) GetUsedSlotsOk() (*int32, bool)`
+`func (o *Pool) GetRunningSlotsOk() (*int32, bool)`
 
-GetUsedSlotsOk returns a tuple with the UsedSlots field if it's non-nil, zero value otherwise
+GetRunningSlotsOk returns a tuple with the RunningSlots field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetUsedSlots
+### SetRunningSlots
 
-`func (o *Pool) SetUsedSlots(v int32)`
+`func (o *Pool) SetRunningSlots(v int32)`
 
-SetUsedSlots sets UsedSlots field to given value.
+SetRunningSlots sets RunningSlots field to given value.
 
-### HasUsedSlots
+### HasRunningSlots
 
-`func (o *Pool) HasUsedSlots() bool`
+`func (o *Pool) HasRunningSlots() bool`
 
-HasUsedSlots returns a boolean if a field has been set.
+HasRunningSlots returns a boolean if a field has been set.
 
 ### GetQueuedSlots
 
@@ -200,6 +203,56 @@ SetOpenSlots sets OpenSlots field to given value.
 
 HasOpenSlots returns a boolean if a field has been set.
 
+### GetScheduledSlots
+
+`func (o *Pool) GetScheduledSlots() int32`
+
+GetScheduledSlots returns the ScheduledSlots field if non-nil, zero value otherwise.
+
+### GetScheduledSlotsOk
+
+`func (o *Pool) GetScheduledSlotsOk() (*int32, bool)`
+
+GetScheduledSlotsOk returns a tuple with the ScheduledSlots field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetScheduledSlots
+
+`func (o *Pool) SetScheduledSlots(v int32)`
+
+SetScheduledSlots sets ScheduledSlots field to given value.
+
+### HasScheduledSlots
+
+`func (o *Pool) HasScheduledSlots() bool`
+
+HasScheduledSlots returns a boolean if a field has been set.
+
+### GetDeferredSlots
+
+`func (o *Pool) GetDeferredSlots() int32`
+
+GetDeferredSlots returns the DeferredSlots field if non-nil, zero value otherwise.
+
+### GetDeferredSlotsOk
+
+`func (o *Pool) GetDeferredSlotsOk() (*int32, bool)`
+
+GetDeferredSlotsOk returns a tuple with the DeferredSlots field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDeferredSlots
+
+`func (o *Pool) SetDeferredSlots(v int32)`
+
+SetDeferredSlots sets DeferredSlots field to given value.
+
+### HasDeferredSlots
+
+`func (o *Pool) HasDeferredSlots() bool`
+
+HasDeferredSlots returns a boolean if a field has been set.
+
 ### GetDescription
 
 `func (o *Pool) GetDescription() string`
@@ -235,6 +288,31 @@ HasDescription returns a boolean if a field has been set.
 `func (o *Pool) UnsetDescription()`
 
 UnsetDescription ensures that no value is present for Description, not even an explicit nil
+### GetIncludeDeferred
+
+`func (o *Pool) GetIncludeDeferred() bool`
+
+GetIncludeDeferred returns the IncludeDeferred field if non-nil, zero value otherwise.
+
+### GetIncludeDeferredOk
+
+`func (o *Pool) GetIncludeDeferredOk() (*bool, bool)`
+
+GetIncludeDeferredOk returns a tuple with the IncludeDeferred field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIncludeDeferred
+
+`func (o *Pool) SetIncludeDeferred(v bool)`
+
+SetIncludeDeferred sets IncludeDeferred field to given value.
+
+### HasIncludeDeferred
+
+`func (o *Pool) HasIncludeDeferred() bool`
+
+HasIncludeDeferred returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -37,8 +37,8 @@ Name | Type | Description | Notes
 **Queue** | Pointer to **NullableString** |  | [optional] [readonly] 
 **Pool** | Pointer to **string** |  | [optional] [readonly] 
 **PoolSlots** | Pointer to **float32** |  | [optional] [readonly] 
-**ExecutionTimeout** | Pointer to [**TimeDelta**](TimeDelta.md) |  | [optional] 
-**RetryDelay** | Pointer to [**TimeDelta**](TimeDelta.md) |  | [optional] 
+**ExecutionTimeout** | Pointer to [**NullableTimeDelta**](TimeDelta.md) |  | [optional] 
+**RetryDelay** | Pointer to [**NullableTimeDelta**](TimeDelta.md) |  | [optional] 
 **RetryExponentialBackoff** | Pointer to **bool** |  | [optional] [readonly] 
 **PriorityWeight** | Pointer to **float32** |  | [optional] [readonly] 
 **WeightRule** | Pointer to [**WeightRule**](WeightRule.md) |  | [optional] 
@@ -462,6 +462,16 @@ SetExecutionTimeout sets ExecutionTimeout field to given value.
 
 HasExecutionTimeout returns a boolean if a field has been set.
 
+### SetExecutionTimeoutNil
+
+`func (o *Task) SetExecutionTimeoutNil(b bool)`
+
+ SetExecutionTimeoutNil sets the value for ExecutionTimeout to be an explicit nil
+
+### UnsetExecutionTimeout
+`func (o *Task) UnsetExecutionTimeout()`
+
+UnsetExecutionTimeout ensures that no value is present for ExecutionTimeout, not even an explicit nil
 ### GetRetryDelay
 
 `func (o *Task) GetRetryDelay() TimeDelta`
@@ -487,6 +497,16 @@ SetRetryDelay sets RetryDelay field to given value.
 
 HasRetryDelay returns a boolean if a field has been set.
 
+### SetRetryDelayNil
+
+`func (o *Task) SetRetryDelayNil(b bool)`
+
+ SetRetryDelayNil sets the value for RetryDelay to be an explicit nil
+
+### UnsetRetryDelay
+`func (o *Task) UnsetRetryDelay()`
+
+UnsetRetryDelay ensures that no value is present for RetryDelay, not even an explicit nil
 ### GetRetryExponentialBackoff
 
 `func (o *Task) GetRetryExponentialBackoff() bool`

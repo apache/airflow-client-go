@@ -34,7 +34,7 @@ Name | Type | Description | Notes
 **LastSchedulingDecision** | Pointer to **NullableTime** |  | [optional] [readonly] 
 **RunType** | Pointer to **string** |  | [optional] [readonly] 
 **State** | Pointer to [**DagState**](DagState.md) |  | [optional] 
-**ExternalTrigger** | Pointer to **bool** |  | [optional] [readonly] [default to true]
+**ExternalTrigger** | Pointer to **bool** |  | [optional] [readonly] 
 **Conf** | Pointer to **map[string]interface{}** | JSON object describing additional configuration parameters.  The value of this field can be set only when creating the object. If you try to modify the field of an existing object, the request fails with an BAD_REQUEST error.  | [optional] 
 **Note** | Pointer to **NullableString** | Contains manually entered notes by the user about the DagRun.  *New in version 2.5.0*  | [optional] 
 

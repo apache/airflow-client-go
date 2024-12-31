@@ -26,6 +26,7 @@ Name | Type | Description | Notes
 **Key** | Pointer to **string** |  | [optional] 
 **Timestamp** | Pointer to **string** |  | [optional] 
 **ExecutionDate** | Pointer to **string** |  | [optional] 
+**MapIndex** | Pointer to **int32** |  | [optional] 
 **TaskId** | Pointer to **string** |  | [optional] 
 **DagId** | Pointer to **string** |  | [optional] 
 
@@ -122,6 +123,31 @@ SetExecutionDate sets ExecutionDate field to given value.
 `func (o *XComCollectionItem) HasExecutionDate() bool`
 
 HasExecutionDate returns a boolean if a field has been set.
+
+### GetMapIndex
+
+`func (o *XComCollectionItem) GetMapIndex() int32`
+
+GetMapIndex returns the MapIndex field if non-nil, zero value otherwise.
+
+### GetMapIndexOk
+
+`func (o *XComCollectionItem) GetMapIndexOk() (*int32, bool)`
+
+GetMapIndexOk returns a tuple with the MapIndex field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMapIndex
+
+`func (o *XComCollectionItem) SetMapIndex(v int32)`
+
+SetMapIndex sets MapIndex field to given value.
+
+### HasMapIndex
+
+`func (o *XComCollectionItem) HasMapIndex() bool`
+
+HasMapIndex returns a boolean if a field has been set.
 
 ### GetTaskId
 

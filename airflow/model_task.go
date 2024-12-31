@@ -18,9 +18,9 @@
 /*
 Airflow API (Stable)
 
-# Overview  To facilitate management, Apache Airflow supports a range of REST API endpoints across its objects. This section provides an overview of the API design, methods, and supported use cases.  Most of the endpoints accept `JSON` as input and return `JSON` responses. This means that you must usually add the following headers to your request: ``` Content-type: application/json Accept: application/json ```  ## Resources  The term `resource` refers to a single type of object in the Airflow metadata. An API is broken up by its endpoint's corresponding resource. The name of a resource is typically plural and expressed in camelCase. Example: `dagRuns`.  Resource names are used as part of endpoint URLs, as well as in API parameters and responses.  ## CRUD Operations  The platform supports **C**reate, **R**ead, **U**pdate, and **D**elete operations on most resources. You can review the standards for these operations and their standard parameters below.  Some endpoints have special behavior as exceptions.  ### Create  To create a resource, you typically submit an HTTP `POST` request with the resource's required metadata in the request body. The response returns a `201 Created` response code upon success with the resource's metadata, including its internal `id`, in the response body.  ### Read  The HTTP `GET` request can be used to read a resource or to list a number of resources.  A resource's `id` can be submitted in the request parameters to read a specific resource. The response usually returns a `200 OK` response code upon success, with the resource's metadata in the response body.  If a `GET` request does not include a specific resource `id`, it is treated as a list request. The response usually returns a `200 OK` response code upon success, with an object containing a list of resources' metadata in the response body.  When reading resources, some common query parameters are usually available. e.g.: ``` v1/connections?limit=25&offset=25 ```  |Query Parameter|Type|Description| |---------------|----|-----------| |limit|integer|Maximum number of objects to fetch. Usually 25 by default| |offset|integer|Offset after which to start returning objects. For use with limit query parameter.|  ### Update  Updating a resource requires the resource `id`, and is typically done using an HTTP `PATCH` request, with the fields to modify in the request body. The response usually returns a `200 OK` response code upon success, with information about the modified resource in the response body.  ### Delete  Deleting a resource requires the resource `id` and is typically executing via an HTTP `DELETE` request. The response usually returns a `204 No Content` response code upon success.  ## Conventions  - Resource names are plural and expressed in camelCase. - Names are consistent between URL parameter name and field name.  - Field names are in snake_case. ```json {     \"name\": \"string\",     \"slots\": 0,     \"occupied_slots\": 0,     \"used_slots\": 0,     \"queued_slots\": 0,     \"open_slots\": 0 } ```  ### Update Mask  Update mask is available as a query parameter in patch endpoints. It is used to notify the API which fields you want to update. Using `update_mask` makes it easier to update objects by helping the server know which fields to update in an object instead of updating all fields. The update request ignores any fields that aren't specified in the field mask, leaving them with their current values.  Example: ```   resource = request.get('/resource/my-id').json()   resource['my_field'] = 'new-value'   request.patch('/resource/my-id?update_mask=my_field', data=json.dumps(resource)) ```  ## Versioning and Endpoint Lifecycle  - API versioning is not synchronized to specific releases of the Apache Airflow. - APIs are designed to be backward compatible. - Any changes to the API will first go through a deprecation phase.  # Trying the API  You can use a third party client, such as [curl](https://curl.haxx.se/), [HTTPie](https://httpie.org/), [Postman](https://www.postman.com/) or [the Insomnia rest client](https://insomnia.rest/) to test the Apache Airflow API.  Note that you will need to pass credentials data.  For e.g., here is how to pause a DAG with [curl](https://curl.haxx.se/), when basic authorization is used: ```bash curl -X PATCH 'https://example.com/api/v1/dags/{dag_id}?update_mask=is_paused' \\ -H 'Content-Type: application/json' \\ --user \"username:password\" \\ -d '{     \"is_paused\": true }' ```  Using a graphical tool such as [Postman](https://www.postman.com/) or [Insomnia](https://insomnia.rest/), it is possible to import the API specifications directly:  1. Download the API specification by clicking the **Download** button at top of this document 2. Import the JSON specification in the graphical tool of your choice.   - In *Postman*, you can click the **import** button at the top   - With *Insomnia*, you can just drag-and-drop the file on the UI  Note that with *Postman*, you can also generate code snippets by selecting a request and clicking on the **Code** button.  ## Enabling CORS  [Cross-origin resource sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) is a browser security feature that restricts HTTP requests that are initiated from scripts running in the browser.  For details on enabling/configuring CORS, see [Enabling CORS](https://airflow.apache.org/docs/apache-airflow/stable/security/api.html).  # Authentication  To be able to meet the requirements of many organizations, Airflow supports many authentication methods, and it is even possible to add your own method.  If you want to check which auth backend is currently set, you can use `airflow config get-value api auth_backends` command as in the example below. ```bash $ airflow config get-value api auth_backends airflow.api.auth.backend.basic_auth ``` The default is to deny all requests.  For details on configuring the authentication, see [API Authorization](https://airflow.apache.org/docs/apache-airflow/stable/security/api.html).  # Errors  We follow the error response format proposed in [RFC 7807](https://tools.ietf.org/html/rfc7807) also known as Problem Details for HTTP APIs. As with our normal API responses, your client must be prepared to gracefully handle additional members of the response.  ## Unauthenticated  This indicates that the request has not been applied because it lacks valid authentication credentials for the target resource. Please check that you have valid credentials.  ## PermissionDenied  This response means that the server understood the request but refuses to authorize it because it lacks sufficient rights to the resource. It happens when you do not have the necessary permission to execute the action you performed. You need to get the appropriate permissions in other to resolve this error.  ## BadRequest  This response means that the server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing). To resolve this, please ensure that your syntax is correct.  ## NotFound  This client error response indicates that the server cannot find the requested resource.  ## MethodNotAllowed  Indicates that the request method is known by the server but is not supported by the target resource.  ## NotAcceptable  The target resource does not have a current representation that would be acceptable to the user agent, according to the proactive negotiation header fields received in the request, and the server is unwilling to supply a default representation.  ## AlreadyExists  The request could not be completed due to a conflict with the current state of the target resource, e.g. the resource it tries to create already exists.  ## Unknown  This means that the server encountered an unexpected condition that prevented it from fulfilling the request. 
+# Overview  To facilitate management, Apache Airflow supports a range of REST API endpoints across its objects. This section provides an overview of the API design, methods, and supported use cases.  Most of the endpoints accept `JSON` as input and return `JSON` responses. This means that you must usually add the following headers to your request: ``` Content-type: application/json Accept: application/json ```  ## Resources  The term `resource` refers to a single type of object in the Airflow metadata. An API is broken up by its endpoint's corresponding resource. The name of a resource is typically plural and expressed in camelCase. Example: `dagRuns`.  Resource names are used as part of endpoint URLs, as well as in API parameters and responses.  ## CRUD Operations  The platform supports **C**reate, **R**ead, **U**pdate, and **D**elete operations on most resources. You can review the standards for these operations and their standard parameters below.  Some endpoints have special behavior as exceptions.  ### Create  To create a resource, you typically submit an HTTP `POST` request with the resource's required metadata in the request body. The response returns a `201 Created` response code upon success with the resource's metadata, including its internal `id`, in the response body.  ### Read  The HTTP `GET` request can be used to read a resource or to list a number of resources.  A resource's `id` can be submitted in the request parameters to read a specific resource. The response usually returns a `200 OK` response code upon success, with the resource's metadata in the response body.  If a `GET` request does not include a specific resource `id`, it is treated as a list request. The response usually returns a `200 OK` response code upon success, with an object containing a list of resources' metadata in the response body.  When reading resources, some common query parameters are usually available. e.g.: ``` v1/connections?limit=25&offset=25 ```  |Query Parameter|Type|Description| |---------------|----|-----------| |limit|integer|Maximum number of objects to fetch. Usually 25 by default| |offset|integer|Offset after which to start returning objects. For use with limit query parameter.|  ### Update  Updating a resource requires the resource `id`, and is typically done using an HTTP `PATCH` request, with the fields to modify in the request body. The response usually returns a `200 OK` response code upon success, with information about the modified resource in the response body.  ### Delete  Deleting a resource requires the resource `id` and is typically executed via an HTTP `DELETE` request. The response usually returns a `204 No Content` response code upon success.  ## Conventions  - Resource names are plural and expressed in camelCase. - Names are consistent between URL parameter name and field name.  - Field names are in snake_case. ```json {     \"description\": \"string\",     \"name\": \"string\",     \"occupied_slots\": 0,     \"open_slots\": 0     \"queued_slots\": 0,     \"running_slots\": 0,     \"scheduled_slots\": 0,     \"slots\": 0, } ```  ### Update Mask  Update mask is available as a query parameter in patch endpoints. It is used to notify the API which fields you want to update. Using `update_mask` makes it easier to update objects by helping the server know which fields to update in an object instead of updating all fields. The update request ignores any fields that aren't specified in the field mask, leaving them with their current values.  Example: ```   resource = request.get('/resource/my-id').json()   resource['my_field'] = 'new-value'   request.patch('/resource/my-id?update_mask=my_field', data=json.dumps(resource)) ```  ## Versioning and Endpoint Lifecycle  - API versioning is not synchronized to specific releases of the Apache Airflow. - APIs are designed to be backward compatible. - Any changes to the API will first go through a deprecation phase.  # Trying the API  You can use a third party client, such as [curl](https://curl.haxx.se/), [HTTPie](https://httpie.org/), [Postman](https://www.postman.com/) or [the Insomnia rest client](https://insomnia.rest/) to test the Apache Airflow API.  Note that you will need to pass credentials data.  For e.g., here is how to pause a DAG with [curl](https://curl.haxx.se/), when basic authorization is used: ```bash curl -X PATCH 'https://example.com/api/v1/dags/{dag_id}?update_mask=is_paused' \\ -H 'Content-Type: application/json' \\ --user \"username:password\" \\ -d '{     \"is_paused\": true }' ```  Using a graphical tool such as [Postman](https://www.postman.com/) or [Insomnia](https://insomnia.rest/), it is possible to import the API specifications directly:  1. Download the API specification by clicking the **Download** button at the top of this document 2. Import the JSON specification in the graphical tool of your choice.   - In *Postman*, you can click the **import** button at the top   - With *Insomnia*, you can just drag-and-drop the file on the UI  Note that with *Postman*, you can also generate code snippets by selecting a request and clicking on the **Code** button.  ## Enabling CORS  [Cross-origin resource sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) is a browser security feature that restricts HTTP requests that are initiated from scripts running in the browser.  For details on enabling/configuring CORS, see [Enabling CORS](https://airflow.apache.org/docs/apache-airflow/stable/security/api.html).  # Authentication  To be able to meet the requirements of many organizations, Airflow supports many authentication methods, and it is even possible to add your own method.  If you want to check which auth backend is currently set, you can use `airflow config get-value api auth_backends` command as in the example below. ```bash $ airflow config get-value api auth_backends airflow.api.auth.backend.basic_auth ``` The default is to deny all requests.  For details on configuring the authentication, see [API Authorization](https://airflow.apache.org/docs/apache-airflow/stable/security/api.html).  # Errors  We follow the error response format proposed in [RFC 7807](https://tools.ietf.org/html/rfc7807) also known as Problem Details for HTTP APIs. As with our normal API responses, your client must be prepared to gracefully handle additional members of the response.  ## Unauthenticated  This indicates that the request has not been applied because it lacks valid authentication credentials for the target resource. Please check that you have valid credentials.  ## PermissionDenied  This response means that the server understood the request but refuses to authorize it because it lacks sufficient rights to the resource. It happens when you do not have the necessary permission to execute the action you performed. You need to get the appropriate permissions in other to resolve this error.  ## BadRequest  This response means that the server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing). To resolve this, please ensure that your syntax is correct.  ## NotFound  This client error response indicates that the server cannot find the requested resource.  ## MethodNotAllowed  Indicates that the request method is known by the server but is not supported by the target resource.  ## NotAcceptable  The target resource does not have a current representation that would be acceptable to the user agent, according to the proactive negotiation header fields received in the request, and the server is unwilling to supply a default representation.  ## AlreadyExists  The request could not be completed due to a conflict with the current state of the target resource, e.g. the resource it tries to create already exists.  ## Unknown  This means that the server encountered an unexpected condition that prevented it from fulfilling the request. 
 
-API version: 2.5.0
+API version: 2.7.0
 Contact: dev@airflow.apache.org
 */
 
@@ -33,7 +33,7 @@ import (
 	"time"
 )
 
-// Task For details see: [airflow.models.BaseOperator](https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/models/index.html#airflow.models.BaseOperator) 
+// Task For details see: [airflow.models.baseoperator.BaseOperator](https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/models/baseoperator/index.html#airflow.models.baseoperator.BaseOperator) 
 type Task struct {
 	ClassRef *ClassReference `json:"class_ref,omitempty"`
 	TaskId *string `json:"task_id,omitempty"`
@@ -41,7 +41,7 @@ type Task struct {
 	StartDate *time.Time `json:"start_date,omitempty"`
 	EndDate NullableTime `json:"end_date,omitempty"`
 	TriggerRule *TriggerRule `json:"trigger_rule,omitempty"`
-	ExtraLinks *[]TaskExtraLinks `json:"extra_links,omitempty"`
+	ExtraLinks []TaskExtraLinks `json:"extra_links,omitempty"`
 	DependsOnPast *bool `json:"depends_on_past,omitempty"`
 	IsMapped *bool `json:"is_mapped,omitempty"`
 	WaitForDownstream *bool `json:"wait_for_downstream,omitempty"`
@@ -49,8 +49,8 @@ type Task struct {
 	Queue NullableString `json:"queue,omitempty"`
 	Pool *string `json:"pool,omitempty"`
 	PoolSlots *float32 `json:"pool_slots,omitempty"`
-	ExecutionTimeout *TimeDelta `json:"execution_timeout,omitempty"`
-	RetryDelay *TimeDelta `json:"retry_delay,omitempty"`
+	ExecutionTimeout NullableTimeDelta `json:"execution_timeout,omitempty"`
+	RetryDelay NullableTimeDelta `json:"retry_delay,omitempty"`
 	RetryExponentialBackoff *bool `json:"retry_exponential_backoff,omitempty"`
 	PriorityWeight *float32 `json:"priority_weight,omitempty"`
 	WeightRule *WeightRule `json:"weight_rule,omitempty"`
@@ -58,9 +58,9 @@ type Task struct {
 	UiColor *string `json:"ui_color,omitempty"`
 	// Color in hexadecimal notation.
 	UiFgcolor *string `json:"ui_fgcolor,omitempty"`
-	TemplateFields *[]string `json:"template_fields,omitempty"`
+	TemplateFields []string `json:"template_fields,omitempty"`
 	SubDag *DAG `json:"sub_dag,omitempty"`
-	DownstreamTaskIds *[]string `json:"downstream_task_ids,omitempty"`
+	DownstreamTaskIds []string `json:"downstream_task_ids,omitempty"`
 }
 
 // NewTask instantiates a new Task object
@@ -288,12 +288,12 @@ func (o *Task) GetExtraLinks() []TaskExtraLinks {
 		var ret []TaskExtraLinks
 		return ret
 	}
-	return *o.ExtraLinks
+	return o.ExtraLinks
 }
 
 // GetExtraLinksOk returns a tuple with the ExtraLinks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Task) GetExtraLinksOk() (*[]TaskExtraLinks, bool) {
+func (o *Task) GetExtraLinksOk() ([]TaskExtraLinks, bool) {
 	if o == nil || o.ExtraLinks == nil {
 		return nil, false
 	}
@@ -311,7 +311,7 @@ func (o *Task) HasExtraLinks() bool {
 
 // SetExtraLinks gets a reference to the given []TaskExtraLinks and assigns it to the ExtraLinks field.
 func (o *Task) SetExtraLinks(v []TaskExtraLinks) {
-	o.ExtraLinks = &v
+	o.ExtraLinks = v
 }
 
 // GetDependsOnPast returns the DependsOnPast field value if set, zero value otherwise.
@@ -548,68 +548,88 @@ func (o *Task) SetPoolSlots(v float32) {
 	o.PoolSlots = &v
 }
 
-// GetExecutionTimeout returns the ExecutionTimeout field value if set, zero value otherwise.
+// GetExecutionTimeout returns the ExecutionTimeout field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Task) GetExecutionTimeout() TimeDelta {
-	if o == nil || o.ExecutionTimeout == nil {
+	if o == nil || o.ExecutionTimeout.Get() == nil {
 		var ret TimeDelta
 		return ret
 	}
-	return *o.ExecutionTimeout
+	return *o.ExecutionTimeout.Get()
 }
 
 // GetExecutionTimeoutOk returns a tuple with the ExecutionTimeout field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Task) GetExecutionTimeoutOk() (*TimeDelta, bool) {
-	if o == nil || o.ExecutionTimeout == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.ExecutionTimeout, true
+	return o.ExecutionTimeout.Get(), o.ExecutionTimeout.IsSet()
 }
 
 // HasExecutionTimeout returns a boolean if a field has been set.
 func (o *Task) HasExecutionTimeout() bool {
-	if o != nil && o.ExecutionTimeout != nil {
+	if o != nil && o.ExecutionTimeout.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetExecutionTimeout gets a reference to the given TimeDelta and assigns it to the ExecutionTimeout field.
+// SetExecutionTimeout gets a reference to the given NullableTimeDelta and assigns it to the ExecutionTimeout field.
 func (o *Task) SetExecutionTimeout(v TimeDelta) {
-	o.ExecutionTimeout = &v
+	o.ExecutionTimeout.Set(&v)
+}
+// SetExecutionTimeoutNil sets the value for ExecutionTimeout to be an explicit nil
+func (o *Task) SetExecutionTimeoutNil() {
+	o.ExecutionTimeout.Set(nil)
 }
 
-// GetRetryDelay returns the RetryDelay field value if set, zero value otherwise.
+// UnsetExecutionTimeout ensures that no value is present for ExecutionTimeout, not even an explicit nil
+func (o *Task) UnsetExecutionTimeout() {
+	o.ExecutionTimeout.Unset()
+}
+
+// GetRetryDelay returns the RetryDelay field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Task) GetRetryDelay() TimeDelta {
-	if o == nil || o.RetryDelay == nil {
+	if o == nil || o.RetryDelay.Get() == nil {
 		var ret TimeDelta
 		return ret
 	}
-	return *o.RetryDelay
+	return *o.RetryDelay.Get()
 }
 
 // GetRetryDelayOk returns a tuple with the RetryDelay field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Task) GetRetryDelayOk() (*TimeDelta, bool) {
-	if o == nil || o.RetryDelay == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.RetryDelay, true
+	return o.RetryDelay.Get(), o.RetryDelay.IsSet()
 }
 
 // HasRetryDelay returns a boolean if a field has been set.
 func (o *Task) HasRetryDelay() bool {
-	if o != nil && o.RetryDelay != nil {
+	if o != nil && o.RetryDelay.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetRetryDelay gets a reference to the given TimeDelta and assigns it to the RetryDelay field.
+// SetRetryDelay gets a reference to the given NullableTimeDelta and assigns it to the RetryDelay field.
 func (o *Task) SetRetryDelay(v TimeDelta) {
-	o.RetryDelay = &v
+	o.RetryDelay.Set(&v)
+}
+// SetRetryDelayNil sets the value for RetryDelay to be an explicit nil
+func (o *Task) SetRetryDelayNil() {
+	o.RetryDelay.Set(nil)
+}
+
+// UnsetRetryDelay ensures that no value is present for RetryDelay, not even an explicit nil
+func (o *Task) UnsetRetryDelay() {
+	o.RetryDelay.Unset()
 }
 
 // GetRetryExponentialBackoff returns the RetryExponentialBackoff field value if set, zero value otherwise.
@@ -778,12 +798,12 @@ func (o *Task) GetTemplateFields() []string {
 		var ret []string
 		return ret
 	}
-	return *o.TemplateFields
+	return o.TemplateFields
 }
 
 // GetTemplateFieldsOk returns a tuple with the TemplateFields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Task) GetTemplateFieldsOk() (*[]string, bool) {
+func (o *Task) GetTemplateFieldsOk() ([]string, bool) {
 	if o == nil || o.TemplateFields == nil {
 		return nil, false
 	}
@@ -801,7 +821,7 @@ func (o *Task) HasTemplateFields() bool {
 
 // SetTemplateFields gets a reference to the given []string and assigns it to the TemplateFields field.
 func (o *Task) SetTemplateFields(v []string) {
-	o.TemplateFields = &v
+	o.TemplateFields = v
 }
 
 // GetSubDag returns the SubDag field value if set, zero value otherwise.
@@ -842,12 +862,12 @@ func (o *Task) GetDownstreamTaskIds() []string {
 		var ret []string
 		return ret
 	}
-	return *o.DownstreamTaskIds
+	return o.DownstreamTaskIds
 }
 
 // GetDownstreamTaskIdsOk returns a tuple with the DownstreamTaskIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Task) GetDownstreamTaskIdsOk() (*[]string, bool) {
+func (o *Task) GetDownstreamTaskIdsOk() ([]string, bool) {
 	if o == nil || o.DownstreamTaskIds == nil {
 		return nil, false
 	}
@@ -865,7 +885,7 @@ func (o *Task) HasDownstreamTaskIds() bool {
 
 // SetDownstreamTaskIds gets a reference to the given []string and assigns it to the DownstreamTaskIds field.
 func (o *Task) SetDownstreamTaskIds(v []string) {
-	o.DownstreamTaskIds = &v
+	o.DownstreamTaskIds = v
 }
 
 func (o Task) MarshalJSON() ([]byte, error) {
@@ -912,11 +932,11 @@ func (o Task) MarshalJSON() ([]byte, error) {
 	if o.PoolSlots != nil {
 		toSerialize["pool_slots"] = o.PoolSlots
 	}
-	if o.ExecutionTimeout != nil {
-		toSerialize["execution_timeout"] = o.ExecutionTimeout
+	if o.ExecutionTimeout.IsSet() {
+		toSerialize["execution_timeout"] = o.ExecutionTimeout.Get()
 	}
-	if o.RetryDelay != nil {
-		toSerialize["retry_delay"] = o.RetryDelay
+	if o.RetryDelay.IsSet() {
+		toSerialize["retry_delay"] = o.RetryDelay.Get()
 	}
 	if o.RetryExponentialBackoff != nil {
 		toSerialize["retry_exponential_backoff"] = o.RetryExponentialBackoff

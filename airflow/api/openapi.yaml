@@ -88,7 +88,7 @@ info:
 
     ### Delete
 
-    Deleting a resource requires the resource `id` and is typically executing via an HTTP `DELETE` request.
+    Deleting a resource requires the resource `id` and is typically executed via an HTTP `DELETE` request.
     The response usually returns a `204 No Content` response code upon success.
 
     ## Conventions
@@ -99,12 +99,14 @@ info:
     - Field names are in snake_case.
     ```json
     {
+        "description": "string",
         "name": "string",
-        "slots": 0,
         "occupied_slots": 0,
-        "used_slots": 0,
-        "queued_slots": 0,
         "open_slots": 0
+        "queued_slots": 0,
+        "running_slots": 0,
+        "scheduled_slots": 0,
+        "slots": 0,
     }
     ```
 
@@ -150,7 +152,7 @@ info:
     Using a graphical tool such as [Postman](https://www.postman.com/) or [Insomnia](https://insomnia.rest/),
     it is possible to import the API specifications directly:
 
-    1. Download the API specification by clicking the **Download** button at top of this document
+    1. Download the API specification by clicking the **Download** button at the top of this document
     2. Import the JSON specification in the graphical tool of your choice.
       - In *Postman*, you can click the **import** button at the top
       - With *Insomnia*, you can just drag-and-drop the file on the UI
@@ -234,16 +236,12 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Airflow API (Stable)
-  version: 2.5.0
+  version: 2.7.0
 externalDocs:
   url: https://airflow.apache.org/docs/apache-airflow/stable/
 servers:
 - description: Apache Airflow Stable API.
   url: /api/v1
-security:
-- Basic: []
-- GoogleOpenId: []
-- Kerberos: []
 tags:
 - name: Config
 - name: Connection
@@ -621,6 +619,17 @@ paths:
         required: false
         schema:
           default: true
+          type: boolean
+        style: form
+      - description: |
+          Only filter paused/unpaused DAGs. If absent or null, it returns paused and unpaused DAGs.
+
+          *New in version 2.6.0*
+        explode: true
+        in: query
+        name: paused
+        required: false
+        schema:
           type: boolean
         style: form
       - description: |
@@ -1044,7 +1053,7 @@ paths:
           description: A specified resource is not found.
       summary: Update the TaskInstance note.
       tags:
-      - DAG
+      - TaskInstance
       x-openapi-router-controller: airflow.api_connexion.endpoints.task_instance_endpoint
   /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/{map_index}/setNote:
     patch:
@@ -1127,7 +1136,7 @@ paths:
           description: A specified resource is not found.
       summary: Update the TaskInstance note.
       tags:
-      - DAG
+      - TaskInstance
       x-openapi-router-controller: airflow.api_connexion.endpoints.task_instance_endpoint
   /dags/{dag_id}/updateTaskInstancesState:
     post:
@@ -1285,6 +1294,34 @@ paths:
           format: date-time
           type: string
         style: form
+      - description: |
+          Returns objects greater or equal the specified date.
+
+          This can be combined with updated_at_lte parameter to receive only the selected period.
+
+          *New in version 2.6.0*
+        explode: true
+        in: query
+        name: updated_at_gte
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: |
+          Returns objects less or equal the specified date.
+
+          This can be combined with updated_at_gte parameter to receive only the selected period.
+
+          *New in version 2.6.0*
+        explode: true
+        in: query
+        name: updated_at_lte
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
       - description: The value can be repeated to retrieve multiple matching values
           (OR condition).
         explode: true
@@ -1327,6 +1364,8 @@ paths:
       - DAGRun
       x-openapi-router-controller: airflow.api_connexion.endpoints.dag_run_endpoint
     post:
+      description: |
+        This will initiate a dagrun. If DAG is paused then dagrun state will remain queued, and the task won't run.
       operationId: post_dag_run
       parameters:
       - description: The DAG ID.
@@ -1381,7 +1420,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: A specified resource is not found.
-      summary: Trigger a new DAG run
+      summary: Trigger a new DAG run.
       tags:
       - DAGRun
       x-openapi-router-controller: airflow.api_connexion.endpoints.dag_run_endpoint
@@ -1627,7 +1666,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DAGRun'
+                anyOf:
+                - $ref: '#/components/schemas/DAGRun'
+                - $ref: '#/components/schemas/TaskInstanceCollection'
           description: Success.
         "400":
           content:
@@ -2364,6 +2405,34 @@ paths:
           type: string
         style: form
       - description: |
+          Returns objects greater or equal the specified date.
+
+          This can be combined with updated_at_lte parameter to receive only the selected period.
+
+          *New in version 2.6.0*
+        explode: true
+        in: query
+        name: updated_at_gte
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: |
+          Returns objects less or equal the specified date.
+
+          This can be combined with updated_at_gte parameter to receive only the selected period.
+
+          *New in version 2.6.0*
+        explode: true
+        in: query
+        name: updated_at_lte
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: |
           Returns objects greater than or equal to the specified values.
 
           This can be combined with duration_lte parameter to receive only the selected period.
@@ -2854,6 +2923,34 @@ paths:
           type: string
         style: form
       - description: |
+          Returns objects greater or equal the specified date.
+
+          This can be combined with updated_at_lte parameter to receive only the selected period.
+
+          *New in version 2.6.0*
+        explode: true
+        in: query
+        name: updated_at_gte
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: |
+          Returns objects less or equal the specified date.
+
+          This can be combined with updated_at_gte parameter to receive only the selected period.
+
+          *New in version 2.6.0*
+        explode: true
+        in: query
+        name: updated_at_lte
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: |
           Returns objects greater than or equal to the specified values.
 
           This can be combined with duration_lte parameter to receive only the selected period.
@@ -3278,6 +3375,22 @@ paths:
         schema:
           type: string
         style: simple
+      - description: Filter on map index for mapped task.
+        explode: true
+        in: query
+        name: map_index
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Only filter the XCom records which have the provided key.
+        explode: true
+        in: query
+        name: xcom_key
+        required: false
+        schema:
+          type: string
+        style: form
       - description: The numbers of items to return.
         explode: true
         in: query
@@ -3357,6 +3470,14 @@ paths:
         schema:
           type: string
         style: simple
+      - description: Filter on map index for mapped task.
+        explode: true
+        in: query
+        name: map_index
+        required: false
+        schema:
+          type: integer
+        style: form
       - description: |
           Whether to deserialize an XCom value when using a custom XCom backend.
 
@@ -3467,7 +3588,34 @@ paths:
       x-openapi-router-controller: airflow.api_connexion.endpoints.extra_link_endpoint
   /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/logs/{task_try_number}:
     get:
-      description: Get logs for a specific task instance and its try number.
+      description: |
+        Get logs for a specific task instance and its try number.
+        To get log from specific character position, following way of using
+        URLSafeSerializer can be used.
+
+        Example:
+        ```
+        from itsdangerous.url_safe import URLSafeSerializer
+
+        request_url = f"api/v1/dags/{DAG_ID}/dagRuns/{RUN_ID}/taskInstances/{TASK_ID}/logs/1"
+        key = app.config["SECRET_KEY"]
+        serializer = URLSafeSerializer(key)
+        token = serializer.dumps({"log_pos": 10000})
+
+        response = self.client.get(
+            request_url,
+            query_string={"token": token},
+            headers={"Accept": "text/plain"},
+            environ_overrides={"REMOTE_USER": "test"},
+        )
+        continuation_token = response.json["continuation_token"]
+            metadata = URLSafeSerializer(key).loads(continuation_token)
+            log_pos = metadata["log_pos"]
+            end_of_log = metadata["end_of_log"]
+        ```
+        If log_pos is passed as 10000 like the above example, it renders the logs starting
+        from char position 10000 to last (not the end as the logs may be tailing behind in
+        running state). This way pagination can be done with metadata as part of the token.
       operationId: get_log
       parameters:
       - description: The DAG ID.
@@ -4069,6 +4217,15 @@ paths:
   /config:
     get:
       operationId: get_config
+      parameters:
+      - description: If given, only return config of this section.
+        explode: true
+        in: query
+        name: section
+        required: false
+        schema:
+          type: string
+        style: form
       responses:
         "200":
           content:
@@ -4110,15 +4267,81 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Client does not have sufficient permission.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A specified resource is not found.
       summary: Get current configuration
+      tags:
+      - Config
+      x-openapi-router-controller: airflow.api_connexion.endpoints.config_endpoint
+  /config/section/{section}/option/{option}:
+    get:
+      operationId: get_value
+      parameters:
+      - explode: false
+        in: path
+        name: section
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: option
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                sections:
+                - name: core
+                  options:
+                  - key: dags_folder
+                    value: /home/user/my-dags-folder
+              schema:
+                $ref: '#/components/schemas/Config'
+            text/plain:
+              example: |
+                [core]
+                dags_folder = /home/user/my-dags-folder
+              schema:
+                type: string
+          description: Success.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Request not authenticated due to missing, invalid, authentication
+            info.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Client does not have sufficient permission.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A specified resource is not found.
+      summary: Get a option from configuration
       tags:
       - Config
       x-openapi-router-controller: airflow.api_connexion.endpoints.config_endpoint
   /health:
     get:
       description: |
-        Get the status of Airflow's metadatabase and scheduler. It includes info about
-        metadatabase and last heartbeat of scheduler.
+        Get the status of Airflow's metadatabase, triggerer and scheduler. It includes info about
+        metadatabase and last heartbeat of scheduler and triggerer.
       operationId: get_health
       responses:
         "200":
@@ -4771,7 +4994,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Role'
+                $ref: '#/components/schemas/UserCollectionItem'
           description: Success.
         "400":
           content:
@@ -5213,6 +5436,57 @@ components:
       schema:
         default: true
         type: boolean
+      style: form
+    FilterUpdatedAtLTE:
+      description: |
+        Returns objects less or equal the specified date.
+
+        This can be combined with updated_at_gte parameter to receive only the selected period.
+
+        *New in version 2.6.0*
+      explode: true
+      in: query
+      name: updated_at_lte
+      required: false
+      schema:
+        format: date-time
+        type: string
+      style: form
+    FilterUpdatedAtGTE:
+      description: |
+        Returns objects greater or equal the specified date.
+
+        This can be combined with updated_at_lte parameter to receive only the selected period.
+
+        *New in version 2.6.0*
+      explode: true
+      in: query
+      name: updated_at_gte
+      required: false
+      schema:
+        format: date-time
+        type: string
+      style: form
+    Paused:
+      description: |
+        Only filter paused/unpaused DAGs. If absent or null, it returns paused and unpaused DAGs.
+
+        *New in version 2.6.0*
+      explode: true
+      in: query
+      name: paused
+      required: false
+      schema:
+        type: boolean
+      style: form
+    FilterXcomKey:
+      description: Only filter the XCom records which have the provided key.
+      explode: true
+      in: query
+      name: xcom_key
+      required: false
+      schema:
+        type: string
       style: form
     FileToken:
       description: |
@@ -5788,7 +6062,6 @@ components:
         state:
           $ref: '#/components/schemas/DagState'
         external_trigger:
-          default: true
           readOnly: true
           type: boolean
         conf:
@@ -5967,12 +6240,20 @@ components:
       example:
         scheduler:
           latest_scheduler_heartbeat: latest_scheduler_heartbeat
+        triggerer:
+          latest_triggerer_heartbeat: latest_triggerer_heartbeat
         metadatabase: {}
+        dag_processor:
+          latest_dag_processor_heartbeat: latest_dag_processor_heartbeat
       properties:
         metadatabase:
           $ref: '#/components/schemas/MetadatabaseStatus'
         scheduler:
           $ref: '#/components/schemas/SchedulerStatus'
+        triggerer:
+          $ref: '#/components/schemas/TriggererStatus'
+        dag_processor:
+          $ref: '#/components/schemas/DagProcessorStatus'
       type: object
     MetadatabaseStatus:
       description: The status of the metadatabase.
@@ -5989,7 +6270,41 @@ components:
         status:
           $ref: '#/components/schemas/HealthStatus'
         latest_scheduler_heartbeat:
-          description: The time the scheduler last do a heartbeat.
+          description: The time the scheduler last did a heartbeat.
+          format: datetime
+          nullable: true
+          readOnly: true
+          type: string
+      type: object
+    TriggererStatus:
+      description: |
+        The status and the latest triggerer heartbeat.
+
+        *New in version 2.6.2*
+      example:
+        latest_triggerer_heartbeat: latest_triggerer_heartbeat
+      properties:
+        status:
+          $ref: '#/components/schemas/HealthStatus'
+        latest_triggerer_heartbeat:
+          description: The time the triggerer last did a heartbeat.
+          format: datetime
+          nullable: true
+          readOnly: true
+          type: string
+      type: object
+    DagProcessorStatus:
+      description: |
+        The status and the latest dag processor heartbeat.
+
+        *New in version 2.6.3*
+      example:
+        latest_dag_processor_heartbeat: latest_dag_processor_heartbeat
+      properties:
+        status:
+          $ref: '#/components/schemas/HealthStatus'
+        latest_dag_processor_heartbeat:
+          description: The time the dag processor last did a heartbeat.
           format: datetime
           nullable: true
           readOnly: true
@@ -5998,12 +6313,15 @@ components:
     Pool:
       description: The pool
       example:
+        running_slots: 1
         queued_slots: 5
         open_slots: 5
         slots: 0
+        scheduled_slots: 2
         name: name
         description: description
-        used_slots: 1
+        deferred_slots: 7
+        include_deferred: true
         occupied_slots: 6
       properties:
         name:
@@ -6015,9 +6333,10 @@ components:
           type: integer
         occupied_slots:
           description: The number of slots used by running/queued tasks at the moment.
+            May include deferred tasks if 'include_deferred' is set to true.
           readOnly: true
           type: integer
-        used_slots:
+        running_slots:
           description: The number of slots used by running tasks at the moment.
           readOnly: true
           type: integer
@@ -6029,6 +6348,17 @@ components:
           description: The number of free slots at the moment.
           readOnly: true
           type: integer
+        scheduled_slots:
+          description: The number of slots used by scheduled tasks at the moment.
+          readOnly: true
+          type: integer
+        deferred_slots:
+          description: |
+            The number of slots used by deferred tasks at the moment. Relevant if 'include_deferred' is set to true.
+
+            *New in version 2.7.0*
+          readOnly: true
+          type: integer
         description:
           description: |
             The description of the pool.
@@ -6036,6 +6366,12 @@ components:
             *New in version 2.3.0*
           nullable: true
           type: string
+        include_deferred:
+          description: |
+            If set to true, deferred tasks are considered when calculating open pool slots.
+
+            *New in version 2.7.0*
+          type: boolean
       type: object
     PoolCollection:
       allOf:
@@ -6112,6 +6448,7 @@ components:
         id: 9
         created_date: created_date
         triggerer_id: 3
+      nullable: true
       properties:
         id:
           type: integer
@@ -6138,6 +6475,7 @@ components:
         state: state
         executor_class: executor_class
         start_date: start_date
+      nullable: true
       properties:
         id:
           type: integer
@@ -6394,6 +6732,8 @@ components:
         execution_date:
           format: datetime
           type: string
+        map_index:
+          type: integer
         task_id:
           type: string
         dag_id:
@@ -6421,7 +6761,7 @@ components:
         DAG details.
 
         For details see:
-        [airflow.models.DAG](https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/models/index.html#airflow.models.DAG)
+        [airflow.models.dag.DAG](https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/models/dag/index.html#airflow.models.dag.DAG)
     ExtraLink:
       description: Additional links containing additional information about the task.
       example:
@@ -6463,7 +6803,7 @@ components:
     Task:
       description: |
         For details see:
-        [airflow.models.BaseOperator](https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/models/index.html#airflow.models.BaseOperator)
+        [airflow.models.baseoperator.BaseOperator](https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/models/baseoperator/index.html#airflow.models.baseoperator.BaseOperator)
       example:
         owner: owner
         end_date: 2000-01-23T04:56:07.000+00:00
@@ -7351,6 +7691,7 @@ components:
           enum:
           - success
           - failed
+          - skipped
           type: string
       type: object
     UpdateTaskInstance:
@@ -7369,6 +7710,7 @@ components:
           enum:
           - success
           - failed
+          - skipped
           type: string
       type: object
     SetTaskInstanceNote:
@@ -7475,23 +7817,29 @@ components:
       type: object
     ListTaskInstanceForm:
       example:
-        start_date_gte: 2000-01-23T04:56:07.000+00:00
         end_date_lte: 2000-01-23T04:56:07.000+00:00
+        dag_run_ids:
+        - dag_run_ids
+        - dag_run_ids
         execution_date_gte: 2000-01-23T04:56:07.000+00:00
         duration_gte: 0.8008281904610115
-        execution_date_lte: 2000-01-23T04:56:07.000+00:00
         pool:
         - pool
         - pool
+        task_ids:
+        - task_ids
+        - task_ids
+        dag_ids:
+        - dag_ids
+        - dag_ids
+        start_date_gte: 2000-01-23T04:56:07.000+00:00
+        execution_date_lte: 2000-01-23T04:56:07.000+00:00
         duration_lte: 6.027456183070403
         end_date_gte: 2000-01-23T04:56:07.000+00:00
         state:
         - null
         - null
         start_date_lte: 2000-01-23T04:56:07.000+00:00
-        dag_ids:
-        - dag_ids
-        - dag_ids
         queue:
         - queue
         - queue
@@ -7500,6 +7848,22 @@ components:
           description: |-
             Return objects with specific DAG IDs.
             The value can be repeated to retrieve multiple matching values (OR condition).
+          items:
+            type: string
+          type: array
+        dag_run_ids:
+          description: |-
+            Return objects with specific DAG Run IDs.
+            The value can be repeated to retrieve multiple matching values (OR condition).
+            *New in version 2.7.1*
+          items:
+            type: string
+          type: array
+        task_ids:
+          description: |-
+            Return objects with specific task IDs.
+            The value can be repeated to retrieve multiple matching values (OR condition).
+            *New in version 2.7.1*
           items:
             type: string
           type: array
@@ -7595,6 +7959,7 @@ components:
         __type: __type
         days: 1
         microseconds: 5
+      nullable: true
       properties:
         __type:
           type: string
@@ -7737,7 +8102,9 @@ components:
       description: Metadata about collection.
       properties:
         total_entries:
-          description: Count of objects in the current result set.
+          description: |
+            Count of total objects in the current result set before pagination parameters
+            (limit, offset) are applied.
           type: integer
       type: object
     TaskState:
@@ -7750,7 +8117,11 @@ components:
 
         *Changed in version 2.4.0*&#58; 'sensing' state has been removed.
         *Changed in version 2.4.2*&#58; 'restarting' is added as a possible value
+
+        *Changed in version 2.7.0*&#58; Field becomes nullable and null primitive is added as a possible value.
+        *Changed in version 2.7.0*&#58; 'none' state is deprecated in favor of null.
       enum:
+      - null
       - success
       - running
       - failed
@@ -7764,6 +8135,7 @@ components:
       - deferred
       - removed
       - restarting
+      nullable: true
       type: string
     DagState:
       description: |
@@ -7775,6 +8147,7 @@ components:
       - running
       - success
       - failed
+      readOnly: true
       type: string
     TriggerRule:
       description: |
@@ -7805,6 +8178,7 @@ components:
       enum:
       - healthy
       - unhealthy
+      nullable: true
       type: string
     inline_response_200:
       example:
