@@ -16,8 +16,8 @@
 # under the License.
 # https://cwiki.apache.org/confluence/display/INFRA/.asf.yaml+features+for+git+repositories
 notifications:
-  commits:      commits@airflow.apache.org
-  issues:       commits@airflow.apache.org
+  commits: commits@airflow.apache.org
+  issues: commits@airflow.apache.org
   pullrequests: commits@airflow.apache.org
 github:
   description: "Apache Airflow - OpenApi Client for Go"
@@ -38,3 +38,16 @@ github:
     squash: true
     merge: false
     rebase: false
+  rulesets:
+    - name: "Default Branch Protection"
+      type: branch
+      branches:
+        includes:
+          - "~DEFAULT_BRANCH"
+          - "release/*"
+          - "rel/*"
+        excludes: []
+      bypass_teams:
+        - root
+      restrict_deletion: true
+      restrict_force_push: true
